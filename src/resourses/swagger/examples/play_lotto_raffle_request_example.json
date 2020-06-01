@@ -1,0 +1,42 @@
+{
+    "wager": {
+        "dbg": [{
+            "gameId": 5155,
+            "teamShares": 0,
+            "multipliers": [1],
+            "participatingDraws": {
+                "multipleDraws": 3
+            },
+            "boards": [{
+                "boardId": 1,
+                "multipliers": [1],
+                "panels": [{
+                    "options": [
+
+                    ],
+                    "quickPick": false,
+                    "requested": 6,
+                    "selection": [
+                        5,
+                        10,
+                        15,
+                        2,
+                        3,
+                        11
+                    ]
+                }
+                ]
+            }
+            ]
+        }
+        ]
+
+    },
+    "metadata": {
+        "trnsTime": "2018-09-26T11:29:39.617Z",
+        "playerInfo": {
+            "playerId": 110646134
+        },
+        "promotionInfo": {}
+    }
+}

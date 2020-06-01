@@ -1,0 +1,923 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "The API documentation of L10 Bos Adaptor service",
+    "version" : "1.0.0",
+    "title" : "L10 Bos Adaptor",
+    "contact" : {
+      "name" : "users@cxf.apache.org"
+    }
+  },
+  "basePath" : "/api/v1.0",
+  "tags" : [ {
+    "name" : "Bin"
+  }, {
+    "name" : "Winners"
+  }, {
+    "name" : "Players"
+  }, {
+    "name" : "Unclaimed jackpot prizes"
+  }, {
+    "name" : "Settlements"
+  } ],
+  "paths" : {
+    "/bin/outOfStock" : {
+      "get" : {
+        "tags" : [ "Bin" ],
+        "summary" : "Bin out of stock",
+        "description" : "Retrieve detailed information for DBG jackpot winners. The request will be performed for a specific game and range of draws. When a single draw is requested the startDraw and endDraw values should be identical and they should correspond to the draw value.\n\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getBinOutOfStock",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "sdt",
+          "in" : "query",
+          "description" : "Start datetime",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "edt",
+          "in" : "query",
+          "description" : "End datetime",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "RetailerId",
+          "in" : "query",
+          "description" : "The retailer id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "TerminalId",
+          "in" : "query",
+          "description" : "The terminal id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BinOutOfStockModel"
+              }
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/winners/jackpot/details" : {
+      "get" : {
+        "tags" : [ "Winners" ],
+        "summary" : "Retrieve jackpot winners details",
+        "description" : "Retrieve detailed information for DBG jackpot winners. The request will be performed for a specific game and range of draws. When a single draw is requested the startDraw and endDraw values should be identical and they should correspond to the draw value.\n\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getJackpotWinnersDetails",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Bearer authentication token",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Guid",
+          "in" : "header",
+          "description" : "Unique request GUID identifier",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "gameId",
+          "in" : "query",
+          "description" : "Game Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "startDraw",
+          "in" : "query",
+          "description" : "Start draw",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "endDraw",
+          "in" : "query",
+          "description" : "End draw",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "The requested page of results. 0 is the first page",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Size of results in a single response",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/JackpotWinnersDetails"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/players/transactions" : {
+      "post" : {
+        "tags" : [ "Players" ],
+        "summary" : "Used by the terminal to upload the player session data.",
+        "description" : "Used to insert session info for a specific player to db.\n\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getSettlements",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "TerminalId",
+          "in" : "header",
+          "description" : "Terminal id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "TimezoneOffset",
+          "in" : "query",
+          "description" : "Timezone offset in seconds",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The SessionData model",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SessionData"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "OK"
+          },
+          "304" : {
+            "description" : "Not Modified"
+          },
+          "400" : {
+            "description" : "Validation Error",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "Application Error",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          },
+          "503" : {
+            "description" : "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/unclaimed-prizes/jackpot/fast" : {
+      "get" : {
+        "tags" : [ "Unclaimed jackpot prizes" ],
+        "summary" : "Retrieve unclaimed fast play jackpot prizes",
+        "description" : "\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getUnclaimedFastPlayJackpotPrizes",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Guid",
+          "in" : "header",
+          "description" : "Unique request GUID identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UnclaimedFastPlayJackpotPrizes"
+              }
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/unclaimed-prizes/jackpot" : {
+      "get" : {
+        "tags" : [ "Unclaimed jackpot prizes" ],
+        "summary" : "Retrieve unclaimed jackpot prizes",
+        "description" : "\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getUnclaimedJackpotPrizes",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Guid",
+          "in" : "header",
+          "description" : "Unique request GUID identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UnclaimedJackpotPrizes"
+              }
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/settlements" : {
+      "get" : {
+        "tags" : [ "Settlements" ],
+        "summary" : "Used for retrieving winning information of wagers",
+        "description" : "\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 10060  |\tNo Load Winners Performed                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getSettlements",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Guid",
+          "in" : "header",
+          "description" : "Unique request GUID identifier",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "gameId",
+          "in" : "query",
+          "description" : "Game Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "drawId",
+          "in" : "query",
+          "description" : "Draw Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "The requested page of results. 0 is the first page",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Size of results in a single response",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "Validation version",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/WinningsModel"
+            }
+          },
+          "304" : {
+            "description" : "Not Modified"
+          },
+          "400" : {
+            "description" : "Validation Error",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "Application Error",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          },
+          "503" : {
+            "description" : "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/settlements/jackpot/fast" : {
+      "get" : {
+        "tags" : [ "Settlements" ],
+        "summary" : "Retrieve Fast Play jackpot winners.",
+        "description" : "\n Possible error codes:\n\n| *HTTP*| *Code*|                *Description*                             |\n|-------|-------|----------------------------------------------------------|\n|500|\t 10050  |\tSQL Error                 |\n| 500|\t 25  |\tSystem Error                 |\n| 500|\t 36  |\tRest Client Connection Timeout Error                 |\n|500|\t 37  |\tRest Client Unable to Connect                 |\n|",
+        "operationId" : "getFastPlayJackpotWinners",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "description" : "Bearer authentication token",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Guid",
+          "in" : "header",
+          "description" : "Unique request GUID identifier",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "subGame",
+          "in" : "query",
+          "description" : "Fast Play subgame for which progressive jackpot winners should be provided",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset from request time for which Fast Play progressive jackpot winners should be provided. The response will be the winners that occurred the last X days when X is the offset.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "The requested page of results. 0 is the first page",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Size of results in a single response",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/FastPlayProgressiveJackpotWinners"
+            }
+          },
+          "304" : {
+            "description" : "Not Modified"
+          },
+          "400" : {
+            "description" : "Validation Error",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "Application Error",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "502" : {
+            "description" : "Bad Gateway"
+          },
+          "503" : {
+            "description" : "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "BinOutOfStockModel" : {
+      "type" : "object",
+      "properties" : {
+        "OUT_OF_STOCK_BIN" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Out of stock bin"
+        },
+        "BIN" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Bin"
+        },
+        "OUT_OF_STOCK_FACTOR" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Out of stoke factor"
+        },
+        "LOST_SALES" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Lost sales"
+        }
+      }
+    },
+    "FaultInfo" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The error code"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The error message"
+        },
+        "data" : {
+          "type" : "array",
+          "description" : "The error data which is an abstract object that may be used to provide any error metadata",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "source" : {
+          "type" : "string",
+          "description" : "The application at which the API error occured"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The error family, e.g. RUNTIME, VALIDATION, etc"
+        },
+        "guid" : {
+          "type" : "string",
+          "description" : "The unique identifier of the error process"
+        }
+      },
+      "description" : "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "JackpotWinnerDetail" : {
+      "type" : "object",
+      "properties" : {
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Seling retailer name"
+        },
+        "drawId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Draw id"
+        },
+        "drawDate" : {
+          "type" : "string",
+          "description" : "Draw date in ISO 8601 format"
+        },
+        "jackpot" : {
+          "type" : "number",
+          "description" : "Jackpot amount"
+        },
+        "sellingRetailerAddress" : {
+          "type" : "string",
+          "description" : "Selling retailer address"
+        },
+        "sellingRetailerName" : {
+          "type" : "string",
+          "description" : "Seling retailer name"
+        }
+      }
+    },
+    "JackpotWinnersDetails" : {
+      "type" : "object",
+      "properties" : {
+        "content" : {
+          "type" : "array",
+          "description" : "List of jackpot winners",
+          "items" : {
+            "$ref" : "#/definitions/JackpotWinnerDetail"
+          }
+        },
+        "first" : {
+          "type" : "boolean",
+          "description" : "First"
+        },
+        "last" : {
+          "type" : "boolean",
+          "description" : "Last"
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Size"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total elements"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total pages"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of elements"
+        }
+      }
+    },
+    "SessionData" : {
+      "type" : "object",
+      "properties" : {
+        "trnsId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Unique transaction id that identifies a player session. It will  consist of the combination of terminal id and the current timestamp"
+        },
+        "CustomerSessionItems" : {
+          "type" : "array",
+          "description" : "Session data list",
+          "items" : {
+            "$ref" : "#/definitions/SessionDataModel"
+          }
+        }
+      }
+    },
+    "SessionDataModel" : {
+      "type" : "object",
+      "properties" : {
+        "trnsType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "•\tSale = 0\n•\tInquiry = 1\n•\tCash in = 2\n•\tCash out = 3\n"
+        },
+        "trnsTime" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Transaction time in UTC"
+        },
+        "bin" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Bin id used in case of a bin related operation. 0 in all other cases."
+        },
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Online game id in case of an online game sale or cancel. Scratch game id in case of scratch validation"
+        },
+        "subgameId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Subgame id in case of Fast Play game. Add on in case of Powerball, MegaMillions"
+        },
+        "multiplier" : {
+          "type" : "boolean",
+          "description" : "Boolean value to identify if an add-on is chosen in the sale. Applicable to Powerball (Powerplay add-on) and MegaMillions (Megaplier add-on)."
+        },
+        "amount" : {
+          "type" : "number",
+          "description" : "Sales amount, validation amount, cancelation amount, scratch validation amount, scratch sale amount, voucher redemption amount."
+        },
+        "clickedOnButNotPurchased" : {
+          "type" : "string",
+          "description" : "Identify if the customer did not complete the purchase."
+        },
+        "pack" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Pack No"
+        },
+        "numberOfDraws" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of draws."
+        },
+        "vipId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "VIP id in case customer logged in as a VIP user"
+        }
+      }
+    },
+    "UnclaimedFastPlayJackpotPrizes" : {
+      "type" : "object",
+      "properties" : {
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Fast Play family game id"
+        },
+        "subGameId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Fast Play sub game id"
+        },
+        "sellingRetailerAddress" : {
+          "type" : "string",
+          "description" : "Selling retailer address"
+        },
+        "sellingRetailerName" : {
+          "type" : "string",
+          "description" : "Selling retailer name"
+        },
+        "purchaseTime" : {
+          "type" : "string",
+          "description" : "Purchase time in ISO 8601 format"
+        },
+        "amount" : {
+          "type" : "number",
+          "description" : "Prize amount"
+        }
+      }
+    },
+    "UnclaimedJackpotPrizes" : {
+      "type" : "object",
+      "properties" : {
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Game id"
+        },
+        "drawDate" : {
+          "type" : "string",
+          "description" : "Draw date in ISO 8601 format"
+        },
+        "sellingRetailer" : {
+          "type" : "string",
+          "description" : "Selling retailer address"
+        },
+        "amount" : {
+          "type" : "number",
+          "description" : "Prize amount"
+        }
+      }
+    },
+    "WagerWinningsModel" : {
+      "type" : "object",
+      "properties" : {
+        "amounts" : {
+          "description" : "Amounts",
+          "$ref" : "#/definitions/WinningsAmountsModel"
+        },
+        "drawId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Draw id"
+        },
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Game id"
+        },
+        "playerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Player id"
+        },
+        "serialNumber" : {
+          "type" : "string",
+          "description" : "Serial number"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Win,NoWin",
+          "enum" : [ "Win", "NoWin" ]
+        },
+        "subTier" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The winning sub category, needed for some games"
+        },
+        "tier" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The winning category"
+        }
+      }
+    },
+    "WinningsAmountsModel" : {
+      "type" : "object",
+      "properties" : {
+        "gross" : {
+          "type" : "number",
+          "description" : "Gross amount in money units"
+        },
+        "net" : {
+          "type" : "number",
+          "description" : "Net amount in money units"
+        },
+        "other" : {
+          "type" : "number",
+          "description" : "Future use"
+        },
+        "refund" : {
+          "type" : "number",
+          "description" : "Refund amount in money units. Future use"
+        },
+        "tax" : {
+          "type" : "number",
+          "description" : "Taxation amount in money units"
+        }
+      }
+    },
+    "WinningsModel" : {
+      "type" : "object",
+      "properties" : {
+        "total" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total wagers"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total pages"
+        },
+        "wagers" : {
+          "type" : "array",
+          "description" : "Wagers",
+          "items" : {
+            "$ref" : "#/definitions/WagerWinningsModel"
+          }
+        }
+      }
+    },
+    "FastPlayProgressiveJackpotWinner" : {
+      "type" : "object",
+      "properties" : {
+        "subGameId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Fast play sub game id"
+        },
+        "sellingRetailerAddress" : {
+          "type" : "string",
+          "description" : "Selling retailer address"
+        },
+        "sellingRetailerName" : {
+          "type" : "string",
+          "description" : "Selling reteiler name"
+        },
+        "purchaseTime" : {
+          "type" : "string",
+          "description" : "Purchase time in ISO 8601 format"
+        },
+        "jackpot" : {
+          "type" : "number",
+          "description" : "Progressive jackpot"
+        }
+      }
+    },
+    "FastPlayProgressiveJackpotWinners" : {
+      "type" : "object",
+      "properties" : {
+        "content" : {
+          "type" : "array",
+          "description" : "Content",
+          "items" : {
+            "$ref" : "#/definitions/FastPlayProgressiveJackpotWinner"
+          }
+        },
+        "first" : {
+          "type" : "boolean",
+          "description" : "First"
+        },
+        "last" : {
+          "type" : "boolean",
+          "description" : "Last"
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Size"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total elements"
+        },
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total pages"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of elements"
+        }
+      }
+    }
+  }
+}

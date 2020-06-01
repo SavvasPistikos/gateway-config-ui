@@ -1,0 +1,4992 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.3",
+    "title": "L10 Orchestrator",
+    "description": "L10 Orchestrator (ASP.NET Core 2.0)",
+    "termsOfService": "",
+    "contact": {
+      "name": "Swagger Codegen Contributors",
+      "url": "https://github.com/swagger-api/swagger-codegen",
+      "email": ""
+    }
+  },
+  "basePath": "",
+  "paths": {
+    "/api/v1.0/authentication/token": {
+      "post": {
+        "tags": [
+          "AuthenticationApi"
+        ],
+        "summary": "Grant authorization token",
+        "operationId": "Token",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "grantType",
+            "in": "formData",
+            "description": "The type of the authorization grant (password, refresh_token, client_credentials, authorization_code)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "Basic authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "The username/email of the user to be authenticated. Required if grant_type='password'",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "The password of the user to be authenticated. Required if grant_type='password'",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "refreshToken",
+            "in": "formData",
+            "description": "The refresh token instead of username/password. Required if grant_type='refresh_token'",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "redirectUri",
+            "in": "formData",
+            "description": "The redirect uri if grant type='authorization_code'",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "in": "formData",
+            "description": "The code if grant type='authorization_code'",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "in": "formData",
+            "description": "The requested scope (space separated)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.AuthTokenResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "operationId": "HealthGet",
+        "consumes": [],
+        "produces": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/participants": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of all participants",
+        "description": "Retrieves a list of all defined participants.",
+        "operationId": "GetAllParticipants",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorParticipantDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/categories/available": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a tree of categories that have available events",
+        "description": "Retrieves a tree containing the currently active sport hierarchy. From top to bottom: Sport(e.g. Football), Category(e.g. England), Tournament(e.g. Premier League). &lt;a target='_blank' href='/swagger/examples/sportsbook-categories-available.json'&gt;Click here to see a sample response.&lt;/a&gt;",
+        "operationId": "GetAvailableCategories",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookCategoryDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/available/version": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get the version of each available event",
+        "description": "Retrieves a list containing a summary of all sportsbook events that are available for betting. &lt;a target='_blank' href='/swagger/examples/sportsbook-event-versions.json'&gt;Click here to see a sample response.&lt;/a&gt;",
+        "operationId": "GetAvailableEventsVersion",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "includePrematch",
+            "in": "query",
+            "description": "Whether to include available prematch events. Default value true.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeOutrights",
+            "in": "query",
+            "description": "Whether to include available outright events. Default value true.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeInplay",
+            "in": "query",
+            "description": "Whether to include available inplay events. Default value true.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "ignoreEventsWithNoMarkets",
+            "in": "query",
+            "description": "Whether to ignore events that have no available markets. Default value true.",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventVersionDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/categories/all": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a tree of all categories",
+        "description": "Retrieves a tree containing all the sport hierarchy. From top to bottom: Sport(e.g. Football), Category(e.g. England), Tournament(e.g. Premier League). &lt;a target='_blank' href='/swagger/examples/sportsbook-categories-all.json'&gt;Click here to see a sample response.&lt;/a&gt;. The client can filter the response using the provided query parameters.",
+        "operationId": "GetCategories",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "categoryType",
+            "in": "query",
+            "description": "The category type to include in the response. By default all types are returned.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "The sport id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "The category id",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookCategoryDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/configuration": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get sportsbook configuration",
+        "description": "Retrieves market type and market group configuration for all defined sports. &lt;a target='_blank' href='/swagger/examples/sportsbook-config.json'&gt;Click here to see a sample response.&lt;/a&gt;",
+        "operationId": "GetConfiguration",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookConfigurationDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/{id}": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get an event by id",
+        "description": "Retrieves a sportsbook event using the event id. &lt;a target='_blank' href='/swagger/examples/sportsbook-event-by-id.json'&gt;Click here to see a sample response.&lt;/a&gt;",
+        "operationId": "GetEvent",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the event",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/available": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get available events and all their markets",
+        "description": "",
+        "operationId": "GetAvailableEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/available/minified": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get available events and all their markets",
+        "description": "",
+        "operationId": "GetAvailableEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventMinifiedDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/available/selections/popular": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of popular event selections",
+        "description": "Retrieves a list containing the identifiers of the selections that are marked as popular on the betting provider.",
+        "operationId": "GetEventPopularSelections",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPopularSelection"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/{id}/allDefinedMarkets": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get an event by id with all defined markets",
+        "description": "Retrieves a sportsbook event containing all of its markets using the event id. Odds are not provided. &lt;a target='_blank' href='/swagger/examples/sportsbook-event-by-id.json'&gt;Click here to see a sample response.&lt;/a&gt;",
+        "operationId": "GetEventWithAllMarkets",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the event",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventWithAllMarketsDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/code/{code}": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get an event by code",
+        "description": "Retrieves a sportsbook event using the event code. &lt;a target='_blank' href='/swagger/examples/sportsbook-event-by-id.json'&gt;Click here to see a sample response.&lt;/a&gt;",
+        "operationId": "GetEventWithCode",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code of the event",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/participants/{id}": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of event Ids by participant Id",
+        "description": "Retrieves a list of event Ids that the participant whose Id was given competes in",
+        "operationId": "GetEventsByParticipantId",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the participant",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel Id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/football": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of football events",
+        "description": "Retrieves a list of football events for BOS",
+        "operationId": "GetFootBallEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "maxTime",
+            "in": "query",
+            "description": "The maxTime in timestamp eg 1517731596192",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "minTime",
+            "in": "query",
+            "description": "The minTime in timestamp eg 1517731596192. If not set defaults to NOW",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "system",
+            "in": "query",
+            "description": "The system",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFootballEventResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/available/inplay": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get all available inplay events",
+        "description": "Retrieves a list containing all sportsbook events that are available for in play betting.",
+        "operationId": "GetInplayEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/participants/{sportId}/{participantId}": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a participant for a sport by id",
+        "description": "Retrieves a participant for a sport by id.",
+        "operationId": "GetParticipantById",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "path",
+            "description": "The sport id filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "participantId",
+            "in": "path",
+            "description": "The participant id filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorParticipantDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/categories/resulted": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a tree of categories that have resulted events",
+        "operationId": "GetResultCategories",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookCategoryDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/resulted/{sportId}": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a page of resulted events of a sport",
+        "operationId": "GetResultedEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "description": "Date from filter for event date in yyyy-mm-dd format",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "path",
+            "description": "The sport id filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "The sort parameter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "The category id filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "competitionId",
+            "in": "query",
+            "description": "The competition id filter",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorResultsPageDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/resulted/{sportId}/ids": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of resulted events by ids",
+        "operationId": "GetResultedEventsByIds",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "path",
+            "description": "The sport id filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "eventIds",
+            "in": "query",
+            "description": "List of event ids",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/participants/{sportId}": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of participants for a sport",
+        "description": "Retrieves a list of defined participants for a sport. Additional filtering by tournament id is possible.",
+        "operationId": "GetSportParticipants",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sportId",
+            "in": "path",
+            "description": "The sport id filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tournamentId",
+            "in": "query",
+            "description": "The tournament id filter",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorParticipantDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/search": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get a list of events that match the search term",
+        "description": "Retrieves a list sportsbook events based on the search term and optional filtering and paging parameters",
+        "operationId": "SearchEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "The search term",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "onlyIds",
+            "in": "header",
+            "description": "True if only event Ids should be returned. Default to false",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "sportId",
+            "in": "query",
+            "description": "The id of the sport",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "Used for pagination (defaults to page 0)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Used for pagination (defaults to 10)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Normal filter parameter, e.g. can filter based on siteId (probably not relevant)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sportsbook/events/popular": {
+      "get": {
+        "tags": [
+          "SportsbookOfferingApi"
+        ],
+        "summary": "Get list of popular events",
+        "operationId": "GetPopularEvents",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "The channel id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{betId}/details": {
+      "get": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Returns the full details for a specific bet id",
+        "description": "Returns the full bet info",
+        "operationId": "BetDetails",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "betId",
+            "in": "path",
+            "description": "The bet IDs that the player ask for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includeEventResults",
+            "in": "query",
+            "description": "If the event result have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeChildBetSummaries",
+            "in": "query",
+            "description": "If the child bet summaries have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "excludePartialCashOutBet",
+            "in": "query",
+            "description": "True: Exclude all the bets that are created through a partial cash out. False: Include them",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeWinSelections",
+            "in": "query",
+            "description": "True: Include WinSelections",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetExtended"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{uid}/b2b/details": {
+      "get": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Returns the full details for a specific betSlipId",
+        "description": "Returns the full bet info",
+        "operationId": "BetDetailsB2B",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "The betSlipId or betId that the client asked for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isBetId",
+            "in": "query",
+            "description": "If uid provided is a betId this must be true. If false uid is considered betSlipId",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeEventResults",
+            "in": "query",
+            "description": "If the event result have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeChildBetSummaries",
+            "in": "query",
+            "description": "If the child bet summaries have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "excludePartialCashOutBet",
+            "in": "query",
+            "description": "True: Exclude all the bets that are created through a partial cash out. False: Include them",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeWinSelections",
+            "in": "query",
+            "description": "True: Include WinSelections",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetExtended"
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{betId}": {
+      "get": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Returns the details for a specific bet id",
+        "description": "Returns the bet info",
+        "operationId": "BetHistory",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "betId",
+            "in": "path",
+            "description": "The bet IDs that the player ask for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includeEventResults",
+            "in": "query",
+            "description": "If the event result have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeChildBetSummaries",
+            "in": "query",
+            "description": "If the child bet summaries have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "excludePartialCashOutBet",
+            "in": "query",
+            "description": "True: Exclude all the bets that are created through a partial cash out. False: Include them",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeWinSelections",
+            "in": "query",
+            "description": "True: Include WinSelections",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{betslipId}/details": {
+      "get": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Returns the details for a specific betslip id",
+        "description": "Returns the betslip info",
+        "operationId": "BetslipDetails",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "betslipId",
+            "in": "path",
+            "description": "The betslip ID that the player ask for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includeEventResults",
+            "in": "query",
+            "description": "If the event result have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeChildBetSummaries",
+            "in": "query",
+            "description": "If the child bet summaries have to be returned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "excludePartialCashOutBet",
+            "in": "query",
+            "description": "True: Exclude all the bets that are created through a partial cash out. False: Include them",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeWinSelections",
+            "in": "query",
+            "description": "True: Include WinSelections",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/calculate/betbuilder": {
+      "get": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Calculates build bet price.",
+        "operationId": "CalculateBuildABetPrice",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "query",
+            "description": "The event id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "selectionIds",
+            "in": "query",
+            "description": "A comma separated list of selection ids",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorCalculatePriceResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{betSlipId}": {
+      "delete": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Cancels a betslip",
+        "description": "Used by terminals to cancel a betslip",
+        "operationId": "CancelBetslip",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "header",
+            "description": "The transaction id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "betSlipId",
+            "in": "path",
+            "description": "The betslip id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorTerminalCancelRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorTerminalCancelResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/templates/{templateId}": {
+      "get": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Retrieves a stored betslip",
+        "description": "Player can use the template id provided during a betslip verification in order to retrieve the betslip details and place the wager in retail shop.",
+        "operationId": "GetBetslipByTemplateId",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "templateId",
+            "in": "path",
+            "description": "The template id. This is the mnemonic code of the stored betslip.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers": {
+      "post": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Places a betslip",
+        "description": "When a Sportsbook customer has loaded the betslip with one or more selections and clicks to submit their bets, the Sportsbook front end client sends a placeBets API call to the server. Click to see a Sample &lt;a target='_blank' href='/swagger/examples/wager-wagerRequest.json'&gt; request &lt;/a&gt; or &lt;a target='_blank' href='/swagger/examples/wager-wagerResponse.json'&gt; response.&lt;/a&gt;",
+        "operationId": "PlaceBet",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "extendedResponse",
+            "in": "header",
+            "description": "If true selections/markets/events descriptions &amp; events kickoff time will be returned",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The place bet request domain object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Rollback a betslip",
+        "description": "Used to rollback a betslip in case of timeout or of error after the betslip submission.",
+        "operationId": "UndoBet",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The undo bet request domain object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorUndoRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorRejectBetsResponse"
+            }
+          },
+          "204": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorRejectBetsResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/rollback": {
+      "delete": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Rollback a paid or canceled betslip",
+        "description": "Used by terminals to rollback the cancellation or payment of a betslip",
+        "operationId": "RollBackBetslip",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "header",
+            "description": "The transaction id used in pay or cancel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rollbackFrom",
+            "in": "header",
+            "description": "rollbackFrom PAID or CANCELLED",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorRollbackRetailResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{betSlipId}/settlements": {
+      "put": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Settles a betslip",
+        "description": "Used by terminals to settle a betslip",
+        "operationId": "SettleBetslip",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "header",
+            "description": "The transaction id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "betSlipId",
+            "in": "path",
+            "description": "The betslip id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorTerminalPayRequestL10"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPaySuccessResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/verify": {
+      "post": {
+        "tags": [
+          "SportsbookWagersApi"
+        ],
+        "summary": "Verifies a betslip",
+        "description": "When a Sportsbook customer has loaded the betslip with one or more selections and clicks to submit their bets, the Sportsbook front end client sends a placeBets API call to the server. Click to see a Sample &lt;a target='_blank' href='/swagger/examples/wager-verifyRequest.json'&gt; request &lt;/a&gt; or &lt;a target='_blank' href='/swagger/examples/wager-verifyResponse.json'&gt; response.&lt;/a&gt;",
+        "operationId": "VerifyBet",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The place bet request domain object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/negotiations/{uid}/status/{status}": {
+      "put": {
+        "tags": [
+          "SportsbookWagersNegotiationApi"
+        ],
+        "summary": "Bet Negotiation Feedback",
+        "operationId": "BetNegotiation",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "The uid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "The status",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "The Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The Channel",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "_operator",
+            "in": "header",
+            "description": "The Operator",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "description": "The retailerId",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "description": "The terminalId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "header",
+            "description": "The employeeId",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.BetNegotiationFeedback"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.InlineResponse401"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.InlineResponse401"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error  | Error code | Description |  | :-: | - |  | 1108 |  Player id required    | 1109 |  Game-draw-wager required    | 1110 |  Prizes required    | 1111 |  Payment already processed    | 2001 |   Invalid input    | 2002 |  Game not found    | 2003 |  Invalid draw id    | 2004 |  Transaction Failed    | 2005 |  Wager not found    | 2006 |  Draw not found    | 2007 |  No results found    | 2008 |  Unknown verification error    | 2009 |  Technical    | 2010 |  Bad request    | 2011 |  Not found    | 2012 |  Timeout    ",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.InlineResponse401"
+            }
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{serialNumber}/settlements": {
+      "put": {
+        "tags": [
+          "SportsbookWagersSettlementApi"
+        ],
+        "summary": "Calls the PAM to settle a wager",
+        "description": "&lt;h4&gt;&lt;span data-sw-translate=\\\"\\\"&gt;Implementation Notes&lt;/span&gt;&lt;/h4&gt;&lt;div class=\\\"markdown\\\"&gt;&lt;p&gt;This method is used for auto-pay and settles the wager in the PAM (internal API).&lt;/p&gt;  &lt;/div&gt;",
+        "operationId": "SettleWager",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "description": "The serial Number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The Channel",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "_operator",
+            "in": "header",
+            "description": "The Operator",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.SettlementRequestModel"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.InlineResponse401"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.InlineResponse401"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error  | Error code | Description |  | :-: | - |  | 1108 |  Player id required    | 1109 |  Game-draw-wager required    | 1110 |  Prizes required    | 1111 |  Payment already processed    | 2001 |   Invalid input    | 2002 |  Game not found    | 2003 |  Invalid draw id    | 2004 |  Transaction Failed    | 2005 |  Wager not found    | 2006 |  Draw not found    | 2007 |  No results found    | 2008 |  Unknown verification error    | 2009 |  Technical    | 2010 |  Bad request    | 2011 |  Not found    | 2012 |  Timeout    ",
+            "schema": {
+              "$ref": "#/definitions/IO.Swagger.Models.InlineResponse401"
+            }
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "IO.Swagger.Models.AuthTokenResponse": {
+      "required": [
+        "scope",
+        "access_token",
+        "token_type",
+        "expires_in"
+      ],
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "string"
+        },
+        "jti": {
+          "type": "string"
+        },
+        "access_token": {
+          "type": "string"
+        },
+        "token_type": {
+          "type": "string"
+        },
+        "refresh_token": {
+          "type": "string"
+        },
+        "expires_in": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorParticipantDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sportId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "extIds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "translations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorNames": {
+      "type": "object",
+      "properties": {
+        "longName": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "veryshortName": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorFaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        },
+        "source": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "guid": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportsbookCategoryDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "names": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "numEvents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numOutrightEvents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numInplayEvents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "subCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookCategoryDTO"
+          }
+        },
+        "order": {
+          "format": "double",
+          "type": "number"
+        },
+        "highlight": {
+          "type": "boolean"
+        },
+        "weighting": {
+          "format": "double",
+          "type": "number"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventVersionDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "sportId": {
+          "type": "string"
+        },
+        "tourId": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "outright": {
+          "type": "boolean"
+        },
+        "isInplay": {
+          "type": "boolean"
+        },
+        "offeredInplay": {
+          "type": "boolean"
+        },
+        "version": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportsbookConfigurationDTO": {
+      "type": "object",
+      "properties": {
+        "sportConfiguration": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportConfigurationDTO"
+          }
+        },
+        "hlPlusRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorHLPlusRule"
+          }
+        },
+        "maxNumberOfBetslipEvents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxNumberOfBetslipEventsSystem": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxPayoutAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "stakeTax": {
+          "format": "double",
+          "type": "number"
+        },
+        "winningsTaxRates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorWinningsTaxRate"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportConfigurationDTO": {
+      "type": "object",
+      "properties": {
+        "marketGroups": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorMarketGroup"
+          }
+        },
+        "marketTypes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorMarketType"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorHLPlusRule": {
+      "type": "object",
+      "properties": {
+        "totalEvents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "plusEvents": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorWinningsTaxRate": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "format": "double",
+          "type": "number"
+        },
+        "to": {
+          "format": "double",
+          "type": "number"
+        },
+        "taxPercentage": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorMarketGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "order": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "marketTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorMarketType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "order": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
+        },
+        "sportId": {
+          "type": "string"
+        },
+        "categId": {
+          "type": "string"
+        },
+        "categName": {
+          "type": "string"
+        },
+        "tourId": {
+          "type": "string"
+        },
+        "tourName": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "names": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "compNames": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "categoryNames": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "status": {
+          "enum": [
+            "InactiveEnum",
+            "ActiveEnum",
+            "SuspendedEnum",
+            "ClosedEnum",
+            "CancelledEnum",
+            "CompletedEnum"
+          ],
+          "type": "string"
+        },
+        "displayed": {
+          "type": "boolean"
+        },
+        "offeredInplay": {
+          "type": "boolean"
+        },
+        "isInplay": {
+          "type": "boolean"
+        },
+        "outright": {
+          "type": "boolean"
+        },
+        "betBuilder": {
+          "type": "boolean"
+        },
+        "numMarkets": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "order": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "version": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "extIds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorParticipant"
+          }
+        },
+        "info": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorEventInfo"
+        },
+        "scoreProgress": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorScoreProgress"
+        },
+        "markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorMarket"
+          }
+        },
+        "cashout": {
+          "type": "boolean"
+        },
+        "anytimeWincast": {
+          "type": "boolean"
+        },
+        "wincast": {
+          "type": "boolean"
+        },
+        "anytimeScorecast": {
+          "type": "boolean"
+        },
+        "timecast": {
+          "type": "boolean"
+        },
+        "scorecast": {
+          "type": "boolean"
+        },
+        "winningLegsBonus": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        },
+        "neutralVenue": {
+          "type": "boolean"
+        },
+        "inplayEventId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "inplay": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorParticipant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "extId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "HOMEEnum",
+            "AWAYEnum",
+            "OTHEREnum"
+          ],
+          "type": "string"
+        },
+        "names": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorEventInfo": {
+      "type": "object",
+      "properties": {
+        "sets": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "isTie": {
+          "type": "boolean"
+        },
+        "neutral": {
+          "type": "boolean"
+        },
+        "tvId": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorScoreProgress": {
+      "type": "object",
+      "properties": {
+        "totalTime": {
+          "type": "string"
+        },
+        "periodTime": {
+          "type": "string"
+        },
+        "periodId": {
+          "type": "string"
+        },
+        "score": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorHomeAwayScore"
+        },
+        "server": {
+          "type": "string"
+        },
+        "game": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorHomeAwayScoreString"
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPeriod"
+          }
+        },
+        "yellowCards": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorHomeAwayScore"
+        },
+        "redCards": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorHomeAwayScore"
+        },
+        "extraInfo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorMarket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "names": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "type": {
+          "type": "string"
+        },
+        "typeRef": {
+          "type": "string"
+        },
+        "subtype": {
+          "type": "string"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "index": {
+          "format": "double",
+          "type": "number"
+        },
+        "status": {
+          "enum": [
+            "InactiveEnum",
+            "ActiveEnum",
+            "SuspendedEnum",
+            "CancelledEnum",
+            "CompletedEnum"
+          ],
+          "type": "string"
+        },
+        "displayed": {
+          "type": "boolean"
+        },
+        "min": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "max": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "strictType": {
+          "type": "boolean"
+        },
+        "betBuilder": {
+          "type": "boolean"
+        },
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorMarketSelection"
+          }
+        },
+        "order": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "handicap": {
+          "type": "boolean"
+        },
+        "balanced": {
+          "type": "boolean"
+        },
+        "winningLegsBonus": {
+          "type": "boolean"
+        },
+        "periodMarket": {
+          "type": "boolean"
+        },
+        "period": {
+          "type": "string"
+        },
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorHomeAwayScore": {
+      "type": "object",
+      "properties": {
+        "home": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "away": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorHomeAwayScoreString": {
+      "type": "object",
+      "properties": {
+        "home": {
+          "type": "string"
+        },
+        "away": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorPeriod": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "home": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "away": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "overtime": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorMarketSelection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "names": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "type": {
+          "type": "string"
+        },
+        "odd": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorOdd"
+        },
+        "side": {
+          "type": "string"
+        },
+        "sts": {
+          "enum": [
+            "InaEnum",
+            "AcEnum",
+            "BlEnum",
+            "CancEnum",
+            "WonEnum",
+            "LostEnum",
+            "ResEnum"
+          ],
+          "type": "string"
+        },
+        "displayed": {
+          "type": "boolean"
+        },
+        "pos": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPosition"
+        },
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorOdd": {
+      "type": "object",
+      "properties": {
+        "dec": {
+          "format": "double",
+          "type": "number"
+        },
+        "frac": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorPosition": {
+      "type": "object",
+      "properties": {
+        "row": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "col": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventMinifiedDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
+        },
+        "tourName": {
+          "type": "string"
+        },
+        "time": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "version": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorMarketMinified"
+          }
+        },
+        "inplay": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorMarketMinified": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorPopularSelection": {
+      "type": "object",
+      "properties": {
+        "eventId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "marketTypeRef": {
+          "type": "string"
+        },
+        "marketSelectionId": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventWithAllMarketsDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sportId": {
+          "type": "string"
+        },
+        "categId": {
+          "type": "string"
+        },
+        "tourId": {
+          "type": "string"
+        },
+        "outright": {
+          "type": "boolean"
+        },
+        "numMarkets": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "version": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorParticipant"
+          }
+        },
+        "markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorMarket"
+          }
+        },
+        "cashout": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorFootballEventResponse": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorFootballEventOptions"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorFootballEventOptions": {
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "eventCode": {
+          "type": "string"
+        },
+        "tournament": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "homeTeam": {
+          "type": "string"
+        },
+        "awayTeam": {
+          "type": "string"
+        },
+        "kickoffDate": {
+          "type": "string"
+        },
+        "sysRefId": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorResultsPageDTO": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSportsbookEventDTO"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorBetExtended": {
+      "required": [
+        "selections",
+        "stake",
+        "system"
+      ],
+      "type": "object",
+      "properties": {
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSelection"
+          }
+        },
+        "stake": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorStake"
+        },
+        "system": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSystem"
+        },
+        "checkOdds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "potentialPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "totalOdds": {
+          "format": "double",
+          "type": "number"
+        },
+        "betId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betNo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "rejectionReason": {
+          "type": "string"
+        },
+        "liveBet": {
+          "type": "boolean"
+        },
+        "cashOut": {
+          "type": "boolean"
+        },
+        "totalPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "limitedStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "betTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "channelId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "payout": {
+          "format": "double",
+          "type": "number"
+        },
+        "displayStatus": {
+          "type": "string"
+        },
+        "overAskId": {
+          "type": "string"
+        },
+        "extBetId": {
+          "type": "string"
+        },
+        "totalCost": {
+          "format": "double",
+          "type": "number"
+        },
+        "paidTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "buildABet": {
+          "type": "boolean"
+        },
+        "payoutPerWonEvent": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPayoutPerWonEvent"
+          }
+        },
+        "systemDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSystemDetails"
+          }
+        },
+        "taxOnStakePcnt": {
+          "format": "double",
+          "type": "number"
+        },
+        "taxOnStakeAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "taxOnReturnsDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorTaxOnReturnDetails"
+          }
+        },
+        "taxOnReturnsAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "childBetSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorChildBetSummary"
+          }
+        },
+        "betSlipId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betStatus": {
+          "enum": [
+            "ACCEPTEDEnum",
+            "REJECTEDEnum",
+            "VOIDEnum",
+            "SETTLEDEnum"
+          ],
+          "type": "string"
+        },
+        "resulted": {
+          "type": "boolean"
+        },
+        "winnings": {
+          "format": "double",
+          "type": "number"
+        },
+        "parts": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorParts"
+        },
+        "currentlyInplay": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSelection": {
+      "required": [
+        "partNo",
+        "selectionId",
+        "odds"
+      ],
+      "type": "object",
+      "properties": {
+        "partNo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "selectionId": {
+          "type": "string"
+        },
+        "eventId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "odds": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorOddData"
+        },
+        "newOdds": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorOdds"
+        },
+        "banker": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "marketId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "selectionNames": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        },
+        "selectionName": {
+          "type": "string"
+        },
+        "marketName": {
+          "type": "string"
+        },
+        "eventName": {
+          "type": "string"
+        },
+        "eventTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "resultType": {
+          "type": "string"
+        },
+        "inplay": {
+          "type": "boolean"
+        },
+        "pitcherAName": {
+          "type": "string"
+        },
+        "pitcherBName": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorStake": {
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "type": "object",
+      "properties": {
+        "amount": {
+          "format": "double",
+          "type": "number"
+        },
+        "amountPerSystem": {
+          "type": "array",
+          "items": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSystem": {
+      "type": "object",
+      "properties": {
+        "systems": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorPayoutPerWonEvent": {
+      "type": "object",
+      "properties": {
+        "minPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "nrOfEvents": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorSystemDetails": {
+      "type": "object",
+      "properties": {
+        "systemId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numOfCombinations": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "stakePerSystem": {
+          "format": "double",
+          "type": "number"
+        },
+        "minPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "desc": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorTaxOnReturnDetails": {
+      "type": "object",
+      "properties": {
+        "rate": {
+          "format": "double",
+          "type": "number"
+        },
+        "value": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorChildBetSummary": {
+      "type": "object",
+      "properties": {
+        "selectionIds": {
+          "type": "array",
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "displayStatus": {
+          "enum": [
+            "OPENEnum",
+            "CASHEDEnum",
+            "LOSEEnum",
+            "WINEnum",
+            "CLOSEDEnum"
+          ],
+          "type": "string"
+        },
+        "totalPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "payout": {
+          "format": "float",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorParts": {
+      "type": "object",
+      "properties": {
+        "betPart": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetPart"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorOddData": {
+      "required": [
+        "decimal"
+      ],
+      "type": "object",
+      "properties": {
+        "decimal": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorOdds": {
+      "type": "object",
+      "properties": {
+        "dec": {
+          "type": "string"
+        },
+        "frac": {
+          "type": "string"
+        },
+        "rootIdx": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorBetPart": {
+      "type": "object",
+      "properties": {
+        "winSelections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorEntitySummary"
+          }
+        },
+        "eventResult": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorEventResult"
+        },
+        "selection": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorEntitySummary"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorEntitySummary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "subCode": {
+          "type": "string"
+        },
+        "names": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorNames"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorEventResult": {
+      "required": [
+        "reason"
+      ],
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "finishTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        },
+        "competition": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "sport": {
+          "type": "string"
+        },
+        "score": {
+          "type": "string"
+        },
+        "halfTimeScore": {
+          "type": "string"
+        },
+        "outright": {
+          "type": "boolean"
+        },
+        "abandoned": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorBetResponse": {
+      "required": [
+        "bets",
+        "betSlipId"
+      ],
+      "type": "object",
+      "properties": {
+        "acceptPriceChange": {
+          "type": "boolean"
+        },
+        "acceptOdds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "bets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetExtended"
+          }
+        },
+        "betSlipId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "gameId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "placedTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "sumOfStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfTotalCost": {
+          "format": "double",
+          "type": "number"
+        },
+        "templateId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorCalculatePriceResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorResponse"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorResponse": {
+      "type": "object",
+      "properties": {
+        "calculatedPrice": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorTerminalCancelRequest": {
+      "required": [
+        "barcodeReadMethod",
+        "locale"
+      ],
+      "type": "object",
+      "properties": {
+        "barcodeReadMethod": {
+          "enum": [
+            "READEnum",
+            "TYPEDINEnum"
+          ],
+          "type": "string"
+        },
+        "betSlipID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "externalRetailerID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "terminalID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionID": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorTerminalCancelResponse": {
+      "required": [
+        "cancellationOutcome"
+      ],
+      "type": "object",
+      "properties": {
+        "betSlipID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBetCancellationOutcome"
+          }
+        },
+        "cancellationOutcome": {
+          "enum": [
+            "SUCCESSEnum",
+            "FAILUREEnum"
+          ],
+          "type": "string"
+        },
+        "failureReason": {
+          "enum": [
+            "SAMERETAILERASPLAYREQUIREDEnum",
+            "PROMOTIONMUSTBECANCELLEDFIRSTEnum",
+            "UNKNOWNBETSLIPEnum",
+            "CONFIRMATIONREQUIREDEnum",
+            "BETSLIPCANCELATIONEXPIREDEnum"
+          ],
+          "type": "string"
+        },
+        "totalCancelAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "totalDiscountAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "placedTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorBetCancellationOutcome": {
+      "required": [
+        "betStatus",
+        "cancellationOutcome"
+      ],
+      "type": "object",
+      "properties": {
+        "betID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betStatus": {
+          "enum": [
+            "OPENEnum",
+            "WINEnum",
+            "LOSEEnum",
+            "PAIDEnum",
+            "CANCELLEDEnum",
+            "CLOSEDEnum",
+            "PENDINGEnum",
+            "PENDINGCASHOUTEnum",
+            "CASHEDEnum",
+            "RESULTINGEnum",
+            "REJECTEDEnum",
+            "EXPIREDEnum"
+          ],
+          "type": "string"
+        },
+        "cancellationOutcome": {
+          "enum": [
+            "SUCCESSEnum",
+            "FAILUREEnum"
+          ],
+          "type": "string"
+        },
+        "failureReason": {
+          "enum": [
+            "ALREADYCANCELLEDEnum",
+            "CANCELNOTALLOWEDEnum",
+            "BETCANCELATIONEXPIREDEnum",
+            "OVERASKPENDINGEnum"
+          ],
+          "type": "string"
+        },
+        "stakeAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "discountAmount": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorBetRequest": {
+      "required": [
+        "bets",
+        "transaction",
+        "extBetslipId"
+      ],
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorBet"
+          }
+        },
+        "transaction": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorTransaction"
+        },
+        "acceptPriceChange": {
+          "type": "boolean"
+        },
+        "acceptOdds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "extBetslipId": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorBet": {
+      "required": [
+        "selections",
+        "stake",
+        "system"
+      ],
+      "type": "object",
+      "properties": {
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSelection"
+          }
+        },
+        "stake": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorStake"
+        },
+        "system": {
+          "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSystem"
+        },
+        "checkOdds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "potentialPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "totalOdds": {
+          "format": "double",
+          "type": "number"
+        },
+        "betId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betNo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "rejectionReason": {
+          "type": "string"
+        },
+        "liveBet": {
+          "type": "boolean"
+        },
+        "cashOut": {
+          "type": "boolean"
+        },
+        "totalPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "limitedStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "betTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "channelId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "payout": {
+          "format": "double",
+          "type": "number"
+        },
+        "displayStatus": {
+          "type": "string"
+        },
+        "overAskId": {
+          "type": "string"
+        },
+        "extBetId": {
+          "type": "string"
+        },
+        "totalCost": {
+          "format": "double",
+          "type": "number"
+        },
+        "paidTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "buildABet": {
+          "type": "boolean"
+        },
+        "payoutPerWonEvent": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPayoutPerWonEvent"
+          }
+        },
+        "systemDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorSystemDetails"
+          }
+        },
+        "currentlyInplay": {
+          "type": "boolean"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorTransaction": {
+      "required": [
+        "id",
+        "channelId",
+        "transactionTime"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "channelId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retailerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "retailerTerminalId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "retailerEmployeeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorUndoRequest": {
+      "required": [
+        "extBetslipId",
+        "betPlacementTime",
+        "channel"
+      ],
+      "type": "object",
+      "properties": {
+        "extBetslipId": {
+          "type": "string"
+        },
+        "betPlacementTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "channel": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorRejectBetsResponse": {
+      "type": "object",
+      "properties": {
+        "betSlipID": {
+          "type": "string"
+        },
+        "rejectBetOutcome": {
+          "enum": [
+            "SUCCESSEnum",
+            "FAILUREEnum"
+          ],
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "placedTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorRollbackRetailResponse": {
+      "required": [
+        "rollbackResult",
+        "rollbackFailureReason"
+      ],
+      "type": "object",
+      "properties": {
+        "rollbackResult": {
+          "enum": [
+            "SUCCESSEnum",
+            "FAILUREEnum"
+          ],
+          "type": "string"
+        },
+        "rollbackFailureReason": {
+          "enum": [
+            "NOTCORRECTSTATUSFORROLLBACKEnum",
+            "UNKNOWNBETSLIPEnum"
+          ],
+          "type": "string"
+        },
+        "placedTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorTerminalPayRequestL10": {
+      "required": [
+        "barcodeReadMethod"
+      ],
+      "type": "object",
+      "properties": {
+        "barcodeReadMethod": {
+          "enum": [
+            "READEnum",
+            "TYPEDINEnum"
+          ],
+          "type": "string"
+        },
+        "betSlipID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "externalRetailerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "payLevel": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "terminalId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "isecure": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorPaySuccessResponse": {
+      "required": [
+        "bets",
+        "paymentOutcome",
+        "sumOfBonusAmount",
+        "sumOfGrossAmount",
+        "sumOfNetAmount",
+        "sumOfRefundAmount",
+        "sumOfStakeAmount",
+        "sumOfTaxOnReturnsAmount"
+      ],
+      "type": "object",
+      "properties": {
+        "betslipId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.CroatiaSpbAdaptorPayBet"
+          }
+        },
+        "paymentFailureReason": {
+          "enum": [
+            "NOWINEnum",
+            "HIGHWINNOTPAYABLEYETEnum",
+            "PAYMENTLIMITEXCEEDEDEnum",
+            "UNKNOWNBETSLIPEnum",
+            "EXTERNALWALLETERROREnum",
+            "WRONGISECUREEnum"
+          ],
+          "type": "string"
+        },
+        "paymentOutcome": {
+          "enum": [
+            "SUCCESSEnum",
+            "FAILUREEnum"
+          ],
+          "type": "string"
+        },
+        "sumOfBonusAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfGrossAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfNetAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfRefundAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfStakeAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "sumOfTaxOnReturnsAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "placedTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CroatiaSpbAdaptorPayBet": {
+      "required": [
+        "betPaymentResult",
+        "failureReason",
+        "bonusAmount",
+        "grossAmount",
+        "netAmount",
+        "refundAmount",
+        "stakeAmount",
+        "wagerPlacedTime",
+        "wagerSettledTime",
+        "taxOnReturnsAmount",
+        "refundTaxOnReturnsAmount"
+      ],
+      "type": "object",
+      "properties": {
+        "betId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betPaymentResult": {
+          "enum": [
+            "WINEnum",
+            "NOWINEnum",
+            "FAILUREEnum"
+          ],
+          "type": "string"
+        },
+        "failureReason": {
+          "enum": [
+            "EXPIREDEnum",
+            "ALREADYPAIDBYSAMERETAILEREnum",
+            "ALREADYPAIDBYOTHERRETAILEnum",
+            "ALREADYPAIDINBACKOFFICEEnum",
+            "ALREADYCANCELLEDEnum",
+            "ALREADYVOIDEDEnum",
+            "ALREADYBLOCKEDEnum",
+            "NOTRESULTEDEnum",
+            "HIGHWINNOTPAYABLEYETEnum",
+            "PAYMENTLIMITEXCEEDEDEnum",
+            "PENDINGAUTHORISATIONEnum"
+          ],
+          "type": "string"
+        },
+        "bonusAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "grossAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "netAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "refundAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "stakeAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "wagerPlacedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "wagerSettledTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "taxOnReturnsAmount": {
+          "format": "double",
+          "type": "number"
+        },
+        "refundTaxOnReturnsAmount": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "IO.Swagger.Models.BetNegotiationFeedback": {
+      "type": "object",
+      "properties": {
+        "totalStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "betId": {
+          "type": "string"
+        },
+        "betSlipId": {
+          "type": "string"
+        },
+        "playerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "bonusStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "totalDiscountStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "accountBonusId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "discountBonusId": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.InlineResponse401": {
+      "required": [
+        "code",
+        "guid",
+        "message",
+        "source"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.SettlementRequestModel": {
+      "required": [
+        "participation",
+        "transactionRequest"
+      ],
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "betSlipId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betType": {
+          "type": "string"
+        },
+        "gameCategory": {
+          "enum": [
+            "DBGEnum",
+            "IWGEnum",
+            "BETEnum",
+            "POOLEnum",
+            "CASINOEnum"
+          ],
+          "type": "string"
+        },
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.SelectionModel"
+          }
+        },
+        "participation": {
+          "$ref": "#/definitions/IO.Swagger.Models.ParticipationModel"
+        },
+        "transactionRequest": {
+          "$ref": "#/definitions/IO.Swagger.Models.TransactionRequestModel"
+        },
+        "notifyPlayer": {
+          "type": "boolean"
+        },
+        "identicalBetRef": {
+          "type": "string"
+        },
+        "bonusMoneyAmount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bonusRef": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bonusRule": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "secondaryBetId": {
+          "type": "string"
+        },
+        "highWinner": {
+          "type": "boolean"
+        },
+        "participationMethod": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.SelectionModel": {
+      "required": [
+        "position",
+        "odds",
+        "partNo",
+        "selectionId"
+      ],
+      "type": "object",
+      "properties": {
+        "position": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "banker": {
+          "type": "boolean"
+        },
+        "eventId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "getiMarket": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "groupValue": {
+          "type": "array",
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "imarket": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "odds": {
+          "$ref": "#/definitions/IO.Swagger.Models.OddDataModel"
+        },
+        "partNo": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "scores": {
+          "type": "array",
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "selectionId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "selectionNames": {
+          "$ref": "#/definitions/IO.Swagger.Models.NamesModel"
+        },
+        "selectionName": {
+          "type": "string"
+        },
+        "marketName": {
+          "type": "string"
+        },
+        "eventName": {
+          "type": "string"
+        },
+        "eventTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "resultType": {
+          "type": "string"
+        },
+        "priceChangedAfterLockDate": {
+          "type": "boolean"
+        },
+        "inplay": {
+          "type": "boolean"
+        },
+        "pitcherAName": {
+          "type": "string"
+        },
+        "pitcherBName": {
+          "type": "string"
+        },
+        "retailRowPosition": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.ParticipationModel": {
+      "required": [
+        "participationStatus",
+        "prizes"
+      ],
+      "type": "object",
+      "properties": {
+        "drawNumber": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "participationId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "participationStatus": {
+          "$ref": "#/definitions/IO.Swagger.Models.ParticipationStatusModel"
+        },
+        "prizes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IO.Swagger.Models.PrizeModel"
+          }
+        }
+      }
+    },
+    "IO.Swagger.Models.TransactionRequestModel": {
+      "required": [
+        "id",
+        "playerId",
+        "channel",
+        "refId",
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "playerId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "channel": {
+          "$ref": "#/definitions/IO.Swagger.Models.ChannelModel"
+        },
+        "refId": {
+          "type": "string"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "type": "string"
+        },
+        "wagerPlacedTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "wagerSettledTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "type": {
+          "$ref": "#/definitions/IO.Swagger.Models.TransactionTypeModel"
+        },
+        "retailerEmployeeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "retailerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "retailerTerminalId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.OddDataModel": {
+      "required": [
+        "decimal"
+      ],
+      "type": "object",
+      "properties": {
+        "decimal": {
+          "format": "double",
+          "type": "number"
+        },
+        "fractional": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.NamesModel": {
+      "type": "object",
+      "properties": {
+        "longName": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "veryshortName": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.ParticipationStatusModel": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "PLAYINGEnum",
+            "PLAYEDEnum",
+            "CANCELLINGEnum",
+            "CANCELEDEnum",
+            "WINNINGEnum",
+            "PAIDEnum",
+            "NOTWINNINGEnum",
+            "PENDINGPROCESSINGEnum",
+            "CANCELPAYMENTEnum",
+            "CANCELEDNOAMOUNTEnum",
+            "FAILEDONVALIDATINGEnum",
+            "PROVISIONALWINEnum",
+            "BLOCKEDEnum",
+            "CASHOUTEnum",
+            "PARTIALCASHOUTEnum",
+            "BACKOFFICECANCELEnum",
+            "BACKOFFICEPAYMENTEnum"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.PrizeModel": {
+      "required": [
+        "gross",
+        "net",
+        "tax"
+      ],
+      "type": "object",
+      "properties": {
+        "approvalLastUpdate": {
+          "type": "string"
+        },
+        "approvalStatus": {
+          "$ref": "#/definitions/IO.Swagger.Models.PrizeApprovalStatusModel"
+        },
+        "bonus": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "credit": {
+          "$ref": "#/definitions/IO.Swagger.Models.CreditTypeModel"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "gross": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "net": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "other": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "prizeStatus": {
+          "$ref": "#/definitions/IO.Swagger.Models.PrizeStatusModel"
+        },
+        "refund": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "specialPrize": {
+          "$ref": "#/definitions/IO.Swagger.Models.SpecialPrizeModel"
+        },
+        "tax": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "winningId": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.ChannelModel": {
+      "required": [
+        "description",
+        "id",
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.TransactionTypeModel": {
+      "required": [
+        "description",
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.PrizeApprovalStatusModel": {
+      "type": "object",
+      "properties": {
+        "statusPrizeStatusModel": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "IO.Swagger.Models.CreditTypeModel": {
+      "required": [
+        "organization"
+      ],
+      "type": "object",
+      "properties": {
+        "creditTypeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "organization": {
+          "$ref": "#/definitions/IO.Swagger.Models.OrganizationModel"
+        }
+      }
+    },
+    "IO.Swagger.Models.PrizeStatusModel": {
+      "type": "object",
+      "properties": {}
+    },
+    "IO.Swagger.Models.SpecialPrizeModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "IO.Swagger.Models.OrganizationModel": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {}
+}

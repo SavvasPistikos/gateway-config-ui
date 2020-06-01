@@ -1,0 +1,1487 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Spring Boot REST API for Validate Your Player Service",
+    "version": "1.0",
+    "title": "VYP REST API Swagger",
+    "termsOfService": "Terms of service",
+    "contact": {
+      "name": "VYP"
+    },
+    "license": {}
+  },
+  "host": "vyp-swagger.lh.app.osedev.l10.intralot.com:80",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "player-checks-swagger-impl",
+      "description": "Player Checks Swagger Impl"
+    },
+    {
+      "name": "scheduled-tasks-api-swagger-impl",
+      "description": "Scheduled Tasks Api Swagger Impl"
+    },
+    {
+      "name": "batch-process-admin-swagger-impl",
+      "description": "Batch Process Admin Swagger Impl"
+    },
+    {
+      "name": "application-parameters-swagger-impl",
+      "description": "Application Parameters Swagger Impl"
+    },
+    {
+      "name": "false-positive-swagger-impl",
+      "description": "False Positive Swagger Impl"
+    }
+  ],
+  "paths": {
+    "/admin/v1/batch-processes": {
+      "get": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Returns all existing batch processes.",
+        "operationId": "getAllBatchProcessesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "membershipType",
+            "in": "query",
+            "description": "The membership type that the batch job runs for",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "ONLINE",
+              "CARD",
+              "SUBSCRIBER",
+              "TABO"
+            ]
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the subscription",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The ordering field",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "id",
+              "batchProcessName",
+              "membershipType"
+            ]
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "is on decending order",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessPagedResultsDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/name/{jobName}": {
+      "get": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Returns requested batch process based on the given name.",
+        "operationId": "getBatchProcessByNameUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the the batch process",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/{batchProcessId}": {
+      "get": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Returns requested batch process based on the given id.",
+        "operationId": "getBatchProcessByIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "batchProcessId",
+            "in": "path",
+            "description": "The id of the the batch process",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/{batchProcessId}/cron": {
+      "put": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Updates the cron expression that is responsible for the execution of the batch process ",
+        "description": "Returns a simple success response",
+        "operationId": "updateBatchProcessCronUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "batchProcessId",
+            "in": "path",
+            "description": "The id of the batch process that need to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "cronExp",
+            "description": "The new cron expression of the batch process",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/{batchProcessId}/status/{status}": {
+      "put": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Updates the batch process to the provided status",
+        "description": "Returns a simple success response",
+        "operationId": "updateBatchProcessStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "batchProcessId",
+            "in": "path",
+            "description": "The id of the batch process that need to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "The new status of the batch process",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/application-parameters": {
+      "get": {
+        "tags": [
+          "application-parameters-swagger-impl"
+        ],
+        "summary": "Returns all existing application parameters.",
+        "operationId": "getAllApplicationParametersUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationParameterPagedResultsDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      },
+      "post": {
+        "tags": [
+          "application-parameters-swagger-impl"
+        ],
+        "summary": "Creates a new application parameter based on user input",
+        "operationId": "createApplicationParameterUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "createApplicationParameterRequest",
+            "description": "createApplicationParameterRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationParameterRequest"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/application-parameters/{applicationParameterName}": {
+      "get": {
+        "tags": [
+          "application-parameters-swagger-impl"
+        ],
+        "summary": "Returns an application parameter given the application parameter name",
+        "description": "An application parameter name is needed",
+        "operationId": "getApplicationParameterByIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "applicationParameterName",
+            "in": "path",
+            "description": "The name of the application parameter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationParameterDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      },
+      "put": {
+        "tags": [
+          "application-parameters-swagger-impl"
+        ],
+        "summary": "Returns a single success response in case of a successful create",
+        "description": "An application parameter object need to be provided",
+        "operationId": "updateApplicationParameterUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "updateApplicationParameterRequest",
+            "description": "updateApplicationParameterRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateApplicationParameterRequest"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "applicationParameterName",
+            "in": "path",
+            "description": "The name of the application parameter to be updated",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/checks": {
+      "post": {
+        "tags": [
+          "player-checks-swagger-impl"
+        ],
+        "summary": "Multiple validations",
+        "description": "Performs multiple validations based on the request.(EasyKonto,Postal code, Oasis, Schufa)",
+        "operationId": "performChecksUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "playerChecksRequest",
+            "description": "Includes all necessary data to validate",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlayerChecksRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "406": {
+            "description": " ## Not Acceptable \n * 70 - Easy Konto validation of bank account failed. \n * 80 - Postal code validation failed. \n * 100 - A ban exists in OASIS for player {0} \n * 101 - More than one bans exists in OASIS for player {0}. \n * 90 - Schufa date of birth check failure \n * 91 - Schufa identity check failure \n * 92 - Schufa bank account number check failure",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "10 - Generic internal error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          }
+        }
+      }
+    },
+    "/v1/checks/easykonto/iban": {
+      "post": {
+        "tags": [
+          "player-checks-swagger-impl"
+        ],
+        "summary": "Checks if the iban is valid according to easyKonto.",
+        "description": "Use DE89370400440532013000 to get a successful response",
+        "operationId": "easyKontoIbanValidationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "ibanValidationRequest",
+            "description": "Includes the iban to be tested",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IbanValidationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "10 - Generic internal error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          }
+        }
+      }
+    },
+    "/v1/checks/postalcode": {
+      "post": {
+        "tags": [
+          "player-checks-swagger-impl"
+        ],
+        "summary": "Checks if the postal code is a valid Hamburg postal code and return true or false. ",
+        "description": "Use 20095 to get a successful response. StateCd = 9 for Hamburg",
+        "operationId": "postalCodeValidationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "postalCodeValidationRequest",
+            "description": "Includes the postal code and the state cd to perform the validation",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostalCodeValidationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "10 - Generic internal error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          }
+        }
+      }
+    },
+    "/v1/falsepositive": {
+      "put": {
+        "tags": [
+          "false-positive-swagger-impl"
+        ],
+        "summary": "Updates the false positive list. Returns success response in case of successful operation or else error.",
+        "operationId": "updateFalsePositiveUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "falsePositiveDTO",
+            "description": "The false positive DTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FalsePositiveDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/falsepositive/player/{playerId}": {
+      "get": {
+        "tags": [
+          "false-positive-swagger-impl"
+        ],
+        "summary": "Returns an OASIS false positive entry given the player id",
+        "description": "The player id of the requesting false positive",
+        "operationId": "getPlayersFalsePositiveUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "playerId",
+            "in": "path",
+            "description": "The player id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FalsePositiveDTO"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/falsepositive/{id}": {
+      "get": {
+        "tags": [
+          "false-positive-swagger-impl"
+        ],
+        "summary": "Returns an OASIS false positive entry given its id",
+        "description": "The false positive primary key is required",
+        "operationId": "getFalsePositiveUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the false positive",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FalsePositiveDTO"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/tasks/oasis-batch-status": {
+      "post": {
+        "tags": [
+          "scheduled-tasks-api-swagger-impl"
+        ],
+        "summary": "Updates oasis batch job statuses of validation chunks",
+        "operationId": "updateOasisBatchJobStatusesUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/tasks/oasis-prepare-data/{membershipType}": {
+      "post": {
+        "tags": [
+          "scheduled-tasks-api-swagger-impl"
+        ],
+        "summary": "Triggers creation of oasis validation chunks and players that will be submitted to OASIS Batch",
+        "operationId": "prepareOasisDataUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "forceExecution",
+            "in": "header",
+            "description": "Indicates manual execution by operator and forces the flow to override possible time execution threshold 0:false , 1:true. Default value is 0",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "membershipType",
+            "in": "path",
+            "description": "Distinguishes players between Online, Offine, Card and T-Abo ones.",
+            "required": false,
+            "type": "ref"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/v1/tasks/update-sumo-bp-status/membershipType/{membershipType}/targetBpStatus/{targetBpStatus}": {
+      "post": {
+        "tags": [
+          "scheduled-tasks-api-swagger-impl"
+        ],
+        "summary": "Triggers handling of any pending SuMo Batch Process Status Modification Requests for the provided membership type and status.",
+        "operationId": "updateSuMoBpStatusUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "membershipType",
+            "in": "path",
+            "description": "Indicates manual execution by operator and forces the flow to override possible time execution threshold 0:false , 1:true. Default value is 0",
+            "required": true,
+            "type": "ref"
+          },
+          {
+            "name": "targetBpStatus",
+            "in": "path",
+            "description": "The desired SuMo Batch Process Status to be set",
+            "required": true,
+            "type": "ref"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SimpleSuccessResponse": {
+      "type": "object",
+      "properties": {
+        "descr": {
+          "type": "string",
+          "description": "Response description"
+        },
+        "success": {
+          "type": "boolean",
+          "example": false,
+          "description": "true is success response"
+        }
+      }
+    },
+    "UpdateApplicationParameterRequest": {
+      "type": "object",
+      "properties": {
+        "dataTypeFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : String, 1:Dropdown, 2:Amount, 3:Long, 4:Double",
+          "enum": [
+            "String",
+            "DropDown",
+            "Amount",
+            "Long",
+            "Double"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "a description of the application parameter"
+        },
+        "value": {
+          "type": "string",
+          "description": "an alphanumerical corresponding to the value of the application parameter"
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "AddressDTO": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "example": "DEU"
+        },
+        "postCode": {
+          "type": "string",
+          "example": "20099"
+        },
+        "postTown": {
+          "type": "string",
+          "example": "Hamburg"
+        },
+        "stateCd": {
+          "type": "integer",
+          "format": "int32",
+          "example": 9
+        },
+        "streetName": {
+          "type": "string",
+          "example": "Schmarjestrasse 72"
+        }
+      }
+    },
+    "BatchProcessPagedResultsDTO": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/BatchProcessDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "ApplicationParameterPagedResultsDTO": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/ApplicationParameterDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "PagedResultsDTO«BatchProcessDTO»": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/BatchProcessDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "PlayerChecksRequest": {
+      "type": "object",
+      "properties": {
+        "accountNumber": {
+          "type": "string",
+          "example": "0532013000"
+        },
+        "address": {
+          "$ref": "#/definitions/AddressDTO"
+        },
+        "birthDate": {
+          "type": "string",
+          "example": "2018-06-18",
+          "description": "date format should be dd.MM.yyyy"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@intralot.com"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Suzanne"
+        },
+        "gender": {
+          "type": "string",
+          "example": "m",
+          "description": "valid values are f/F/m/M/u/U"
+        },
+        "iban": {
+          "type": "string",
+          "example": "DE89370400440532013000"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Pferd"
+        },
+        "performEasyKontoCheck": {
+          "type": "boolean",
+          "example": true
+        },
+        "performOasisCheck": {
+          "type": "boolean",
+          "example": true
+        },
+        "performPostalCodeCheck": {
+          "type": "boolean",
+          "example": true
+        },
+        "performSchufaBankAccountNumberCheck": {
+          "type": "boolean",
+          "example": true
+        },
+        "performSchufaIdentityCheck": {
+          "type": "boolean",
+          "example": true
+        },
+        "playerCd": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1
+        },
+        "previousAddress": {
+          "$ref": "#/definitions/AddressDTO"
+        },
+        "shortCode": {
+          "type": "string",
+          "example": "9"
+        },
+        "title": {
+          "type": "string",
+          "example": "Dr"
+        }
+      }
+    },
+    "IbanValidationRequest": {
+      "type": "object",
+      "properties": {
+        "iban": {
+          "type": "string",
+          "example": "DE89370400440532013000"
+        }
+      }
+    },
+    "PostalCodeValidationRequest": {
+      "type": "object",
+      "properties": {
+        "postalCode": {
+          "type": "string",
+          "example": "20095"
+        },
+        "stateCd": {
+          "type": "integer",
+          "format": "int32",
+          "example": 9
+        }
+      }
+    },
+    "PagedResultsDTO«ApplicationParameterDTO»": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/ApplicationParameterDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "CreateApplicationParameterRequest": {
+      "type": "object",
+      "properties": {
+        "dataTypeFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : String, 1:Dropdown, 2:Amount, 3:Long, 4:Double",
+          "enum": [
+            "String",
+            "DropDown",
+            "Amount",
+            "Long",
+            "Double"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "a description of the application parameter"
+        },
+        "name": {
+          "type": "string",
+          "description": "the name of the application parameter"
+        },
+        "value": {
+          "type": "string",
+          "description": "an alphanumerical corresponding to the value of the application parameter"
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "ApiErrorDetails": {
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "BatchProcessDTO": {
+      "type": "object",
+      "required": [
+        "membershipType"
+      ],
+      "properties": {
+        "batchNameDescription": {
+          "type": "string",
+          "description": "The description of the batch job's functionality"
+        },
+        "batchProcessName": {
+          "type": "string",
+          "description": "The name of the batch job"
+        },
+        "batchProcessType": {
+          "type": "string",
+          "description": "The type of the job to be executed",
+          "enum": [
+            "INITIATE_OASIS_BATCH",
+            "OASIS_LOCK_INQUIRY_JOB",
+            "OASIS_LOCK_INQUIRY_FAILED_JOB",
+            "OASIS_BATCH_STATUS_QUERY_JOB",
+            "OASIS_BATCH_STATUS_QUERY_FAILED_JOB",
+            "OASIS_BATCH_RESULTS_JOB",
+            "OASIS_BATCH_RESULTS_FAILED_JOB",
+            "OASIS_UPDATE_LOCKED_PLAYERS_JOB",
+            "OASIS_UPDATE_LOCKED_PLAYERS_FAILED_JOB",
+            "OASIS_LOCK_PLAYERS_JOB",
+            "OASIS_LOCK_PLAYERS_FAILED_JOB",
+            "MODIFY_SUMO_WAGERING_JOB"
+          ]
+        },
+        "chunkStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The status of the chunks that will be processed"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the job was initially created"
+        },
+        "cronExpression": {
+          "type": "string",
+          "description": "The cron expression which determines the execution timeframe of the job"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the job was last updated"
+        },
+        "membershipType": {
+          "type": "string",
+          "example": "ONLINE",
+          "description": "the type of the batch process",
+          "enum": [
+            "ONLINE",
+            "CARD",
+            "SUBSCRIBER",
+            "TABO"
+          ]
+        },
+        "parentBatchId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the job",
+          "enum": [
+            "INACTIVE",
+            "ACTIVE"
+          ]
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "ApplicationParameterDTO": {
+      "type": "object",
+      "properties": {
+        "dataTypeFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : String, 1:Dropdown, 2:Amount, 3:Long, 4:Double",
+          "enum": [
+            "String",
+            "DropDown",
+            "Amount",
+            "Long",
+            "Double"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "a description of the application parameter"
+        },
+        "name": {
+          "type": "string",
+          "description": "the name of the application parameter"
+        },
+        "value": {
+          "type": "string",
+          "description": "an alphanumerical corresponding to the value of the application parameter"
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "FalsePositiveDTO": {
+      "type": "object",
+      "properties": {
+        "falsePositiveIds": {
+          "type": "array",
+          "description": "List of all lock oasis ids that do not belong to the specified player and are marked as false positives",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "False positive record Id"
+        },
+        "oasisIds": {
+          "type": "array",
+          "description": "List of all lock oasis ids",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Player id"
+        }
+      }
+    }
+  }
+}

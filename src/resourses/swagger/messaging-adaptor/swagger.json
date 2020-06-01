@@ -1,0 +1,664 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the API documentation of Messaging Adaptor application.",
+    "version": "1.0",
+    "title": "Messaging Adaptor",
+    "contact": {
+      "name": "Intralot S.A."
+    }
+  },
+  "basePath": "/api/v1.0",
+  "tags": [
+    {
+      "name": "Email Notification"
+    },
+    {
+      "name": "Notificare Push Notification"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/email/notifications": {
+      "post": {
+        "tags": [
+          "Email Notification"
+        ],
+        "summary": "Send email with L10 Messaging",
+        "description": "Message types created in L10 Messaging application MUST have the same name with the respective EventType from Bit8. Those message type names, with their placeholders MUST be put in this application's values.yml under the key MessagingTemplates. <br><br>MessagingTemplates:<br><br><div><strong>- SBBet:</strong> DataPlayerDetailsFirstName,DataBetTotal,DataWinningsWinReal,DataPlayerDetailsEmailAddress. <br><div><strong>- PlayerResetPassword:</strong> DataClientID,DataEmailAddress,DataUsername,DataFirstName,DataLastName",
+        "operationId": "notification_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The bit8 notification request. Request MUST contain an EventType as top-level property and its value must be the MessageType name in L10 Messaging.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "The authorization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MessageOutput"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo"
+            }
+          },
+          "401": {
+            "description": "AUTHENTICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/push-notification/payment": {
+      "post": {
+        "tags": [
+          "Notificare Push Notification"
+        ],
+        "summary": "Send payment push notification",
+        "description": "Call method to send a payment push notification in Notificare.",
+        "operationId": "paymentNotification_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The settlement object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Settlement"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "The authorization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo"
+            }
+          },
+          "401": {
+            "description": "AUTHENTICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MessageOutput": {
+      "type": "object",
+      "required": [
+        "code",
+        "guid",
+        "message"
+      ],
+      "properties": {
+        "get_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string",
+          "description": "Response Message"
+        },
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Response Code"
+        },
+        "type": {
+          "type": "string",
+          "description": "Response Type"
+        },
+        "guid": {
+          "type": "string",
+          "description": "Unique GUID as generated from the Message Originator"
+        },
+        "source": {
+          "type": "string",
+          "description": "Response source"
+        },
+        "detail": {
+          "type": "string",
+          "description": "Response detail. Usually used in erroneous cases"
+        },
+        "data": {
+          "type": "string",
+          "description": "Response data"
+        }
+      },
+      "description": "The message output object"
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "object",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata"
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        },
+        "guid": {
+          "type": "string",
+          "description": "The unique identifier of the error process"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "Channel": {
+      "type": "object",
+      "required": [
+        "description",
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "A unique id of the channel"
+        },
+        "name": {
+          "type": "string",
+          "description": "The short name of the channel"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the channel"
+        }
+      },
+      "description": "The available channels"
+    },
+    "CreditType": {
+      "type": "object",
+      "required": [
+        "organization"
+      ],
+      "properties": {
+        "organization": {
+          "description": "The organization object",
+          "$ref": "#/definitions/Organization"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the credit Type"
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the credit Type"
+        }
+      },
+      "description": "The type of a credit"
+    },
+    "OddData": {
+      "type": "object",
+      "required": [
+        "decimal"
+      ],
+      "properties": {
+        "decimal": {
+          "type": "number",
+          "format": "double",
+          "description": "Decimal odds of each selection (e.g. 2,60)"
+        },
+        "fractional": {
+          "type": "string",
+          "description": "Fractional representation of odds (e.g. 8/5)"
+        }
+      },
+      "description": "The odds data object"
+    },
+    "Organization": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "a unique id of the organisation"
+        }
+      }
+    },
+    "Participation": {
+      "type": "object",
+      "required": [
+        "participationStatus"
+      ],
+      "properties": {
+        "participationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "A unique id for the participation"
+        },
+        "participationStatus": {
+          "description": "The status of the participation",
+          "$ref": "#/definitions/ParticipationStatus"
+        },
+        "drawNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The draw number"
+        },
+        "prizes": {
+          "type": "array",
+          "description": "The list of the prizes",
+          "items": {
+            "$ref": "#/definitions/Prize"
+          }
+        }
+      },
+      "description": "The participation object"
+    },
+    "ParticipationStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The participation status"
+        }
+      },
+      "description": "The participation status"
+    },
+    "Prize": {
+      "type": "object",
+      "required": [
+        "gross",
+        "net",
+        "refund"
+      ],
+      "properties": {
+        "winningId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The winning id"
+        },
+        "creditType": {
+          "description": "The credit type",
+          "$ref": "#/definitions/CreditType"
+        },
+        "gross": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The gross amount"
+        },
+        "net": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The net amount"
+        },
+        "refund": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The refund amount"
+        },
+        "tax": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The tax amount"
+        },
+        "bonus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The bonus amount"
+        },
+        "other": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The generic amount"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the amount"
+        },
+        "specialPrize": {
+          "description": "The special prize for passive games",
+          "$ref": "#/definitions/SpecialPrize"
+        },
+        "approvalStatus": {
+          "description": "The approval status",
+          "$ref": "#/definitions/The prize approval status"
+        },
+        "approvalLastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The last update of the approval"
+        },
+        "prizeStatus": {
+          "description": "The prize status",
+          "$ref": "#/definitions/The prize status"
+        }
+      },
+      "description": "The prize request"
+    },
+    "Selection": {
+      "type": "object",
+      "properties": {
+        "partNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of the selection. If there are 3 selections they should have 1,2,3 respectively"
+        },
+        "selectionId": {
+          "type": "string",
+          "description": "The selection id(For Iflex will be MARK_CODE_EVENT_CODE)"
+        },
+        "eventId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The event id"
+        },
+        "odds": {
+          "description": "The odds data object",
+          "$ref": "#/definitions/OddData"
+        },
+        "banker": {
+          "type": "boolean",
+          "description": "The banker definition"
+        },
+        "lines": {
+          "type": "array",
+          "description": "The Handicap/Under-Over value (Only IFlex will have 2 indexes (var0, var1))",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "getiMarket": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The index market(-1:No i-market 0..19: i-market played position OR 0..127: Live Home Team Score when the forecast=724..729)"
+        },
+        "scores": {
+          "type": "array",
+          "description": "The match score. Indexed by team A score[0] & team B score [1]",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "groupValue": {
+          "type": "array",
+          "description": "Mandatory for Iflex (0: No group), (1..10  : groups A, B, C, D, AB, AC, AD, BC, BD, CD), (11..20: R-groups A, B, C, D, AB, AC, AD, BC, BD, CD), (+100  : Banker selection)",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the selection, equivalent to the status of the BetPartPlacementResult"
+        },
+        "imarket": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "description": "The selection domain object"
+    },
+    "Settlement": {
+      "type": "object",
+      "required": [
+        "participation",
+        "transactionRequest"
+      ],
+      "properties": {
+        "betSlipId": {
+          "type": "string",
+          "description": "The betSlip identifier (Only for Amelco)"
+        },
+        "secondaryBetSlipId": {
+          "type": "string",
+          "description": "The second betSlip identifier (Only for Amelco)"
+        },
+        "betType": {
+          "type": "string",
+          "description": "The type of the bet"
+        },
+        "gameCategory": {
+          "type": "string",
+          "description": "The gameCategory"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the game"
+        },
+        "participation": {
+          "description": "The participation object",
+          "$ref": "#/definitions/Participation"
+        },
+        "selections": {
+          "type": "array",
+          "description": "The selection object",
+          "items": {
+            "$ref": "#/definitions/Selection"
+          }
+        },
+        "transactionRequest": {
+          "description": "The transaction request",
+          "$ref": "#/definitions/TransactionRequest"
+        },
+        "notifyPlayer": {
+          "type": "boolean",
+          "description": "If player wants to be notified"
+        }
+      },
+      "description": "Update winnings request"
+    },
+    "SpecialPrize": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The id of the specialPrize"
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the specialPrize"
+        }
+      },
+      "description": "The special prize for passive games"
+    },
+    "The prize approval status": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "The prize status": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the status code"
+        }
+      }
+    },
+    "TransactionRequest": {
+      "type": "object",
+      "required": [
+        "id",
+        "playerId",
+        "refId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique internal id of the transaction request, used as reserveRef"
+        },
+        "channel": {
+          "description": "The related channel",
+          "$ref": "#/definitions/Channel"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The unique id of the retailer"
+        },
+        "retailerTerminalId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The unique id of the retailer terminal"
+        },
+        "retailerEmployeeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The unique id of the retailer employee"
+        },
+        "type": {
+          "description": "The type of the transaction",
+          "$ref": "#/definitions/TransactionType"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The status of the transaction request"
+        },
+        "transactionTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the transaction occured"
+        },
+        "wagerPlacedTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the wager has been placed"
+        },
+        "wagerSettledTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the wager has been settled"
+        },
+        "refId": {
+          "type": "string",
+          "description": "A unique reference id"
+        },
+        "externalPartyName": {
+          "type": "string",
+          "description": "The external party name"
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The player id"
+        }
+      },
+      "description": "The request of the transaction"
+    },
+    "TransactionType": {
+      "type": "object",
+      "required": [
+        "description",
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The type of the transaction"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the type of the transaction"
+        }
+      },
+      "description": "The type of a transaction"
+    }
+  }
+}

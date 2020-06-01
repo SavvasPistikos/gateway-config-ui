@@ -1,0 +1,65 @@
+{
+    "wager": {
+        "dbg": [
+            {
+                "gameId": 2001,
+                "participatingDraws": {
+                    "multipleDraws": 1,
+                    "firstDraw": 234,
+                    "lastDraw": 234,
+                    "draws": [
+                        234
+                    ]
+                },
+                "multipliers": [
+                    1
+                ],
+                "columns": 1,
+                "creationTime": 1520932131293,
+                "status": "Played",
+                "blockStatus": "Unblocked",
+                "cost": 100,
+                "discount": 0,
+                "boards": [
+                    {
+                        "boardId": 1,
+                        "quickPick": true,
+                        "betType": "Straight",
+                        "multipliers": [
+                            1
+                        ],
+                        "panels": [
+                            {
+                                "quickPick": false,
+                                "requested": 1,
+                                "QPSelections": 1,
+                                "selection": [
+                                    1
+                                ]
+                            },
+                            {
+                                "quickPick": false,
+                                "requested": 1,
+                                "QPSelections": 1,
+                                "selection": [
+                                    2
+                                ]
+                            },
+                            {
+                                "quickPick": false,
+                                "requested": 1,
+                                "QPSelections": 1,
+                                "selection": [
+                                    3
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "pilot": true,
+    "serialNumber": "000000200100000000000300310934"
+}
+

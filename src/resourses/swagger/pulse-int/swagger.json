@@ -1,0 +1,2182 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "pulse-integrations"
+  },
+  "tags": [
+    {
+      "name": "New Accounting Model - Credit Limits"
+    },
+    {
+      "name": "Companies"
+    },
+    {
+      "name": "Point Of Sales"
+    },
+    {
+      "name": "Terminals"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/creditlimits/actions": {
+      "post": {
+        "tags": [
+          "New Accounting Model - Credit Limits"
+        ],
+        "summary": "Block, unblock transactions for a list of retailers. This method returns successfully if the transaction was successful for at least one retailer. This method can be synchronous or asynchronous depending on the 'callbackEndpoint' field. Idempotent for a predefined time period.",
+        "description": "",
+        "operationId": "actions",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data required for block-unblock transaction",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ActionsRequestDto",
+              "originalRef": "ActionsRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "if the method is asynchronous then the response will contain no data",
+            "schema": {
+              "$ref": "#/definitions/ActionsResponseDto",
+              "originalRef": "ActionsResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ActionsResponseDto",
+              "originalRef": "ActionsResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/creditlimits/daily": {
+      "post": {
+        "tags": [
+          "New Accounting Model - Credit Limits"
+        ],
+        "summary": "This method can be synchronous or asynchronous depending on the 'callbackEndpoint' field. If the date requested is in the past, the reply will contain the end of day gaming balance , the end of day credit limit and the end of day daily balance of requested retailers for the requested date. If the requested date is the current date, the reply will contain the same data of requested retailers up to the time of the request. This method returns successfully if the transaction was successfull for at least one retailer. Idempotent for a predefined time period.",
+        "description": "",
+        "operationId": "dailyGamingBalances",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data required for gaming balance inquiry transaction",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DailyRequestDto",
+              "originalRef": "DailyRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "if the method is asynchronous then the response will contain no data",
+            "schema": {
+              "$ref": "#/definitions/DailyResponseDto",
+              "originalRef": "DailyResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/DailyResponseDto",
+              "originalRef": "DailyResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/creditlimits/gamingbalances": {
+      "post": {
+        "tags": [
+          "New Accounting Model - Credit Limits"
+        ],
+        "summary": "This method has two actions: 1. gets the gaming balance and the credit limit 2. records the gaming balance value in order to calculate the gaming balance at the set credit limit transaction. For the point of view of that method, the gaming balance always equals the running balance. Those actions are on one or all retailers depending on the value of the retailerId input field. If the value is 0 then is for all retailers else is for the retailer with the specific retailer id. This method returns successfully if the transaction was successful for at least one retailer. This method can be synchronous or asynchronous depending on the 'callbackEndpoint' field. Idempotent for a predefined time period.",
+        "description": "",
+        "operationId": "gamingBalances",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data required for gaming balance inquiry transaction",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GamingBalanceRequestDto",
+              "originalRef": "GamingBalanceRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GamingBalancesResponseDto",
+              "originalRef": "GamingBalancesResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/GamingBalancesResponseDto",
+              "originalRef": "GamingBalancesResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/creditlimits": {
+      "post": {
+        "tags": [
+          "New Accounting Model - Credit Limits"
+        ],
+        "summary": "This method has two actions: 1.sets the credit limit of one retailer. 2. calculates the gaming balance(GB) and sets the running balance(RB) equal to GB. The rules for calculating the GB are as follows: the GB equals the difference of RB between the set credit limit (SCL) transaction and the gaming balance inquiry(GBI) transaction that is defined in inquiryId field. If two consecutives SCL transactions with no GBI in between or, the inquiryId is before the previous SCL transaction, then the transaction will be rejected with corresponding error codes. Idempotent for a predefined time period.",
+        "description": "",
+        "operationId": "creditLimits",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data required for set credit limit transaction",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreditLimitRequestDto",
+              "originalRef": "CreditLimitRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreditLimitsResponseDto",
+              "originalRef": "CreditLimitsResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CreditLimitsResponseDto",
+              "originalRef": "CreditLimitsResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/creditlimits/manual": {
+      "post": {
+        "tags": [
+          "New Accounting Model - Credit Limits"
+        ],
+        "summary": "This method allows manually set credit limit for list of retailers with their corresponding new credit limits",
+        "description": "",
+        "operationId": "creditLimits_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data required for set credit limit transaction",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManualCreditLimitRequestDto",
+              "originalRef": "ManualCreditLimitRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ManualCreditLimitsResponseDto",
+              "originalRef": "ManualCreditLimitsResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ManualCreditLimitsResponseDto",
+              "originalRef": "ManualCreditLimitsResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NamErrorInfo",
+              "originalRef": "NamErrorInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/companies/{companyTaxId}": {
+      "get": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Returns details of a company by its unique companyTaxId",
+        "description": "",
+        "operationId": "companyGet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "companyTaxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            }
+          },
+          "404": {
+            "description": "In case where the companyTaxId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Updates the details of a company entity",
+        "description": "",
+        "operationId": "companyUpdate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            }
+          },
+          {
+            "name": "companyTaxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returned upon success",
+            "schema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            }
+          },
+          "404": {
+            "description": "In case where the companyTaxId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Deletes a company by its unique companyTaxId",
+        "description": "",
+        "operationId": "companyDelete",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "companyTaxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "404": {
+            "description": "In case where the companyTaxId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/companies/{companyTaxId}/pointsofsales": {
+      "get": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "returns the POSes that this company is associated with",
+        "description": "",
+        "operationId": "getPosByCompany",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "companyTaxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PosMinimal",
+                "originalRef": "PosMinimal"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PosMinimal",
+                "originalRef": "PosMinimal"
+              }
+            }
+          },
+          "404": {
+            "description": "In case where the companyTaxId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/companies": {
+      "post": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Creates a company entity",
+        "description": "",
+        "operationId": "companySave",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Company",
+              "originalRef": "Company"
+            }
+          },
+          "500": {
+            "description": "In case of an error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "400": {
+            "description": "In case company already exists",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pointsofsales/{posAgencyCode}/companies/{companyTaxId}": {
+      "post": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Associates this POS with a company",
+        "description": "",
+        "operationId": "putPosToCompany",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "companyTaxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon successful creation"
+          },
+          "404": {
+            "description": "In case where the posAgencyCode or companyTaxId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "De-associates this POS with a company",
+        "description": "",
+        "operationId": "removePosFromCompany",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "companyTaxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "404": {
+            "description": "In case where the posAgencyCode or companyTaxId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pointsofsales/{posAgencyCode}/companies": {
+      "get": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Gets associated companies with this POS",
+        "description": "",
+        "operationId": "getCompaniesByPos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Company",
+                "originalRef": "Company"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Company",
+                "originalRef": "Company"
+              }
+            }
+          },
+          "404": {
+            "description": "In case where the posAgencyCode is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pointsofsales/{posAgencyCode}/terminals": {
+      "get": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Returns all terminals that are associated with this POS",
+        "description": "",
+        "operationId": "getTerminalsByPos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TerminalDTO",
+                "originalRef": "TerminalDTO"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TerminalDTO",
+                "originalRef": "TerminalDTO"
+              }
+            }
+          },
+          "404": {
+            "description": "In case where the posAgencyCode is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pointsofsales/{posAgencyCode}/terminals/{terminalLogicalId}": {
+      "post": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Creates terminal and adds it this POS. If terminal exists and is already assigned to a POS error will be returned.",
+        "description": "",
+        "operationId": "putTerminalToPos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "terminalLogicalId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "404": {
+            "description": "In case where the posAgencyCode is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case terminalLogicalId exists and is assigned to POS",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Removes this terminal from this POS",
+        "description": "",
+        "operationId": "removeTerminalFromPos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "terminalLogicalId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returned upon success"
+          },
+          "404": {
+            "description": "In case where the posAgencyCode or terminalLogicalId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pointsofsales/{posAgencyCode}": {
+      "get": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Get information about a POS.",
+        "description": "",
+        "operationId": "posGet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includeCompaniesAndTerminals",
+            "in": "header",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/PosFullEntity",
+              "originalRef": "PosFullEntity"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PosFullEntity",
+              "originalRef": "PosFullEntity"
+            }
+          },
+          "404": {
+            "description": "In case where the posAgencyCode is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Update retailer data. ",
+        "description": "",
+        "operationId": "posUpdate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/POS",
+              "originalRef": "POS"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/POS",
+              "originalRef": "POS"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/POS",
+              "originalRef": "POS"
+            }
+          },
+          "404": {
+            "description": "In case where the posAgencyCode is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Deletes a POS by its posAgencyCode",
+        "description": "",
+        "operationId": "posDelete",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "posAgencyCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "404": {
+            "description": "In case where the posAgencyCode is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pointsofsales": {
+      "post": {
+        "tags": [
+          "Point Of Sales"
+        ],
+        "summary": "Create retailer registry data. ",
+        "description": "",
+        "operationId": "posSave",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/POS",
+              "originalRef": "POS"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/POS",
+              "originalRef": "POS"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/POS",
+              "originalRef": "POS"
+            }
+          },
+          "400": {
+            "description": "Raised upon conflict. In the case where the posAgencyCode is already present, then this status code is returned, and no updates will happen in the database. ",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/{terminalLogicalId}": {
+      "delete": {
+        "tags": [
+          "Terminals"
+        ],
+        "summary": "Deletes a terminal by its unique terminalLogicalId",
+        "description": "",
+        "operationId": "terminalsTerminalLogicalIdDelete",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "terminalLogicalId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "404": {
+            "description": "In case where the terminalLogicalId is not found",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoObject": {
+      "type": "object"
+    },
+    "ActionsDataDto": {
+      "type": "object",
+      "required": [
+        "retailerId",
+        "status"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 11111,
+          "description": "the id of the retailer (6 digits)"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "the status of the transaction for the specific retailer id. values are: 1 : success , 0 : error"
+        }
+      }
+    },
+    "ActionsResponseDto": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/ReplyHeaderDto",
+          "originalRef": "ReplyHeaderDto"
+        },
+        "actionsData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionsDataDto",
+            "originalRef": "ActionsDataDto"
+          }
+        }
+      }
+    },
+    "ReplyHeaderDto": {
+      "type": "object",
+      "required": [
+        "commandPending",
+        "providerId",
+        "result",
+        "systemTime",
+        "transactionId"
+      ],
+      "properties": {
+        "providerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "As defined in LOTOS"
+        },
+        "transactionId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "Unique ID that should be generated by the provider"
+        },
+        "systemTime": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1538032483,
+          "description": "System acceptance time in UTC (seconds from ‘1/1/1970’)"
+        },
+        "result": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "Result code. Values are: 1 : succesful transaction, 150001 : invalid agent, 150002 : no previous gaming balance inquiry, 150003 : invalid inquiry transaction id, 150004 : failed to create a record for this transaction"
+        },
+        "commandPending": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "A flag that denotes if there is a pending message/command"
+        }
+      },
+      "description": "Credit Limits ReplyHeader"
+    },
+    "NamErrorInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "ActionsRequestDto": {
+      "type": "object",
+      "required": [
+        "action",
+        "listOfRetailers"
+      ],
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/HeaderRequest",
+          "originalRef": "HeaderRequest"
+        },
+        "listOfRetailers": {
+          "type": "array",
+          "description": "the retailers id.",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "action": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "0: unblock, 1: block sales, 2: block all",
+          "minimum": 0,
+          "maximum": 2,
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "callbackEndpoint": {
+          "type": "string",
+          "example": "http://a.b.com/c",
+          "description": "the url that the callback will use in order to post the data. if this field is empty or missing the method will act synchronously."
+        }
+      }
+    },
+    "HeaderRequest": {
+      "type": "object",
+      "required": [
+        "providerId",
+        "transactionId",
+        "transactionTime"
+      ],
+      "properties": {
+        "providerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "the id of the provider, in that api the provider is the credit pool"
+        },
+        "transactionId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "Unique number generated by Credit Pool."
+        },
+        "transactionTime": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1538033285,
+          "description": "Call time in UTC (seconds from ‘1/1/1970’)."
+        }
+      },
+      "description": "HeaderRequest"
+    },
+    "DailyResponseDto": {
+      "type": "object",
+      "required": [
+        "dailyData",
+        "date"
+      ],
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/ReplyHeaderDto",
+          "originalRef": "ReplyHeaderDto"
+        },
+        "date": {
+          "type": "string",
+          "example": "DD/MM/YYYY",
+          "description": "Date: DD/MM/YYYY (10 digits)"
+        },
+        "dailyData": {
+          "type": "array",
+          "description": "daily data",
+          "items": {
+            "$ref": "#/definitions/DailyRetailerDataDto",
+            "originalRef": "DailyRetailerDataDto"
+          }
+        }
+      }
+    },
+    "DailyRetailerDataDto": {
+      "type": "object",
+      "required": [
+        "creditLimit",
+        "dailyBalance",
+        "gamingBalance",
+        "retailerId",
+        "status"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 11111,
+          "description": "same with the one in request"
+        },
+        "gamingBalance": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "dailyBalance": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "creditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "the status of the transaction for the specific retailer id. values are: 1 : success , 0 : error"
+        }
+      }
+    },
+    "DailyRequestDto": {
+      "type": "object",
+      "required": [
+        "date",
+        "retailerId"
+      ],
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/HeaderRequest",
+          "originalRef": "HeaderRequest"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 575757,
+          "description": "if retailer id is 0 this method will act on all retailers.",
+          "minimum": 0
+        },
+        "callbackEndpoint": {
+          "type": "string",
+          "example": "http://a.b.com/c",
+          "description": "the url that the callback will use in order to post the data. if this field is empty or missing the method will act synchronously."
+        },
+        "date": {
+          "type": "string",
+          "example": "DD/MM/YYYY",
+          "description": "Date: DD/MM/YYYY (10 digits)"
+        }
+      }
+    },
+    "GamingBalancesDataDto": {
+      "type": "object",
+      "required": [
+        "creditLimit",
+        "creditLimitTrnsId",
+        "gamingBalance",
+        "retailerId",
+        "status"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 111111,
+          "description": "the retailer id(6 digits)"
+        },
+        "gamingBalance": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1000,
+          "description": "amount in cents"
+        },
+        "creditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1000,
+          "description": "amount in cents"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "the status of the transaction for the specific retailer id. values are: 1 : success , 0 : error"
+        },
+        "creditLimitTrnsId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 0,
+          "description": "the transaction id of the last set credit limit transaction"
+        }
+      },
+      "description": "Gaming Balances Data"
+    },
+    "GamingBalancesResponseDto": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/ReplyHeaderDto",
+          "originalRef": "ReplyHeaderDto"
+        },
+        "gamingBalancesData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GamingBalancesDataDto",
+            "originalRef": "GamingBalancesDataDto"
+          }
+        }
+      }
+    },
+    "GamingBalanceRequestDto": {
+      "type": "object",
+      "required": [
+        "retailerId"
+      ],
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/HeaderRequest",
+          "originalRef": "HeaderRequest"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 575757,
+          "description": "if retailer id is 0 this method will act on all retailers.",
+          "minimum": 0
+        },
+        "callbackEndpoint": {
+          "type": "string",
+          "example": "http://a.b.com/c",
+          "description": "the url that the callback will use in order to post the data. if this field is empty or missing the method will act synchronously."
+        }
+      }
+    },
+    "CreditLimitsResponseDto": {
+      "type": "object",
+      "required": [
+        "creditLimit",
+        "gamingBalance",
+        "inquiryId",
+        "retailerId"
+      ],
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/ReplyHeaderDto",
+          "originalRef": "ReplyHeaderDto"
+        },
+        "gamingBalance": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "inquiryId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "as the one in request"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 11111,
+          "description": "same with the one in request"
+        },
+        "creditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        }
+      }
+    },
+    "CreditLimitRequestDto": {
+      "type": "object",
+      "required": [
+        "creditLimit",
+        "inquiryId",
+        "retailerId"
+      ],
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/HeaderRequest",
+          "originalRef": "HeaderRequest"
+        },
+        "inquiryId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "the transaction id of the gaming balance inquiry that will be used in order to calculate the gaming balance. "
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 575757,
+          "description": "the id of the retailer (6 digits)"
+        },
+        "creditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "the credit limit in euros, only integer values"
+        }
+      }
+    },
+    "ManualCreditLimitDataDto": {
+      "type": "object",
+      "required": [
+        "availableCreditLimit",
+        "creditLimit",
+        "gamingBalance",
+        "retailerId",
+        "status"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 11111,
+          "description": "same with the one in request"
+        },
+        "gamingBalance": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "creditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "availableCreditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "example": 11111,
+          "description": "amount in cents"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "Result code. Values are: 1 for success and 0 failed to update credit limit for retailer"
+        }
+      }
+    },
+    "ManualCreditLimitsResponseDto": {
+      "type": "object",
+      "required": [
+        "filename",
+        "result"
+      ],
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "the incoming filename"
+        },
+        "result": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "Result code. Values are: 1 for success (at least one successful update) and 0 for fail (all retailers)"
+        },
+        "manualCreditLimitData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ManualCreditLimitDataDto",
+            "originalRef": "ManualCreditLimitDataDto"
+          }
+        }
+      }
+    },
+    "ManualCreditLimitRequestDto": {
+      "type": "object",
+      "required": [
+        "filename",
+        "retailers"
+      ],
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "the incoming filename"
+        },
+        "retailers": {
+          "type": "array",
+          "description": "the list of retailer ids with their new credit limits amounts",
+          "items": {
+            "$ref": "#/definitions/RetailerAmount",
+            "originalRef": "RetailerAmount"
+          }
+        }
+      }
+    },
+    "RetailerAmount": {
+      "type": "object",
+      "required": [
+        "creditLimit",
+        "retailerId"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the id of retailer"
+        },
+        "creditLimit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the new credit limit (in cents) amount of retailer"
+        }
+      }
+    },
+    "MonoBoolean": {
+      "type": "object"
+    },
+    "L10FaultInfo": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "MonoArrayListPosMinimal": {
+      "type": "object"
+    },
+    "PosMinimal": {
+      "type": "object",
+      "required": [
+        "posAgencyCode"
+      ],
+      "properties": {
+        "posAgencyCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Primary key in DB - 6 digit"
+        },
+        "posLicenseStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1 Active, 0 Inactive"
+        }
+      }
+    },
+    "MonoCompany": {
+      "type": "object"
+    },
+    "Company": {
+      "type": "object",
+      "required": [
+        "companyName",
+        "companyTaxId",
+        "countryId",
+        "legalEntityType"
+      ],
+      "properties": {
+        "companyTaxId": {
+          "type": "string",
+          "description": "Tax Identification number. 9 digits for Greece, 8 digits + 1 char for Cyprus"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Name of the company"
+        },
+        "legalEntityType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Possible values: 1\tΑτομική Επιχείρηση\n2\tΟμόρρυθμος Εταιρεία (Ο.Ε.)\n3\tΕτερόρρυθμος Εταιρεία (Ε.Ε)\n4\tΑνώνυμος Εταιρεία (Α.Ε.)\n5\tΕταιρεία Περιορισμένης Ευθύνης (Ε.Π.Ε.)\n6\tΜονοπρόσωπη Ε.Π.Ε.\n7\tΑφανής ή Συμμετοχική Εταιρεία\n8\tΚοινοπραξίες - Joint Ventures\n9\tΚοινοπραξία Πλοιοκτητών\n10\tΦυσικό Πρόσωπο\n11\tΚοινωνία Αστικού Δικαίου\n12\tΜονοπρόσωπη Ιδιωτική Κεφαλαιουχική Εταιρεία ( Ι.Κ.Ε.)\n13\tΙδιωτική Κεφαλαιουχική Εταιρεία ( Ι.Κ.Ε.)\n"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Landline phone"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "Mobile phone"
+        },
+        "countryId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1 for Greece, 2 for Cyprus"
+        },
+        "country": {
+          "type": "string",
+          "description": "Ignored on POST/PUT. GR for Greece, CY for Cyprus",
+          "enum": [
+            "GR",
+            "CY"
+          ]
+        }
+      },
+      "description": "Company Model"
+    },
+    "MonoArrayListCompany": {
+      "type": "object"
+    },
+    "MonoListTerminalDTO": {
+      "type": "object"
+    },
+    "TerminalDTO": {
+      "type": "object",
+      "required": [
+        "terminalLogicalId"
+      ],
+      "properties": {
+        "terminalLogicalId": {
+          "type": "string",
+          "description": "Format: TerminalId+TerminalType+TerminalSequence <6Digits+3Chars+2Digits>. Eg: 123456NVT02. \n TerminalType possible values: NVT, SBT, TBL, HPT, TRM, WTL"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "area"
+      ],
+      "properties": {
+        "area": {
+          "type": "string",
+          "description": "L7_ORIG_CD ONLY THIS REQUIRED to create POS. (city, town or village)"
+        },
+        "street": {
+          "type": "string",
+          "description": "Street name"
+        },
+        "streetNumber": {
+          "type": "string",
+          "description": "Street number"
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code"
+        }
+      },
+      "description": "Retailer address information"
+    },
+    "POS": {
+      "type": "object",
+      "required": [
+        "address",
+        "countryId",
+        "location",
+        "operator",
+        "posAgencyCode",
+        "posLicenseStatus"
+      ],
+      "properties": {
+        "operator": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1 For Greece, 2 for Cyprus."
+        },
+        "posNamStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Ignored on POST/PUT. 1 Active, 2 Blocked, 3 Inactive"
+        },
+        "posAgencyCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Primary key in DB - 6 digit",
+          "minimum": 100000,
+          "maximum": 999999
+        },
+        "posLicenseStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Allowed values: 0:INACTIVE, 1:ACTIVE. Actionable field - ACTIVE/INACTIVE RMS ensures that inactive POS are not allowed to carry out any transactions."
+        },
+        "countryId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1 for Greece, 2 for Cyprus. NOT L1_CD!!!"
+        },
+        "posCountry": {
+          "type": "string",
+          "description": "Ignored on POST/PUT. GR for Greece, CY for Cyprus",
+          "enum": [
+            "GR",
+            "CY"
+          ]
+        },
+        "address": {
+          "description": "Retailer address data",
+          "$ref": "#/definitions/Address",
+          "originalRef": "Address"
+        },
+        "posLandPhone": {
+          "type": "string",
+          "description": "Landline phone"
+        },
+        "posMobile": {
+          "type": "string",
+          "description": "Mobile phone"
+        },
+        "location": {
+          "description": "Latitude/Longitude of physical store",
+          "$ref": "#/definitions/POSLocation",
+          "originalRef": "POSLocation"
+        }
+      },
+      "description": "POS (Retailer) model"
+    },
+    "POSLocation": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "string",
+          "description": "the latitude of the POS"
+        },
+        "lng": {
+          "type": "string",
+          "description": "the longitude of the POS"
+        }
+      }
+    },
+    "PosFullEntity": {
+      "type": "object",
+      "required": [
+        "pos"
+      ],
+      "properties": {
+        "pos": {
+          "description": "Information about a POS",
+          "$ref": "#/definitions/POS",
+          "originalRef": "POS"
+        },
+        "terminals": {
+          "type": "array",
+          "description": "Terminals associated with this POS",
+          "items": {
+            "$ref": "#/definitions/TerminalDTO",
+            "originalRef": "TerminalDTO"
+          }
+        },
+        "companies": {
+          "type": "array",
+          "description": "Companies associated with this POS",
+          "items": {
+            "$ref": "#/definitions/Company",
+            "originalRef": "Company"
+          }
+        }
+      }
+    },
+    "MonoPOS": {
+      "type": "object"
+    }
+  }
+}

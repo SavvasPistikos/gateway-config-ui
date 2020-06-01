@@ -1,0 +1,42 @@
+{
+  "wagerId" : 33,
+  "serialNumbers" : [ "05075107850000002144422814603835470" ],
+  "wager" : {
+    "dbg" : [ {
+      "boards" : [ {
+        "betType" : 1,
+        "boardId" : 1,
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1, 2, 3, 4, 5, 6 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 7 ]
+        } ],
+        "quickPick" : false
+      }, {
+        "betType" : 1,
+        "boardId" : 2,
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 6, 7, 8, 9, 10 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 12, 19 ]
+        } ],
+        "quickPick" : false
+      } ],
+      "columns" : 8,
+      "cost" : 4,
+      "gameId" : 5104,
+      "multipliers" : [ 1 ],
+      "participatingDraws" : {
+        "firstDraw" : 1145,
+        "firstDrawTime" : "1539280800",
+        "lastDraw" : 1145,
+        "lastDrawTime" : "1539280800",
+        "multipleDraws" : 1
+      }
+    } ]
+  }
+}

@@ -1,0 +1,2248 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Below you can find the API documentation for operations of Game Scheduler.",
+    "version": "1.0",
+    "title": "Game Scheduler",
+    "contact": {
+      "name": "Intralot S.A."
+    }
+  },
+  "basePath": "/game-scheduler/api/v1.0",
+  "tags": [
+    {
+      "name": "Cache operations"
+    },
+    {
+      "name": "Lottery draw operations"
+    },
+    {
+      "name": "Lottery draw notification operations"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/cache/active/games": {
+      "delete": {
+        "tags": [
+          "Cache operations"
+        ],
+        "summary": "Clear cache of active game definitions",
+        "description": "",
+        "operationId": "clearActiveGameDefinitionCache",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/cache/active/games/{gameId}": {
+      "put": {
+        "tags": [
+          "Cache operations"
+        ],
+        "summary": "Cache active game definition for game",
+        "description": "",
+        "operationId": "cacheActiveGameDefinitionForGame",
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/lottery/draws": {
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Manage future draw creation and draw transition for all games",
+        "description": "",
+        "operationId": "checkDrawsForAllGames",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/lottery/draws/updated-after/{updateTime}": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve all draws that were updated after the provided date",
+        "description": "",
+        "operationId": "findAllByUpdateTime",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "updateTime",
+            "in": "path",
+            "description": "Search for draws that were update after this time. Time should be in UTC in milliseconds",
+            "required": true,
+            "type": "integer",
+            "minimum": 946684800000,
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: gameId, drawId, drawTime, status, drawBreak, visualDraw, gameRuleVersion",
+            "required": false,
+            "type": "string",
+            "default": "gameId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageLotteryDraw"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/minimized/{gameId}": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve all draws for requested game code (minimized).",
+        "description": "Contains some basic draw information: drawId, gameRuleVersion, winningRevision, drawTime, status and conditionally the prizeCategories. For each item of the prizeCategories list it contains the id and dividentAmount.",
+        "operationId": "getLotteryDrawsMinimized",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "fromDraw",
+            "in": "query",
+            "description": "Search for draws starting from chosen draw.",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "toDraw",
+            "in": "query",
+            "description": "Search for draws ending at chosen draw.",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Search for draws based on status. 0:Initial, 1:Defined, 2:Active, 3:Completed, 4:Distributed Calculated, 5:Winning Numbers Entered, 6:Winners Dividents Calculated, ",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "prizeCategoriesForStatus",
+            "in": "query",
+            "description": "Get PrizeCategories for draws based on status. 0:Initial, 1:Defined, 2:Active, 3:Completed, 4:Distributed Calculated, 5:Winning Numbers Entered, 6:Winners Dividents Calculated, ",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "_filters",
+            "in": "query",
+            "description": "Filter the response.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "maximum": 500,
+            "minimum": 1
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: drawId, drawTime, status, drawBreak, visualDraw, gameRuleVersion",
+            "required": false,
+            "type": "string",
+            "default": "drawId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageLotteryDraw"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve all draws for requested game code (minimized).",
+        "description": "Contains some basic draw information: drawId, gameRuleVersion, winningRevision, drawTime, status and conditionally the prizeCategories. For each item of the prizeCategories list it contains the id and dividentAmount.",
+        "operationId": "getLotteryDrawsMinimizedArray",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Search for draws based on status. 0:Initial, 1:Defined, 2:Active, 3:Completed, 4:Distributed Calculated, 5:Winning Numbers Entered, 6:Winners Dividents Calculated, ",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "prizeCategoriesForStatus",
+            "in": "query",
+            "description": "Get PrizeCategories for draws based on status. 0:Initial, 1:Defined, 2:Active, 3:Completed, 4:Distributed Calculated, 5:Winning Numbers Entered, 6:Winners Dividents Calculated, ",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "_filters",
+            "in": "query",
+            "description": "Filter the response.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetMinimizedDrawsRequest"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "maximum": 500,
+            "minimum": 1
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: drawId, drawTime, status, drawBreak, visualDraw, gameRuleVersion",
+            "required": false,
+            "type": "string",
+            "default": "drawId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageLotteryDraw"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/active": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve all active draws for all games",
+        "description": "",
+        "operationId": "getAllActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: gameId, drawId, drawTime, status, drawBreak, visualDraw, gameRuleVersion",
+            "required": false,
+            "type": "string",
+            "default": "gameId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageLotteryDraw"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve all draws for requested game code",
+        "description": "",
+        "operationId": "findAllForGame",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "Search for draws after chosen time. Time should be in UTC in milliseconds",
+            "required": false,
+            "type": "integer",
+            "minimum": 946684800000,
+            "format": "int64"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "Search for draws before chosen time. Time should be in UTC in milliseconds",
+            "required": false,
+            "type": "integer",
+            "minimum": 946684800000,
+            "format": "int64"
+          },
+          {
+            "name": "fromDraw",
+            "in": "query",
+            "description": "Search for draws starting from chosen draw.",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "toDraw",
+            "in": "query",
+            "description": "Search for draws ending at chosen draw.",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Search for draws based on status. 0:Initial, 1:Defined, 2:Active, 3:Completed, 4:Distributed Calculated, 5:Winning Numbers Entered, 6:Winners Dividents Calculated, ",
+            "required": false,
+            "type": "integer",
+            "maximum": 17,
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: gameId, drawId, drawTime, status, drawBreak, visualDraw, gameRuleVersion",
+            "required": false,
+            "type": "string",
+            "default": "gameId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageLotteryDraw"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/active": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve active draw for requested game code",
+        "description": "",
+        "operationId": "findActive",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/futures": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve active and future draws for requested game code.",
+        "description": "",
+        "operationId": "findFutures",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "summaryOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotteryDrawDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve specific draw for requested game code",
+        "description": "",
+        "operationId": "findDraw",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Update existing draw",
+        "description": "",
+        "operationId": "updateDraw",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/transition": {
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Trigger draw transition for game",
+        "description": "",
+        "operationId": "gameDrawTransition",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}/winningNumbers": {
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Register winning numbers",
+        "description": "",
+        "operationId": "insertWinningNumbers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Array of winning numbers corresponding to winning column. List of String where each String corresponds to the winning numbers of each winning column. Winning numbers of each winning column should be comma separated.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Delete winning numbers for draw",
+        "description": "",
+        "operationId": "deleteWinningNumbers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}/winningNumbers/rng": {
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Register winning numbers - Retrieving from RNG",
+        "description": "",
+        "operationId": "insertWinningNumbersRNG",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          },
+          "204": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}/results": {
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Update draw result, draw status and winners per operator",
+        "description": "",
+        "operationId": "updateExtendedResultsAndStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "targetStatus",
+            "in": "query",
+            "description": "Target status",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Draw results",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawExtendedResultDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Update draw results",
+        "description": "",
+        "operationId": "updateResults",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "currentStatus",
+            "in": "query",
+            "description": "Current status of the draw at the time of the update",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Draw results",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotteryDrawResultUpdateRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Undo draw results",
+        "description": "",
+        "operationId": "undoResults",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "targetStatus",
+            "in": "query",
+            "description": "Target status",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}/passive": {
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Register passive draw results details, winning numbers and prize categories",
+        "description": "",
+        "operationId": "passiveResults",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Array of passive results and winning numbers corresponding to category result code.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PassiveDrawResultDetail"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}/statistics": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve draw statistics",
+        "description": "",
+        "operationId": "getDrawStatistics",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawStatisticsDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Register draw statistics",
+        "description": "",
+        "operationId": "insertDrawStatistics",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Draw statistics",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawStatisticsDetailsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawStatisticsDTO"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Delete draw statistics",
+        "description": "",
+        "operationId": "deleteDrawStatistics",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawStatisticsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/draws/{gameId}/{drawId}/statistics/aggregated": {
+      "get": {
+        "tags": [
+          "Lottery draw operations"
+        ],
+        "summary": "Retrieve draw aggregated wagers statistics",
+        "description": "",
+        "operationId": "getDrawStatisticsAggregated",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "drawId",
+            "in": "path",
+            "description": "Draw number",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LotteryDrawStatisticsDTO"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/notifications": {
+      "post": {
+        "tags": [
+          "Lottery draw notification operations"
+        ],
+        "summary": "Send all pending notifications",
+        "description": "",
+        "operationId": "sendAllPendingNotifications",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/lottery/notifications{gameId}/{fromDraw}/{toDraw}": {
+      "post": {
+        "tags": [
+          "Lottery draw notification operations"
+        ],
+        "summary": "Notifies Information store about a range of draws using Draw Id.",
+        "description": "",
+        "operationId": "notifyRangeOfDraws",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "fromDraw",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "toDraw",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotteryDrawDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lottery/migration/{gameId}/{fromDraw}/{toDraw}": {
+      "post": {
+        "tags": [
+          "Lottery draw notification operations"
+        ],
+        "summary": "Migrates Draws for a game to Information store",
+        "description": "",
+        "operationId": "migrateRangeOfDrawsToInfostore",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gameId",
+            "in": "path",
+            "description": "Game code",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "fromDraw",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "toDraw",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MigrationStats"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/notifications/batches/{batches}": {
+      "post": {
+        "tags": [
+          "Lottery draw notification operations"
+        ],
+        "summary": "Send batches of pending notifications",
+        "description": "",
+        "operationId": "sendBatchesOfPendingNotifications",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "batches",
+            "in": "path",
+            "description": "Number of batches",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LotteryDrawDTO": {
+      "type": "object",
+      "required": [
+        "drawBreak",
+        "drawId",
+        "drawTime",
+        "gameId",
+        "gameRuleVersion",
+        "status",
+        "visualDraw",
+        "winningRevision"
+      ],
+      "properties": {
+        "gameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game code"
+        },
+        "drawId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Draw number"
+        },
+        "drawTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Draw time in UTC in milliseconds"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Draw status"
+        },
+        "drawBreak": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Draw break in milliseconds"
+        },
+        "visualDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Visual draw"
+        },
+        "gameRuleVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game rule version"
+        },
+        "winningNumbers": {
+          "type": "array",
+          "description": "Array of winning numbers corresponding to winning column. List of String where each String corresponds to the winning numbers ofeach winning column. Winning numbers of each winning column should be comma separated.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prizeCategories": {
+          "type": "array",
+          "description": "Prize categories",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawResultsDTO"
+          }
+        },
+        "winningRevision": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Winning revision"
+        },
+        "activationTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Time that the draw was activated"
+        },
+        "typeId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Normal=1, SuperSaturday=2 (default value=1)"
+        },
+        "reservedFund": {
+          "type": "number",
+          "format": "double",
+          "description": "Reserved fund amount of draw",
+          "minimum": 0
+        }
+      }
+    },
+    "LotteryDrawResultsDTO": {
+      "type": "object",
+      "required": [
+        "bonusAmount",
+        "distributedAmount",
+        "dividentAmount",
+        "id",
+        "jackpotAmount",
+        "netDividentAmount",
+        "roundingAmount",
+        "taxationAmount",
+        "winners"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The unique id of the result",
+          "minimum": 1
+        },
+        "distributedAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Distributed amount to all winners of category",
+          "minimum": 0
+        },
+        "dividentAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Gross divident amount per winner of category",
+          "minimum": 0
+        },
+        "taxationAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Taxation amount per winner of category",
+          "minimum": 0
+        },
+        "roundingAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Rounding amount per winner of category",
+          "minimum": 0
+        },
+        "bonusAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Bonus amount per winner of category",
+          "minimum": 0
+        },
+        "jackpotAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Jackpot amount per winner of category",
+          "minimum": 0
+        },
+        "netDividentAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Net divident amount per winner of category",
+          "minimum": 0
+        },
+        "winners": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of category winners",
+          "minimum": 0
+        },
+        "passiveDrawResult": {
+          "description": "Passive draw result",
+          "$ref": "#/definitions/PassiveDrawResultDTO"
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PageLotteryDrawDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PassiveDrawResultDTO": {
+      "type": "object",
+      "required": [
+        "prizeConsolation",
+        "prizeJackpot",
+        "prizeXL"
+      ],
+      "properties": {
+        "prizeJackpot": {
+          "type": "boolean",
+          "description": "Jackpot prize flag of category"
+        },
+        "prizeConsolation": {
+          "type": "boolean",
+          "description": "Consolation prize flag of category"
+        },
+        "prizeXL": {
+          "type": "boolean",
+          "description": "XL prize flag of category"
+        }
+      },
+      "description": "A passive draw result request details entity"
+    },
+    "Sort": {
+      "type": "object"
+    },
+    "PageLotteryDraw": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort"
+        }
+      }
+    },
+    "GetMinimizedDrawsRequest": {
+      "type": "object",
+      "properties": {
+        "drawIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "LotteryDrawUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Draw status"
+        },
+        "drawTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Draw time"
+        },
+        "visualDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Visual draw",
+          "minimum": 0
+        }
+      },
+      "description": "A Draw update request entity"
+    },
+    "LotteryDrawExtendedResultDTO": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "array",
+          "description": "List of Category results",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawResultDTO"
+          }
+        },
+        "partial": {
+          "description": "List of Operator Category results",
+          "$ref": "#/definitions/LotteryDrawExtraResultDTO"
+        },
+        "reservedFund": {
+          "type": "number",
+          "format": "double",
+          "description": "Reserve fund amount",
+          "minimum": 0
+        }
+      },
+      "description": "The request DTO for extended updating the Draw Results"
+    },
+    "LotteryDrawExtraResultDTO": {
+      "type": "object",
+      "properties": {
+        "operatorsSuccesses": {
+          "type": "array",
+          "description": "List of Operator Category results",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawOperatorsSuccessesDTO"
+          }
+        }
+      },
+      "description": "The request DTO for updating Additional Draw Results"
+    },
+    "LotteryDrawOperatorSuccessesDetailsDTO": {
+      "type": "object",
+      "required": [
+        "id",
+        "successes"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The unique id of the category",
+          "minimum": 0
+        },
+        "successes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of successes per category",
+          "minimum": 0
+        }
+      },
+      "description": "Number of successes per category request entity"
+    },
+    "LotteryDrawOperatorsSuccessesDTO": {
+      "type": "object",
+      "required": [
+        "operatorId"
+      ],
+      "properties": {
+        "operatorId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The operator id",
+          "minimum": 0
+        },
+        "categoriesSuccesses": {
+          "type": "array",
+          "description": "List of successes per category",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawOperatorSuccessesDetailsDTO"
+          }
+        }
+      },
+      "description": "The request DTO for updating the number of winners per operator"
+    },
+    "LotteryDrawResultDTO": {
+      "type": "object",
+      "required": [
+        "bonusAmount",
+        "distributedAmount",
+        "dividentAmount",
+        "id",
+        "jackpotAmount",
+        "netDividentAmount",
+        "roundingAmount",
+        "taxationAmount",
+        "winners"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The unique id of the result",
+          "minimum": 0
+        },
+        "distributedAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Distributed amount to all winners of category",
+          "minimum": 0
+        },
+        "dividentAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Gross divident amount per winner of category",
+          "minimum": 0
+        },
+        "taxationAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Taxation amount per winner of category",
+          "minimum": 0
+        },
+        "roundingAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Rounding amount per winner of category",
+          "minimum": 0
+        },
+        "bonusAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Bonus amount per winner of category",
+          "minimum": 0
+        },
+        "jackpotAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Jackpot amount per winner of category",
+          "minimum": 0
+        },
+        "netDividentAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Net divident amount per winner of category",
+          "minimum": 0
+        },
+        "winners": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of category winners",
+          "minimum": 0
+        },
+        "passiveDrawResult": {
+          "description": "Passive draw result",
+          "$ref": "#/definitions/PassiveDrawResultDTO"
+        }
+      },
+      "description": "A draw result request entity"
+    },
+    "LotteryDrawResultUpdateRequest": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The unique id of the result",
+          "minimum": 0
+        },
+        "distributedAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Distributed amount to all winners of category",
+          "minimum": 0
+        },
+        "dividentAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Gross divident amount per winner of category",
+          "minimum": 0
+        },
+        "taxationAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Taxation amount per winner of category",
+          "minimum": 0
+        },
+        "roundingAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Rounding amount per winner of category",
+          "minimum": 0
+        },
+        "bonusAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Bonus amount per winner of category",
+          "minimum": 0
+        },
+        "jackpotAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Jackpot amount per winner of category",
+          "minimum": 0
+        },
+        "netDividentAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Net divident amount per winner of category",
+          "minimum": 0
+        }
+      },
+      "description": "A draw result update request entity"
+    },
+    "PassiveDrawResultDetail": {
+      "type": "object",
+      "required": [
+        "prizeAmount",
+        "prizeConsolation",
+        "prizeJackpot",
+        "prizeXL",
+        "ruleId",
+        "winningNumber"
+      ],
+      "properties": {
+        "ruleId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The rule identifier, winning category id"
+        },
+        "winningNumber": {
+          "type": "string",
+          "description": "Winning number to passive category id"
+        },
+        "prizeAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "Prize amount to passive category id",
+          "minimum": 0
+        },
+        "prizeJackpot": {
+          "type": "boolean",
+          "description": "Jackpot prize flag of category"
+        },
+        "prizeConsolation": {
+          "type": "boolean",
+          "description": "Consolation prize flag of category"
+        },
+        "prizeXL": {
+          "type": "boolean",
+          "description": "XL prize flag of category"
+        }
+      },
+      "description": "A passive draw result request detail entity"
+    },
+    "LotteryDrawStatisticsBoardsDTO": {
+      "type": "object",
+      "required": [
+        "betType",
+        "boards",
+        "columns",
+        "playDrawId",
+        "wagerType"
+      ],
+      "properties": {
+        "playDrawId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Play draw"
+        },
+        "wagerType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Wager Type"
+        },
+        "betType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Bet type",
+          "minimum": 0
+        },
+        "boards": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total boards",
+          "minimum": 0
+        },
+        "columns": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total columns",
+          "minimum": 0
+        }
+      }
+    },
+    "LotteryDrawStatisticsDTO": {
+      "type": "object",
+      "required": [
+        "boardsStatistics",
+        "drawId",
+        "gameId",
+        "wagersStatistics"
+      ],
+      "properties": {
+        "gameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game code"
+        },
+        "drawId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Draw number"
+        },
+        "wagersStatistics": {
+          "type": "array",
+          "description": "Wagers statistics data",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawStatisticsWagersDTO"
+          }
+        },
+        "boardsStatistics": {
+          "type": "array",
+          "description": "Boards statistics data",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawStatisticsBoardsDTO"
+          }
+        }
+      }
+    },
+    "LotteryDrawStatisticsWagersDTO": {
+      "type": "object",
+      "required": [
+        "columns",
+        "discount",
+        "gameType",
+        "operatorId",
+        "playDrawId",
+        "sales",
+        "wagerType",
+        "wagers"
+      ],
+      "properties": {
+        "playDrawId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Play draw"
+        },
+        "operatorId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Operator Id"
+        },
+        "wagerType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Wager Type"
+        },
+        "gameType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game Type"
+        },
+        "wagers": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total wagers",
+          "minimum": 0
+        },
+        "columns": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total columns",
+          "minimum": 0
+        },
+        "sales": {
+          "type": "number",
+          "format": "double",
+          "description": "Total sales",
+          "minimum": 0
+        },
+        "discount": {
+          "type": "number",
+          "format": "double",
+          "description": "Total discount",
+          "minimum": 0
+        }
+      }
+    },
+    "LotteryDrawStatisticsDetailsDTO": {
+      "type": "object",
+      "required": [
+        "boardsStatistics",
+        "wagersStatistics"
+      ],
+      "properties": {
+        "wagersStatistics": {
+          "type": "array",
+          "description": "Array of wager statistics data",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawStatisticsWagersDTO"
+          }
+        },
+        "boardsStatistics": {
+          "type": "array",
+          "description": "Array of boards statistics data",
+          "items": {
+            "$ref": "#/definitions/LotteryDrawStatisticsBoardsDTO"
+          }
+        }
+      }
+    },
+    "MigrationBatchStats": {
+      "type": "object",
+      "properties": {
+        "requestedFromDrawId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "requestedToDrawId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "migrated": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "firstDraw": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastDraw": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MigrationStats": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "requestedFromDrawId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "requestedToDrawId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalMigrated": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalTps": {
+          "type": "number",
+          "format": "double"
+        },
+        "firstDraw": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastDraw": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MigrationBatchStats"
+          }
+        }
+      }
+    }
+  }
+}

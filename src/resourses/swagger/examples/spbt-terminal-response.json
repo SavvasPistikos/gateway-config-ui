@@ -1,0 +1,96 @@
+{
+	"wager": {
+		"spbt": {
+			"gameId": 0,
+			"betslipStake": 0,
+			"betslipBonusStake": 0,
+			"betslipDiscountStake": 0,
+			"betslipTotalCost": 0,
+			"betslipPotentialPayout": 0,
+			"betslipPotentialBonusWinnings": 0,
+			"placedTime": 0,
+			"selections": [
+				{
+					"position": 0,
+					"banker": true,
+					"eventId": 0,
+					"getiMarket": 0,
+					"groupValue": [
+						0
+					],
+					"imarket": 0,
+					"lines": [
+						0
+					],
+					"odds": [
+						{
+							"decimal": 0,
+							"fractional": "string"
+						}
+					],
+					"partNo": 0,
+					"scores": [
+						0
+					],
+					"selectionId": [
+						"string"
+					],
+					"status": [
+						"string"
+					],
+					"selectionNames": {
+						"longName": "string",
+						"shortName": "string",
+						"veryshortName": "string"
+					},
+					"selectionName": [
+						"string"
+					],
+					"marketName": "string",
+					"eventName": "string",
+					"eventTime": "2019-10-07T07:26:19.327Z",
+					"resultType": "string",
+					"priceChangedAfterLockDate": [
+						true
+					],
+					"inplay": true,
+					"pitcherAName": "string",
+					"pitcherBName": "string"
+				}
+			],
+			"bets": [
+				{
+					"barcode": "string",
+					"cashOut": true,
+					"liveBet": true,
+					"potentialPayout": 0,
+					"potentialBonusWinnings": 0,
+					"rejectionReason": "string",
+					"stake": {
+						"amount": 0,
+						"currency": "string"
+					},
+					"status": "string",
+					"selectionsPos": [
+						{
+							"row": 0,
+							"column": 0
+						}
+					],
+					"system": 0,
+					"totalPrice": 0,
+					"totalStake": 0,
+					"totalBonusStake": 0,
+					"totalDiscountStake": 0,
+					"bonusCodeAwarded": "string",
+					"bonusCodeRulesOfUse": "string",
+					"promoDescription": "string",
+					"transactionId": 0,
+					"winType": "string"
+				}
+			],
+			"extBetslipId": "string",
+			"betslipOverAskId": 0
+		}
+	}
+}

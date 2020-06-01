@@ -1,0 +1,566 @@
+{
+  "definitions": {
+    "BettingOfferRawResponse": {
+      "properties": {
+        "content": {
+          "$ref": "#/definitions/SsbtBettingOffer"
+        },
+        "responseCode": {
+          "$ref": "#/definitions/ResponseCodes"
+        },
+        "responseMessage": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "BettingOfferResponse": {
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "responseCode": {
+          "$ref": "#/definitions/ResponseCodes"
+        },
+        "responseMessage": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "ResponseCodes": {
+      "enum": [
+        0,
+        1
+      ],
+      "format": "int32",
+      "type": "integer"
+    },
+    "SportsBettingOfferDaysResponse": {
+      "properties": {
+        "offerDays": {
+          "items": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "responseCode": {
+          "$ref": "#/definitions/ResponseCodes"
+        },
+        "responseMessage": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "SportsBettingOfferSportsResponse": {
+      "properties": {
+        "responseCode": {
+          "$ref": "#/definitions/ResponseCodes"
+        },
+        "responseMessage": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sports": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "SsbtBettingOffer": {
+      "properties": {
+        "groups": {
+          "items": {
+            "$ref": "#/definitions/SsbtBettingOfferGroup"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "lastChangeTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "version": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "SsbtBettingOfferGroup": {
+      "properties": {
+        "comment": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "day": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "groupType": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "iocCode": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sportId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sportName": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "subGroups": {
+          "items": {
+            "$ref": "#/definitions/SsbtBettingOfferSubGroup"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "SsbtBettingOfferItem": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "basicCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "code": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "comment": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "eventTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "extCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "odds": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "providerId": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "providerMatchId": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "textResult": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "SsbtBettingOfferSubGroup": {
+      "properties": {
+        "basic": {
+          "type": "boolean"
+        },
+        "footerComment": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "header": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "headerComment": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/definitions/SsbtBettingOfferItem"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "outcomeComments": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "outcomes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "TaxInfo": {
+      "properties": {
+        "taxMax": {
+          "format": "double",
+          "type": "number",
+          "x-nullable": true
+        },
+        "taxMin": {
+          "format": "double",
+          "type": "number"
+        },
+        "taxRate": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "TerminalParametersResponse": {
+      "properties": {
+        "bettingAuthorizationPollPeriodInSeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "bettingAuthorizationTimeoutInSeconds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "bettingInputTaxRate": {
+          "format": "double",
+          "type": "number"
+        },
+        "bettingOutputTaxRates": {
+          "items": {
+            "$ref": "#/definitions/TaxInfo"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "lotoBettingMaxNumbers": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "lotoBettingMaxSubscriptionRounds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "responseCode": {
+          "$ref": "#/definitions/ResponseCodes"
+        },
+        "responseMessage": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sportsBettingMaxEvents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sportsBettingMaxSystems": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "info": {
+    "title": "Logistics API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/BettingOffer/GetActiveOffer": {
+      "get": {
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int64",
+            "in": "query",
+            "name": "myLastVersion",
+            "type": "integer"
+          },
+          {
+            "format": "date-time",
+            "in": "query",
+            "name": "offerDate",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sportName",
+            "type": "string"
+          },
+          {
+            "default": false,
+            "in": "query",
+            "name": "basicOnly",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BettingOfferResponse"
+            }
+          }
+        },
+        "tags": [
+          "BettingOffer"
+        ]
+      }
+    },
+    "/api/BettingOffer/GetActiveOfferDays": {
+      "get": {
+        "parameters": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SportsBettingOfferDaysResponse"
+            }
+          }
+        },
+        "tags": [
+          "BettingOffer"
+        ]
+      }
+    },
+    "/api/BettingOffer/GetActiveOfferRaw": {
+      "get": {
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int64",
+            "in": "query",
+            "name": "myLastVersion",
+            "type": "integer"
+          },
+          {
+            "format": "date-time",
+            "in": "query",
+            "name": "offerDate",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sportName",
+            "type": "string"
+          },
+          {
+            "default": false,
+            "in": "query",
+            "name": "basicOnly",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BettingOfferRawResponse"
+            }
+          }
+        },
+        "tags": [
+          "BettingOffer"
+        ]
+      }
+    },
+    "/api/BettingOffer/GetActiveOfferSports": {
+      "get": {
+        "parameters": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SportsBettingOfferSportsResponse"
+            }
+          }
+        },
+        "tags": [
+          "BettingOffer"
+        ]
+      }
+    },
+    "/api/BettingResults/GetResults": {
+      "get": {
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int64",
+            "in": "query",
+            "name": "myLastVersion",
+            "type": "integer"
+          },
+          {
+            "default": false,
+            "in": "query",
+            "name": "basicOnly",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BettingOfferResponse"
+            }
+          }
+        },
+        "tags": [
+          "BettingResults"
+        ]
+      }
+    },
+    "/api/BettingResults/GetResultsRaw": {
+      "get": {
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int64",
+            "in": "query",
+            "name": "myLastVersion",
+            "type": "integer"
+          },
+          {
+            "default": false,
+            "in": "query",
+            "name": "basicOnly",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BettingOfferRawResponse"
+            }
+          }
+        },
+        "tags": [
+          "BettingResults"
+        ]
+      }
+    },
+    "/api/Config/GetTerminalParameters": {
+      "get": {
+        "parameters": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TerminalParametersResponse"
+            }
+          }
+        },
+        "tags": [
+          "Config"
+        ]
+      }
+    },
+    "/api/Config/Ping": {
+      "get": {
+        "parameters": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": [
+          "Config"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0",
+  "x-components": {}
+}

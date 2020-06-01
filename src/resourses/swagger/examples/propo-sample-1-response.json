@@ -1,0 +1,20 @@
+{
+  "wagerId" : 20,
+  "serialNumbers" : [ "00000252160000001312011769184626205" ],
+  "wager" : {
+    "dbg" : [ {
+      "boards" : [ {
+        "betType" : 1,
+        "boardId" : 1,
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1, 14, 1, 1, 1, 142, 1, 1, 2, 1, 4, 1, 1, 1 ]
+        } ]
+      } ],
+      "columns" : 6,
+      "cost" : 1.5,
+      "gameId" : 3100,
+      "multipliers" : [ 1 ]
+    } ]
+  }
+}

@@ -1,0 +1,127 @@
+{
+    "wagerId": 100000167076,
+    "pilot": false,
+    "promotionOutcomes": [],
+    "serialNumbers": [
+        "27704862190012058624052380746901"
+    ],
+    "wager": {
+        "dbg": [
+            {
+                "addOn": [
+                    {
+                        "columns": 1,
+                        "cost": 0,
+                        "gameTypeId": 1
+                    }
+                ],
+                "blockStatus": "Unblocked",
+                "boards": [
+                    {
+                        "betType": 3,
+                        "boardId": 1,
+                        "panels": [
+                            {
+                                "requested": -1,
+                                "selection": []
+                            }
+                        ],
+                        "extendedBetting": {
+                            "addon": {
+                                "raffle": {
+                                    "leftLimit": 2000030033,
+                                    "rightLimit": 2000030033
+                                }
+                            }
+                        }
+                    }
+                ],
+                "columns": 1,
+                "cost": 0,
+                "creationTime": 1551266985006,
+                "discount": 0,
+                "gameId": 999,
+                "multipliers": [],
+                "options": [
+                    "PRIMARY_GAME:5155"
+                ],
+                "participatingDraws": {
+                    "draws": [
+                        2021177
+                    ],
+                    "firstDraw": 2021177,
+                    "firstDrawTime": "1624719900000",
+                    "lastDraw": 2021177,
+                    "lastDrawTime": "1624719900000",
+                    "multipleDraws": 1,
+                    "playedDraw": 2021177
+                },
+                "status": "Played"
+            },
+            {
+                "addOn": [
+                    {
+                        "columns": 1,
+                        "cost": 6,
+                        "gameTypeId": 0
+                    }
+                ],
+                "blockStatus": "Unblocked",
+                "boards": [
+                    {
+                        "boardId": 1,
+                        "multipliers": [
+                            1
+                        ],
+                        "panels": [
+                            {
+                                "quickPick": false,
+                                "requested": 6,
+                                "selection": [
+                                    5,
+                                    10,
+                                    15,
+                                    2,
+                                    3,
+                                    11
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "columns": 3,
+                "cost": 6,
+                "creationTime": 1551266985006,
+                "discount": 0,
+                "gameId": 5155,
+                "multipliers": [
+                    1
+                ],
+                "participatingDraws": {
+                    "draws": [
+                        147,
+                        148,
+                        149
+                    ],
+                    "firstDraw": 147,
+                    "firstDrawTime": "1624719840000",
+                    "firstVisualDraw": 147,
+                    "lastDraw": 149,
+                    "lastDrawTime": "1625324640000",
+                    "lastVisualDraw": 149,
+                    "multipleDraws": 3,
+                    "playedDraw": 147,
+                    "specialOptions": {
+                        "superSaturdayGap": 0
+                    }
+                },
+                "status": "Played"
+            }
+        ]
+    },
+    "metadata": {
+        "playerInfo": {
+            "playerId": 110646134
+        }
+    }
+}

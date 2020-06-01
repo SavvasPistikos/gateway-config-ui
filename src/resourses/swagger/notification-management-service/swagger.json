@@ -1,0 +1,951 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "notification-management-service"
+  },
+  "tags": [
+    {
+      "name": "Bit8 Player Notifications"
+    },
+    {
+      "name": "Oracle Responsys Operations v1.0"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/bit8/players/campaign/management/sync": {
+      "post": {
+        "tags": [
+          "Bit8 Player Notifications"
+        ],
+        "summary": "Sends player information to the selected Campaign Management System",
+        "description": "Accepts Bit8's PlayerRegistration, PlayerUpdateDetails and synchronises the CMS for marketing campaign creation purposes",
+        "operationId": "syncPlayer",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "campaignManagementSystem",
+            "in": "header",
+            "description": "The campaign management system to sync player's data",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "ORACLE_RESPONSYS"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The sync request information containing the player's id and all related information to be synchronised",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Bit8Notification",
+              "originalRef": "Bit8Notification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/bit8/players/notifications/crm": {
+      "post": {
+        "tags": [
+          "Bit8 Player Notifications"
+        ],
+        "summary": "Sends player information to the selected CRM",
+        "description": "Accepts Bit8's PlayerRegistration, PlayerUpdateDetails and PlayerKYCChanged Notifications",
+        "operationId": "syncNotification",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "crmTypeEnum",
+            "in": "header",
+            "description": "CRM to send player data to",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "EVALUE",
+              "ASSECO",
+              "RIGHT_NOW"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The bit8 notification request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Bit8Notification",
+              "originalRef": "Bit8Notification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "AUTHENTICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/email/notification": {
+      "post": {
+        "tags": [
+          "Oracle Responsys Operations v1.0"
+        ],
+        "summary": "Send an email to the player",
+        "description": "Bit8 notification request structure is used. There is an option to select the mail engine between Oracle Responsys and L10 Messaging Service",
+        "operationId": "emailNotification",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The mail notification request containing the notification trigger action, the recipient id/mail and the dynamic placeholders to be replaced  at the notification template",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/campaign/management/notification": {
+      "post": {
+        "tags": [
+          "Oracle Responsys Operations v1.0"
+        ],
+        "summary": "Sends a generic notification to the player",
+        "description": "Triggers an event at Campaign Management System which will lead to send a notification to the player. The type of the notification is configured at the CMS it self",
+        "operationId": "triggerEventNotification",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "campaignManagementType",
+            "in": "header",
+            "description": "The campaign management system to send player's data",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ORACLE_RESPONSYS"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The bit8 notification request.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "The authorization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/sms/notification": {
+      "post": {
+        "tags": [
+          "Oracle Responsys Operations v1.0"
+        ],
+        "summary": "Send an sms to the player",
+        "description": "Bit8 notification request structure is used. There is an option to select the mail engine between Oracle Responsys and L10 Messaging Service",
+        "operationId": "smsNotification",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The sms notification request containing the notification trigger action, the recipient id/sms and the dynamic placeholders to be replaced  at the notification template",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoVoid": {
+      "type": "object"
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "Bit8Notification": {
+      "type": "object",
+      "properties": {
+        "EventType": {
+          "type": "string"
+        },
+        "EventID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Data": {
+          "$ref": "#/definitions/Data",
+          "originalRef": "Data"
+        }
+      },
+      "description": "The bit8 notification request dto"
+    },
+    "ClientSegment": {
+      "type": "object",
+      "properties": {
+        "ClientSegmentID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "DisplayName": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "WithdrawalIntervalMinutes": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "FraudK": {
+          "type": "number",
+          "format": "float"
+        },
+        "FraudStdMultiplier": {
+          "type": "number",
+          "format": "float"
+        },
+        "FraudMeanKMultiplier": {
+          "type": "number",
+          "format": "float"
+        },
+        "FraudConfN": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PlayerSelectedSegment": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Data": {
+      "type": "object",
+      "properties": {
+        "PlayerRegistrationStatus": {
+          "type": "string"
+        },
+        "KYCCheckedStatusDisplayName": {
+          "type": "string"
+        },
+        "ClientID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ClientStatID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ExtClientID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "MiddleName": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "SecondaryLastName": {
+          "type": "string"
+        },
+        "Gender": {
+          "type": "string"
+        },
+        "Address1": {
+          "type": "string"
+        },
+        "Address2": {
+          "type": "string"
+        },
+        "PostCode": {
+          "type": "string"
+        },
+        "HouseNumber": {
+          "type": "string"
+        },
+        "HouseName": {
+          "type": "string"
+        },
+        "StreetNumber": {
+          "type": "string"
+        },
+        "StreetName": {
+          "type": "string"
+        },
+        "StreetTypeDesc": {
+          "type": "string"
+        },
+        "POBoxName": {
+          "type": "string"
+        },
+        "SuburbName": {
+          "type": "string"
+        },
+        "CountryStateName": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "CountryISO": {
+          "type": "string"
+        },
+        "CurrencyISO": {
+          "type": "string"
+        },
+        "LangaugeISO": {
+          "type": "string"
+        },
+        "DateOfBirth": {
+          "type": "string"
+        },
+        "EmailAddress": {
+          "type": "string"
+        },
+        "MobilePhone": {
+          "type": "string"
+        },
+        "PrimaryTelephone": {
+          "type": "string"
+        },
+        "SecondaryTelephone": {
+          "type": "string"
+        },
+        "Username": {
+          "type": "string"
+        },
+        "Nickname": {
+          "type": "string"
+        },
+        "Pin": {
+          "type": "string"
+        },
+        "ReceivePromotionalByEmail": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ReceivePromotionalBySMS": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ReceivePromotionalByPost": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ReceivePromotionalByPush": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ReceivePromotionalByPhone": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ReceivePromotionalByThirdParty": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsByEmail": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsBySMS": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsByPost": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsByPhone": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsByThirdParty": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsByPush": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiveNewslettersCampaignsByMobile": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ContactByEmail": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ContactBySMS": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ContactByPush": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ContactByPost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ContactByPhone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ContactByThirdParty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BetByEmail": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BetBySMS": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BetByPush": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BetByPost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BetByPhone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "BetByThirdParty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "WinByEmail": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "WinBySMS": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "WinByPush": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "WinByPost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "WinByPhone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "WinByThirdParty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LossByEmail": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LossBySMS": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LossByPush": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LossByPost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LossByPhone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LossByThirdParty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SignUpDate": {
+          "type": "string"
+        },
+        "FirstDepositDate": {
+          "type": "string"
+        },
+        "AllowLoginBannedCountryIP": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ReferralCode": {
+          "type": "string"
+        },
+        "AffiliateID": {
+          "type": "string"
+        },
+        "AffiliateCode": {
+          "type": "string"
+        },
+        "AffiliateCouponCode": {
+          "type": "string"
+        },
+        "ReferralClientID": {
+          "type": "string"
+        },
+        "BonusCouponCode": {
+          "type": "string"
+        },
+        "AffiliateSystemName": {
+          "type": "string"
+        },
+        "AffiliateRegistrationCode": {
+          "type": "string"
+        },
+        "OriginalAffiliateCouponCode": {
+          "type": "string"
+        },
+        "OriginalBonusCouponCode": {
+          "type": "string"
+        },
+        "OriginalReferralCode": {
+          "type": "string"
+        },
+        "AcquisitionType": {
+          "type": "string"
+        },
+        "IpAddressV6": {
+          "type": "string"
+        },
+        "IpAddressV4": {
+          "type": "string"
+        },
+        "IpCountryCode": {
+          "type": "string"
+        },
+        "MacAddress": {
+          "type": "string"
+        },
+        "DownloadClientID": {
+          "type": "string"
+        },
+        "PlatformType": {
+          "type": "string"
+        },
+        "IsAccountActivated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsActive": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsAccountClosed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsSuspicious": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsTestPlayer": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsAffiliate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsKYCChecked": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IsPlayAllowed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TestPlayerAllowTransfers": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ActivationCode": {
+          "type": "string"
+        },
+        "Notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ClientPaymentInfo": {
+          "type": "string"
+        },
+        "SecretQuestionID": {
+          "type": "string"
+        },
+        "SecretAnswer": {
+          "type": "string"
+        },
+        "ExceededLoginAttempts": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ClientSemgmentID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "RiskClientSegmentID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ClientSegment": {
+          "$ref": "#/definitions/ClientSegment",
+          "originalRef": "ClientSegment"
+        },
+        "RiskClientSegment": {
+          "type": "string"
+        },
+        "EMarsysCountryID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EMarsysLanguageID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "BonusSeeker": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "BonusDontWant": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "BetFactor": {
+          "type": "number",
+          "format": "float"
+        },
+        "RiskScore": {
+          "type": "number",
+          "format": "float"
+        },
+        "ClientRiskCategoryId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "oib": {
+          "type": "string"
+        },
+        "vipLevel": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

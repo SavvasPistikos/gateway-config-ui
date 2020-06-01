@@ -1,0 +1,46 @@
+{
+	"metadata": {
+		"trnsTime": "2018-01-20T13:07:44+00:00"
+	},
+	"wager": {
+		"spbt": {
+			"gameId": 0,
+			"acceptOdds": 0,
+			"acceptPriceChange": true,
+			"bets": {
+				"selections": [
+					{
+						"banker": true,
+						"eventId": 0,
+						"group": 0,
+						"lines": [
+							0
+						],
+						"odds": {
+							"decimal": 0,
+							"fractional": "string"
+						},
+						"selectionId": 0,
+						"singleStake": {
+							"amount": 0,
+							"currency": "string"
+						},
+						"selectionPos": 0,
+						"retailRowPosition": 0
+					}
+				],
+				"systems": [
+					{
+						"request": 0,
+						"stake": {
+							"amount": 0,
+							"currency": "string"
+						}
+					}
+				]
+			},
+			"extendedResponse": true,
+			"voucherCode": "string"
+		}
+	}
+}

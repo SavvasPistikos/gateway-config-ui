@@ -1,0 +1,6436 @@
+{
+  "basePath": "/",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "ActivePromosModel": {
+      "items": {
+        "properties": {
+          "description": {
+            "description": "description",
+            "type": "string"
+          },
+          "id": {
+            "description": "id",
+            "format": "uint32",
+            "type": "integer"
+          },
+          "isGroup": {
+            "description": "isGroup",
+            "type": "boolean"
+          },
+          "messages": {
+            "description": "messages",
+            "properties": {
+              "dag": {
+                "description": "dag",
+                "type": "string"
+              },
+              "dagId": {
+                "description": "dagId",
+                "type": "string"
+              },
+              "logoOutcome": {
+                "description": "logoOutcome",
+                "type": "string"
+              },
+              "logoText": {
+                "description": "logoText",
+                "type": "string"
+              },
+              "logoTrigger": {
+                "description": "logoTrigger",
+                "type": "string"
+              },
+              "outcomeBody": {
+                "description": "outcomeBody",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "outcomeTitle": {
+                "description": "outcomeTitle",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "sound": {
+                "description": "sound",
+                "format": "uint32",
+                "type": "integer"
+              },
+              "trigger": {
+                "description": "trigger",
+                "type": "string"
+              }
+            },
+            "required": [
+              "trigger",
+              "outcomeTitle",
+              "outcomeBody",
+              "logoTrigger",
+              "logoOutcome",
+              "sound",
+              "logoText",
+              "dag",
+              "dagId"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "messages"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "AmountsModel": {
+      "properties": {
+        "gross": {
+          "description": "gross",
+          "format": "double",
+          "type": "number"
+        },
+        "net": {
+          "description": "net",
+          "format": "double",
+          "type": "number"
+        },
+        "other": {
+          "description": "other",
+          "format": "double",
+          "type": "number"
+        },
+        "refund": {
+          "description": "refund",
+          "format": "double",
+          "type": "number"
+        },
+        "tax": {
+          "description": "tax",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "gross",
+        "net",
+        "other",
+        "refund",
+        "tax"
+      ],
+      "type": "object"
+    },
+    "AreasModel": {
+      "properties": {
+        "panelId": {
+          "description": "panelId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "statistics": {
+          "description": "statistics",
+          "items": {
+            "$ref": "#/definitions/GameStatistics"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "panelId",
+        "statistics"
+      ],
+      "type": "object"
+    },
+    "BetModel": {
+      "properties": {
+        "isecure": {
+          "description": "isecure",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "metadata": {
+          "$ref": "#/definitions/PlayMetaDataModel"
+        },
+        "wager": {
+          "$ref": "#/definitions/WagerDataModel"
+        }
+      },
+      "required": [
+        "metadata",
+        "wager"
+      ],
+      "type": "object"
+    },
+    "BoardModel": {
+      "properties": {
+        "boardId": {
+          "description": "boardId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "multipliers": {
+          "description": "multipliers",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "options": {
+          "description": "options",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "panels": {
+          "description": "panels",
+          "items": {
+            "$ref": "#/definitions/PanelModel"
+          },
+          "type": "array"
+        },
+        "quickPick": {
+          "description": "quickPick",
+          "type": "boolean"
+        },
+        "systemId": {
+          "description": "systemId",
+          "format": "int16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "boardId",
+        "panels"
+      ],
+      "type": "object"
+    },
+    "CancellationResponseModel": {
+      "properties": {
+        "amount": {
+          "description": "amount",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "type": "object"
+    },
+    "CategoryInfoModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/AmountsModel"
+        },
+        "id": {
+          "description": "id",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "subcategoryId": {
+          "description": "subcategoryId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "successCount": {
+          "description": "successCount",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "subcategoryId",
+        "successCount",
+        "amounts"
+      ],
+      "type": "object"
+    },
+    "CategoryModel": {
+      "properties": {
+        "fixedAmount": {
+          "description": "fixedAmount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "id": {
+          "description": "id",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "fixedAmount"
+      ],
+      "type": "object"
+    },
+    "CloseSessionRequestModel": {
+      "properties": {
+        "amount": {
+          "description": "amount",
+          "format": "double",
+          "type": "number"
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        },
+        "temp_cashout": {
+          "description": "temp_cashout",
+          "type": "boolean"
+        },
+        "trnsTime": {
+          "description": "trnsTime",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "trnsTime",
+        "posInfo",
+        "amount"
+      ],
+      "type": "object"
+    },
+    "CloseShiftRequestModel": {
+      "properties": {
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        }
+      },
+      "required": [
+        "posInfo"
+      ],
+      "type": "object"
+    },
+    "CreditLimitsActionModel": {
+      "properties": {
+        "amount": {
+          "description": "amount",
+          "format": "int64",
+          "type": "integer"
+        },
+        "betId": {
+          "description": "betId",
+          "type": "string"
+        },
+        "employeeId": {
+          "description": "employeeId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "pin": {
+          "description": "pin",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "serialNumber": {
+          "description": "serialNumber",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "terminalId": {
+          "description": "terminalId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "trnsType": {
+          "description": "trnsType",
+          "enum": [
+            "Play",
+            "Cancel",
+            "Pay",
+            "SpecialCancel"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "terminalId",
+        "employeeId",
+        "trnsType",
+        "serialNumber",
+        "amount",
+        "sessionId",
+        "pin",
+        "betId"
+      ],
+      "type": "object"
+    },
+    "CreditLimitsResponseModel": {
+      "properties": {
+        "payLevel": {
+          "description": "payLevel",
+          "format": "int16",
+          "type": "integer"
+        },
+        "remainingAmount": {
+          "description": "remainingAmount",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "runningSales": {
+          "description": "runningSales",
+          "format": "int16",
+          "type": "integer"
+        },
+        "salesLimit": {
+          "description": "salesLimit",
+          "format": "int16",
+          "type": "integer"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "payLevel",
+        "salesLimit",
+        "runningSales",
+        "remainingAmount",
+        "sessionId"
+      ],
+      "type": "object"
+    },
+    "DatePatternModel": {
+      "properties": {
+        "dates": {
+          "description": "dates",
+          "format": "date",
+          "type": "string"
+        },
+        "index": {
+          "description": "index",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "DayPatternModel": {
+      "properties": {
+        "day": {
+          "description": "day",
+          "enum": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
+          ],
+          "type": "string"
+        },
+        "index": {
+          "description": "index",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "DdgWagerModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/PlayAmountModel"
+        },
+        "betType": {
+          "description": "betType",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "boards": {
+          "description": "boards",
+          "items": {
+            "$ref": "#/definitions/BoardModel"
+          },
+          "type": "array"
+        },
+        "columns": {
+          "description": "columns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "coupon": {
+          "description": "coupon",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "created": {
+          "description": "created",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "creationTime": {
+          "description": "creationTime",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "gameMatrixVersion": {
+          "description": "gameMatrixVersion",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "gameMessageVersion": {
+          "description": "gameMessageVersion",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "multipliers": {
+          "description": "Default value is [1]",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "options": {
+          "description": "options",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "participatingDraws": {
+          "$ref": "#/definitions/ParticipatingDrawModel"
+        },
+        "quickPick": {
+          "description": "quickPick",
+          "type": "boolean"
+        },
+        "riskStatus": {
+          "description": "riskStatus",
+          "enum": [
+            "NotAvailable",
+            "AvailableReduced",
+            "Available"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "description": "status",
+          "enum": [
+            "Played",
+            "Canceled",
+            "UndoCanceled",
+            "Blocked",
+            "Unblocked"
+          ],
+          "type": "string"
+        },
+        "teamShares": {
+          "description": "teamShares",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameId",
+        "boards"
+      ],
+      "type": "object"
+    },
+    "DiscountModel": {
+      "properties": {
+        "amount": {
+          "description": "amount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "percentage": {
+          "description": "percentage",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "percentage",
+        "amount"
+      ],
+      "type": "object"
+    },
+    "DrawAmountModel": {
+      "properties": {
+        "distributed": {
+          "description": "distributed",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "dividend": {
+          "description": "dividend",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "jackpot": {
+          "description": "jackpot",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "other": {
+          "description": "other",
+          "type": "object"
+        }
+      },
+      "required": [
+        "distributed",
+        "dividend"
+      ],
+      "type": "object"
+    },
+    "DrawInfoDetailsModel": {
+      "properties": {
+        "active": {
+          "description": "active",
+          "type": "boolean"
+        },
+        "clmsPlayed": {
+          "description": "clmsPlayed",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "columnPrice": {
+          "description": "columnPrice",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "drawNr": {
+          "description": "drawNr",
+          "format": "int32",
+          "type": "integer"
+        },
+        "drawStatus": {
+          "description": "drawStatus",
+          "format": "int32",
+          "type": "integer"
+        },
+        "drawTime": {
+          "description": "drawTime",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "gameParameters": {
+          "$ref": "#/definitions/GameStateModel"
+        },
+        "gameRecord": {
+          "description": "gameRecord",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "id": {
+          "description": "id",
+          "format": "int32",
+          "type": "integer"
+        },
+        "jackpot": {
+          "description": "jackpot",
+          "items": {
+            "format": "uint64",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "specialDraw": {
+          "description": "specialDraw",
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalColumns1": {
+          "description": "totalColumns1",
+          "format": "int32",
+          "type": "integer"
+        },
+        "visualDraw": {
+          "description": "visualDraw",
+          "format": "int32",
+          "type": "integer"
+        },
+        "winnersLoaded": {
+          "description": "winnersLoaded",
+          "type": "boolean"
+        },
+        "winningCategories": {
+          "description": "winningCategories",
+          "items": {
+            "$ref": "#/definitions/WinningCategoryModel"
+          },
+          "type": "array"
+        },
+        "winningNumbers": {
+          "description": "winningNumbers",
+          "items": {
+            "$ref": "#/definitions/WinningNumbersModel"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "columnPrice"
+      ],
+      "type": "object"
+    },
+    "DrawInfoModel": {
+      "properties": {
+        "firstDraw": {
+          "description": "firstDraw",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "lastDraw": {
+          "description": "lastDraw",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "remainingDraws": {
+          "description": "remainingDraws",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "firstDraw",
+        "lastDraw",
+        "remainingDraws"
+      ],
+      "type": "object"
+    },
+    "DrawPagedResultModel": {
+      "properties": {
+        "currentPage": {
+          "description": "currentPage",
+          "format": "int32",
+          "type": "integer"
+        },
+        "game": {
+          "description": "game",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "information": {
+          "description": "information",
+          "items": {
+            "$ref": "#/definitions/DrawInfoDetailsModel"
+          },
+          "type": "array"
+        },
+        "pageSize": {
+          "description": "pageSize",
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalPages": {
+          "description": "totalPages",
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalResults": {
+          "description": "totalResults",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "game",
+        "information",
+        "currentPage",
+        "pageSize",
+        "totalPages",
+        "totalResults"
+      ],
+      "type": "object"
+    },
+    "DrawResultModel": {
+      "properties": {
+        "boardTypeId": {
+          "description": "boardTypeId",
+          "format": "int32",
+          "type": "integer"
+        },
+        "categoryCd": {
+          "description": "categoryCd",
+          "format": "int32",
+          "type": "integer"
+        },
+        "id": {
+          "description": "id",
+          "format": "int32",
+          "type": "integer"
+        },
+        "number": {
+          "description": "number",
+          "type": "string"
+        },
+        "order": {
+          "description": "order",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "order",
+        "categoryCd",
+        "boardTypeId"
+      ],
+      "type": "object"
+    },
+    "ErrorResponseModel": {
+      "properties": {
+        "code": {
+          "description": "code",
+          "format": "int32",
+          "type": "integer"
+        },
+        "data": {
+          "description": "data",
+          "items": {
+            "properties": {
+              "data": {
+                "description": "data",
+                "format": "uint32",
+                "type": "integer"
+              },
+              "eData": {
+                "description": "eData",
+                "items": {
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "guid": {
+          "description": "guid",
+          "type": "string"
+        },
+        "message": {
+          "description": "message",
+          "type": "string"
+        },
+        "source": {
+          "description": "source",
+          "type": "string"
+        },
+        "type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "guid",
+        "source"
+      ],
+      "type": "object"
+    },
+    "EstimatedJackpotResponseModel": {
+      "properties": {
+        "drawId": {
+          "description": "drawId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "jackpot": {
+          "description": "jackpot",
+          "items": {
+            "properties": {
+              "categoryId": {
+                "description": "categoryId",
+                "format": "uint16",
+                "type": "integer"
+              },
+              "estimated": {
+                "description": "estimated",
+                "format": "uint64",
+                "type": "integer"
+              },
+              "guaranteed": {
+                "description": "guaranteed",
+                "format": "uint64",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "categoryId",
+              "estimated",
+              "guaranteed"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "drawId",
+        "gameId",
+        "jackpot"
+      ],
+      "type": "object"
+    },
+    "EventDataModel": {
+      "properties": {
+        "eventCode": {
+          "description": "eventCode",
+          "format": "int32",
+          "type": "integer"
+        },
+        "eventOdds": {
+          "$ref": "#/definitions/OddsDataModel"
+        },
+        "eventValue": {
+          "description": "eventValue",
+          "format": "int32",
+          "type": "integer"
+        },
+        "groupValues": {
+          "description": "0: No group, 1..10 : groups A, B, C, D, AB, AC, AD, BC, BD, CD, 11..20: R-groups A, B, C, D, AB, AC, AD, BC, BD, CD, +100 : Banker selection",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "eventValue",
+        "eventCode"
+      ],
+      "type": "object"
+    },
+    "EventDataResponseModel": {
+      "properties": {
+        "eventId": {
+          "description": "eventId",
+          "format": "int32",
+          "type": "integer"
+        },
+        "eventOdds": {
+          "description": "eventOdds",
+          "properties": {
+            "handicap": {
+              "description": "handicap",
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "market": {
+              "description": "market",
+              "format": "int32",
+              "type": "integer"
+            },
+            "odds": {
+              "description": "odds",
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "oddsChanged": {
+              "description": "oddsChanged",
+              "type": "boolean"
+            },
+            "stateOfOdds": {
+              "description": "stateOfOdds",
+              "enum": [
+                "HigherValues",
+                "SameOdds",
+                "AnyOdds"
+              ],
+              "type": "string"
+            },
+            "underOver": {
+              "description": "underOver",
+              "format": "uint16",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "odds",
+            "handicap",
+            "stateOfOdds"
+          ],
+          "type": "object"
+        },
+        "groupValues": {
+          "description": "0: No group, 1..10 : groups A, B, C, D, AB, AC, AD, BC, BD, CD, 11..20: R-groups A, B, C, D, AB, AC, AD, BC, BD, CD, +100 : Banker selection",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "FcdResponseModel": {
+      "properties": {
+        "creationTime": {
+          "description": "creation time in milliseconds in UTC",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "serialNumber": {
+          "description": "serialNumber",
+          "type": "string"
+        },
+        "trnsId": {
+          "description": "trnsId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "wagerInfo": {
+          "description": "wagerInfo",
+          "properties": {
+            "dbg": {
+              "description": "dbg",
+              "items": {
+                "properties": {
+                  "amounts": {
+                    "$ref": "#/definitions/PlayAmountModel"
+                  },
+                  "betType": {
+                    "description": "betType",
+                    "format": "uint16",
+                    "type": "integer"
+                  },
+                  "boards": {
+                    "description": "boards",
+                    "items": {
+                      "properties": {
+                        "boardId": {
+                          "description": "boardId",
+                          "format": "uint16",
+                          "type": "integer"
+                        },
+                        "multipliers": {
+                          "description": "multipliers",
+                          "items": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "options": {
+                          "description": "options",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "panels": {
+                          "description": "panels",
+                          "items": {
+                            "properties": {
+                              "QPSelections": {
+                                "description": "QPSelections",
+                                "format": "uint16",
+                                "type": "integer"
+                              },
+                              "options": {
+                                "description": "options",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "quickPick": {
+                                "description": "quickPick",
+                                "type": "boolean"
+                              },
+                              "requested": {
+                                "description": "requested",
+                                "format": "int16",
+                                "type": "integer"
+                              },
+                              "selection": {
+                                "description": "selection",
+                                "items": {
+                                  "format": "int32",
+                                  "type": "integer"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "selection"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "quickPick": {
+                          "description": "quickPick",
+                          "type": "boolean"
+                        },
+                        "systemId": {
+                          "description": "systemId",
+                          "format": "int16",
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "boardId",
+                        "panels"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "columns": {
+                    "description": "columns",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "coupon": {
+                    "description": "coupon",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "created": {
+                    "description": "created",
+                    "format": "uint64",
+                    "type": "integer"
+                  },
+                  "creationTime": {
+                    "description": "creationTime",
+                    "format": "uint64",
+                    "type": "integer"
+                  },
+                  "gameId": {
+                    "description": "gameId",
+                    "format": "uint16",
+                    "type": "integer"
+                  },
+                  "gameMatrixVersion": {
+                    "description": "gameMatrixVersion",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "gameMessageVersion": {
+                    "description": "gameMessageVersion",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "multipliers": {
+                    "description": "Default value is [1]",
+                    "items": {
+                      "format": "uint32",
+                      "type": "integer"
+                    },
+                    "type": "array"
+                  },
+                  "options": {
+                    "description": "options",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "participatingDraws": {
+                    "description": "participatingDraws",
+                    "properties": {
+                      "datePattern": {
+                        "description": "datePattern",
+                        "items": {
+                          "properties": {
+                            "dates": {
+                              "description": "dates",
+                              "format": "date",
+                              "type": "string"
+                            },
+                            "index": {
+                              "description": "index",
+                              "format": "uint16",
+                              "type": "integer"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "dayPattern": {
+                        "description": "dayPattern",
+                        "items": {
+                          "properties": {
+                            "day": {
+                              "description": "day",
+                              "enum": [
+                                "Sun",
+                                "Mon",
+                                "Tue",
+                                "Wed",
+                                "Thu",
+                                "Fri",
+                                "Sat"
+                              ],
+                              "type": "string"
+                            },
+                            "index": {
+                              "description": "index",
+                              "format": "uint16",
+                              "type": "integer"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "drawOffsets": {
+                        "description": "drawOffsets",
+                        "items": {
+                          "format": "uint32",
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "firstDraw": {
+                        "description": "firstDraw",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "firstDrawIndex": {
+                        "description": "firstDrawIndex",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "firstDrawTime": {
+                        "description": "firstDrawTime",
+                        "format": "datetime",
+                        "type": "string"
+                      },
+                      "lastDraw": {
+                        "description": "lastDraw",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "lastDrawTime": {
+                        "description": "lastDrawTime",
+                        "format": "datetime",
+                        "type": "string"
+                      },
+                      "multipleDraws": {
+                        "description": "multipleDraws",
+                        "format": "uint16",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "quickPick": {
+                    "description": "quickPick",
+                    "type": "boolean"
+                  },
+                  "riskStatus": {
+                    "description": "riskStatus",
+                    "enum": [
+                      "NotAvailable",
+                      "AvailableReduced",
+                      "Available"
+                    ],
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "status",
+                    "enum": [
+                      "Played",
+                      "Canceled",
+                      "UndoCanceled",
+                      "Blocked",
+                      "Unblocked"
+                    ],
+                    "type": "string"
+                  },
+                  "teamShares": {
+                    "description": "teamShares",
+                    "format": "uint16",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "gameId",
+                  "boards"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "iFlex": {
+              "description": "iFlex",
+              "items": {
+                "properties": {
+                  "amounts": {
+                    "$ref": "#/definitions/PlayAmountModel"
+                  },
+                  "board": {
+                    "description": "board",
+                    "properties": {
+                      "approval": {
+                        "description": "approval",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "districtId": {
+                        "description": "districtId",
+                        "format": "uint16",
+                        "type": "integer"
+                      },
+                      "multiplier": {
+                        "description": "multiplier",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "selections": {
+                        "description": "selections",
+                        "items": {
+                          "properties": {
+                            "eventCode": {
+                              "description": "eventCode",
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "eventOdds": {
+                              "description": "eventOdds",
+                              "properties": {
+                                "handicap": {
+                                  "description": "handicap",
+                                  "items": {
+                                    "format": "double",
+                                    "type": "number"
+                                  },
+                                  "type": "array"
+                                },
+                                "market": {
+                                  "description": "market",
+                                  "format": "int32",
+                                  "type": "integer"
+                                },
+                                "odds": {
+                                  "description": "odds",
+                                  "items": {
+                                    "format": "double",
+                                    "type": "number"
+                                  },
+                                  "type": "array"
+                                },
+                                "oddsChanged": {
+                                  "description": "oddsChanged",
+                                  "type": "boolean"
+                                },
+                                "stateOfOdds": {
+                                  "description": "stateOfOdds",
+                                  "enum": [
+                                    "HigherValues",
+                                    "SameOdds",
+                                    "AnyOdds"
+                                  ],
+                                  "type": "string"
+                                },
+                                "underOver": {
+                                  "description": "underOver",
+                                  "format": "uint16",
+                                  "type": "integer"
+                                }
+                              },
+                              "required": [
+                                "odds",
+                                "handicap",
+                                "stateOfOdds"
+                              ],
+                              "type": "object"
+                            },
+                            "eventValue": {
+                              "description": "eventValue",
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "groupValues": {
+                              "description": "0: No group, 1..10 : groups A, B, C, D, AB, AC, AD, BC, BD, CD, 11..20: R-groups A, B, C, D, AB, AC, AD, BC, BD, CD, +100 : Banker selection",
+                              "format": "uint16",
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "eventValue",
+                            "eventCode"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "subGame": {
+                        "description": "subGame",
+                        "format": "uint16",
+                        "type": "integer"
+                      },
+                      "systAttr": {
+                        "description": "systAttr",
+                        "items": {
+                          "properties": {
+                            "reqMult": {
+                              "description": "reqMult",
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "request": {
+                              "description": "request",
+                              "format": "int32",
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "request",
+                            "reqMult"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "systAttr",
+                      "selections"
+                    ],
+                    "type": "object"
+                  },
+                  "columns": {
+                    "description": "columns",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "estimateWinningAmount": {
+                    "description": "estimateWinningAmount",
+                    "format": "uint64",
+                    "type": "integer"
+                  },
+                  "gameId": {
+                    "description": "gameId",
+                    "format": "uint16",
+                    "type": "integer"
+                  },
+                  "maxWinningAmount": {
+                    "description": "maxWinningAmount",
+                    "format": "uint64",
+                    "type": "integer"
+                  },
+                  "participatingDraws": {
+                    "description": "participatingDraws",
+                    "properties": {
+                      "datePattern": {
+                        "description": "datePattern",
+                        "items": {
+                          "properties": {
+                            "dates": {
+                              "description": "dates",
+                              "format": "date",
+                              "type": "string"
+                            },
+                            "index": {
+                              "description": "index",
+                              "format": "uint16",
+                              "type": "integer"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "dayPattern": {
+                        "description": "dayPattern",
+                        "items": {
+                          "properties": {
+                            "day": {
+                              "description": "day",
+                              "enum": [
+                                "Sun",
+                                "Mon",
+                                "Tue",
+                                "Wed",
+                                "Thu",
+                                "Fri",
+                                "Sat"
+                              ],
+                              "type": "string"
+                            },
+                            "index": {
+                              "description": "index",
+                              "format": "uint16",
+                              "type": "integer"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "drawOffsets": {
+                        "description": "drawOffsets",
+                        "items": {
+                          "format": "uint32",
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "firstDraw": {
+                        "description": "firstDraw",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "firstDrawIndex": {
+                        "description": "firstDrawIndex",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "firstDrawTime": {
+                        "description": "firstDrawTime",
+                        "format": "datetime",
+                        "type": "string"
+                      },
+                      "lastDraw": {
+                        "description": "lastDraw",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "lastDrawTime": {
+                        "description": "lastDrawTime",
+                        "format": "datetime",
+                        "type": "string"
+                      },
+                      "multipleDraws": {
+                        "description": "multipleDraws",
+                        "format": "uint16",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "description": "status",
+                    "enum": [
+                      "Undefined",
+                      "Played",
+                      "Canceled",
+                      "Blocked",
+                      "Reconciliated",
+                      "CrossEntried"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "gameId",
+                  "board"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "instant": {
+              "description": "instant",
+              "properties": {
+                "amounts": {
+                  "$ref": "#/definitions/PlayAmountModel"
+                },
+                "coupon": {
+                  "description": "coupon",
+                  "format": "uint32",
+                  "type": "integer"
+                },
+                "creationTime": {
+                  "description": "creationTime",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "gameId": {
+                  "description": "gameId",
+                  "format": "uint32",
+                  "type": "integer"
+                },
+                "options": {
+                  "description": "options",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "description": "type",
+                  "enum": [
+                    "Normal",
+                    "Free",
+                    "Demo"
+                  ],
+                  "type": "string"
+                },
+                "wagerInfo": {
+                  "description": "wagerInfo",
+                  "items": {
+                    "properties": {
+                      "gameMatrixVersion": {
+                        "description": "gameMatrixVersion",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "gameMessageVersion": {
+                        "description": "gameMessageVersion",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "poolId": {
+                        "description": "poolId",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "prizeType": {
+                        "description": "prizeType",
+                        "type": "string"
+                      },
+                      "recorcdId": {
+                        "description": "recorcdId",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "selection": {
+                        "description": "selection",
+                        "items": {
+                          "properties": {
+                            "data": {
+                              "description": "data",
+                              "items": {
+                                "type": "string"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "data"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "subgameId": {
+                        "description": "subgameId",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "tier": {
+                        "description": "tier",
+                        "format": "uint32",
+                        "type": "integer"
+                      },
+                      "winningAmount": {
+                        "description": "winningAmount",
+                        "format": "uint64",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "type",
+                "gameId",
+                "wagerInfo"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "wagerInfo",
+        "serialNumber",
+        "creationTime"
+      ],
+      "type": "object"
+    },
+    "FindSuccessReplyModel": {
+      "properties": {
+        "game": {
+          "description": "game",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "isPromotionWinner": {
+          "description": "isPromotionWinner",
+          "type": "boolean"
+        },
+        "subgameId": {
+          "description": "subgameId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "winnings": {
+          "$ref": "#/definitions/WinningsModel"
+        }
+      },
+      "required": [
+        "game",
+        "subgameId",
+        "winnings"
+      ],
+      "type": "object"
+    },
+    "FreeTicketsInfoModel": {
+      "properties": {
+        "promotionId": {
+          "description": "promotionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "ticketId": {
+          "description": "ticketId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "triggerBarcode": {
+          "description": "triggerBarcode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "promotionId",
+        "triggerBarcode",
+        "ticketId"
+      ],
+      "type": "object"
+    },
+    "FreeTicketsModel": {
+      "properties": {
+        "count": {
+          "description": "count",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "discount": {
+          "$ref": "#/definitions/DiscountModel"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "groupMultiplier": {
+          "description": "groupMultiplier",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "groups": {
+          "description": "groups",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "index": {
+          "description": "index",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "multipleDraws": {
+          "description": "multipleDraws",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "options": {
+          "description": "options",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ticketId": {
+          "description": "ticketId",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameId",
+        "count",
+        "ticketId",
+        "groups",
+        "multipleDraws",
+        "groupMultiplier"
+      ],
+      "type": "object"
+    },
+    "FsDrawInfoModel": {
+      "properties": {
+        "categories": {
+          "description": "categories",
+          "items": {
+            "$ref": "#/definitions/CategoryInfoModel"
+          },
+          "type": "array"
+        },
+        "drawId": {
+          "description": "drawId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "purgeTime": {
+          "description": "purgeTime",
+          "format": "datetime",
+          "type": "string"
+        },
+        "status": {
+          "description": "status",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "drawId",
+        "purgeTime",
+        "status",
+        "categories"
+      ],
+      "type": "object"
+    },
+    "GameInfoModel": {
+      "properties": {
+        "description": {
+          "description": "description",
+          "type": "string"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "status": {
+          "description": "status",
+          "enum": [
+            "Active",
+            "Inactive",
+            "Suspended"
+          ],
+          "type": "string"
+        },
+        "subgame": {
+          "description": "subgame",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameId",
+        "description",
+        "status"
+      ],
+      "type": "object"
+    },
+    "GameInfoModelv2": {
+      "properties": {
+        "category": {
+          "description": "category",
+          "type": "string"
+        },
+        "gameStateId": {
+          "description": "gameStateId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "name": {
+          "description": "name",
+          "type": "string"
+        },
+        "status": {
+          "description": "status",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameStateId",
+        "name",
+        "category",
+        "status"
+      ],
+      "type": "object"
+    },
+    "GameInfoReplyModel": {
+      "items": {
+        "$ref": "#/definitions/GameInfoModel"
+      },
+      "type": "array"
+    },
+    "GameInfoReplyModelv2": {
+      "items": {
+        "$ref": "#/definitions/GameInfoModelv2"
+      },
+      "type": "array"
+    },
+    "GameRecordModel": {
+      "properties": {
+        "categories": {
+          "description": "categories",
+          "items": {
+            "$ref": "#/definitions/CategoryModel"
+          },
+          "type": "array"
+        },
+        "maxAdvancedDraws": {
+          "description": "maxAdvancedDraws",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "maxAllowedColumns": {
+          "description": "maxAllowedColumns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "maxMultiDraws": {
+          "description": "maxMultiDraws",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "minAllowedColumns": {
+          "description": "minAllowedColumns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "salesEnd": {
+          "description": "salesEnd",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "salesStart": {
+          "description": "salesStart",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "virtualDrawNumber": {
+          "description": "virtualDrawNumber",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "maxAllowedColumns",
+        "minAllowedColumns",
+        "salesStart",
+        "salesEnd",
+        "virtualDrawNumber",
+        "maxMultiDraws"
+      ],
+      "type": "object"
+    },
+    "GameStateModel": {
+      "properties": {
+        "columnPrice": {
+          "description": "columnPrice",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "gameRecord": {
+          "description": "gameRecord",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "subgameIds": {
+          "description": "subgameIds",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "columnPrice",
+        "gameRecord"
+      ],
+      "type": "object"
+    },
+    "GameStatistics": {
+      "properties": {
+        "delay": {
+          "description": "delay",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "number": {
+          "description": "number",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "repeats": {
+          "description": "repeats",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "number",
+        "repeats",
+        "delay"
+      ],
+      "type": "object"
+    },
+    "GameStatsResponseModel": {
+      "properties": {
+        "panels": {
+          "description": "panels",
+          "items": {
+            "$ref": "#/definitions/AreasModel"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "panels"
+      ],
+      "type": "object"
+    },
+    "IflexBoardModel": {
+      "properties": {
+        "approval": {
+          "description": "approval",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "districtId": {
+          "description": "districtId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "multiplier": {
+          "description": "multiplier",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "selections": {
+          "description": "selections",
+          "items": {
+            "$ref": "#/definitions/EventDataModel"
+          },
+          "type": "array"
+        },
+        "subGame": {
+          "description": "subGame",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "systAttr": {
+          "description": "systAttr",
+          "items": {
+            "$ref": "#/definitions/SystemAttributesModel"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "systAttr",
+        "selections"
+      ],
+      "type": "object"
+    },
+    "IflexBoardResponseModel": {
+      "properties": {
+        "approval": {
+          "description": "approval",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "delay": {
+          "description": "delay",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "districtId": {
+          "description": "districtId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "selections": {
+          "description": "selections",
+          "items": {
+            "$ref": "#/definitions/EventDataResponseModel"
+          },
+          "type": "array"
+        },
+        "subGame": {
+          "description": "subGame",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "selections"
+      ],
+      "type": "object"
+    },
+    "IflexWagerModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/PlayAmountModel"
+        },
+        "board": {
+          "$ref": "#/definitions/IflexBoardModel"
+        },
+        "columns": {
+          "description": "columns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "estimateWinningAmount": {
+          "description": "estimateWinningAmount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "maxWinningAmount": {
+          "description": "maxWinningAmount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "participatingDraws": {
+          "$ref": "#/definitions/ParticipatingDrawModel"
+        },
+        "status": {
+          "description": "status",
+          "enum": [
+            "Undefined",
+            "Played",
+            "Canceled",
+            "Blocked",
+            "Reconciliated",
+            "CrossEntried"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "gameId",
+        "board"
+      ],
+      "type": "object"
+    },
+    "IflexWagerResponseModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/PlayAmountModel"
+        },
+        "board": {
+          "$ref": "#/definitions/IflexBoardResponseModel"
+        },
+        "columns": {
+          "description": "columns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "estimateWinningAmount": {
+          "description": "estimateWinningAmount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "maxWinningAmount": {
+          "description": "maxWinningAmount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "participatingDraws": {
+          "description": "participatingDraws",
+          "properties": {
+            "datePattern": {
+              "description": "datePattern",
+              "items": {
+                "properties": {
+                  "dates": {
+                    "description": "dates",
+                    "format": "date",
+                    "type": "string"
+                  },
+                  "index": {
+                    "description": "index",
+                    "format": "uint16",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "dayPattern": {
+              "description": "dayPattern",
+              "items": {
+                "properties": {
+                  "day": {
+                    "description": "day",
+                    "enum": [
+                      "Sun",
+                      "Mon",
+                      "Tue",
+                      "Wed",
+                      "Thu",
+                      "Fri",
+                      "Sat"
+                    ],
+                    "type": "string"
+                  },
+                  "index": {
+                    "description": "index",
+                    "format": "uint16",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "drawOffsets": {
+              "description": "drawOffsets",
+              "items": {
+                "format": "uint32",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "firstDraw": {
+              "description": "firstDraw",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "firstDrawIndex": {
+              "description": "firstDrawIndex",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "firstDrawTime": {
+              "description": "firstDrawTime",
+              "format": "datetime",
+              "type": "string"
+            },
+            "lastDraw": {
+              "description": "lastDraw",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "lastDrawTime": {
+              "description": "lastDrawTime",
+              "format": "datetime",
+              "type": "string"
+            },
+            "multipleDraws": {
+              "description": "multipleDraws",
+              "format": "uint16",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "gameId",
+        "board"
+      ],
+      "type": "object"
+    },
+    "InstantInquiryReplyModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/WinningsAmountsModel"
+        },
+        "claimBarcode": {
+          "description": "claimBarcode",
+          "type": "string"
+        },
+        "creditBarcode": {
+          "description": "creditBarcode",
+          "type": "string"
+        },
+        "gift": {
+          "description": "gift",
+          "type": "string"
+        },
+        "status": {
+          "description": "status",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "tier": {
+          "description": "tier",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "tierLevel": {
+          "description": "tierLevel",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "tierType": {
+          "description": "tierType",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "status",
+        "amounts"
+      ],
+      "type": "object"
+    },
+    "InstantWagerGroupModel": {
+      "properties": {
+        "gameMatrixVersion": {
+          "description": "gameMatrixVersion",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "gameMessageVersion": {
+          "description": "gameMessageVersion",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "poolId": {
+          "description": "poolId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "prizeType": {
+          "description": "prizeType",
+          "type": "string"
+        },
+        "recorcdId": {
+          "description": "recorcdId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "selection": {
+          "description": "selection",
+          "items": {
+            "$ref": "#/definitions/SelectionPartModel"
+          },
+          "type": "array"
+        },
+        "subgameId": {
+          "description": "subgameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "tier": {
+          "description": "tier",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "winningAmount": {
+          "description": "winningAmount",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "InstantWagerModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/PlayAmountModel"
+        },
+        "coupon": {
+          "description": "coupon",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "creationTime": {
+          "description": "creationTime",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "options": {
+          "description": "options",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "type",
+          "enum": [
+            "Normal",
+            "Free",
+            "Demo"
+          ],
+          "type": "string"
+        },
+        "wagerInfo": {
+          "description": "wagerInfo",
+          "items": {
+            "$ref": "#/definitions/InstantWagerGroupModel"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "gameId",
+        "wagerInfo"
+      ],
+      "type": "object"
+    },
+    "JackpotAmountModel": {
+      "properties": {
+        "categoryId": {
+          "description": "categoryId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "estimated": {
+          "description": "estimated",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "guaranteed": {
+          "description": "guaranteed",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "categoryId",
+        "estimated",
+        "guaranteed"
+      ],
+      "type": "object"
+    },
+    "L5ErrorDataModel": {
+      "properties": {
+        "data": {
+          "description": "data",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "eData": {
+          "description": "eData",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "LotosAlarmModel": {
+      "properties": {
+        "alarm": {
+          "description": "alarm",
+          "enum": [
+            "Printer error alarm",
+            "Bill validator alarm",
+            "Barcode gun alarm",
+            "Printer no connection",
+            "Paper out",
+            "Paper near end",
+            "Printer error",
+            "Barcode gun error",
+            "Bill validator stacker full",
+            "Bill validator stacker open",
+            "Bill validator jam",
+            "Bill validator cheated",
+            "Bill validator com error",
+            "Bill validator device failure",
+            "Bill validator door open",
+            "Bill validator door closed",
+            "Terminal blocked",
+            "Terminal Unblocked",
+            "Power restored",
+            "Power lost",
+            "FSST door closed",
+            "FSST door open"
+          ],
+          "type": "string"
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        }
+      },
+      "required": [
+        "posInfo",
+        "alarm"
+      ],
+      "type": "object"
+    },
+    "LoyaltyPointsResponseModel": {
+      "properties": {
+        "loyaltyPoints": {
+          "description": "loyaltyPoints",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "loyaltyPoints"
+      ],
+      "type": "object"
+    },
+    "Md5FileChecksumModel": {
+      "properties": {
+        "checksum": {
+          "description": "checksum",
+          "type": "string"
+        },
+        "filename": {
+          "description": "filename",
+          "type": "string"
+        }
+      },
+      "required": [
+        "filename",
+        "checksum"
+      ],
+      "type": "object"
+    },
+    "MetadataModel": {
+      "properties": {
+        "playerInfo": {
+          "$ref": "#/definitions/PlayerInfoModel"
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        },
+        "trnsTime": {
+          "description": "trnsTime",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "trnsTime"
+      ],
+      "type": "object"
+    },
+    "OddsDataModel": {
+      "properties": {
+        "handicap": {
+          "description": "handicap",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "market": {
+          "description": "market",
+          "format": "int32",
+          "type": "integer"
+        },
+        "odds": {
+          "description": "odds",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "type": "array"
+        },
+        "oddsChanged": {
+          "description": "oddsChanged",
+          "type": "boolean"
+        },
+        "stateOfOdds": {
+          "description": "stateOfOdds",
+          "enum": [
+            "HigherValues",
+            "SameOdds",
+            "AnyOdds"
+          ],
+          "type": "string"
+        },
+        "underOver": {
+          "description": "underOver",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "odds",
+        "handicap",
+        "stateOfOdds"
+      ],
+      "type": "object"
+    },
+    "PanelModel": {
+      "properties": {
+        "QPSelections": {
+          "description": "QPSelections",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "options": {
+          "description": "options",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "quickPick": {
+          "description": "quickPick",
+          "type": "boolean"
+        },
+        "requested": {
+          "description": "requested",
+          "format": "int16",
+          "type": "integer"
+        },
+        "selection": {
+          "description": "selection",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "selection"
+      ],
+      "type": "object"
+    },
+    "ParticipatingDrawModel": {
+      "properties": {
+        "datePattern": {
+          "description": "datePattern",
+          "items": {
+            "$ref": "#/definitions/DatePatternModel"
+          },
+          "type": "array"
+        },
+        "dayPattern": {
+          "description": "dayPattern",
+          "items": {
+            "$ref": "#/definitions/DayPatternModel"
+          },
+          "type": "array"
+        },
+        "drawOffsets": {
+          "description": "drawOffsets",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "firstDraw": {
+          "description": "firstDraw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "firstDrawIndex": {
+          "description": "firstDrawIndex",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "firstDrawTime": {
+          "description": "firstDrawTime",
+          "format": "datetime",
+          "type": "string"
+        },
+        "lastDraw": {
+          "description": "lastDraw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "lastDrawTime": {
+          "description": "lastDrawTime",
+          "format": "datetime",
+          "type": "string"
+        },
+        "multipleDraws": {
+          "description": "multipleDraws",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PlayAmountModel": {
+      "properties": {
+        "cost": {
+          "description": "cost",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "fee": {
+          "description": "fee",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "jackpot": {
+          "description": "jackpot",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "other": {
+          "description": "other",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "tax": {
+          "description": "tax",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cost"
+      ],
+      "type": "object"
+    },
+    "PlayMetaDataModel": {
+      "properties": {
+        "playerInfo": {
+          "$ref": "#/definitions/PlayerInfoModel"
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        },
+        "promotionInfo": {
+          "$ref": "#/definitions/PromotionInfoModel"
+        },
+        "trnsId": {
+          "description": "trnsId",
+          "format": "int64",
+          "type": "integer"
+        },
+        "trnsTime": {
+          "description": "trnsTime",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "trnsTime"
+      ],
+      "type": "object"
+    },
+    "PlayResponseModel": {
+      "properties": {
+        "promotionInfo": {
+          "$ref": "#/definitions/PromotionResponseModel"
+        },
+        "serialNumber": {
+          "description": "serialNumber",
+          "type": "string"
+        },
+        "trnsId": {
+          "description": "trnsId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "wager": {
+          "$ref": "#/definitions/WagerDataResponseModel"
+        }
+      },
+      "required": [
+        "wager"
+      ],
+      "type": "object"
+    },
+    "PlayerInfoModel": {
+      "properties": {
+        "groupId": {
+          "description": "groupId",
+          "format": "int32",
+          "type": "integer"
+        },
+        "payMethod": {
+          "description": "payMethod",
+          "type": "string"
+        },
+        "pin": {
+          "description": "pin",
+          "type": "string"
+        },
+        "playerId": {
+          "description": "playerId",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "type": "string"
+        },
+        "subscriptionId": {
+          "description": "subscriptionId",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PlayerSessionResponseModel": {
+      "properties": {
+        "id": {
+          "description": "id",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "loyaltyPoints": {
+          "description": "loyaltyPoints",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "name": {
+          "description": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "loyaltyPoints",
+        "name",
+        "id"
+      ],
+      "type": "object"
+    },
+    "PosDetailsDataModel": {
+      "properties": {
+        "posId": {
+          "description": "posId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "posTime": {
+          "description": "posTime",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "terminalCode": {
+          "description": "terminalCode",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "terminalType": {
+          "default": "test",
+          "description": "terminalType",
+          "type": "string"
+        },
+        "user": {
+          "description": "user",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "userPassword": {
+          "description": "userPassword",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "user",
+        "userPassword",
+        "posTime",
+        "posId",
+        "terminalCode",
+        "terminalType"
+      ],
+      "type": "object"
+    },
+    "PosInfoModel": {
+      "properties": {
+        "password": {
+          "description": "password",
+          "type": "string"
+        },
+        "retailerId": {
+          "description": "retailerId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "terminalId": {
+          "description": "terminalId",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "userId": {
+          "description": "userId",
+          "type": "string"
+        }
+      },
+      "required": [
+        "terminalId"
+      ],
+      "type": "object"
+    },
+    "PrizeCategoryModel": {
+      "properties": {
+        "categoryCd": {
+          "description": "categoryCd",
+          "format": "int32",
+          "type": "integer"
+        },
+        "drawCd": {
+          "description": "drawCd",
+          "format": "int32",
+          "type": "integer"
+        },
+        "gameCd": {
+          "description": "gameCd",
+          "format": "int32",
+          "type": "integer"
+        },
+        "selectedCategoryCd": {
+          "description": "selectedCategoryCd",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameCd",
+        "drawCd",
+        "categoryCd",
+        "selectedCategoryCd"
+      ],
+      "type": "object"
+    },
+    "PromoCouponsModel": {
+      "properties": {
+        "barcode": {
+          "description": "barcode",
+          "type": "string"
+        },
+        "index": {
+          "description": "index",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "promotionId": {
+          "description": "promotionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "type": {
+          "description": "type",
+          "enum": [
+            "Non serialized",
+            "Serialized",
+            "Random",
+            "Point Gifts",
+            "Web Codes"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "promotionId",
+        "type"
+      ],
+      "type": "object"
+    },
+    "PromotionInfoModel": {
+      "properties": {
+        "freeTicketsInfo": {
+          "$ref": "#/definitions/FreeTicketsInfoModel"
+        },
+        "optIn": {
+          "description": "optIn",
+          "type": "boolean"
+        },
+        "outcomeId": {
+          "description": "outcomeId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "promotionId": {
+          "description": "promotionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "voucher": {
+          "description": "voucher",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PromotionModel": {
+      "properties": {
+        "discount": {
+          "description": "discount",
+          "properties": {
+            "amount": {
+              "description": "amount",
+              "format": "uint64",
+              "type": "integer"
+            },
+            "percentage": {
+              "description": "percentage",
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "percentage",
+            "amount"
+          ],
+          "type": "object"
+        },
+        "freeScratchTickets": {
+          "description": "freeScratchTickets",
+          "properties": {
+            "description": {
+              "description": "description",
+              "type": "string"
+            }
+          },
+          "required": [
+            "description"
+          ],
+          "type": "object"
+        },
+        "freeTickets": {
+          "description": "freeTickets",
+          "properties": {
+            "count": {
+              "description": "count",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "discount": {
+              "description": "discount",
+              "properties": {
+                "amount": {
+                  "description": "amount",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "percentage": {
+                  "description": "percentage",
+                  "format": "double",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "percentage",
+                "amount"
+              ],
+              "type": "object"
+            },
+            "gameId": {
+              "description": "gameId",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "groupMultiplier": {
+              "description": "groupMultiplier",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "groups": {
+              "description": "groups",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "index": {
+              "description": "index",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "multipleDraws": {
+              "description": "multipleDraws",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "options": {
+              "description": "options",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "ticketId": {
+              "description": "ticketId",
+              "format": "uint32",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "gameId",
+            "count",
+            "ticketId",
+            "groups",
+            "multipleDraws",
+            "groupMultiplier"
+          ],
+          "type": "object"
+        },
+        "groupPromotionTrigger": {
+          "description": "groupPromotionTrigger",
+          "properties": {
+            "count": {
+              "description": "count",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "discount": {
+              "description": "discount",
+              "properties": {
+                "amount": {
+                  "description": "amount",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "percentage": {
+                  "description": "percentage",
+                  "format": "double",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "percentage",
+                "amount"
+              ],
+              "type": "object"
+            },
+            "gameId": {
+              "description": "gameId",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "groupMultiplier": {
+              "description": "groupMultiplier",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "groups": {
+              "description": "groups",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "index": {
+              "description": "index",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "multipleDraws": {
+              "description": "multipleDraws",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "options": {
+              "description": "options",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "ticketId": {
+              "description": "ticketId",
+              "format": "uint32",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "gameId",
+            "count",
+            "ticketId",
+            "groups",
+            "multipleDraws",
+            "groupMultiplier"
+          ],
+          "type": "object"
+        },
+        "normalTickets": {
+          "description": "normalTickets",
+          "properties": {
+            "count": {
+              "description": "count",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "discount": {
+              "description": "discount",
+              "properties": {
+                "amount": {
+                  "description": "amount",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "percentage": {
+                  "description": "percentage",
+                  "format": "double",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "percentage",
+                "amount"
+              ],
+              "type": "object"
+            },
+            "gameId": {
+              "description": "gameId",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "groupMultiplier": {
+              "description": "groupMultiplier",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "groups": {
+              "description": "groups",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "index": {
+              "description": "index",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "multipleDraws": {
+              "description": "multipleDraws",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "options": {
+              "description": "options",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "ticketId": {
+              "description": "ticketId",
+              "format": "uint32",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "gameId",
+            "count",
+            "ticketId",
+            "groups",
+            "multipleDraws",
+            "groupMultiplier"
+          ],
+          "type": "object"
+        },
+        "promoCoupons": {
+          "description": "promoCoupons",
+          "properties": {
+            "barcode": {
+              "description": "barcode",
+              "type": "string"
+            },
+            "index": {
+              "description": "index",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "promotionId": {
+              "description": "promotionId",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "type": {
+              "description": "type",
+              "enum": [
+                "Non serialized",
+                "Serialized",
+                "Random",
+                "Point Gifts",
+                "Web Codes"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "promotionId",
+            "type"
+          ],
+          "type": "object"
+        },
+        "promotionId": {
+          "description": "promotionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "target": {
+          "description": "target",
+          "enum": [
+            "Player",
+            "Employee/User",
+            "Agency/Retailer",
+            "Undefined"
+          ],
+          "type": "string"
+        },
+        "ticketMessage": {
+          "description": "ticketMessage",
+          "type": "string"
+        },
+        "win": {
+          "description": "win",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "promotionId"
+      ],
+      "type": "object"
+    },
+    "PromotionResponseModel": {
+      "items": {
+        "$ref": "#/definitions/PromotionModel"
+      },
+      "type": "array"
+    },
+    "ReportVersionModel": {
+      "properties": {
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        },
+        "version": {
+          "description": "version",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "posInfo",
+        "version"
+      ],
+      "type": "object"
+    },
+    "ResponseCodeModel": {
+      "properties": {
+        "code": {
+          "description": "code",
+          "format": "int32",
+          "type": "integer"
+        },
+        "description": {
+          "description": "description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "description"
+      ],
+      "type": "object"
+    },
+    "ResponseCodesListResultModel": {
+      "items": {
+        "$ref": "#/definitions/ResponseCodeModel"
+      },
+      "type": "array"
+    },
+    "SelectionPartModel": {
+      "properties": {
+        "data": {
+          "description": "data",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data"
+      ],
+      "type": "object"
+    },
+    "ShopInfoModel": {
+      "properties": {
+        "address": {
+          "description": "address",
+          "type": "string"
+        },
+        "ah_phone": {
+          "description": "ah_phone",
+          "type": "string"
+        },
+        "bh_phone": {
+          "description": "bh_phone",
+          "type": "string"
+        },
+        "description": {
+          "description": "description",
+          "type": "string"
+        },
+        "lat": {
+          "description": "lat",
+          "format": "double",
+          "type": "number"
+        },
+        "lng": {
+          "description": "lng",
+          "format": "double",
+          "type": "number"
+        },
+        "region": {
+          "description": "region",
+          "type": "string"
+        },
+        "retailerId": {
+          "description": "retailerId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "storeType": {
+          "description": "storeType",
+          "type": "string"
+        },
+        "zipCode": {
+          "description": "zipCode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "retailerId",
+        "description",
+        "ah_phone",
+        "bh_phone",
+        "address",
+        "zipCode",
+        "region",
+        "lat",
+        "lng"
+      ],
+      "type": "object"
+    },
+    "SystemAttributesModel": {
+      "properties": {
+        "reqMult": {
+          "description": "reqMult",
+          "format": "int32",
+          "type": "integer"
+        },
+        "request": {
+          "description": "request",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "request",
+        "reqMult"
+      ],
+      "type": "object"
+    },
+    "TerminalActionModel": {
+      "properties": {
+        "posInfo": {
+          "$ref": "#/definitions/PosInfoModel"
+        },
+        "smartCardOption": {
+          "description": "smartCardOption",
+          "type": "boolean"
+        },
+        "userLevel": {
+          "description": "userLevel",
+          "enum": [
+            "Normal User",
+            "LSR"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "posInfo",
+        "userLevel"
+      ],
+      "type": "object"
+    },
+    "TerminalPostActionModel": {
+      "properties": {
+        "columns": {
+          "description": "columns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "cost": {
+          "description": "cost",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "discount": {
+          "description": "discount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "end_draw": {
+          "description": "end_draw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "multipleDraws": {
+          "description": "multipleDraws",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "multiplier": {
+          "description": "multiplier",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "participationMethod": {
+          "description": "participationMethod",
+          "type": "string"
+        },
+        "pin": {
+          "description": "pin",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "serialNumber": {
+          "description": "serialNumber",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "start_draw": {
+          "description": "start_draw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "terminalId": {
+          "description": "terminalId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "trnsType": {
+          "description": "trnsType",
+          "enum": [
+            "Play",
+            "Cancel",
+            "Pay",
+            "SpecialCancel",
+            "FreeTicket",
+            "Discount"
+          ],
+          "type": "string"
+        },
+        "user": {
+          "description": "user",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "validation": {
+          "$ref": "#/definitions/ValidationModel"
+        },
+        "wagerId": {
+          "description": "wagerId",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "terminalId",
+        "user",
+        "pin",
+        "trnsType",
+        "cost",
+        "columns",
+        "start_draw",
+        "end_draw",
+        "multipleDraws",
+        "multiplier",
+        "serialNumber",
+        "sessionId"
+      ],
+      "type": "object"
+    },
+    "TerminalPostActionModelV2": {
+      "properties": {
+        "participationMethod": {
+          "description": "participationMethod",
+          "type": "string"
+        },
+        "pin": {
+          "description": "pin",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "serialNumber": {
+          "description": "serialNumber",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "terminalId": {
+          "description": "terminalId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "trnsType": {
+          "description": "trnsType",
+          "enum": [
+            "Play",
+            "Cancel",
+            "Pay",
+            "SpecialCancel",
+            "FreeTicket",
+            "Discount"
+          ],
+          "type": "string"
+        },
+        "user": {
+          "description": "user",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "validation": {
+          "description": "validation",
+          "items": {
+            "$ref": "#/definitions/ValidationModel"
+          },
+          "type": "array"
+        },
+        "wager": {
+          "description": "wager",
+          "items": {
+            "$ref": "#/definitions/TerminalPostActionWagerModel"
+          },
+          "type": "array"
+        },
+        "wagerId": {
+          "description": "wagerId",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "terminalId",
+        "user",
+        "pin",
+        "trnsType",
+        "serialNumber",
+        "sessionId",
+        "wager"
+      ],
+      "type": "object"
+    },
+    "TerminalPostActionWagerModel": {
+      "properties": {
+        "columns": {
+          "description": "columns",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "cost": {
+          "description": "cost",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "discount": {
+          "description": "discount",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "end_draw": {
+          "description": "end_draw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "multipleDraws": {
+          "description": "multipleDraws",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "multiplier": {
+          "description": "multiplier",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "start_draw": {
+          "description": "start_draw",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameId",
+        "cost",
+        "columns",
+        "start_draw",
+        "end_draw",
+        "multipleDraws",
+        "multiplier"
+      ],
+      "type": "object"
+    },
+    "TerminalPreActionModel": {
+      "properties": {
+        "pin": {
+          "description": "pin",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "retailerId": {
+          "description": "retailerId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "terminalId": {
+          "description": "terminalId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "user": {
+          "description": "user",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "terminalId",
+        "retailerId",
+        "user",
+        "pin",
+        "sessionId"
+      ],
+      "type": "object"
+    },
+    "TerminalPreResponseModel": {
+      "properties": {
+        "serialNumber": {
+          "description": "serialNumber",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "sessionId",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "serialNumber",
+        "sessionId"
+      ],
+      "type": "object"
+    },
+    "ValidationDetailsModel": {
+      "properties": {
+        "detailAmounts": {
+          "$ref": "#/definitions/AmountsModel"
+        },
+        "draw": {
+          "description": "draw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "purgeTime": {
+          "description": "purgeTime",
+          "format": "datetime",
+          "type": "string"
+        },
+        "status": {
+          "description": "status",
+          "enum": [
+            "Play",
+            "Cancel",
+            "Pay",
+            "SpecialCancel",
+            "FreeTicket",
+            "Discount"
+          ],
+          "type": "string"
+        },
+        "winningsPerCategory": {
+          "description": "winningsPerCategory",
+          "items": {
+            "$ref": "#/definitions/WinningsPerCategoryModel"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "detailAmounts",
+        "draw",
+        "purgeTime",
+        "draw",
+        "status",
+        "winningsPerCategory"
+      ],
+      "type": "object"
+    },
+    "ValidationInfoModel": {
+      "properties": {
+        "iSecure": {
+          "description": "iSecure",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "metadata": {
+          "$ref": "#/definitions/PlayMetaDataModel"
+        }
+      },
+      "type": "object"
+    },
+    "ValidationModel": {
+      "properties": {
+        "details": {
+          "description": "details",
+          "items": {
+            "$ref": "#/definitions/ValidationDetailsModel"
+          },
+          "type": "array"
+        },
+        "endDraw": {
+          "description": "endDraw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "paidDraws": {
+          "description": "paidDraws",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "startDraw": {
+          "description": "startDraw",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "startDraw",
+        "endDraw",
+        "paidDraws",
+        "gameId",
+        "details"
+      ],
+      "type": "object"
+    },
+    "ValidationResponseModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/AmountsModel"
+        },
+        "drawInfo": {
+          "$ref": "#/definitions/DrawInfoModel"
+        },
+        "gameId": {
+          "description": "gameId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "subgameId": {
+          "description": "subgameId",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "trnsId": {
+          "description": "trnsId",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amounts",
+        "drawInfo",
+        "gameId"
+      ],
+      "type": "object"
+    },
+    "WagerDataModel": {
+      "properties": {
+        "dbg": {
+          "description": "dbg",
+          "items": {
+            "$ref": "#/definitions/DdgWagerModel"
+          },
+          "type": "array"
+        },
+        "iFlex": {
+          "description": "iFlex",
+          "items": {
+            "$ref": "#/definitions/IflexWagerModel"
+          },
+          "type": "array"
+        },
+        "instant": {
+          "$ref": "#/definitions/InstantWagerModel"
+        }
+      },
+      "type": "object"
+    },
+    "WagerDataResponseModel": {
+      "properties": {
+        "dbg": {
+          "description": "dbg",
+          "items": {
+            "properties": {
+              "amounts": {
+                "$ref": "#/definitions/PlayAmountModel"
+              },
+              "betType": {
+                "description": "betType",
+                "format": "uint16",
+                "type": "integer"
+              },
+              "boards": {
+                "description": "boards",
+                "items": {
+                  "properties": {
+                    "boardId": {
+                      "description": "boardId",
+                      "format": "uint16",
+                      "type": "integer"
+                    },
+                    "multipliers": {
+                      "description": "multipliers",
+                      "items": {
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "type": "array"
+                    },
+                    "options": {
+                      "description": "options",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "panels": {
+                      "description": "panels",
+                      "items": {
+                        "properties": {
+                          "QPSelections": {
+                            "description": "QPSelections",
+                            "format": "uint16",
+                            "type": "integer"
+                          },
+                          "options": {
+                            "description": "options",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "quickPick": {
+                            "description": "quickPick",
+                            "type": "boolean"
+                          },
+                          "requested": {
+                            "description": "requested",
+                            "format": "int16",
+                            "type": "integer"
+                          },
+                          "selection": {
+                            "description": "selection",
+                            "items": {
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "selection"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "quickPick": {
+                      "description": "quickPick",
+                      "type": "boolean"
+                    },
+                    "systemId": {
+                      "description": "systemId",
+                      "format": "int16",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "boardId",
+                    "panels"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "columns": {
+                "description": "columns",
+                "format": "uint32",
+                "type": "integer"
+              },
+              "coupon": {
+                "description": "coupon",
+                "format": "uint32",
+                "type": "integer"
+              },
+              "created": {
+                "description": "created",
+                "format": "uint64",
+                "type": "integer"
+              },
+              "creationTime": {
+                "description": "creationTime",
+                "format": "uint64",
+                "type": "integer"
+              },
+              "gameId": {
+                "description": "gameId",
+                "format": "uint16",
+                "type": "integer"
+              },
+              "gameMatrixVersion": {
+                "description": "gameMatrixVersion",
+                "format": "uint32",
+                "type": "integer"
+              },
+              "gameMessageVersion": {
+                "description": "gameMessageVersion",
+                "format": "uint32",
+                "type": "integer"
+              },
+              "multipliers": {
+                "description": "Default value is [1]",
+                "items": {
+                  "format": "uint32",
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "options": {
+                "description": "options",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "participatingDraws": {
+                "description": "participatingDraws",
+                "properties": {
+                  "datePattern": {
+                    "description": "datePattern",
+                    "items": {
+                      "properties": {
+                        "dates": {
+                          "description": "dates",
+                          "format": "date",
+                          "type": "string"
+                        },
+                        "index": {
+                          "description": "index",
+                          "format": "uint16",
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "dayPattern": {
+                    "description": "dayPattern",
+                    "items": {
+                      "properties": {
+                        "day": {
+                          "description": "day",
+                          "enum": [
+                            "Sun",
+                            "Mon",
+                            "Tue",
+                            "Wed",
+                            "Thu",
+                            "Fri",
+                            "Sat"
+                          ],
+                          "type": "string"
+                        },
+                        "index": {
+                          "description": "index",
+                          "format": "uint16",
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "drawOffsets": {
+                    "description": "drawOffsets",
+                    "items": {
+                      "format": "uint32",
+                      "type": "integer"
+                    },
+                    "type": "array"
+                  },
+                  "firstDraw": {
+                    "description": "firstDraw",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "firstDrawIndex": {
+                    "description": "firstDrawIndex",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "firstDrawTime": {
+                    "description": "firstDrawTime",
+                    "format": "datetime",
+                    "type": "string"
+                  },
+                  "lastDraw": {
+                    "description": "lastDraw",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "lastDrawTime": {
+                    "description": "lastDrawTime",
+                    "format": "datetime",
+                    "type": "string"
+                  },
+                  "multipleDraws": {
+                    "description": "multipleDraws",
+                    "format": "uint16",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "quickPick": {
+                "description": "quickPick",
+                "type": "boolean"
+              },
+              "riskStatus": {
+                "description": "riskStatus",
+                "enum": [
+                  "NotAvailable",
+                  "AvailableReduced",
+                  "Available"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "status",
+                "enum": [
+                  "Played",
+                  "Canceled",
+                  "UndoCanceled",
+                  "Blocked",
+                  "Unblocked"
+                ],
+                "type": "string"
+              },
+              "teamShares": {
+                "description": "teamShares",
+                "format": "uint16",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "gameId",
+              "boards"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "iFlex": {
+          "description": "iFlex",
+          "items": {
+            "$ref": "#/definitions/IflexWagerResponseModel"
+          },
+          "type": "array"
+        },
+        "instant": {
+          "description": "instant",
+          "properties": {
+            "amounts": {
+              "$ref": "#/definitions/PlayAmountModel"
+            },
+            "coupon": {
+              "description": "coupon",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "creationTime": {
+              "description": "creationTime",
+              "format": "uint64",
+              "type": "integer"
+            },
+            "gameId": {
+              "description": "gameId",
+              "format": "uint32",
+              "type": "integer"
+            },
+            "options": {
+              "description": "options",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": {
+              "description": "type",
+              "enum": [
+                "Normal",
+                "Free",
+                "Demo"
+              ],
+              "type": "string"
+            },
+            "wagerInfo": {
+              "description": "wagerInfo",
+              "items": {
+                "properties": {
+                  "gameMatrixVersion": {
+                    "description": "gameMatrixVersion",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "gameMessageVersion": {
+                    "description": "gameMessageVersion",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "poolId": {
+                    "description": "poolId",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "prizeType": {
+                    "description": "prizeType",
+                    "type": "string"
+                  },
+                  "recorcdId": {
+                    "description": "recorcdId",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "selection": {
+                    "description": "selection",
+                    "items": {
+                      "properties": {
+                        "data": {
+                          "description": "data",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "data"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "subgameId": {
+                    "description": "subgameId",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "tier": {
+                    "description": "tier",
+                    "format": "uint32",
+                    "type": "integer"
+                  },
+                  "winningAmount": {
+                    "description": "winningAmount",
+                    "format": "uint64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "type",
+            "gameId",
+            "wagerInfo"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "WinningCategoryModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/DrawAmountModel"
+        },
+        "category": {
+          "description": "category",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "clmsPlayed": {
+          "description": "clmsPlayed",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "jackpotType": {
+          "description": "jackpotType",
+          "enum": [
+            "Full",
+            "Partial",
+            "NoJackpot"
+          ],
+          "type": "string"
+        },
+        "winners": {
+          "description": "winners",
+          "format": "uint32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amounts",
+        "category",
+        "winners"
+      ],
+      "type": "object"
+    },
+    "WinningNumbersModel": {
+      "properties": {
+        "id": {
+          "description": "id",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "numbers": {
+          "description": "numbers",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "numbers"
+      ],
+      "type": "object"
+    },
+    "WinningsAmountsModel": {
+      "properties": {
+        "gross": {
+          "description": "gross",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "net": {
+          "description": "net",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "refund": {
+          "description": "refund",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "tax": {
+          "description": "tax",
+          "format": "uint64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gross",
+        "net",
+        "refund",
+        "tax"
+      ],
+      "type": "object"
+    },
+    "WinningsModel": {
+      "properties": {
+        "amounts": {
+          "$ref": "#/definitions/WinningsAmountsModel"
+        },
+        "cost": {
+          "description": "cost",
+          "format": "uint64",
+          "type": "integer"
+        },
+        "endDraw": {
+          "description": "endDraw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "rDraw": {
+          "description": "rDraw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "startDraw": {
+          "description": "startDraw",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "status": {
+          "description": "status",
+          "enum": [
+            "Win",
+            "NoWin",
+            "Pending",
+            "Paid",
+            "Claimed",
+            "Expired"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "rDraw",
+        "startDraw",
+        "endDraw",
+        "amounts"
+      ],
+      "type": "object"
+    },
+    "WinningsPerCategoryModel": {
+      "properties": {
+        "categoryAmounts": {
+          "$ref": "#/definitions/AmountsModel"
+        },
+        "categoryId": {
+          "description": "categoryId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "gameTypeId": {
+          "description": "gameTypeId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "subCategoryId": {
+          "description": "subCategoryId",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "successes": {
+          "description": "successes",
+          "format": "uint16",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "categoryAmounts",
+        "categoryId",
+        "subCategoryId",
+        "successes",
+        "gameTypeId"
+      ],
+      "type": "object"
+    }
+  },
+  "host": "",
+  "info": {
+    "description": "Api Gateway",
+    "title": "Api Gateway",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/reports/financials": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/reports/financials",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "header",
+            "name": "TerminalId",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "UserId",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Password",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "enum": [
+              "Day",
+              "Week"
+            ],
+            "in": "query",
+            "name": "type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "enum": [
+              "Retailer",
+              "Terminal",
+              "Employee"
+            ],
+            "in": "query",
+            "name": "scope",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint32",
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "widthpx",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "tz",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "Retrieves financial related reports",
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/reports/shift": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/reports/shift",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "header",
+            "name": "TerminalId",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "UserId",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Password",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "widthpx",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "tz",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "Retrieves shift report",
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/reports/weekly-invoice": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/reports/weekly-invoice",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "header",
+            "name": "TerminalId",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "UserId",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Password",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint32",
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "widthpx",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "query",
+            "name": "tz",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "Retrieves weekly invoice report",
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/scramble/{serialNumber}/l10": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/scramble/<>/l10",
+        "parameters": [
+          {
+            "description": "",
+            "in": "path",
+            "name": "serialNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "gameId": {
+                  "description": "gameId",
+                  "format": "uint32",
+                  "type": "integer"
+                },
+                "serialNumber": {
+                  "description": "serialNumber",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "gameId",
+                "serialNumber"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method gets the L10 Serial Number and returns the L5 Serial Number",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/scramble/{serialNumber}/l5": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/scramble/<>/l5",
+        "parameters": [
+          {
+            "description": "",
+            "in": "path",
+            "name": "serialNumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "betslipId": {
+                  "description": "betslipId",
+                  "type": "string"
+                },
+                "gameId": {
+                  "description": "gameId",
+                  "format": "uint16",
+                  "type": "integer"
+                },
+                "levelIt": {
+                  "description": "levelIt",
+                  "format": "uint32",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "gameId",
+                "betslipId",
+                "levelIt"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method gets the L5 Serial Number and returns the Betslip Id",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/sessions": {
+      "post": {
+        "description": "",
+        "operationId": "post_/api/v1/sessions",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "posInfo": {
+                  "$ref": "#/definitions/PosInfoModel"
+                },
+                "trnsTime": {
+                  "description": "trnsTime",
+                  "format": "datetime",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "trnsTime",
+                "posInfo"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method is used to create a new session",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/sessions/{sessionId}": {
+      "delete": {
+        "description": "",
+        "operationId": "delete_/api/v1/sessions/<>",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "path",
+            "name": "sessionId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloseSessionRequestModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Closes the active session and creates the voucher's serial number",
+        "tags": [
+          "Session Management"
+        ]
+      },
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/sessions/<>",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "header",
+            "name": "TerminalId",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "UserId",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Password",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "path",
+            "name": "sessionId",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Retrieves session related information",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/sessions/{sessionId}/deposits": {
+      "post": {
+        "description": "",
+        "operationId": "post_/api/v1/sessions/<>/deposits",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint32",
+            "in": "path",
+            "name": "sessionId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "amount": {
+                  "description": "amount",
+                  "format": "double",
+                  "type": "number"
+                },
+                "amountType": {
+                  "description": "amountType",
+                  "enum": [
+                    "Coin",
+                    "Bill"
+                  ],
+                  "type": "string"
+                },
+                "posInfo": {
+                  "$ref": "#/definitions/PosInfoModel"
+                },
+                "trnsTime": {
+                  "description": "trnsTime",
+                  "format": "datetime",
+                  "type": "string"
+                },
+                "verification": {
+                  "description": "if true, CS will verify if the actual deposit is possible. No changes to the session balance will take place.if false (default value), CS will proceed to the actual deposit.",
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "trnsTime",
+                "posInfo",
+                "amount",
+                "verification",
+                "amountType"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method deposits the requested amount to the active session",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/sessions/{sessionId}/money-stacked": {
+      "put": {
+        "description": "",
+        "operationId": "put_/api/v1/sessions/<>/money-stacked",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "path",
+            "name": "sessionId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "amount": {
+                  "description": "amount",
+                  "format": "double",
+                  "type": "number"
+                },
+                "posInfo": {
+                  "$ref": "#/definitions/PosInfoModel"
+                },
+                "trnsTime": {
+                  "description": "trnsTime",
+                  "format": "datetime",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "trnsTime",
+                "posInfo",
+                "amount"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "seals previous deposit",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/sessions/{sessionId}/reserve-funds": {
+      "post": {
+        "description": "",
+        "operationId": "post_/api/v1/sessions/<>/reserve-funds",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint32",
+            "in": "path",
+            "name": "sessionId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "amount": {
+                  "description": "amount",
+                  "format": "double",
+                  "type": "number"
+                },
+                "credit": {
+                  "description": "credit",
+                  "type": "boolean"
+                },
+                "posInfo": {
+                  "$ref": "#/definitions/PosInfoModel"
+                },
+                "trnsTime": {
+                  "description": "trnsTime",
+                  "format": "datetime",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "trnsTime",
+                "posInfo",
+                "amount",
+                "credit"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method reserves the requested amount from the active session",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/shift": {
+      "delete": {
+        "description": "",
+        "operationId": "delete_/api/v1/shift",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloseShiftRequestModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "status": {
+                  "description": "status",
+                  "type": "string"
+                },
+                "terminalId": {
+                  "description": "terminalId",
+                  "format": "uint64",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "terminalId",
+                "status"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Closes the active shift of the terminal.",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/terminal-actions/signoff": {
+      "post": {
+        "description": "",
+        "operationId": "post_/api/v1/terminal-actions/signoff",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalActionModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "Registers terminal to the system with status 'sign-off'",
+        "tags": [
+          "terminal actions"
+        ]
+      }
+    },
+    "/api/v1/terminal-actions/signon": {
+      "post": {
+        "description": "",
+        "operationId": "post_/api/v1/terminal-actions/signon",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TerminalActionModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "userLevel": {
+                  "description": "userLevel",
+                  "enum": [
+                    "Normal User",
+                    "LSR/Employee",
+                    "Chainhead",
+                    "MSR",
+                    "Store Manager",
+                    "Field Technician",
+                    "Training",
+                    "Employee",
+                    "LSR",
+                    "CST",
+                    "Financial Manager",
+                    "Unknown User"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "userLevel"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "Registers terminal to the system with status 'sign-on'",
+        "tags": [
+          "terminal actions"
+        ]
+      }
+    },
+    "/api/v1/terminals/retailer-name": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/terminals/retailer-name",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "UserId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint32",
+            "in": "header",
+            "name": "TerminalId",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "name": {
+                  "description": "name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "Retrieves brand name for the specific retailer",
+        "tags": [
+          "Generic"
+        ]
+      }
+    },
+    "/api/v1/vouchers/{voucherId}": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1/vouchers/<>",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "format": "uint64",
+            "in": "header",
+            "name": "TerminalId",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "UserId",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Password",
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "path",
+            "name": "voucherId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method is used for retrieving information about a voucher",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/api/v1/vouchers/{voucherId}/redemption": {
+      "put": {
+        "description": "",
+        "operationId": "put_/api/v1/vouchers/<>/redemption",
+        "parameters": [
+          {
+            "description": "",
+            "in": "header",
+            "name": "Client",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Operator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "path",
+            "name": "voucherId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "the sessionId on which the vouchers current balance will be transfered",
+            "format": "uint64",
+            "in": "query",
+            "name": "sessionId",
+            "type": "integer"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "posInfo": {
+                  "$ref": "#/definitions/PosInfoModel"
+                },
+                "trnsTime": {
+                  "description": "trnsTime",
+                  "format": "datetime",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "trnsTime",
+                "posInfo"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "balance": {
+                  "description": "balance",
+                  "format": "double",
+                  "type": "number"
+                },
+                "sessionId": {
+                  "description": "sessionId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "trnsId": {
+                  "description": "trnsId",
+                  "format": "uint64",
+                  "type": "integer"
+                },
+                "voucher": {
+                  "description": "voucher",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sessionId",
+                "voucher",
+                "balance"
+              ],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "This method is used for voucher redemption",
+        "tags": [
+          "Session Management"
+        ]
+      }
+    },
+    "/authentication/token": {
+      "post": {
+        "description": "Retrieve client credential token",
+        "operationId": "post_/authentication/token",
+        "parameters": [
+          {
+            "description": "",
+            "enum": [
+              "client_credentials"
+            ],
+            "in": "query",
+            "name": "grant_type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "header",
+            "name": "authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/checksum": {
+      "get": {
+        "description": "Retrieve MD5 checksums for L5Connector component",
+        "operationId": "get_/checksum",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Md5FileChecksumModel"
+              },
+              "type": "array"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponseModel"
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/echo": {
+      "post": {
+        "description": "ping LOTOS 5",
+        "operationId": "post_/echo",
+        "parameters": [
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PosDetailsDataModel"
+            }
+          },
+          {
+            "description": "",
+            "format": "uint32",
+            "in": "query",
+            "name": "number",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": null,
+        "summary": "",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/enviroment": {
+      "get": {
+        "description": "",
+        "operationId": "get_/enviroment",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Retrieve container's enviroment",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/gtg": {
+      "get": {
+        "description": "",
+        "operationId": "get_/gtg",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Used for service liveness checks",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/swagger": {
+      "get": {
+        "description": "",
+        "operationId": "get_/swagger",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": ""
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "tags": []
+}

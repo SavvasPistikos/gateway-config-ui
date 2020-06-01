@@ -1,0 +1,5449 @@
+{
+	"swagger": "2.0",
+	"host": "gamemanagementservice.lnlo.app.oseqa.l10.intralot.com",
+	"basePath": "/api",
+	"schemes": ["http", "https"],
+	"info": {
+		"title": "L10 Game Management Service :: v1.5.13.0-898",
+		"version": "1.0",
+		"description": "<p><strong>L10 Game Management Service</strong> provides a set of endpoints that expose the defined games and their configuration</p>\n<p><strong>Game Records</strong>: This set of APIs provides the main configuration for the defined games, e.g. the game records.</p>\n<p><strong>Channel Records</strong>: This set of APIs provides the per channel configuration for the defined games, e.g. the channel records.</p>\n<p><strong>Activate / Deactive</strong>: This set of APIs allows the activation / deactivation of the game and channel records, utilized by the L10 Scheduler.</p>\n<p><strong>Games Info</strong>: This set of APIs provides the basic properties of the defined games.</p>\n<p><strong>MatchX Operations</strong>: This set of APIs provides the defined program per game and per draw.</p>\n<p><strong>Product Bundling</strong>: This set of APIs provides operations related to the product bundling.</p>\n<p><strong>Operators</strong>: This set of APIs provides information about games and their associated operators.</p>\n<p><strong>Lookups</strong>: This set of APIs provides information about lookups.</p>",
+		"contact": {
+			"name": "Intralot S.A."
+		}
+	},
+	"tags": [{
+		"name": "Activate",
+		"description": "Endpoints to activate game and channel game versions"
+	}, {
+		"name": "Deactivate",
+		"description": "Endpoints to deactivate game and channel game versions"
+	}, {
+		"name": "ChannelGames",
+		"description": "Channel game information and configuration"
+	}, {
+		"name": "Games",
+		"description": "Game information and configuration"
+	}, {
+		"name": "GamesInfo",
+		"description": "Basic Game Information endpoints"
+	}, {
+		"name": "MatchXPrograms",
+		"description": "MatchX game program endpoints"
+	}, {
+		"name": "ProductDefinition",
+		"description": "Product Definition v1.0 endpoints"
+	}, {
+		"name": "ProductDefinitionV2",
+		"description": "Product Definition v2.0 endpoints"
+	}, {
+		"name": "Operators",
+		"description": "Operator endpoints"
+	}, {
+		"name": "Lookup",
+		"description": "Lookup endpoints"
+	}, {
+		"name": "Raffle",
+		"description": "Raffle endpoints"
+	}, {
+		"name": "Errors",
+		"description": "Error list API"
+	}, {
+		"name": "Passives",
+		"description": "Passives endpoints"
+	}
+	],
+	"paths": {
+		"/v1.0/errors": {
+			"get": {
+				"summary": "Returns the error list of this application",
+				"operationId": "getV10Errors",
+				"description": "<p>This API call returns the errors list of Game Management Service</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5003</td>\n<td>Game record already active</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Something went wrong</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5012</td>\n<td>Active channel record not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["Errors"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Model2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/gamesinfo": {
+			"get": {
+				"summary": "Returns basic information for all defined games",
+				"operationId": "getV10Gamesinfo",
+				"description": "<p>This API call returns basic information for all defined games, including the operators list. </p>\n<p>Available filters</p>\n<table>\n<thead>\n<tr>\n<th><em>Name</em></th>\n<th><em>Description</em></th>\n<th><em>Required</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>mjGameId</td>\n<td>Filter results by multijurisdictional game id (e.g. Eurojackpot)</td>\n<td>optional</td>\n</tr>\n<tr>\n<td>gameFamilyId</td>\n<td>Filter results by game family id</td>\n<td>optional</td>\n</tr>\n<tr>\n<td>onlyActive</td>\n<td>If set, it returns only active or inactive games</td>\n<td>optional</td>\n</tr>\n<tr>\n<td>operators</td>\n<td>Comma seperated ids. If set, it filters with operator ids</td>\n<td>optional</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5020</td>\n<td>Game Family not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Game Family Id",
+					"name": "gameFamilyId",
+					"in": "query",
+					"required": false
+				}, {
+					"type": "integer",
+					"description": "Multijurisdictional Game Id",
+					"name": "mjGameId",
+					"in": "query",
+					"required": false
+				}, {
+					"type": "boolean",
+					"description": "Return only games that are currently active",
+					"name": "onlyActive",
+					"in": "query",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "A comma ',' seperated list of operator ids",
+					"name": "operators",
+					"in": "query",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Locale",
+					"name": "locale",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["GamesInfo"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/GamesInfo"
+						}
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Unexpected error occurred"
+					},
+					"default": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/products": {
+			"get": {
+				"summary": "Returns a list with all of Defined Products having the queried string if existed",
+				"operationId": "getV10Products",
+				"description": "<p>This API call returns a list with the information for all products. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel id.",
+					"name": "channel",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v2.0/products": {
+			"get": {
+				"summary": "Returns a list with all of Defined Products having the queried string if existed",
+				"operationId": "getV20Products",
+				"description": "<p>This API call returns a list with the information for all products. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel id.",
+					"name": "channel",
+					"in": "query"
+				}
+				],
+				"tags": ["ProductDefinitionV2"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/cache/clear": {
+			"get": {
+				"summary": "Clears cache",
+				"operationId": "getV10CacheClear",
+				"description": "<p>This API call clears in internal cache of the service.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["Cache"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/GamesInfo"
+						}
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Unexpected error occurred"
+					},
+					"default": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/games/active": {
+			"get": {
+				"summary": "Returns a list with all active records for all games",
+				"operationId": "getV10GamesActive",
+				"description": "<p>This API call returns the configuration for all <strong>active</strong> games.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "boolean",
+					"description": "Exclude Systems",
+					"name": "excludeSystems",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["Games"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameParametersResources"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/gamesInfo/{id}": {
+			"get": {
+				"summary": "Returns basic information for a specific game",
+				"operationId": "getV10GamesinfoId",
+				"description": "<p>This API call returns basic information for the given game, including the operators list. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5004</td>\n<td>Game not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Provide the id of game.",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "string",
+					"description": "Locale",
+					"name": "locale",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["GamesInfo"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameInfo"
+						},
+						"description": "OK"
+					},
+					"400": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Bad Request"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Unauthorized Access"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					},
+					"default": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/lookup/{id}": {
+			"get": {
+				"summary": "Returns the lookup values for lookup id",
+				"operationId": "getV10LookupId",
+				"description": "<p>This API call returns the information for the given product.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5013</td>\n<td>Lookup not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Provide the id of lookup.",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Lookup"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Lookups"
+						}
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/operators/gamesPerOperator": {
+			"get": {
+				"summary": "Returns a list with all active games for the operators parsed in request's token.",
+				"operationId": "getV10OperatorsGamesperoperator",
+				"description": "<p>This API call returns basic information for the active defined games, filtered with the operators found in the Authorization token.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["Operators"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Model4"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A operator with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/active": {
+			"get": {
+				"summary": "Returns a list with all of Defined Active Products having the queried string if existed",
+				"operationId": "getV10ProductsActive",
+				"description": "<p>This API call returns a list with the information for all <strong>active</strong> products. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel id.",
+					"name": "channel",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/subscriptions": {
+			"get": {
+				"summary": "Returns a list with Available for Subscriptions Products",
+				"operationId": "getV10ProductsSubscriptions",
+				"description": "<p>This API call returns a list with the information for all products that are also available for subscription. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/{id}": {
+			"get": {
+				"summary": "Returns a specific Product",
+				"operationId": "getV10ProductsId",
+				"description": "<p>This API call returns the information for the given product. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the product.",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Product"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v2.0/products/active": {
+			"get": {
+				"summary": "Returns a list with all of Defined Active Products having the queried string if existed",
+				"operationId": "getV20ProductsActive",
+				"description": "<p>This API call returns a list with the information for all <strong>active</strong> products. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel id.",
+					"name": "channel",
+					"in": "query"
+				}
+				],
+				"tags": ["ProductDefinitionV2"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v2.0/products/subscriptions": {
+			"get": {
+				"summary": "Returns a list with Available for Subscriptions Products",
+				"operationId": "getV20ProductsSubscriptions",
+				"description": "<p>This API call returns a list with the information for all products that are also available for subscription. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinitionV2"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v2.0/products/{id}": {
+			"get": {
+				"summary": "Returns a specific Product",
+				"operationId": "getV20ProductsId",
+				"description": "<p>This API call returns the information for the given product. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the product.",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinitionV2"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Product2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/raffle/{drawDateId}": {
+			"get": {
+				"summary": "Returns the prizes for the given draw among with the winners, if they are submitted",
+				"operationId": "getV10GamesRaffleDrawdateid",
+				"description": "<p>This API call returns all Raffle prizes per Raffle draw code.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5023</td>\n<td>Raffle draw not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The draw date id. It is calculated as ${year}*1000 + daynumber. For example, 2019-02-05 is 20190036",
+					"name": "drawDateId",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Raffle"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/RaffleDraw"
+						}
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The requested resource was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/versions": {
+			"get": {
+				"summary": "Returns a list with all records for a specific game",
+				"operationId": "getV10GamesGameidVersions",
+				"description": "<p>This API call returns all the configurations for the given game. A game is considered defined when there is a game record with status <strong>Inactive</strong>, <strong>Active</strong> or <strong>Expired</strong>.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5004</td>\n<td>Game not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "boolean",
+					"description": "Exclude Systems",
+					"name": "excludeSystems",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["Games"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameParametersResources"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/operators/operatorsPerGame/{gameId}": {
+			"get": {
+				"summary": "Returns a list with all operators for a specific game",
+				"operationId": "getV10OperatorsOperatorspergameGameid",
+				"description": "<p>This API call returns basic information for the given game, filtered with the operators found in the Authorization token.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5004</td>\n<td>Game not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Operators"],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OperatorsPerGame"
+						}
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/ean/{ean}": {
+			"get": {
+				"summary": "Returns a Product with EAN code",
+				"operationId": "getV10ProductsEanEan",
+				"description": "<p>This API call returns the information for the given product. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The EAN code of the product",
+					"name": "ean",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Product"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given ean was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/subscriptions/active": {
+			"get": {
+				"summary": "Returns a list with Active and Available for Subscriptions Products",
+				"operationId": "getV10ProductsSubscriptionsActive",
+				"description": "<p>This API call returns a list with the information for all <strong>active</strong> products that are also available for subscription. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/program/{gameId}/{drawId}": {
+			"get": {
+				"summary": "Get program for a game by draw id",
+				"operationId": "getV10ProgramGameidDrawid",
+				"description": "<p>This API call returns the program for the given game and draw.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5014</td>\n<td>Program not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the draw.",
+					"name": "drawId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "string",
+					"description": "Locale",
+					"default": "en",
+					"name": "locale",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["MatchXPrograms"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/MatchXProgram"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Program with the given game and draw id were not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v2.0/products/ean/{ean}": {
+			"get": {
+				"summary": "Returns a Product with EAN code",
+				"operationId": "getV20ProductsEanEan",
+				"description": "<p>This API call returns the information for the given product. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The EAN code of the product",
+					"name": "ean",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinitionV2"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Product2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given ean was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v2.0/products/subscriptions/active": {
+			"get": {
+				"summary": "Returns a list with Active and Available for Subscriptions Products",
+				"operationId": "getV20ProductsSubscriptionsActive",
+				"description": "<p>This API call returns a list with the information for all <strong>active</strong> products that are also available for subscription. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinitionV2"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Products2"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/versions/{recordId}": {
+			"get": {
+				"summary": "Returns the specified record for the specified game",
+				"operationId": "getV10GamesGameidVersionsRecordid",
+				"description": "<p>This API call returns the configuration for the given game record for the given game.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5008</td>\n<td>Game record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the record.",
+					"name": "recordId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "boolean",
+					"description": "Exclude Systems",
+					"name": "excludeSystems",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["Games"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameParametersResource"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/versions/active": {
+			"get": {
+				"summary": "Returns the active record for the specified game",
+				"operationId": "getV10GamesGameidVersionsActive",
+				"description": "<p>This API call returns the configuration for the <strong>active</strong> game record for the given game.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5011</td>\n<td>Active Game record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "boolean",
+					"description": "Exclude Systems",
+					"name": "excludeSystems",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["Games"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameParametersResource"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/program/{gameId}/visual-draw/{visualDrawId}": {
+			"get": {
+				"summary": "Get program for a game by visual draw id",
+				"operationId": "getV10ProgramGameidVisualdrawVisualdrawid",
+				"description": "<p>This API call returns the program for the given game and draw.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5014</td>\n<td>Program not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the visual draw.",
+					"name": "visualDrawId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "string",
+					"description": "Locale",
+					"default": "en",
+					"name": "locale",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["MatchXPrograms"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/MatchXProgram"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Program with the given game and visual draw id were not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/channels/versions/active": {
+			"get": {
+				"summary": "Returns the active channel record",
+				"operationId": "getV10GamesGameidChannelsVersionsActive",
+				"description": "<p>This API call returns the configuration for the <strong>active</strong> channel record for the given game, operator and channel.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Something went wrong</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5012</td>\n<td>Active channel record not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The game id",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "number",
+					"description": "Operator Id",
+					"name": "operator",
+					"in": "query",
+					"required": true
+				}, {
+					"type": "number",
+					"description": "Channel Id",
+					"name": "channel",
+					"in": "query",
+					"required": true
+				}
+				],
+				"tags": ["ChannelGames"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameChannelResource"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/versions/{recordId}/channels": {
+			"get": {
+				"summary": "Returns the channel records of the game record",
+				"operationId": "getV10GamesGameidVersionsRecordidChannels",
+				"description": "<p>This API call returns a list for all channel records of the given game record</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5008</td>\n<td>Game record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the record.",
+					"name": "recordId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "boolean",
+					"description": "Exclude Systems",
+					"name": "excludeSystems",
+					"in": "query",
+					"required": false
+				}
+				],
+				"tags": ["Games"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameRecordChannels"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/channels/versions/{channelRecordId}": {
+			"get": {
+				"summary": "Returns the requested channel record",
+				"operationId": "getV10GamesGameidChannelsVersionsChannelrecordid",
+				"description": "<p>This API call returns the configuration for the given channel record for the given game, operator and channel.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5009</td>\n<td>Channel record not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The game id",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel record id",
+					"name": "channelRecordId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Operator Id",
+					"name": "operator",
+					"in": "query",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Channel Id",
+					"name": "channel",
+					"in": "query",
+					"required": true
+				}
+				],
+				"tags": ["ChannelGames"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameChannelResource"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A channel game with the given ids was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/channels/versions/activelast": {
+			"get": {
+				"summary": "Returns the active or last channel record",
+				"operationId": "getV10GamesGameidChannelsVersionsActivelast",
+				"description": "<p>This API call returns the configuration for the <strong>active</strong> channel record for the given game, operator and channel. If there isn't an active channel record, it will return the latest expired channel record</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Something went wrong</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5009</td>\n<td>Channel record not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The game id",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "number",
+					"description": "Operator Id",
+					"name": "operator",
+					"in": "query",
+					"required": true
+				}, {
+					"type": "number",
+					"description": "Channel Id",
+					"name": "channel",
+					"in": "query",
+					"required": true
+				}
+				],
+				"tags": ["ChannelGames"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/GameChannelResource"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/passives/games/{gameId}/draws/{drawId}": {
+			"get": {
+				"summary": "Returns a list with all of defined products for given game draw",
+				"operationId": "getV10PassivesGamesGameidDrawsDrawid",
+				"description": "<p>This API call returns a list with the information for all products. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5004</td>\n<td>Game not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>1004</td>\n<td>Draw not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5040</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Game id.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Draw id.",
+					"name": "drawId",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Passives"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/PassivesConfigurations"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A draw with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/program/{gameId}/draw-date/{fromDate}/{toDate}": {
+			"get": {
+				"summary": "Get draws for a game by date range",
+				"operationId": "getV10ProgramGameidDrawdateFromdateTodate",
+				"description": "<p>This API call returns all the draws for the given game and date range.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5019</td>\n<td>Draws not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "string",
+					"description": "The from date filter. Must be in ‘YYYY-MM-DD’ format.",
+					"name": "fromDate",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "string",
+					"description": "The to date filter. Must be in ‘YYYY-MM-DD’ format.",
+					"name": "toDate",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["MatchXPrograms"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/MatchXDrawDetailsList"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Draws with the given game id for the specific date range were not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/versions/{recordA}/compare/{recordB}": {
+			"get": {
+				"summary": "Compares the affects next draw status between the game records",
+				"operationId": "getV10GamesGameidVersionsRecordaCompareRecordb",
+				"description": "<p>Performs a check between the parameters and returns an indication if the game records differ in parameters that can be applied in next of X future draws</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5004</td>\n<td>Game not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5008</td>\n<td>Game record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5025</td>\n<td>Same game records</td>\n<td>400</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the game.",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the first record.",
+					"name": "recordA",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the second record.",
+					"name": "recordB",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Games"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/Model5"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/activate/channelRecord/{id}": {
+			"post": {
+				"summary": "This endpoint activates the selected Channel Record",
+				"operationId": "postV10ActivateChannelrecordId",
+				"description": "<p>This API call checks and activates the given channel record. If it proceeds with the activation, it deactivates the previous active channel record</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5009</td>\n<td>Channel record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5015</td>\n<td>Channel record already active</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5017</td>\n<td>Channel record cannot be activated</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5018</td>\n<td>Channel Record cannot be activated due to invalid Game Record status</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel Record id",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Activate"],
+				"responses": {
+					"400": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "This record id already active"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A record with the given keys was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					},
+					"default": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/activate/gameRecord/{id}": {
+			"post": {
+				"summary": "This endpoint activates the selected Game Record",
+				"operationId": "postV10ActivateGamerecordId",
+				"description": "<p>This API call checks and activates the given game record. If it proceeds with the activation, it deactivates the previous active game record and its channel records before it proceeds with the activation.</p>\n<p>In the case of the activation of the first game record, an API call to L10 Game Scheduler is made to notify him about the game initiation.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5008</td>\n<td>Game record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5003</td>\n<td>Game record already active</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5016</td>\n<td>Game record cannot be activated</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The game record id",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Activate"],
+				"responses": {
+					"400": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "This record cannot be activated (e.g. is already active)"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A record with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					},
+					"default": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/deactivate/channelRecord/{id}": {
+			"post": {
+				"summary": "This endpoint deactivates the selected Channel game record",
+				"operationId": "postV10DeactivateChannelrecordId",
+				"description": "<p>This API call checks and deactivates the given channel record.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5009</td>\n<td>Channel record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5002</td>\n<td>Channel record cannot be deactivated</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel record id",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Deactivate"],
+				"responses": {
+					"400": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "This record id was not active"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A record with the given keys was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					},
+					"default": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/deactivate/gameRecord/{id}": {
+			"post": {
+				"summary": "This endpoint deactivates the selected game record",
+				"operationId": "postV10DeactivateGamerecordId",
+				"description": "<p>This API call checks and deactivates the given game record. If it proceeds with the deactivation, it deactivates all of its child channel records as well.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5008</td>\n<td>Game record not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5002</td>\n<td>Game record cannot be deactivated</td>\n<td>400</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The game record id",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["Deactivate"],
+				"responses": {
+					"400": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "This record id was not active"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A record with the given keys was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					},
+					"default": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/v1.0/products/{id}/activate": {
+			"post": {
+				"summary": "Activates the product",
+				"operationId": "postV10ProductsIdActivate",
+				"description": "<p>This API call checks and activates the given product. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the product.",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/{id}/deactivate": {
+			"post": {
+				"summary": "Deactivates the product",
+				"operationId": "postV10ProductsIdDeactivate",
+				"description": "<p>This API call checks and deactivates the given product. </p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The id of the product.",
+					"name": "id",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A game with the given id was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/products/{productId}/update": {
+			"post": {
+				"summary": "Triggers the service to send notifications for the update",
+				"operationId": "postV10ProductsProductidUpdate",
+				"description": "<p>This API call triggers a mechanism via web sockets and notifies all connected clients with the configuration of the given product. This API call is used to notify clients when a change for the given product is made.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5010</td>\n<td>Product not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The product id",
+					"name": "productId",
+					"in": "path",
+					"required": true
+				}
+				],
+				"tags": ["ProductDefinition"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A channel game with the given ids was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/v1.0/games/{gameId}/channels/versions/{channelRecordId}/update": {
+			"post": {
+				"summary": "Triggers the service to send notifications for the update",
+				"operationId": "postV10GamesGameidChannelsVersionsChannelrecordidUpdate",
+				"description": "<p>This API call triggers a mechanism via web sockets and notifies all connected clients with the configuration of the given channel record. This API call is used to notify clients when a change for the given channel record is made.</p>\n<p>See the table below the possible status codes it replies in case of a non 200 response.</p>\n<table>\n<thead>\n<tr>\n<th><em>Code</em></th>\n<th><em>Description</em></th>\n<th><em>Http Code</em></th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1004</td>\n<td>Unauthorized</td>\n<td>401</td>\n</tr>\n<tr>\n<td>5006</td>\n<td>Unexpected error</td>\n<td>500</td>\n</tr>\n<tr>\n<td>5009</td>\n<td>Channel record not found</td>\n<td>404</td>\n</tr>\n</tbody>\n</table>",
+				"parameters": [{
+					"type": "string",
+					"description": "Provide the JWT token. The value should start with Bearer",
+					"name": "authorization",
+					"in": "header",
+					"required": false
+				}, {
+					"type": "string",
+					"description": "Provide GUID string",
+					"name": "guid",
+					"in": "header",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The game id",
+					"name": "gameId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "The channel record id",
+					"name": "channelRecordId",
+					"in": "path",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Operator Id",
+					"name": "operator",
+					"in": "query",
+					"required": true
+				}, {
+					"type": "integer",
+					"description": "Channel Id",
+					"name": "channel",
+					"in": "query",
+					"required": true
+				}
+				],
+				"tags": ["ChannelGames"],
+				"responses": {
+					"200": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "OK"
+					},
+					"401": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "The request is not authorized"
+					},
+					"404": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "A channel game with the given ids was not found"
+					},
+					"500": {
+						"schema": {
+							"$ref": "#/definitions/ResponseOutput"
+						},
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Model1": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "number",
+					"description": "The error code"
+				},
+				"description": {
+					"type": "string",
+					"description": "The error description"
+				}
+			},
+			"required": ["code", "description"]
+		},
+		"Model2": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Model1"
+			}
+		},
+		"data": {
+			"type": "object"
+		},
+		"ResponseOutput": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"description": "Message response"
+				},
+				"message": {
+					"type": "string",
+					"description": "Message response"
+				},
+				"type": {
+					"type": "string"
+				},
+				"guid": {
+					"type": "string",
+					"description": "guid",
+					"x-format": {
+						"guid": true
+					}
+				},
+				"source": {
+					"type": "string"
+				},
+				"data": {
+					"$ref": "#/definitions/data"
+				},
+				"detail": {
+					"type": "string"
+				}
+			},
+			"required": ["code", "message", "guid"]
+		},
+		"operatorChannels": {
+			"type": "array",
+			"description": "Game operator channels",
+			"items": {
+				"type": "string"
+			}
+		},
+		"SideBet": {
+			"type": "object",
+			"properties": {
+				"typeId": {
+					"type": "integer",
+					"description": "Game type id"
+				},
+				"descr": {
+					"type": "string",
+					"description": "Game type description"
+				}
+			},
+			"required": ["typeId"]
+		},
+		"sideBets": {
+			"type": "array",
+			"description": "Game side bets",
+			"items": {
+				"$ref": "#/definitions/SideBet"
+			}
+		},
+		"GameOperator": {
+			"type": "object",
+			"properties": {
+				"operatorId": {
+					"type": "integer",
+					"description": "Operator id"
+				},
+				"operatorChannels": {
+					"$ref": "#/definitions/operatorChannels"
+				},
+				"sideBets": {
+					"$ref": "#/definitions/sideBets"
+				}
+			},
+			"required": ["operatorId", "operatorChannels", "sideBets"]
+		},
+		"GameOperators": {
+			"type": "array",
+			"description": "Game operators",
+			"items": {
+				"$ref": "#/definitions/GameOperator"
+			}
+		},
+		"GameInfo": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Game Code"
+				},
+				"name": {
+					"type": "string",
+					"description": "Description"
+				},
+				"familyId": {
+					"type": "integer",
+					"description": "Family ID"
+				},
+				"familyDesc": {
+					"type": "string",
+					"description": "Family Description"
+				},
+				"gameTypeId": {
+					"type": "integer",
+					"description": "Game Type ID"
+				},
+				"operators": {
+					"$ref": "#/definitions/GameOperators"
+				}
+			},
+			"required": ["id", "familyId", "gameTypeId", "operators"]
+		},
+		"GamesInfo": {
+			"type": "array",
+			"description": "Games information",
+			"items": {
+				"$ref": "#/definitions/GameInfo"
+			}
+		},
+		"ProductChannels": {
+			"type": "array",
+			"description": "Available Channels",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"AttributeValue": {
+			"type": "object",
+			"description": "Attribute Value",
+			"properties": {
+				"attribute": {
+					"type": "string",
+					"description": "Attribute Category"
+				},
+				"symbol": {
+					"type": "string",
+					"description": "Operator Values",
+					"enum": [">", ">=", "<", "<=", "==", "<>"]
+				},
+				"attributeValue": {
+					"type": "string",
+					"description": "Attribute Category Value."
+				},
+				"attributeDataType": {
+					"type": "string",
+					"description": "Data type",
+					"enum": ["int", "bool", "intArray"]
+				}
+			},
+			"required": ["attributeDataType"]
+		},
+		"AttributeValues": {
+			"type": "array",
+			"description": "Attribute Value",
+			"items": {
+				"$ref": "#/definitions/AttributeValue"
+			}
+		},
+		"Game": {
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"type": "integer",
+					"description": "The game id"
+				},
+				"primaryGame": {
+					"type": "boolean",
+					"description": "The game is defined as primary"
+				},
+				"primaryGameSelection": {
+					"type": "boolean",
+					"description": "The game has enabled primary game selection, applies to secondary games only"
+				},
+				"attributes": {
+					"$ref": "#/definitions/AttributeValues"
+				}
+			},
+			"required": ["gameId", "primaryGame", "primaryGameSelection"]
+		},
+		"Games": {
+			"type": "array",
+			"description": "Games which are part of this area.",
+			"items": {
+				"$ref": "#/definitions/Game"
+			}
+		},
+		"Area": {
+			"type": "object",
+			"properties": {
+				"areaOrder": {
+					"type": "integer",
+					"description": "The area order that specifies which game is part of the specific area."
+				},
+				"games": {
+					"$ref": "#/definitions/Games"
+				}
+			},
+			"required": ["areaOrder", "games"]
+		},
+		"Areas": {
+			"type": "array",
+			"description": "The Product Areas for Games",
+			"items": {
+				"$ref": "#/definitions/Area"
+			}
+		},
+		"Product": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Product Id"
+				},
+				"name": {
+					"type": "string",
+					"description": "Product Name"
+				},
+				"description": {
+					"type": "string",
+					"description": "Product Description"
+				},
+				"status": {
+					"type": "integer",
+					"description": "Product Status"
+				},
+				"ean": {
+					"type": "string",
+					"description": "Product EAN Number"
+				},
+				"channels": {
+					"$ref": "#/definitions/ProductChannels"
+				},
+				"areas": {
+					"$ref": "#/definitions/Areas"
+				}
+			},
+			"required": ["id", "name", "status", "ean", "areas"]
+		},
+		"Products": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Product"
+			}
+		},
+		"GameAttributes": {
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"type": "integer",
+					"description": "The game id"
+				},
+				"primaryGameSelection": {
+					"type": "boolean",
+					"description": "The game has enabled primary game selection, applies to secondary games only"
+				},
+				"attributes": {
+					"$ref": "#/definitions/AttributeValues"
+				}
+			},
+			"required": ["gameId", "primaryGameSelection"]
+		},
+		"secondary": {
+			"type": "array",
+			"description": "secondary game",
+			"items": {
+				"$ref": "#/definitions/GameAttributes"
+			}
+		},
+		"games": {
+			"type": "object",
+			"properties": {
+				"primary": {
+					"$ref": "#/definitions/GameAttributes"
+				},
+				"secondary": {
+					"$ref": "#/definitions/secondary"
+				}
+			},
+			"required": ["secondary"]
+		},
+		"Area2": {
+			"type": "object",
+			"properties": {
+				"areaOrder": {
+					"type": "integer",
+					"description": "The area order that specifies which game is part of the specific area."
+				},
+				"games": {
+					"$ref": "#/definitions/games"
+				}
+			},
+			"required": ["areaOrder"]
+		},
+		"Areas2": {
+			"type": "array",
+			"description": "The Product Areas for Games",
+			"items": {
+				"$ref": "#/definitions/Area2"
+			}
+		},
+		"Product2": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Product Id"
+				},
+				"name": {
+					"type": "string",
+					"description": "Product Name"
+				},
+				"description": {
+					"type": "string",
+					"description": "Product Description"
+				},
+				"status": {
+					"type": "integer",
+					"description": "Product Status"
+				},
+				"ean": {
+					"type": "string",
+					"description": "Product EAN Number"
+				},
+				"channels": {
+					"$ref": "#/definitions/ProductChannels"
+				},
+				"areas": {
+					"$ref": "#/definitions/Areas2"
+				}
+			},
+			"required": ["id", "name", "status", "ean", "areas"]
+		},
+		"Products2": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Product2"
+			}
+		},
+		"DrawScheduledExpression": {
+			"type": "object",
+			"description": "Draw scheduled expression",
+			"properties": {
+				"cron": {
+					"type": "string",
+					"description": "The expression"
+				},
+				"descr": {
+					"type": "string",
+					"description": "Expression description"
+				},
+				"typeId": {
+					"type": "integer",
+					"description": "Normal: 1, SuperSaturday: 2"
+				}
+			},
+			"required": ["typeId"]
+		},
+		"DrawExpressions": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/DrawScheduledExpression"
+			}
+		},
+		"DrawSchedule": {
+			"type": "object",
+			"description": "Draw scheduled expression",
+			"properties": {
+				"expressions": {
+					"$ref": "#/definitions/DrawExpressions"
+				},
+				"lastDate": {
+					"type": "integer",
+					"description": "Last Draw Date"
+				},
+				"startingDate": {
+					"type": "integer",
+					"description": "Starting Draw Date"
+				}
+			},
+			"required": ["expressions", "startingDate"]
+		},
+		"DrawExpressionInfo": {
+			"type": "array",
+			"description": "DrawExpressions Info",
+			"items": {
+				"$ref": "#/definitions/DrawSchedule"
+			}
+		},
+		"DrawConfiguration": {
+			"type": "object",
+			"description": "Draw configuration",
+			"properties": {
+				"drawBreak": {
+					"type": "integer",
+					"description": "The Draw break"
+				},
+				"drawOffset": {
+					"type": "integer",
+					"description": "The Draw offset"
+				},
+				"drawSchedules": {
+					"$ref": "#/definitions/DrawExpressionInfo"
+				},
+				"visualDrawAlgorithm": {
+					"type": "string",
+					"description": " Visual draw Algorithm. Supported Values: Normal, Offset, YYYYC, YYYYWWD"
+				},
+				"drawTimezone": {
+					"type": "string",
+					"description": "The Draw Timezone"
+				},
+				"futureDraws": {
+					"type": "integer",
+					"description": "Max Future Draws"
+				}
+			},
+			"required": ["drawSchedules", "drawTimezone", "futureDraws"]
+		},
+		"GameOperations": {
+			"type": "object",
+			"properties": {
+				"noAutoPay": {
+					"type": "boolean",
+					"description": "No auto pay"
+				},
+				"pilot": {
+					"type": "boolean",
+					"description": "Pilot"
+				},
+				"riskMgt": {
+					"type": "boolean",
+					"description": "Risk management"
+				}
+			}
+		},
+		"CheckType": {
+			"type": "object",
+			"properties": {
+				"DrawLevel": {
+					"type": "number",
+					"enum": [1]
+				},
+				"WagerLevel": {
+					"type": "number",
+					"enum": [2]
+				}
+			},
+			"required": ["DrawLevel", "WagerLevel"]
+		},
+		"ChannelGameOperations": {
+			"type": "object",
+			"properties": {
+				"operatorId": {
+					"type": "integer",
+					"description": "Operator Id"
+				},
+				"channelId": {
+					"type": "integer",
+					"description": "Channel Id"
+				},
+				"checkType": {
+					"$ref": "#/definitions/CheckType"
+				},
+				"exchange": {
+					"type": "boolean",
+					"description": "Exchange"
+				},
+				"payCompleteDraws": {
+					"type": "boolean",
+					"description": "Pay Complete Draws"
+				},
+				"repeat": {
+					"type": "string",
+					"description": "Repeat"
+				},
+				"allowCancelOnlyInPlayDraw": {
+					"type": "boolean",
+					"description": "Allows cancel only in play draw"
+				}
+			},
+			"required": ["operatorId", "channelId", "checkType", "allowCancelOnlyInPlayDraw"]
+		},
+		"channelGameOperations": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ChannelGameOperations"
+			}
+		},
+		"Channels": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"Operator": {
+			"type": "object",
+			"description": "The game operators",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Operator Id"
+				},
+				"channels": {
+					"$ref": "#/definitions/Channels"
+				}
+			},
+			"required": ["id", "channels"]
+		},
+		"Operators": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Operator"
+			}
+		},
+		"drawTypes": {
+			"type": "array",
+			"description": "Array of draw types (1: Normal, 2: RaffleDraw) only for Raffle Addon",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"AddOnPricePoints": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "number",
+					"description": "Amount"
+				},
+				"gameTypeId": {
+					"type": "integer",
+					"description": "Game type ID"
+				},
+				"gameTypeDescr": {
+					"type": "string",
+					"description": "Game type description"
+				},
+				"unitType": {
+					"type": "string",
+					"description": "Unit type"
+				},
+				"minBetAmount": {
+					"type": "number",
+					"description": "Minimum Bet Amount"
+				},
+				"maxBetAmount": {
+					"type": "number",
+					"description": "Maximum Bet Amount"
+				},
+				"standAlone": {
+					"type": "boolean",
+					"description": "Stand-alone or dependent on Main Game"
+				},
+				"drawTypes": {
+					"$ref": "#/definitions/drawTypes"
+				}
+			},
+			"required": ["amount", "gameTypeId", "gameTypeDescr", "unitType", "minBetAmount", "maxBetAmount"]
+		},
+		"addOn": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/AddOnPricePoints"
+			}
+		},
+		"PricePoints": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "number",
+					"description": "Base Game Unit Value"
+				},
+				"unitType": {
+					"type": "string",
+					"description": "Base Game Unit Type"
+				},
+				"minBetAmount": {
+					"type": "number",
+					"description": "Minimum Bet Amount"
+				},
+				"maxBetAmount": {
+					"type": "number",
+					"description": "Maximum Bet Amount"
+				},
+				"addOn": {
+					"$ref": "#/definitions/addOn"
+				}
+			},
+			"required": ["amount", "unitType", "minBetAmount", "maxBetAmount"]
+		},
+		"RoundingParams": {
+			"type": "object",
+			"properties": {
+				"digits": {
+					"type": "integer",
+					"description": "Digits"
+				},
+				"type": {
+					"type": "string",
+					"description": "Type"
+				}
+			},
+			"required": ["digits", "type"]
+		},
+		"RecordStatus": {
+			"type": "object",
+			"properties": {
+				"Inactive": {
+					"type": "number",
+					"enum": [0]
+				},
+				"Active": {
+					"type": "number",
+					"enum": [1]
+				},
+				"Expired": {
+					"type": "number",
+					"enum": [2]
+				},
+				"Deleted": {
+					"type": "number",
+					"enum": [3]
+				},
+				"Draft": {
+					"type": "number",
+					"enum": [4]
+				},
+				"Pending": {
+					"type": "number",
+					"enum": [5]
+				},
+				"Rejected": {
+					"type": "number",
+					"enum": [6]
+				}
+			},
+			"required": ["Inactive", "Active", "Expired", "Deleted", "Draft", "Pending", "Rejected"]
+		},
+		"GameParameters": {
+			"type": "object",
+			"properties": {
+				"activationTime": {
+					"type": "integer",
+					"description": "The Activation Time"
+				},
+				"affectNextDraw": {
+					"type": "integer",
+					"description": "1 Next Draw, 2 After Future Draws"
+				},
+				"approverId": {
+					"type": "string",
+					"description": "The user who approved the record"
+				},
+				"deactivationTime": {
+					"type": "integer",
+					"description": "The Deactivation Time"
+				},
+				"drawConfig": {
+					"$ref": "#/definitions/DrawConfiguration"
+				},
+				"gameId": {
+					"type": "integer",
+					"description": "The Game Id"
+				},
+				"gameOperations": {
+					"$ref": "#/definitions/GameOperations"
+				},
+				"channelGameOperations": {
+					"$ref": "#/definitions/channelGameOperations"
+				},
+				"name": {
+					"type": "string",
+					"description": "Name of the game"
+				},
+				"operators": {
+					"$ref": "#/definitions/Operators"
+				},
+				"pricePoints": {
+					"$ref": "#/definitions/PricePoints"
+				},
+				"record": {
+					"type": "integer",
+					"description": "The Record Id"
+				},
+				"roundingParams": {
+					"$ref": "#/definitions/RoundingParams"
+				},
+				"status": {
+					"$ref": "#/definitions/RecordStatus"
+				},
+				"type": {
+					"type": "string",
+					"description": "Game Type"
+				},
+				"userId": {
+					"type": "string",
+					"description": "The user who created the record"
+				}
+			},
+			"required": ["activationTime", "affectNextDraw", "approverId", "drawConfig", "gameId", "name", "operators", "pricePoints", "record", "roundingParams", "status", "type"]
+		},
+		"BetType": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Bet type id"
+				},
+				"descr": {
+					"type": "string",
+					"description": "Description of bet type"
+				},
+				"gameTypeId": {
+					"type": "integer",
+					"description": "Game type id"
+				}
+			},
+			"required": ["id"]
+		},
+		"betTypes": {
+			"type": "array",
+			"description": "Bet Types",
+			"items": {
+				"$ref": "#/definitions/BetType"
+			}
+		},
+		"KenoPanel": {
+			"type": "object",
+			"properties": {
+				"drawNumbers": {
+					"type": "integer",
+					"description": "Draw Numbers"
+				},
+				"maxSpot": {
+					"type": "integer",
+					"description": "Max spot"
+				},
+				"minSpot": {
+					"type": "integer",
+					"description": "Min spot"
+				},
+				"rangeFrom": {
+					"type": "integer",
+					"description": "Range from"
+				},
+				"rangeTo": {
+					"type": "integer",
+					"description": "Range to"
+				}
+			},
+			"required": ["drawNumbers", "maxSpot", "minSpot", "rangeFrom", "rangeTo"]
+		},
+		"KenoColumnsPanel": {
+			"type": "object",
+			"description": "Keno Columns Panel",
+			"properties": {
+				"drawNumbers": {
+					"type": "integer",
+					"description": "Draw Numbers"
+				},
+				"maxSelection": {
+					"type": "integer",
+					"description": "Max selection"
+				},
+				"minSelection": {
+					"type": "integer",
+					"description": "Min selection"
+				},
+				"rangeFrom": {
+					"type": "integer",
+					"description": "Range from"
+				},
+				"rangeTo": {
+					"type": "integer",
+					"description": "Range to"
+				}
+			},
+			"required": ["drawNumbers", "maxSelection", "minSelection", "rangeFrom", "rangeTo"]
+		},
+		"OddsMultiplier": {
+			"type": "object",
+			"description": "Odds Multiplier setup",
+			"properties": {
+				"winningColumndID": {
+					"type": "integer",
+					"description": "Winning Column ID"
+				}
+			},
+			"required": ["winningColumndID"]
+		},
+		"KenoSideBetPanels": {
+			"type": "object",
+			"properties": {
+				"columns": {
+					"$ref": "#/definitions/KenoColumnsPanel"
+				},
+				"oddEven": {
+					"$ref": "#/definitions/data"
+				},
+				"oddsMultiplier": {
+					"$ref": "#/definitions/OddsMultiplier"
+				}
+			},
+			"required": ["columns"]
+		},
+		"KenoBetParams": {
+			"type": "object",
+			"properties": {
+				"betTypes": {
+					"$ref": "#/definitions/betTypes"
+				},
+				"panel": {
+					"$ref": "#/definitions/KenoPanel"
+				},
+				"sideBetPanels": {
+					"$ref": "#/definitions/KenoSideBetPanels"
+				}
+			},
+			"required": ["betTypes", "panel", "sideBetPanels"]
+		},
+		"WinCategoryBetType": {
+			"type": "array",
+			"description": "Bet Type",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"description": {
+			"type": "array",
+			"description": "Description",
+			"items": {
+				"type": "string"
+			}
+		},
+		"KenoWinCategory": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"categoryId": {
+					"type": "integer",
+					"description": "Category Id"
+				},
+				"subcategoryId": {
+					"type": "integer",
+					"description": "Subcategory Id"
+				},
+				"betType": {
+					"$ref": "#/definitions/WinCategoryBetType"
+				},
+				"description": {
+					"$ref": "#/definitions/description"
+				},
+				"odd": {
+					"type": "number",
+					"description": "Odd"
+				},
+				"capAmount": {
+					"type": "integer",
+					"description": "Cap amount"
+				},
+				"promotionId": {
+					"type": "integer",
+					"description": "Promotion Id"
+				},
+				"highWinners": {
+					"type": "boolean",
+					"description": "High Winners"
+				},
+				"categoryType": {
+					"type": "string",
+					"description": "Category Type"
+				},
+				"categoryTypeId": {
+					"type": "integer",
+					"description": "Category Type Id"
+				},
+				"partialOdd": {
+					"type": "number",
+					"description": "Partial Odd, applicable when bet type Bonus is selected"
+				}
+			},
+			"required": ["id", "categoryId", "subcategoryId", "description", "odd", "categoryType", "categoryTypeId"]
+		},
+		"KenoWinCategories": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/KenoWinCategory"
+			}
+		},
+		"KenoParams": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/KenoBetParams"
+				},
+				"win": {
+					"$ref": "#/definitions/KenoWinCategories"
+				}
+			},
+			"required": ["bet", "win"]
+		},
+		"LottoPanel": {
+			"type": "object",
+			"properties": {
+				"drawNumbers": {
+					"type": "integer",
+					"description": "Draw numbers"
+				},
+				"maxSelection": {
+					"type": "integer",
+					"description": "Maximum selected numbers"
+				},
+				"minSelection": {
+					"type": "integer",
+					"description": "Minimum selected numbers"
+				},
+				"rangeFrom": {
+					"type": "integer",
+					"description": "Range from"
+				},
+				"rangeTo": {
+					"type": "integer",
+					"description": "Range to"
+				}
+			},
+			"required": ["drawNumbers", "maxSelection", "minSelection", "rangeFrom", "rangeTo"]
+		},
+		"panels": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/LottoPanel"
+			}
+		},
+		"combinations": {
+			"type": "object",
+			"properties": {
+				"isEnabled": {
+					"type": "boolean",
+					"description": "Is enabled"
+				},
+				"minBoards": {
+					"type": "integer",
+					"description": "Minimum number of Boards"
+				},
+				"maxBoards": {
+					"type": "integer",
+					"description": "Maximum number of Boards"
+				}
+			},
+			"required": ["minBoards", "maxBoards"]
+		},
+		"reduced": {
+			"type": "object",
+			"properties": {
+				"isEnabled": {
+					"type": "boolean",
+					"description": "Is enabled"
+				}
+			}
+		},
+		"systems": {
+			"type": "object",
+			"properties": {
+				"combinations": {
+					"$ref": "#/definitions/combinations"
+				},
+				"reduced": {
+					"$ref": "#/definitions/reduced"
+				}
+			}
+		},
+		"LottoBetParams": {
+			"type": "object",
+			"properties": {
+				"betTypes": {
+					"$ref": "#/definitions/betTypes"
+				},
+				"panels": {
+					"$ref": "#/definitions/panels"
+				},
+				"systems": {
+					"$ref": "#/definitions/systems"
+				}
+			},
+			"required": ["betTypes", "panels"]
+		},
+		"Positions": {
+			"type": "array",
+			"description": "Positions",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"PredefinedSystemPosition": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"positions": {
+					"$ref": "#/definitions/Positions"
+				}
+			},
+			"required": ["id", "positions"]
+		},
+		"PredefinedSystemPositions": {
+			"type": "array",
+			"description": "Predefined System Positions",
+			"items": {
+				"$ref": "#/definitions/PredefinedSystemPosition"
+			}
+		},
+		"PredefinedSystemArea": {
+			"type": "object",
+			"properties": {
+				"columns": {
+					"type": "integer",
+					"description": "Columns"
+				},
+				"index": {
+					"type": "integer",
+					"description": "Index"
+				},
+				"requested": {
+					"type": "integer",
+					"description": "Requested"
+				},
+				"required": {
+					"type": "integer",
+					"description": "Required"
+				},
+				"tableOfPositions": {
+					"$ref": "#/definitions/PredefinedSystemPositions"
+				}
+			},
+			"required": ["columns", "index", "requested", "required", "tableOfPositions"]
+		},
+		"Predefined System Areas": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/PredefinedSystemArea"
+			}
+		},
+		"PredefinedInfo": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"status": {
+					"type": "integer",
+					"description": "Status"
+				},
+				"areas": {
+					"$ref": "#/definitions/PredefinedSystemAreas"
+				}
+			},
+			"required": ["id", "status"]
+		},
+		"Predefined Information": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/PredefinedInfo"
+			}
+		},
+		"RollDownAmountLimit": {
+			"type": "object",
+			"description": "Roll-down Amount Limit",
+			"properties": {
+				"amount": {
+					"type": "number",
+					"description": "Jackpot Amount Limit after which passing amount to next category"
+				}
+			},
+			"required": ["amount"]
+		},
+		"RollDownDrawLimit": {
+			"type": "object",
+			"description": "Roll-down Draw Limit",
+			"properties": {
+				"draws": {
+					"type": "integer",
+					"description": "Number of jackpots before passing amount to next category"
+				}
+			},
+			"required": ["draws"]
+		},
+		"JackpotConfiguration": {
+			"type": "object",
+			"description": "Jackpot Step Up amount",
+			"properties": {
+				"cascadeDownCategory": {
+					"type": "boolean",
+					"description": "Mutual exclusive with Rollover Draw"
+				},
+				"fundPercentage": {
+					"type": "integer",
+					"description": "Fund percentage"
+				},
+				"maxDistributed": {
+					"type": "integer",
+					"description": "Max distributes"
+				},
+				"maxDistributionPercentage": {
+					"type": "integer",
+					"description": "Max distribution percentage"
+				},
+				"minDifferenceLower": {
+					"type": "integer",
+					"description": "Min difference Lower"
+				},
+				"minDistributed": {
+					"type": "integer",
+					"description": "Min distributed"
+				},
+				"minDividents": {
+					"type": "integer",
+					"description": "Min dividents"
+				},
+				"rdAmountLimit": {
+					"$ref": "#/definitions/RollDownAmountLimit"
+				},
+				"rdDrawLimit": {
+					"$ref": "#/definitions/RollDownDrawLimit"
+				},
+				"rollOverDraw": {
+					"type": "boolean",
+					"description": "Mutual exclusive with cascadeDown Category"
+				},
+				"initialJackpot": {
+					"type": "number",
+					"description": "Initial Jackpot Amount"
+				},
+				"jackpotStepUp": {
+					"type": "number",
+					"description": "Mutual exclusive with cascadeDown Category"
+				}
+			}
+		},
+		"NormalWinCategory": {
+			"type": "object",
+			"properties": {
+				"algorithm": {
+					"type": "string",
+					"description": "Algorithm"
+				},
+				"bets": {
+					"$ref": "#/definitions/WinCategoryBetType"
+				},
+				"categoryType": {
+					"type": "string",
+					"description": "Category type"
+				},
+				"description": {
+					"type": "string",
+					"description": "Description"
+				},
+				"distributionPercentage": {
+					"type": "integer",
+					"description": "Distribution Percentage"
+				},
+				"fixAmount": {
+					"type": "integer",
+					"description": "Fix amount"
+				},
+				"highWinners": {
+					"type": "boolean",
+					"description": "High winners"
+				},
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"jackpotConfiguration": {
+					"$ref": "#/definitions/JackpotConfiguration"
+				},
+				"promotionId": {
+					"type": "integer",
+					"description": "Promotion ID"
+				}
+			},
+			"required": ["algorithm", "categoryType", "description", "distributionPercentage", "fixAmount", "id"]
+		},
+		"NormalWinCategories": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/NormalWinCategory"
+			}
+		},
+		"MultiJuristictionalInfo": {
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"type": "integer",
+					"description": "MultiJuristictional Game Id"
+				}
+			},
+			"required": ["gameId"]
+		},
+		"LottoParams": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/LottoBetParams"
+				},
+				"predefinedInfo": {
+					"$ref": "#/definitions/PredefinedInformation"
+				},
+				"win": {
+					"$ref": "#/definitions/NormalWinCategories"
+				},
+				"multiJuristictional": {
+					"$ref": "#/definitions/MultiJuristictionalInfo"
+				}
+			},
+			"required": ["bet", "win"]
+		},
+		"MatchXPanel": {
+			"type": "object",
+			"properties": {
+				"matches": {
+					"type": "integer",
+					"description": "Matches Number"
+				},
+				"minSelections": {
+					"type": "integer",
+					"description": "Minimum selected numbers"
+				},
+				"maxSelections": {
+					"type": "integer",
+					"description": "Maximum selected numbers"
+				}
+			},
+			"required": ["matches", "minSelections", "maxSelections"]
+		},
+		"addOnPanels": {
+			"type": "object",
+			"properties": {
+				"propo7": {
+					"$ref": "#/definitions/MatchXPanel"
+				}
+			}
+		},
+		"MatchXPanels": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/MatchXPanel"
+			}
+		},
+		"home": {
+			"type": "object",
+			"description": "Home",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The symbol Id"
+				},
+				"desc": {
+					"type": "string",
+					"description": "The symbol Description"
+				},
+				"symbol": {
+					"type": "string",
+					"description": "The symbol character",
+					"minLength": 1
+				}
+			},
+			"required": ["id", "desc", "symbol"]
+		},
+		"draw": {
+			"type": "object",
+			"description": "Draw",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The symbol Id"
+				},
+				"desc": {
+					"type": "string",
+					"description": "The symbol Description"
+				},
+				"symbol": {
+					"type": "string",
+					"description": "The symbol character",
+					"minLength": 1
+				}
+			},
+			"required": ["id", "desc", "symbol"]
+		},
+		"away": {
+			"type": "object",
+			"description": "Away",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The symbol Id"
+				},
+				"desc": {
+					"type": "string",
+					"description": "The symbol Description"
+				},
+				"symbol": {
+					"type": "string",
+					"description": "The symbol character",
+					"minLength": 1
+				}
+			},
+			"required": ["id", "desc", "symbol"]
+		},
+		"cancel": {
+			"type": "object",
+			"description": "Cancel",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "The symbol Id"
+				},
+				"desc": {
+					"type": "string",
+					"description": "The symbol Description"
+				},
+				"symbol": {
+					"type": "string",
+					"description": "The symbol character",
+					"minLength": 1
+				}
+			},
+			"required": ["id", "desc", "symbol"]
+		},
+		"MatchXSymbols": {
+			"type": "object",
+			"properties": {
+				"home": {
+					"$ref": "#/definitions/home"
+				},
+				"draw": {
+					"$ref": "#/definitions/draw"
+				},
+				"away": {
+					"$ref": "#/definitions/away"
+				},
+				"cancel": {
+					"$ref": "#/definitions/cancel"
+				}
+			},
+			"required": ["home", "draw", "away", "cancel"]
+		},
+		"MatchXBetParams": {
+			"type": "object",
+			"properties": {
+				"addOnPanels": {
+					"$ref": "#/definitions/addOnPanels"
+				},
+				"betTypes": {
+					"$ref": "#/definitions/betTypes"
+				},
+				"matchesForRefund": {
+					"type": "integer",
+					"description": "Matches for refund"
+				},
+				"panels": {
+					"$ref": "#/definitions/MatchXPanels"
+				},
+				"symbols": {
+					"$ref": "#/definitions/MatchXSymbols"
+				}
+			},
+			"required": ["betTypes", "panels", "symbols"]
+		},
+		"MatchXDerivativeOutcome": {
+			"type": "object",
+			"description": "MatchX Derivative System Outcome",
+			"properties": {
+				"cat_1": {
+					"type": "integer",
+					"description": "Category 1"
+				},
+				"cat_2": {
+					"type": "integer",
+					"description": "Category 2"
+				},
+				"cat_3": {
+					"type": "integer",
+					"description": "Category 3"
+				},
+				"firsts": {
+					"type": "integer",
+					"description": "Firsts"
+				},
+				"seconds": {
+					"type": "integer",
+					"description": "Seconds"
+				},
+				"thirds": {
+					"type": "integer",
+					"description": "Thirds"
+				}
+			},
+			"required": ["cat_1", "cat_2", "cat_3", "firsts", "seconds", "thirds"]
+		},
+		"MatchXDerivativeOutcomes": {
+			"type": "array",
+			"description": "MatchX Derivative System Outcomes",
+			"items": {
+				"$ref": "#/definitions/MatchXDerivativeOutcome"
+			}
+		},
+		"MatchXDerivative": {
+			"type": "object",
+			"description": "MatchX Derivative System",
+			"properties": {
+				"columns": {
+					"type": "integer",
+					"description": "Columns count"
+				},
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"outcomes": {
+					"$ref": "#/definitions/MatchXDerivativeOutcomes"
+				},
+				"status": {
+					"type": "integer",
+					"description": "Status id"
+				},
+				"triples": {
+					"type": "integer",
+					"description": "Triples"
+				}
+			},
+			"required": ["columns", "id", "outcomes", "triples"]
+		},
+		"MatchXDerivativeSystems": {
+			"type": "array",
+			"description": "MatchX Derivative Systems",
+			"items": {
+				"$ref": "#/definitions/MatchXDerivative"
+			}
+		},
+		"Indeces": {
+			"type": "array",
+			"description": "Indeces",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"MatchXPredefinedPosition": {
+			"type": "object",
+			"description": "MatchX Predefined System Position",
+			"properties": {
+				"indeces": {
+					"$ref": "#/definitions/Indeces"
+				}
+			}
+		},
+		"MatchXPredefinedPositions": {
+			"type": "array",
+			"description": "MatchX Predefined System Positions",
+			"items": {
+				"$ref": "#/definitions/MatchXPredefinedPosition"
+			}
+		},
+		"MatchXPredefined": {
+			"type": "object",
+			"description": "MatchX Predefined System",
+			"properties": {
+				"columns": {
+					"type": "integer",
+					"description": "Columns"
+				},
+				"doubles": {
+					"type": "integer",
+					"description": "Doubles"
+				},
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"status": {
+					"type": "integer",
+					"description": "Status"
+				},
+				"tableOfPositions": {
+					"$ref": "#/definitions/MatchXPredefinedPositions"
+				},
+				"triples": {
+					"type": "integer",
+					"description": "Triples"
+				}
+			},
+			"required": ["columns", "doubles", "id", "tableOfPositions", "triples"]
+		},
+		"MatchXPredefinedSystems": {
+			"type": "array",
+			"description": "MatchX Predefined Systems",
+			"items": {
+				"$ref": "#/definitions/MatchXPredefined"
+			}
+		},
+		"MatchXSystems": {
+			"type": "object",
+			"description": "MatchX Systems",
+			"properties": {
+				"derivates": {
+					"$ref": "#/definitions/MatchXDerivativeSystems"
+				},
+				"predefined": {
+					"$ref": "#/definitions/MatchXPredefinedSystems"
+				}
+			},
+			"required": ["derivates", "predefined"]
+		},
+		"MatchXParameters": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/MatchXBetParams"
+				},
+				"win": {
+					"$ref": "#/definitions/NormalWinCategories"
+				},
+				"systems": {
+					"$ref": "#/definitions/MatchXSystems"
+				}
+			},
+			"required": ["bet", "win"]
+		},
+		"OigBetParams": {
+			"type": "object",
+			"properties": {
+				"expirationTime": {
+					"type": "integer",
+					"description": "Expiration Time"
+				},
+				"nearWins": {
+					"type": "integer",
+					"description": "Near wins"
+				},
+				"nextPoolThreshold": {
+					"type": "integer",
+					"description": "Next Pool threshold"
+				},
+				"nextToCurrentRatio": {
+					"type": "integer",
+					"description": "Next to current ratio"
+				},
+				"poolSize": {
+					"type": "integer",
+					"description": "Pool size"
+				},
+				"transactionControl": {
+					"type": "boolean",
+					"description": "Transaction control"
+				},
+				"winningChances": {
+					"type": "integer",
+					"description": "Winning chances"
+				}
+			},
+			"required": ["expirationTime", "nearWins", "nextPoolThreshold", "nextToCurrentRatio", "poolSize", "transactionControl", "winningChances"]
+		},
+		"OigWinCategory": {
+			"type": "object",
+			"properties": {
+				"description": {
+					"type": "string",
+					"description": "Category short description"
+				},
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"threshold": {
+					"type": "integer",
+					"description": "Threshold"
+				},
+				"type": {
+					"type": "string",
+					"description": "Category type"
+				},
+				"winners": {
+					"type": "integer",
+					"description": "Winners"
+				},
+				"winningAmount": {
+					"type": "number",
+					"description": "Winning amount"
+				}
+			},
+			"required": ["description", "id", "threshold", "type", "winners", "winningAmount"]
+		},
+		"OigWinCategories": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/OigWinCategory"
+			}
+		},
+		"OigParams": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/OigBetParams"
+				},
+				"win": {
+					"$ref": "#/definitions/OigWinCategories"
+				}
+			},
+			"required": ["bet", "win"]
+		},
+		"PickXPanel": {
+			"type": "object",
+			"properties": {
+				"digits": {
+					"type": "integer",
+					"description": "Digits"
+				},
+				"maxSelection": {
+					"type": "integer",
+					"description": "Maximum selected numbers"
+				},
+				"minSelection": {
+					"type": "integer",
+					"description": "Minimum selected numbers"
+				},
+				"rangeFrom": {
+					"type": "integer",
+					"description": "Range from"
+				},
+				"rangeTo": {
+					"type": "integer",
+					"description": "Range to"
+				}
+			},
+			"required": ["digits", "maxSelection", "minSelection", "rangeFrom", "rangeTo"]
+		},
+		"randomNumbers": {
+			"type": "array",
+			"description": "Random Numbers",
+			"items": {
+				"type": "string"
+			}
+		},
+		"sequential": {
+			"type": "array",
+			"description": "Sequential",
+			"items": {
+				"type": "string"
+			}
+		},
+		"PickXBetParams": {
+			"type": "object",
+			"properties": {
+				"panel": {
+					"$ref": "#/definitions/PickXPanel"
+				},
+				"randomNumbers": {
+					"$ref": "#/definitions/randomNumbers"
+				},
+				"sequential": {
+					"$ref": "#/definitions/sequential"
+				},
+				"betTypes": {
+					"$ref": "#/definitions/betTypes"
+				}
+			},
+			"required": ["panel", "betTypes"]
+		},
+		"PickXParams": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/PickXBetParams"
+				},
+				"win": {
+					"$ref": "#/definitions/NormalWinCategories"
+				}
+			},
+			"required": ["bet", "win"]
+		},
+		"PassiveTicketRange": {
+			"type": "object",
+			"properties": {
+				"from": {
+					"$ref": "#/definitions/Channels"
+				},
+				"to": {
+					"$ref": "#/definitions/Channels"
+				}
+			}
+		},
+		"ExcludedRanges": {
+			"type": "array",
+			"description": "Exluded ranges",
+			"items": {
+				"$ref": "#/definitions/PassiveTicketRange"
+			}
+		},
+		"PassiveProductType": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "ID"
+				},
+				"description": {
+					"type": "string",
+					"description": "Description"
+				}
+			},
+			"required": ["id", "description"]
+		},
+		"productTypes": {
+			"type": "array",
+			"description": "Product Types",
+			"items": {
+				"$ref": "#/definitions/PassiveProductType"
+			}
+		},
+		"selectionTypes": {
+			"type": "array",
+			"description": "Selection Types",
+			"items": {
+				"type": "string"
+			}
+		},
+		"reservations": {
+			"type": "array",
+			"description": "Reservations",
+			"items": {
+				"type": "string"
+			}
+		},
+		"specialTypeValue": {
+			"type": "array",
+			"description": "Should have data when areaType is Special",
+			"items": {
+				"type": "string"
+			}
+		},
+		"PassiveTicketArea": {
+			"type": "object",
+			"properties": {
+				"length": {
+					"type": "integer",
+					"description": "Length"
+				},
+				"areaType": {
+					"type": "string",
+					"description": "Area Type"
+				},
+				"specialTypeValue": {
+					"$ref": "#/definitions/specialTypeValue"
+				}
+			},
+			"required": ["length", "areaType"]
+		},
+		"TicketAreas": {
+			"type": "array",
+			"description": "Passive Ticket Areas",
+			"items": {
+				"$ref": "#/definitions/PassiveTicketArea"
+			}
+		},
+		"mandatoryAddons": {
+			"type": "array",
+			"description": "Mandatory Addons",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"PassiveAddOn": {
+			"type": "object",
+			"properties": {
+				"operatorId": {
+					"type": "integer",
+					"description": "Operator Id"
+				},
+				"channelId": {
+					"type": "integer",
+					"description": "Channel Id"
+				},
+				"mandatoryAddons": {
+					"$ref": "#/definitions/mandatoryAddons"
+				}
+			},
+			"required": ["operatorId", "channelId", "mandatoryAddons"]
+		},
+		"PassiveAddOns": {
+			"type": "array",
+			"description": "Passive Add Ons",
+			"items": {
+				"$ref": "#/definitions/PassiveAddOn"
+			}
+		},
+		"PassivesBetParams": {
+			"type": "object",
+			"properties": {
+				"betTypes": {
+					"$ref": "#/definitions/betTypes"
+				},
+				"excludedRanges": {
+					"$ref": "#/definitions/ExcludedRanges"
+				},
+				"fractionPrice": {
+					"type": "number",
+					"description": "Fraction Price"
+				},
+				"fractions": {
+					"type": "integer",
+					"description": "Max Ticket Fraction"
+				},
+				"productTypes": {
+					"$ref": "#/definitions/productTypes"
+				},
+				"selectionTypes": {
+					"$ref": "#/definitions/selectionTypes"
+				},
+				"reservations": {
+					"$ref": "#/definitions/reservations"
+				},
+				"totalTickets": {
+					"type": "integer",
+					"description": "Total Tickets"
+				},
+				"ticketAreas": {
+					"$ref": "#/definitions/TicketAreas"
+				},
+				"addOns": {
+					"$ref": "#/definitions/PassiveAddOns"
+				}
+			},
+			"required": ["betTypes", "fractions", "productTypes", "selectionTypes", "reservations", "totalTickets", "ticketAreas", "addOns"]
+		},
+		"PassivesParams": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/PassivesBetParams"
+				}
+			},
+			"required": ["bet"]
+		},
+		"BingoColumnRange": {
+			"type": "object",
+			"properties": {
+				"columnId": {
+					"type": "integer",
+					"description": "Column id"
+				},
+				"rangeFrom": {
+					"type": "integer",
+					"description": "Range from"
+				},
+				"rangeTo": {
+					"type": "integer",
+					"description": "Range to"
+				}
+			},
+			"required": ["columnId", "rangeFrom", "rangeTo"]
+		},
+		"BingoColumnRanges": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/BingoColumnRange"
+			}
+		},
+		"BingoPosition": {
+			"type": "object",
+			"properties": {
+				"column": {
+					"type": "integer",
+					"description": "Column"
+				},
+				"row": {
+					"type": "integer",
+					"description": "Row"
+				}
+			}
+		},
+		"BingoPositions": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/BingoPosition"
+			}
+		},
+		"BingoCardLayout": {
+			"type": "object",
+			"properties": {
+				"columnRange": {
+					"$ref": "#/definitions/BingoColumnRanges"
+				},
+				"freeSpaces": {
+					"$ref": "#/definitions/BingoPositions"
+				},
+				"numberOfColumns": {
+					"type": "integer",
+					"description": "Number of columns"
+				},
+				"numberOfRows": {
+					"type": "integer",
+					"description": "Number of rows"
+				},
+				"rangeFrom": {
+					"type": "integer",
+					"description": "Range from"
+				},
+				"rangeTo": {
+					"type": "integer",
+					"description": "Range to"
+				}
+			},
+			"required": ["columnRange", "numberOfColumns", "numberOfRows", "rangeFrom", "rangeTo"]
+		},
+		"BingoBetParams": {
+			"type": "object",
+			"properties": {
+				"variety": {
+					"type": "string",
+					"description": "75 Numbers, 90 Numbers"
+				},
+				"cardLayout": {
+					"$ref": "#/definitions/BingoCardLayout"
+				},
+				"maxCardsNumbers": {
+					"type": "integer",
+					"description": "Maximum cards"
+				},
+				"minCardsNumbers": {
+					"type": "integer",
+					"description": "Minimum cards"
+				},
+				"selectionsType": {
+					"type": "integer",
+					"description": "1: On the Fly, 2: Import Predefined Cards"
+				}
+			},
+			"required": ["variety", "cardLayout", "selectionsType"]
+		},
+		"BingoParams": {
+			"type": "object",
+			"properties": {
+				"bet": {
+					"$ref": "#/definitions/BingoBetParams"
+				},
+				"win": {
+					"$ref": "#/definitions/NormalWinCategories"
+				}
+			},
+			"required": ["bet", "win"]
+		},
+		"PlayTaxation": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "number",
+					"description": "Amount"
+				},
+				"percentage": {
+					"type": "number",
+					"description": "Percentage"
+				},
+				"type": {
+					"type": "string",
+					"description": "None, Amount, Percentage, Amount+Percentage, Percentage+Amount"
+				},
+				"vatAmount": {
+					"type": "number",
+					"description": "VAT Amount"
+				},
+				"vatPercentage": {
+					"type": "number",
+					"description": "VAT Percentage"
+				},
+				"vatType": {
+					"type": "string",
+					"description": "AfterPlayTaxation, BeforePlayTaxation"
+				}
+			}
+		},
+		"LimitDetails": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "integer",
+					"description": "Amount"
+				},
+				"percentage": {
+					"type": "integer",
+					"description": "Percentage"
+				}
+			},
+			"required": ["amount", "percentage"]
+		},
+		"limits": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/LimitDetails"
+			}
+		},
+		"PayTaxation": {
+			"type": "object",
+			"properties": {
+				"operatorId": {
+					"type": "integer",
+					"description": "Operator Id"
+				},
+				"channelId": {
+					"type": "integer",
+					"description": "Channel Id"
+				},
+				"checkPayTaxation": {
+					"type": "integer",
+					"description": "0 for active draw, 1 for winning draw"
+				},
+				"level": {
+					"type": "integer",
+					"description": "Pay taxation level"
+				},
+				"type": {
+					"type": "integer",
+					"description": "Pay taxation type"
+				},
+				"limits": {
+					"$ref": "#/definitions/limits"
+				}
+			},
+			"required": ["operatorId", "channelId", "checkPayTaxation", "level", "type", "limits"]
+		},
+		"PayTaxations": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/PayTaxation"
+			}
+		},
+		"ValidationDeadline": {
+			"type": "object",
+			"properties": {
+				"operatorId": {
+					"type": "string",
+					"description": "Operator Id"
+				},
+				"channelId": {
+					"type": "string",
+					"description": "Channel Id"
+				},
+				"highWinners": {
+					"type": "integer",
+					"description": "High Winners"
+				},
+				"normalWinners": {
+					"type": "integer",
+					"description": "Normal Winners"
+				},
+				"expireHighWinningsAfterClaim": {
+					"type": "boolean",
+					"description": "Expire High Winnings After Claim"
+				},
+				"includeRemaininDaysNormal": {
+					"type": "boolean",
+					"description": "Include Remaining Days of Current Year for Normal Winners"
+				},
+				"includeRemaininDaysHigh": {
+					"type": "boolean",
+					"description": "Include Remaining Days of Current Year for High Winners"
+				}
+			},
+			"required": ["operatorId", "channelId", "highWinners", "normalWinners", "expireHighWinningsAfterClaim", "includeRemaininDaysNormal", "includeRemaininDaysHigh"]
+		},
+		"ValidationDeadlines": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ValidationDeadline"
+			}
+		},
+		"ParticipatedGameTypes": {
+			"type": "array",
+			"description": "Participated Game Types",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"Model3": {
+			"type": "array",
+			"description": "Operators",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"SalesPoolItem": {
+			"type": "object",
+			"description": "Sales Pool Item",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Id"
+				},
+				"descr": {
+					"type": "string",
+					"description": "Description"
+				},
+				"distributionPercentage": {
+					"type": "number",
+					"description": "Distribution Percentage"
+				},
+				"distributionType": {
+					"type": "string",
+					"description": "Distribution Type"
+				},
+				"participatedGameTypes": {
+					"$ref": "#/definitions/ParticipatedGameTypes"
+				},
+				"operators": {
+					"$ref": "#/definitions/Model3"
+				},
+				"excludeFixedCategories": {
+					"type": "boolean",
+					"description": "Exclude Fixed Categories"
+				}
+			},
+			"required": ["id", "descr", "participatedGameTypes", "operators"]
+		},
+		"SalesPool": {
+			"type": "array",
+			"description": "Sales Pool",
+			"items": {
+				"$ref": "#/definitions/SalesPoolItem"
+			}
+		},
+		"WinnersParams": {
+			"type": "object",
+			"properties": {
+				"dsbRoundingParams": {
+					"$ref": "#/definitions/RoundingParams"
+				},
+				"highLimit": {
+					"type": "number",
+					"description": "High limit"
+				},
+				"highWinningPaymentOffset": {
+					"type": "integer",
+					"description": "Draw Time Offset to Allow Payment"
+				},
+				"validationDeadlines": {
+					"$ref": "#/definitions/ValidationDeadlines"
+				},
+				"dvdRoundingParams": {
+					"$ref": "#/definitions/RoundingParams"
+				},
+				"validationRoundingParams": {
+					"$ref": "#/definitions/RoundingParams"
+				},
+				"salesPool": {
+					"$ref": "#/definitions/SalesPool"
+				}
+			},
+			"required": ["dsbRoundingParams", "dvdRoundingParams", "validationRoundingParams"]
+		},
+		"WinningColumnDistinctValueItem": {
+			"type": "object",
+			"properties": {
+				"number": {
+					"type": "integer",
+					"description": "Number"
+				},
+				"weight": {
+					"type": "integer",
+					"description": "Weight"
+				}
+			},
+			"required": ["number", "weight"]
+		},
+		"WinningColumnDistinctValues": {
+			"type": "array",
+			"description": "Winning Column Distinct Values",
+			"items": {
+				"$ref": "#/definitions/WinningColumnDistinctValueItem"
+			}
+		},
+		"WinningColumnDetails": {
+			"type": "object",
+			"properties": {
+				"length": {
+					"type": "integer",
+					"description": "Length"
+				},
+				"maxNumber": {
+					"type": "integer",
+					"description": "Max number"
+				},
+				"minNumber": {
+					"type": "integer",
+					"description": "Min number"
+				},
+				"source": {
+					"type": "string",
+					"description": "Source"
+				},
+				"sourceId": {
+					"type": "integer",
+					"description": "Source id"
+				},
+				"unique": {
+					"type": "boolean",
+					"description": "Unique"
+				},
+				"hasBonus": {
+					"type": "boolean",
+					"description": "Has Bonus Number"
+				},
+				"type": {
+					"type": "integer",
+					"description": "Type"
+				},
+				"distinctValues": {
+					"$ref": "#/definitions/WinningColumnDistinctValues"
+				}
+			},
+			"required": ["length", "maxNumber", "minNumber", "source", "sourceId", "unique", "hasBonus", "type"]
+		},
+		"WinningColumnDetailsList": {
+			"type": "array",
+			"description": "Winning Column Details",
+			"items": {
+				"$ref": "#/definitions/WinningColumnDetails"
+			}
+		},
+		"WinningColumn": {
+			"type": "object",
+			"properties": {
+				"entries": {
+					"type": "integer",
+					"description": "Entries"
+				},
+				"winningColumnsDetails": {
+					"$ref": "#/definitions/WinningColumnDetailsList"
+				}
+			},
+			"required": ["entries", "winningColumnsDetails"]
+		},
+		"AutoPaymentParameters": {
+			"type": "object",
+			"properties": {
+				"operatorId": {
+					"type": "integer",
+					"description": "Operator Id"
+				},
+				"channelId": {
+					"type": "integer",
+					"description": "Channel Id"
+				},
+				"drawTimeOffset": {
+					"type": "integer",
+					"description": "Draw time offset"
+				},
+				"enabled": {
+					"type": "boolean",
+					"description": "Parameter enabled"
+				},
+				"interval": {
+					"type": "integer",
+					"description": "Auto payment interval"
+				},
+				"manual": {
+					"type": "boolean",
+					"description": "Manual release of payments enabled"
+				},
+				"uploadLosers": {
+					"type": "boolean",
+					"description": "Upload losers"
+				}
+			},
+			"required": ["operatorId", "channelId", "drawTimeOffset", "interval"]
+		},
+		"AutoPaymentParametersSet": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/AutoPaymentParameters"
+			}
+		},
+		"GameSpecificParameters": {
+			"type": "object",
+			"properties": {
+				"keno": {
+					"$ref": "#/definitions/KenoParams"
+				},
+				"lotto": {
+					"$ref": "#/definitions/LottoParams"
+				},
+				"matchx": {
+					"$ref": "#/definitions/MatchXParameters"
+				},
+				"oig": {
+					"$ref": "#/definitions/OigParams"
+				},
+				"pickx": {
+					"$ref": "#/definitions/PickXParams"
+				},
+				"passives": {
+					"$ref": "#/definitions/PassivesParams"
+				},
+				"bingo": {
+					"$ref": "#/definitions/BingoParams"
+				},
+				"playTaxation": {
+					"$ref": "#/definitions/PlayTaxation"
+				},
+				"payTaxation": {
+					"$ref": "#/definitions/PayTaxations"
+				},
+				"winnersParams": {
+					"$ref": "#/definitions/WinnersParams"
+				},
+				"winningColumn": {
+					"$ref": "#/definitions/WinningColumn"
+				},
+				"autoPayments": {
+					"$ref": "#/definitions/AutoPaymentParametersSet"
+				}
+			},
+			"required": ["winnersParams", "winningColumn"]
+		},
+		"GameParametersResource": {
+			"type": "object",
+			"properties": {
+				"generic": {
+					"$ref": "#/definitions/GameParameters"
+				},
+				"gameSpecific": {
+					"$ref": "#/definitions/GameSpecificParameters"
+				}
+			},
+			"required": ["generic", "gameSpecific"]
+		},
+		"GameParametersResources": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/GameParametersResource"
+			}
+		},
+		"Lookup": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "LookupId"
+				},
+				"value": {
+					"type": "string",
+					"description": "Lookup Value"
+				},
+				"translation": {
+					"type": "string",
+					"description": "Lookup Translation Text"
+				}
+			},
+			"required": ["id"]
+		},
+		"Lookups": {
+			"type": "array",
+			"description": "Lookups",
+			"items": {
+				"$ref": "#/definitions/Lookup"
+			}
+		},
+		"GameOperatorInfo": {
+			"type": "object",
+			"description": "Game Operator description",
+			"properties": {
+				"GM_CD": {
+					"type": "integer",
+					"description": "Game Code"
+				},
+				"DESCR": {
+					"type": "string",
+					"description": "Game Description"
+				},
+				"FM_CD": {
+					"type": "integer",
+					"description": "Game Family Code"
+				},
+				"GM_TYPE": {
+					"type": "string",
+					"description": "Game Type"
+				}
+			},
+			"required": ["GM_CD", "DESCR", "FM_CD", "GM_TYPE"]
+		},
+		"Model4": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/GameOperatorInfo"
+			}
+		},
+		"Winners": {
+			"type": "array",
+			"description": "Winners array",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"RaffleDrawPrize": {
+			"type": "object",
+			"description": "Raffle Draw Prize description",
+			"properties": {
+				"amount": {
+					"type": "number",
+					"description": "Prize amount"
+				},
+				"description": {
+					"type": "string",
+					"description": "Prize description"
+				},
+				"id": {
+					"type": "integer",
+					"description": "Prize id"
+				},
+				"giftId": {
+					"type": "integer",
+					"description": "Gift id"
+				},
+				"numberOfWinners": {
+					"type": "integer",
+					"description": "Number of winners"
+				},
+				"taxAmount": {
+					"type": "number",
+					"description": "Number of winners"
+				},
+				"winners": {
+					"$ref": "#/definitions/Winners"
+				}
+			},
+			"required": ["id"]
+		},
+		"Raffle Draw Prizes": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/RaffleDrawPrize"
+			}
+		},
+		"RaffleDraw": {
+			"type": "object",
+			"description": "Raffle Draw details",
+			"properties": {
+				"draw": {
+					"type": "integer",
+					"description": "Draw id"
+				},
+				"results": {
+					"$ref": "#/definitions/RaffleDrawPrizes"
+				}
+			},
+			"required": ["draw", "results"]
+		},
+		"OperatorsPerGame": {
+			"type": "array",
+			"description": "Operators description",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"MatchXMatch": {
+			"type": "object",
+			"properties": {
+				"programPosition": {
+					"type": "number",
+					"description": "Program position"
+				},
+				"matchTime": {
+					"type": "string",
+					"description": "Match time date"
+				},
+				"teamHome": {
+					"type": "string",
+					"description": "Team home"
+				},
+				"teamAway": {
+					"type": "string",
+					"description": "Team away"
+				},
+				"score": {
+					"type": "string",
+					"description": "Score"
+				},
+				"evaluationHome": {
+					"type": "number",
+					"description": "Evaluation home"
+				},
+				"evaluationAway": {
+					"type": "number",
+					"description": "Evaluation away"
+				},
+				"evaluationDraw": {
+					"type": "number",
+					"description": "Evaluation draw"
+				},
+				"total": {
+					"type": "number",
+					"description": "Total score"
+				},
+				"result": {
+					"type": "number",
+					"description": "Result"
+				}
+			},
+			"required": ["programPosition", "matchTime", "teamHome", "teamAway", "score", "total"]
+		},
+		"MatchXMatches": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/MatchXMatch"
+			}
+		},
+		"MatchXProgram": {
+			"type": "object",
+			"properties": {
+				"drawId": {
+					"type": "number",
+					"description": "Draw Id"
+				},
+				"visualDraw": {
+					"type": "number",
+					"description": "Visual Draw Id"
+				},
+				"visualStartDate": {
+					"type": "string",
+					"description": "Start date"
+				},
+				"visualEndDate": {
+					"type": "string",
+					"description": "End date"
+				},
+				"matchXEvents": {
+					"$ref": "#/definitions/MatchXMatches"
+				}
+			},
+			"required": ["drawId", "visualDraw", "visualStartDate", "visualEndDate"]
+		},
+		"AddonBetLimits": {
+			"type": "object",
+			"properties": {
+				"gameTypeId": {
+					"type": "integer",
+					"description": "Game Type ID"
+				},
+				"maxBoardMultiplier": {
+					"type": "integer",
+					"description": "Maximum Board Multiplier"
+				},
+				"minBoardMultiplier": {
+					"type": "integer",
+					"description": "Minimum Board Multiplier"
+				}
+			},
+			"required": ["gameTypeId", "maxBoardMultiplier", "minBoardMultiplier"]
+		},
+		"AddonsBetLimits": {
+			"type": "array",
+			"description": "Addons Bet Limits",
+			"items": {
+				"$ref": "#/definitions/AddonBetLimits"
+			}
+		},
+		"BetLimits": {
+			"type": "object",
+			"description": "Bet Limits",
+			"properties": {
+				"minCost": {
+					"type": "number",
+					"description": "Minimum betslip cost"
+				},
+				"maxCost": {
+					"type": "number",
+					"description": "Maximum betslip cost"
+				},
+				"maxBoardMultiplier": {
+					"type": "integer",
+					"description": "Maximum Board Multiplier"
+				},
+				"maxBoards": {
+					"type": "integer",
+					"description": "Maximum number of Boards"
+				},
+				"maxColumns": {
+					"type": "integer",
+					"description": "Maximum Columns"
+				},
+				"maxWagerMultiplier": {
+					"type": "integer",
+					"description": "Maximum Wager Multiplier"
+				},
+				"minBoardMultiplier": {
+					"type": "integer",
+					"description": "Minimum Board Multiplier"
+				},
+				"minBoards": {
+					"type": "integer",
+					"description": "Minimum number of Boards"
+				},
+				"minColumns": {
+					"type": "integer",
+					"description": "Minimum Columns"
+				},
+				"minWagerMultiplier": {
+					"type": "integer",
+					"description": "Minimum Wager Multiplier"
+				},
+				"addonsLimits": {
+					"$ref": "#/definitions/AddonsBetLimits"
+				}
+			},
+			"required": ["maxBoardMultiplier", "maxBoards", "maxColumns", "maxWagerMultiplier", "minBoardMultiplier", "minBoards", "minColumns", "minWagerMultiplier"]
+		},
+		"blacklistedPlaySlips": {
+			"type": "array",
+			"description": "List of blacklisted play slip ids",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"CancelationDeadlines": {
+			"type": "object",
+			"properties": {
+				"columnsFrom": {
+					"type": "integer",
+					"description": "The number of columns from"
+				},
+				"columnsTo": {
+					"type": "integer",
+					"description": "The number of columns to"
+				},
+				"fromDrawTime": {
+					"type": "integer",
+					"description": "From draw time"
+				},
+				"fromPlayTime": {
+					"type": "integer",
+					"description": "From play time"
+				},
+				"level": {
+					"type": "string",
+					"description": "The agent level"
+				},
+				"levelId": {
+					"type": "integer",
+					"description": "The agent level id"
+				},
+				"location": {
+					"type": "string",
+					"description": "Location"
+				},
+				"locationId": {
+					"type": "integer",
+					"description": "Location id"
+				},
+				"operation": {
+					"type": "string",
+					"description": "Operation"
+				},
+				"operationId": {
+					"type": "integer",
+					"description": "Operation option id"
+				},
+				"type": {
+					"type": "string",
+					"description": "Input method"
+				},
+				"typeId": {
+					"type": "integer",
+					"description": "Input method id"
+				}
+			},
+			"required": ["columnsFrom", "columnsTo", "fromDrawTime", "fromPlayTime", "level", "levelId", "location", "locationId", "operation", "operationId", "type", "typeId"]
+		},
+		"cancelationDeadlines": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/CancelationDeadlines"
+			}
+		},
+		"Draw Limits": {
+			"type": "object",
+			"description": "Draw Limits",
+			"properties": {
+				"maxAdvance": {
+					"type": "integer",
+					"description": "Max Advance Draws"
+				},
+				"maxConsecutive": {
+					"type": "integer",
+					"description": "Max Consecutive Draws"
+				},
+				"minAdvance": {
+					"type": "integer",
+					"description": "Min Advance Draws"
+				},
+				"minConsecutive": {
+					"type": "integer",
+					"description": "Min Consecutive Draws"
+				}
+			},
+			"required": ["maxAdvance", "maxConsecutive", "minAdvance", "minConsecutive"]
+		},
+		"PayBonus": {
+			"type": "object",
+			"description": "The pay bonus",
+			"properties": {
+				"level": {
+					"type": "string",
+					"description": "Pay bonus level"
+				},
+				"type": {
+					"type": "string",
+					"description": "Pay bonus type"
+				},
+				"limits": {
+					"$ref": "#/definitions/limits"
+				}
+			},
+			"required": ["type", "limits"]
+		},
+		"playMethod": {
+			"type": "object",
+			"description": "Available play methods",
+			"properties": {
+				"betslip": {
+					"type": "integer",
+					"enum": [1]
+				},
+				"verbal": {
+					"type": "integer",
+					"enum": [2]
+				},
+				"QRC": {
+					"type": "integer",
+					"enum": [3]
+				},
+				"betslip_replay": {
+					"type": "integer",
+					"enum": [4]
+				},
+				"verbal_replay": {
+					"type": "integer",
+					"enum": [5]
+				}
+			},
+			"required": ["betslip", "verbal", "QRC", "betslip_replay", "verbal_replay"]
+		},
+		"TeamPlay": {
+			"type": "object",
+			"properties": {
+				"teamPlay": {
+					"type": "boolean",
+					"description": "Team Play"
+				},
+				"minShares": {
+					"type": "integer",
+					"description": "Min Shares"
+				},
+				"maxShares": {
+					"type": "integer",
+					"description": "Max Shares"
+				},
+				"allowDecimalShares": {
+					"type": "boolean",
+					"description": "Allow Decimal Shares"
+				}
+			},
+			"required": ["teamPlay"]
+		},
+		"ValidationAmountsLimit": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "number",
+					"description": "Amount"
+				},
+				"inclusiveLimit": {
+					"type": "boolean",
+					"description": "Limit is inclusive"
+				},
+				"level": {
+					"type": "string",
+					"description": "Agent level"
+				},
+				"levelId": {
+					"type": "integer",
+					"description": "The agent level id"
+				},
+				"location": {
+					"type": "string",
+					"description": "Location"
+				},
+				"locationId": {
+					"type": "integer",
+					"description": "Location id"
+				},
+				"type": {
+					"type": "string",
+					"description": "Input method"
+				},
+				"typeId": {
+					"type": "integer",
+					"description": "Input method id"
+				},
+				"operation": {
+					"type": "string",
+					"description": "Operation option"
+				},
+				"operationId": {
+					"type": "integer",
+					"description": "Operation option id"
+				}
+			},
+			"required": ["amount", "inclusiveLimit", "level", "levelId", "location", "locationId", "type", "typeId", "operation", "operationId"]
+		},
+		"validationAmountsLimits": {
+			"type": "array",
+			"description": "Validation Amounts Limits",
+			"items": {
+				"$ref": "#/definitions/ValidationAmountsLimit"
+			}
+		},
+		"GameChannelParameters": {
+			"type": "object",
+			"properties": {
+				"activationTime": {
+					"type": "integer",
+					"description": "The activation time"
+				},
+				"betLimits": {
+					"$ref": "#/definitions/BetLimits"
+				},
+				"blacklistedPlaySlips": {
+					"$ref": "#/definitions/blacklistedPlaySlips"
+				},
+				"cancelationDeadlines": {
+					"$ref": "#/definitions/cancelationDeadlines"
+				},
+				"checkPaymentLimits": {
+					"type": "string",
+					"description": "Sets where payment limits should be checked (allowed values: PayDraw, PlayDraw)"
+				},
+				"checkPaymentLimitsId": {
+					"type": "integer",
+					"description": "Sets where payment limits should be checked"
+				},
+				"drawLimits": {
+					"$ref": "#/definitions/DrawLimits"
+				},
+				"minPayable": {
+					"type": "number",
+					"description": "The minimum payable"
+				},
+				"minPayableWithReceipt": {
+					"type": "number",
+					"description": "The minimum payable with receipt"
+				},
+				"payBonus": {
+					"$ref": "#/definitions/PayBonus"
+				},
+				"playMethod": {
+					"$ref": "#/definitions/playMethod"
+				},
+				"qrCodePlayslip": {
+					"type": "boolean",
+					"description": "A flag that enables the functionality to accept or reject plays generated through QR code"
+				},
+				"salesEnd": {
+					"type": "integer",
+					"description": "The sales end"
+				},
+				"salesStart": {
+					"type": "integer",
+					"description": "The sales start"
+				},
+				"status": {
+					"type": "integer",
+					"description": "The status"
+				},
+				"syndicate": {
+					"type": "boolean",
+					"description": "The syndicate"
+				},
+				"teamPlayParams": {
+					"$ref": "#/definitions/TeamPlay"
+				},
+				"validationAmountsLimits": {
+					"$ref": "#/definitions/validationAmountsLimits"
+				}
+			},
+			"required": ["activationTime", "betLimits", "checkPaymentLimits", "checkPaymentLimitsId", "drawLimits", "qrCodePlayslip", "status"]
+		},
+		"GameChannelResource": {
+			"type": "object",
+			"properties": {
+				"approverId": {
+					"type": "string",
+					"description": "The user who approved the record"
+				},
+				"channelId": {
+					"type": "string",
+					"description": "The channel id"
+				},
+				"content": {
+					"$ref": "#/definitions/GameChannelParameters"
+				},
+				"gameId": {
+					"type": "integer",
+					"description": "The game id"
+				},
+				"gameRecord": {
+					"type": "integer",
+					"description": "The game record"
+				},
+				"operatorId": {
+					"type": "string",
+					"description": "The operator id"
+				},
+				"record": {
+					"type": "integer",
+					"description": "The record"
+				},
+				"userId": {
+					"type": "string",
+					"description": "The user who created the record"
+				}
+			},
+			"required": ["approverId", "content", "gameId", "gameRecord", "record", "userId"]
+		},
+		"ChannelRecordInfo": {
+			"type": "object",
+			"properties": {
+				"record": {
+					"type": "integer",
+					"description": "The Record Id"
+				},
+				"status": {
+					"$ref": "#/definitions/RecordStatus"
+				}
+			},
+			"required": ["record", "status"]
+		},
+		"ChannelRecordInfos": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ChannelRecordInfo"
+			}
+		},
+		"GameRecordChannel": {
+			"type": "object",
+			"properties": {
+				"operator": {
+					"type": "integer",
+					"description": "Operator ID"
+				},
+				"channel": {
+					"type": "integer",
+					"description": "Channel ID"
+				},
+				"records": {
+					"$ref": "#/definitions/ChannelRecordInfos"
+				}
+			},
+			"required": ["operator", "channel", "records"]
+		},
+		"GameRecordChannels": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/GameRecordChannel"
+			}
+		},
+		"addon": {
+			"type": "array",
+			"description": "Addons",
+			"items": {
+				"type": "integer"
+			}
+		},
+		"PassivesConfiguration": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Product id"
+				},
+				"operator_id": {
+					"type": "integer",
+					"description": "Operator id"
+				},
+				"channel_id": {
+					"type": "integer",
+					"description": "Channel id"
+				},
+				"product_type": {
+					"type": "integer",
+					"description": "Channel id"
+				},
+				"addon": {
+					"$ref": "#/definitions/addon"
+				},
+				"fraction": {
+					"type": "boolean",
+					"description": "Fraction flag"
+				},
+				"twin": {
+					"type": "boolean",
+					"description": "Twin flag"
+				},
+				"tickets": {
+					"type": "integer",
+					"description": "Tickets"
+				}
+			},
+			"required": ["id", "operator_id", "channel_id", "product_type", "fraction", "twin", "tickets"]
+		},
+		"PassivesConfigurations": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/PassivesConfiguration"
+			}
+		},
+		"MatchXDrawDetails": {
+			"type": "object",
+			"properties": {
+				"drawId": {
+					"type": "number",
+					"description": "Draw Id"
+				},
+				"visualDraw": {
+					"type": "number",
+					"description": "Visual Draw Id"
+				},
+				"visualStartDate": {
+					"type": "string",
+					"description": "Start date"
+				},
+				"visualEndDate": {
+					"type": "string",
+					"description": "End date"
+				}
+			},
+			"required": ["drawId", "visualDraw", "visualStartDate", "visualEndDate"]
+		},
+		"MatchXDrawDetailsList": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/MatchXDrawDetails"
+			}
+		},
+		"Model5": {
+			"type": "object",
+			"properties": {
+				"gameId": {
+					"type": "integer",
+					"description": "Game id"
+				},
+				"recordA": {
+					"type": "integer",
+					"description": "Record id"
+				},
+				"recordB": {
+					"type": "integer",
+					"description": "Record id"
+				},
+				"affectNextDraw": {
+					"type": "integer",
+					"description": "Compare result"
+				}
+			},
+			"required": ["gameId", "recordA", "recordB", "affectNextDraw"]
+		}
+	}
+}

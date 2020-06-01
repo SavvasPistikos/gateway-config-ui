@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "trnsTime": "2018-01-20T13:07:44+00:00"
+  },
+  "wager": {
+    "dbg": [
+      {
+        "boards": [
+          {
+            "boardId": 1,
+            "multipliers": [1],
+            "panels": [{"QPSelections": 0,"quickPick": true,"requested": 6,"selection": [1,2,3,4,5,6,7]}
+            ],
+            "quickPick": true
+          }
+        ],
+        "gameId": 5001,
+        "multipliers": [1],
+        "participatingDraws": {"multipleDraws": 1},
+        "quickPick": true
+      }
+    ]
+  }
+}

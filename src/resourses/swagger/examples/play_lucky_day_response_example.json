@@ -1,0 +1,73 @@
+{
+	"wagerId": 100153884,
+	"pilot": true,
+	"promotionOutcomes": [],
+	"serialNumbers": [
+		"11325109830000524288232575508301"
+	],
+	"wager": {
+		"dbg": [
+			{
+				"addOn": [
+					{
+						"columns": 1,
+						"cost": 3,
+						"gameTypeId": 0
+					}
+				],
+				"blockStatus": "Unblocked",
+				"boards": [
+					{
+						"boardId": 1,
+						"multipliers": [
+							1
+						],
+						"panels": [
+							{
+								"requested": 6,
+								"selection": [
+									1,
+									2,
+									3,
+									4,
+									5,
+									6
+								]
+							}
+						],
+						"quickPick": false
+					}
+				],
+				"columns": 2,
+				"cost": 3,
+				"creationTime": 1551275569437,
+				"discount": 0,
+				"gameId": 1109,
+				"multipliers": [
+					1
+				],
+				"participatingDraws": {
+					"draws": [
+						290,
+						291
+					],
+					"firstDraw": 290,
+					"firstDrawTime": "1551276000000",
+					"firstVisualDraw": 290,
+					"lastDraw": 291,
+					"lastDrawTime": "1551279600000",
+					"lastVisualDraw": 291,
+					"multipleDraws": 2,
+					"playedDraw": 290
+				},
+				"status": "Played",
+				"pilot": true
+			}
+		]
+	},
+	"metadata": {
+		"playerInfo": {
+			"playerId": 110646134
+		}
+	}
+}

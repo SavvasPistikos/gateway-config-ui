@@ -1,0 +1,27 @@
+{
+  "wagerId" : 21,
+  "serialNumbers" : [ "00516423680002818048040632667113874" ],
+  "wager" : {
+    "dbg" : [ {
+      "boards" : [ {
+        "betType" : 1,
+        "boardId" : 1,
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1, 14, 14, 1, 1, 12, 1, 1, 2, 42, 4, 1, 1, 1 ]
+        } ]
+      }, {
+        "betType" : 1,
+        "boardId" : 2,
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1, 4, 1, 1, 2, 1, 142, 1, 4, 1, 1, 1, 1, 1 ]
+        } ]
+      } ],
+      "columns" : 19,
+      "cost" : 4.75,
+      "gameId" : 3100,
+      "multipliers" : [ 1 ]
+    } ]
+  }
+}

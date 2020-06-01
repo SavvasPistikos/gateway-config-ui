@@ -1,0 +1,1504 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Spring REST Documentation with Swagger",
+    "version": "1.5.3.0-SNAPSHOT",
+    "title": "Messaging Service",
+    "contact": {
+      "name": "Intralot SA"
+    },
+    "license": {}
+  },
+  "host": "messaging.goldev.app.osedev.l10.intralot.com:80",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "health-check-controller",
+      "description": "Health Check Controller"
+    },
+    {
+      "name": "template-controller",
+      "description": "Template Controller"
+    },
+    {
+      "name": "message-controller",
+      "description": "Message Controller"
+    },
+    {
+      "name": "message-delivery-type-controller",
+      "description": "Message Delivery Type Controller"
+    },
+    {
+      "name": "message-type-controller",
+      "description": "Message Type Controller"
+    },
+    {
+      "name": "my-messages-controller",
+      "description": "My Messages Controller"
+    },
+    {
+      "name": "version-controller",
+      "description": "Version Controller"
+    },
+    {
+      "name": "process-messages-controller",
+      "description": "Process Messages Controller"
+    }
+  ],
+  "paths": {
+    "/messaging/api/v1.0/my-messages/insertMessage": {
+      "post": {
+        "tags": [
+          "my-messages-controller"
+        ],
+        "summary": "sendOneMessage",
+        "operationId": "sendOneMessageUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "clientMessagesInput",
+            "description": "Message Request Details ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClientMessagesInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MyMessageResponseDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/api/v1.0/my-messages/unread": {
+      "get": {
+        "tags": [
+          "my-messages-controller"
+        ],
+        "summary": "getUnreadMessages",
+        "operationId": "getUnreadMessagesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "sessionToken",
+            "in": "header",
+            "description": "sessionToken",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MyMessagesInfoDTO"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/api/v1.0/my-messages/updateMessageStatus/{messageId}/{status}": {
+      "put": {
+        "tags": [
+          "my-messages-controller"
+        ],
+        "summary": "updateMessageStatus",
+        "operationId": "updateMessageStatusUsingPUT",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8"
+        ],
+        "parameters": [
+          {
+            "name": "sessionToken",
+            "in": "header",
+            "description": "sessionToken",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "Message Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "The status of personal messages(READ=1, UNREAD=2, DELETED=3",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MyMessageResponseDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/api/v1.0/my-messages/upload/{id}": {
+      "post": {
+        "tags": [
+          "my-messages-controller"
+        ],
+        "summary": "uploadFile",
+        "operationId": "uploadFileUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "templateId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MyMessageResponseDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/api/v1.0/my-messages/{page}": {
+      "get": {
+        "tags": [
+          "my-messages-controller"
+        ],
+        "summary": "getMessages",
+        "operationId": "getMessagesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "sessionToken",
+            "in": "header",
+            "description": "The session token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MyMessageDTO"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/api/v1.0/sendMessageJob": {
+      "post": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "sendMessage",
+        "operationId": "sendMessageUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "messageInput",
+            "description": "Message Input ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MessageInput"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/gtg": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "goodToGo",
+        "operationId": "goodToGoUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/messaging/health": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "getHealthStatus",
+        "operationId": "getHealthStatusUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HealthDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/messaging/message-delivery-types": {
+      "get": {
+        "tags": [
+          "message-delivery-type-controller"
+        ],
+        "summary": "getAllDeliveryMessageTypes",
+        "operationId": "getAllDeliveryMessageTypesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/message-types": {
+      "get": {
+        "tags": [
+          "message-type-controller"
+        ],
+        "summary": "getAllMessageTypes",
+        "operationId": "getAllMessageTypesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/message-types/{categoryId}": {
+      "get": {
+        "tags": [
+          "message-type-controller"
+        ],
+        "summary": "findMessageTypesByCategoryId",
+        "operationId": "findMessageTypesByCategoryIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "Type Category Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/metrics": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "metrics",
+        "operationId": "metricsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Metrics"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/messaging/process/api/v1.0/{count}": {
+      "get": {
+        "tags": [
+          "process-messages-controller"
+        ],
+        "summary": "processMessages",
+        "operationId": "processMessagesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "path",
+            "description": "The count of messages to be processed",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/response_log/{items}": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "responseLog",
+        "operationId": "responseLogUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "items",
+            "in": "path",
+            "description": "items",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Log"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/messaging/templates": {
+      "get": {
+        "tags": [
+          "template-controller"
+        ],
+        "summary": "getAllTemplates",
+        "operationId": "getAllTemplatesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/templates/{id}": {
+      "get": {
+        "tags": [
+          "template-controller"
+        ],
+        "summary": "findTemplate",
+        "operationId": "findTemplateUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Template Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/messaging/version": {
+      "get": {
+        "tags": [
+          "version-controller"
+        ],
+        "summary": "configurationChange",
+        "operationId": "configurationChangeUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EvictingQueue«ResponseLog»": {},
+    "MyMessagesInfoDTO": {
+      "properties": {
+        "unread": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Log": {
+      "properties": {
+        "responseLog": {
+          "$ref": "#/definitions/EvictingQueue«ResponseLog»"
+        }
+      }
+    },
+    "MessageTemplateDTO": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "descr": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      }
+    },
+    "MessageInput": {
+      "required": [
+        "origin",
+        "recipients"
+      ],
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "Message content"
+        },
+        "encrypt": {
+          "type": "string",
+          "description": "Message encryption",
+          "enum": [
+            "0",
+            "1"
+          ]
+        },
+        "messageTypeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Message Type ID as held on DB"
+        },
+        "messageTypeName": {
+          "type": "string",
+          "description": "Message Type Name as held on DB"
+        },
+        "method": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Message delivery type id"
+        },
+        "origin": {
+          "type": "string",
+          "description": "Originating system"
+        },
+        "params": {
+          "type": "object",
+          "description": "Data Elements parameters",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Message priority"
+        },
+        "recipients": {
+          "type": "string",
+          "description": "Comma separated recipient list"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Message subject"
+        }
+      }
+    },
+    "Page«MyMessageDTO»": {
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MyMessageDTO"
+          }
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "MethodMetrics": {
+      "properties": {
+        "aet": {
+          "type": "number",
+          "format": "double"
+        },
+        "highResponseTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "lowResponseTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requestCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseErrorCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ResponseLog": {
+      "properties": {
+        "errorCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseOutput": {
+      "required": [
+        "code",
+        "guid",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Response Code"
+        },
+        "data": {
+          "type": "string",
+          "description": "Response data"
+        },
+        "detail": {
+          "type": "string",
+          "description": "Response detail. Usually used in erroneous cases"
+        },
+        "guid": {
+          "type": "string",
+          "description": "Unique GUID as generated from the Message Originator"
+        },
+        "message": {
+          "type": "string",
+          "description": "Response Message"
+        },
+        "source": {
+          "type": "string",
+          "description": "Response source"
+        },
+        "type": {
+          "type": "string",
+          "description": "Response Type"
+        }
+      }
+    },
+    "MyMessageResponseDTO": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "Metrics": {
+      "properties": {
+        "builtWhen": {
+          "type": "string"
+        },
+        "compilerVersion": {
+          "type": "string"
+        },
+        "gitSHa1": {
+          "type": "string"
+        },
+        "machineName": {
+          "type": "string"
+        },
+        "osname": {
+          "type": "string"
+        },
+        "osversion": {
+          "type": "string"
+        },
+        "requestCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseErrorCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rqp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serviceTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "statistics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MethodMetrics"
+          }
+        },
+        "upSince": {
+          "type": "string"
+        }
+      }
+    },
+    "HealthDTO": {
+      "properties": {
+        "dependentService": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "machineName": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "serviceName": {
+          "type": "string"
+        },
+        "serviceTime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Map«string,string»": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "MyMessageDTO": {
+      "properties": {
+        "clientId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string"
+        },
+        "uploadDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Sort": {},
+    "MessageDeliveryTypeDTO": {
+      "properties": {
+        "descr": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "MessageTypeDTO": {
+      "properties": {
+        "deliveryTypeId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deliveryTypeName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "templateId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "templateName": {
+          "type": "string"
+        },
+        "typeCategoryId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "typeCategoryName": {
+          "type": "string"
+        }
+      }
+    },
+    "ClientMessagesInput": {
+      "properties": {
+        "clientId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Client Id for for sending personal messages"
+        },
+        "params": {
+          "type": "object",
+          "description": "Data Elements parameters",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "templateId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Message template ID"
+        }
+      }
+    }
+  }
+}

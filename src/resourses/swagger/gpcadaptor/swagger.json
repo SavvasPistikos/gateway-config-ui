@@ -1,0 +1,2119 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "API specification",
+		"version": "1.0",
+		"title": "gpc-adaptor"
+	},
+	"tags": [
+		{
+			"name": "AddressFactory API"
+		},
+		{
+			"name": "Lotto.de API"
+		},
+		{
+			"name": "OASIS API"
+		},
+		{
+			"name": "Schufa API"
+		}
+	],
+	"schemes": [
+		"http",
+		"https"
+	],
+	"paths": {
+		"/api/v1.0/addressFactory/basicAddressConfirmation": {
+			"post": {
+				"tags": [
+					"AddressFactory API"
+				],
+				"summary": "Verifies the players address",
+				"description": "Verifies the players address",
+				"operationId": "basicAddressConfirmation",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Address verification model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/AddressVerificationRequestDto",
+							"originalRef": "AddressVerificationRequestDto"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/AddressFactoryResponseDto",
+							"originalRef": "AddressFactoryResponseDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/AddressFactoryResponseDto",
+							"originalRef": "AddressFactoryResponseDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/lottode/registration": {
+			"post": {
+				"tags": [
+					"Lotto.de API"
+				],
+				"summary": "Registration process for Lotto.de portal",
+				"description": "Registration process for Lotto.de portal",
+				"operationId": "registrationProcess_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "The player model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Player",
+							"originalRef": "Player"
+						}
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"description": "The authorization",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "guid",
+						"in": "header",
+						"description": "The globally unique identifier",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						},
+						"responseSchema": {
+							"type": "string"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/lottode/player/status": {
+			"put": {
+				"tags": [
+					"Lotto.de API"
+				],
+				"summary": "Update Player status for Lotto.de portal",
+				"description": "Update Player status for Lotto.de portal",
+				"operationId": "updatePlayerProcess_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "The bit8 notification model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/RequestMessage",
+							"originalRef": "RequestMessage"
+						}
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"description": "The authorization",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "guid",
+						"in": "header",
+						"description": "The globally unique identifier",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						},
+						"responseSchema": {
+							"type": "string"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/lottode/commissions": {
+			"post": {
+				"tags": [
+					"Lotto.de API"
+				],
+				"summary": "We inform Lotto.De with the commission that have been triggered by Bit8",
+				"description": "We inform Lotto.De with the commission that have been triggered by Bit8",
+				"operationId": "commissions_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "The submit request from Bit8 for LottoDe file creation",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/SubmitLottoDeRequestDto",
+							"originalRef": "SubmitLottoDeRequestDto"
+						}
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"description": "The authorization",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "guid",
+						"in": "header",
+						"description": "The globally unique identifier",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "boolean"
+						},
+						"responseSchema": {
+							"type": "boolean"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/lottode/player/changePlayerEmailAddress": {
+			"put": {
+				"tags": [
+					"Lotto.de API"
+				],
+				"summary": "Changes Player's email address",
+				"description": "Changes Player's email address",
+				"operationId": "changePlayerEmailAddress_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "The bit8 notification model",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ChangePlayerEmailAddressDto",
+							"originalRef": "ChangePlayerEmailAddressDto"
+						}
+					},
+					{
+						"name": "authorization",
+						"in": "header",
+						"description": "The authorization",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "guid",
+						"in": "header",
+						"description": "The globally unique identifier",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"type": "string"
+						},
+						"responseSchema": {
+							"type": "string"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/oasis/batch/results/{batchId}": {
+			"get": {
+				"tags": [
+					"OASIS API"
+				],
+				"summary": "Get batch job's results.",
+				"description": "Get results for batch job.",
+				"operationId": "getResults",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "batchId",
+						"in": "path",
+						"description": "The Batch Id",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/BatchResultsDto",
+							"originalRef": "BatchResultsDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/BatchResultsDto",
+							"originalRef": "BatchResultsDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Fault",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/oasis/batch/submit": {
+			"post": {
+				"tags": [
+					"OASIS API"
+				],
+				"summary": "Submit batch job.",
+				"description": "Submit a batch job that includes the given gamblers with their ds-id.",
+				"operationId": "submitBatch",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/BatchRequestDto",
+								"originalRef": "BatchRequestDto"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/BatchResponseDto",
+							"originalRef": "BatchResponseDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/BatchResponseDto",
+							"originalRef": "BatchResponseDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Fault",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/oasis/batch/status": {
+			"get": {
+				"tags": [
+					"OASIS API"
+				],
+				"summary": "Get batch jobs' status.",
+				"description": "Get status for all batch jobs.",
+				"operationId": "getStatus",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/BatchStatusResponseDto",
+							"originalRef": "BatchStatusResponseDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/BatchStatusResponseDto",
+							"originalRef": "BatchStatusResponseDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Fault",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/oasis/gambler/lockInfo": {
+			"post": {
+				"tags": [
+					"OASIS API"
+				],
+				"summary": "Get gambler's lock status.",
+				"description": "Check whether a gambler has a lock or not and get their status.",
+				"operationId": "getLockInfo",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/GamblerInfoDto",
+							"originalRef": "GamblerInfoDto"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/GamblerLockInfoDto",
+							"originalRef": "GamblerLockInfoDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/GamblerLockInfoDto",
+							"originalRef": "GamblerLockInfoDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Fault",
+						"schema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/FaultInfo",
+							"originalRef": "FaultInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/schufa/bankDetails": {
+			"post": {
+				"tags": [
+					"Schufa API"
+				],
+				"summary": "Checks if SCHUFA knows specific bank details associated with a person or whether this combination\nis unknown",
+				"description": "Checks if SCHUFA knows specific bank details associated with a person or whether this combination\nis unknown",
+				"operationId": "checkBankDetails",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "User's personal data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/BankDetailsRequestDto",
+							"originalRef": "BankDetailsRequestDto"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/BankDetailsResponseDto",
+							"originalRef": "BankDetailsResponseDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/BankDetailsResponseDto",
+							"originalRef": "BankDetailsResponseDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/SchufaErrorInfo",
+							"originalRef": "SchufaErrorInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/SchufaErrorInfo",
+							"originalRef": "SchufaErrorInfo"
+						}
+					}
+				}
+			}
+		},
+		"/api/v1.0/schufa/identity": {
+			"post": {
+				"tags": [
+					"Schufa API"
+				],
+				"summary": "Calculates the similarity percentage of customer data that are provided",
+				"description": "Calculates the similarity percentage of customer data that are provided",
+				"operationId": "checkIdentity",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Customer data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IdentityRequestDto",
+							"originalRef": "IdentityRequestDto"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"schema": {
+							"$ref": "#/definitions/IdentityResponseDto",
+							"originalRef": "IdentityResponseDto"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/IdentityResponseDto",
+							"originalRef": "IdentityResponseDto"
+						}
+					},
+					"500": {
+						"description": "Runtime Error",
+						"schema": {
+							"$ref": "#/definitions/SchufaErrorInfo",
+							"originalRef": "SchufaErrorInfo"
+						},
+						"responseSchema": {
+							"$ref": "#/definitions/SchufaErrorInfo",
+							"originalRef": "SchufaErrorInfo"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"AddressFactoryResponseDto": {
+			"type": "object",
+			"properties": {
+				"match": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The match status between the request and response of the AddressFactory service"
+				},
+				"suggestions": {
+					"type": "array",
+					"description": "The list of the suggested responses from the addressFactory web service",
+					"items": {
+						"$ref": "#/definitions/AddressFactoryResponseSuggestion",
+						"originalRef": "AddressFactoryResponseSuggestion"
+					}
+				}
+			}
+		},
+		"AddressFactoryResponseSuggestion": {
+			"type": "object",
+			"properties": {
+				"streetName": {
+					"type": "string",
+					"example": "Kifisias Avenue",
+					"description": "The street name of the customer's current address"
+				},
+				"streetNumber": {
+					"type": "string",
+					"example": "115",
+					"description": "The street number of the customer's current address"
+				},
+				"postCode": {
+					"type": "string",
+					"example": "11525",
+					"description": "Postal code of the customer's current address"
+				},
+				"city": {
+					"type": "string",
+					"example": "Hamburg",
+					"description": "The city of the customer's current address"
+				}
+			}
+		},
+		"FaultInfo": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The error code"
+				},
+				"message": {
+					"type": "string",
+					"description": "The error message"
+				},
+				"data": {
+					"type": "array",
+					"description": "The error data which is an abstract object that may be used to provide any error metadata",
+					"items": {
+						"type": "object"
+					}
+				},
+				"source": {
+					"type": "string",
+					"description": "The application at which the API error occured"
+				},
+				"type": {
+					"type": "string",
+					"description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+				}
+			},
+			"description": "The FaultInfo object contains all the details assosiated with an API error"
+		},
+		"AddressVerificationRequestDto": {
+			"type": "object",
+			"required": [
+				"city",
+				"postCode",
+				"streetName",
+				"streetNumber"
+			],
+			"properties": {
+				"streetName": {
+					"type": "string",
+					"example": "Kifisias Avenue",
+					"description": "The street name of the customer's current address"
+				},
+				"streetNumber": {
+					"type": "string",
+					"example": "115",
+					"description": "The street number of the customer's current address"
+				},
+				"postCode": {
+					"type": "string",
+					"example": "11525",
+					"description": "Postal code of the customer's current address"
+				},
+				"city": {
+					"type": "string",
+					"example": "Hamburg",
+					"description": "The city of the customer's current address"
+				}
+			},
+			"description": "The customer address verification model"
+		},
+		"AddressBook": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string",
+					"description": "The player's address"
+				},
+				"addressTypeInfo": {
+					"type": "string",
+					"description": "The address type info",
+					"enum": [
+						"PERMANENT",
+						"CURRENT"
+					]
+				},
+				"city": {
+					"type": "string",
+					"description": "The city of the player"
+				},
+				"countryISO": {
+					"type": "string",
+					"description": "The country ISO"
+				},
+				"flatNumber": {
+					"type": "string",
+					"description": "The flat number of the player"
+				},
+				"houseName": {
+					"type": "string",
+					"description": "The house name of the player"
+				},
+				"houseNumber": {
+					"type": "string",
+					"description": "The house number of the player"
+				},
+				"isPrimary": {
+					"type": "boolean",
+					"description": "Checks if it is the primary one"
+				},
+				"poBox": {
+					"type": "string",
+					"description": "The po box of the player"
+				},
+				"postCode": {
+					"type": "string",
+					"description": "The post code of the player"
+				},
+				"stateName": {
+					"type": "string",
+					"description": "The state name of the player"
+				},
+				"streetName": {
+					"type": "string",
+					"description": "The street name of the player"
+				},
+				"streetNumber": {
+					"type": "string",
+					"description": "The street number of the player"
+				},
+				"streetType": {
+					"type": "string",
+					"description": "The type of street of the player"
+				},
+				"suburb": {
+					"type": "string",
+					"description": "The suburb of the player"
+				},
+				"townName": {
+					"type": "string",
+					"description": "The town name of the player"
+				}
+			},
+			"description": "The details of an address"
+		},
+		"BalanceTransactionAttribute": {
+			"type": "object",
+			"properties": {
+				"attrName": {
+					"type": "string",
+					"description": "The attribute name"
+				},
+				"attrValue": {
+					"type": "string",
+					"description": "The attribute value"
+				}
+			},
+			"description": "The attributes for a balance transaction"
+		},
+		"BonusCoupon": {
+			"type": "object",
+			"properties": {
+				"bonusCouponID": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of the bonus wager"
+				},
+				"bonusRuleIDArray": {
+					"type": "array",
+					"description": "The array of the ids of the bonus rules",
+					"items": {
+						"type": "integer",
+						"format": "int64"
+					}
+				},
+				"bonusTags": {
+					"type": "array",
+					"description": "The list of bonus tags",
+					"items": {
+						"$ref": "#/definitions/BonusGroup",
+						"originalRef": "BonusGroup"
+					}
+				},
+				"couponCode": {
+					"type": "string",
+					"description": "The wager code"
+				},
+				"displayName": {
+					"type": "string",
+					"description": "The display name"
+				},
+				"actived": {
+					"type": "boolean",
+					"description": "Check if it is actived"
+				},
+				"requirePlayerSelection": {
+					"type": "boolean",
+					"description": "Check if it player selection required"
+				},
+				"selectNumBonuses": {
+					"type": "integer",
+					"format": "int32",
+					"description": "Select number of bonuses"
+				},
+				"validityEndDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The validity end date"
+				},
+				"validityStartDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The validity start date"
+				}
+			},
+			"description": "The bonuses of a wager"
+		},
+		"BonusGroup": {
+			"type": "object",
+			"properties": {
+				"bonusGroupID": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of the bonus group"
+				},
+				"bonusRuleIDArray": {
+					"type": "array",
+					"description": "The array of the ids of the bonus rules",
+					"items": {
+						"type": "integer",
+						"format": "int64"
+					}
+				},
+				"dateCreated": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Created date"
+				},
+				"friendlyName": {
+					"type": "string",
+					"description": "The friendly name"
+				},
+				"name": {
+					"type": "string",
+					"description": "The name"
+				}
+			},
+			"description": "The group of a bonus"
+		},
+		"ForceChangePassword": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"description": "The enumeration type for force change password",
+					"enum": [
+						"USERNAME",
+						"EMAIL",
+						"PLAYER_CARD"
+					]
+				},
+				"value": {
+					"type": "string",
+					"description": "The value for force change password"
+				}
+			},
+			"description": "Force change password object"
+		},
+		"KYCBase64File": {
+			"type": "object",
+			"properties": {
+				"base64FileData": {
+					"type": "string",
+					"description": "The kyc document file base64 data"
+				},
+				"originalFilename": {
+					"type": "string",
+					"description": "The kyc document file original name"
+				}
+			},
+			"description": "The KYC document base64 file information"
+		},
+		"KYCDataRegisterRequest": {
+			"type": "object",
+			"required": [
+				"documentNumber",
+				"documentType"
+			],
+			"properties": {
+				"issueDate": {
+					"type": "string",
+					"description": "The issue date"
+				},
+				"issuingAuthority": {
+					"type": "string",
+					"description": "The issue authority"
+				},
+				"issuingCountry": {
+					"type": "string",
+					"description": "The issue authority"
+				},
+				"documentType": {
+					"type": "string",
+					"description": "The type of the document",
+					"enum": [
+						"UNKNOWN",
+						"IDENTITY_CARD",
+						"PASSPORT",
+						"DRIVING_LICENSE",
+						"BANK_STATEMENT",
+						"UTILITY_BILL"
+					]
+				},
+				"documentNumber": {
+					"type": "string",
+					"description": "The document number"
+				},
+				"kycAcceptance": {
+					"type": "boolean",
+					"description": "The KYC Acceptance"
+				},
+				"base64Files": {
+					"type": "array",
+					"description": "The base 64 list of files",
+					"items": {
+						"$ref": "#/definitions/KYCBase64File",
+						"originalRef": "KYCBase64File"
+					}
+				},
+				"balanceAccountId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The balance account id"
+				},
+				"documentId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The kyc document system id"
+				}
+			},
+			"description": "The request data of the KYC document"
+		},
+		"PEPPlayerInfo": {
+			"type": "object",
+			"properties": {
+				"isActive": {
+					"type": "boolean",
+					"description": "Check if player is politically exposed"
+				},
+				"dutyTypeId": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The politicians duty type id of the politically exposed person"
+				},
+				"fundsSourceDetails": {
+					"type": "string",
+					"description": "The source of founds details"
+				},
+				"fundsSourceId": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The source of founds id"
+				},
+				"relationId": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The way id that the person is politically exposed"
+				}
+			},
+			"description": "The pep(politically exposed person) information of the player"
+		},
+		"PaymentAccount": {
+			"type": "object",
+			"properties": {
+				"attributes": {
+					"type": "array",
+					"description": "The list of attributes",
+					"items": {
+						"$ref": "#/definitions/BalanceTransactionAttribute",
+						"originalRef": "BalanceTransactionAttribute"
+					}
+				},
+				"token": {
+					"type": "string",
+					"description": "The token"
+				},
+				"kycChecked": {
+					"type": "boolean",
+					"description": "Check if they KYC is enabled"
+				},
+				"depositedAmount": {
+					"type": "number",
+					"description": "The deposit amount"
+				},
+				"withdrawnAmount": {
+					"type": "number",
+					"description": "The withdrawn amount"
+				},
+				"accountReference": {
+					"type": "string",
+					"description": "The account reference"
+				},
+				"paymentAccountID": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of payment account"
+				},
+				"paymentGateway": {
+					"type": "string",
+					"description": "The payment gateway"
+				},
+				"dateCreated": {
+					"type": "string",
+					"description": "The created date"
+				},
+				"expiryDate": {
+					"type": "string",
+					"description": "The expiry date"
+				},
+				"canWithdraw": {
+					"type": "boolean",
+					"description": "Check if player can withdraw"
+				},
+				"isInternal": {
+					"type": "boolean",
+					"description": "Check if it is internal"
+				},
+				"creditCardHolderName": {
+					"type": "string",
+					"description": "The name of the credit card holder"
+				},
+				"isDefaultWithdrawal": {
+					"type": "boolean",
+					"description": "Check if the default withdrawal is enabled"
+				},
+				"paymentMethodDisplayName": {
+					"type": "string",
+					"description": "The name of the payment method"
+				},
+				"paymentMethodSubType": {
+					"type": "string",
+					"description": "The subtype of the payment method"
+				},
+				"paymentMethodType": {
+					"type": "string",
+					"description": "The type of the payment method"
+				}
+			},
+			"description": "The transaction for every payment account"
+		},
+		"Player": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string",
+					"description": "The title of the player"
+				},
+				"emailAddress": {
+					"type": "string",
+					"description": "The email address of the player"
+				},
+				"phoneNumbers": {
+					"type": "array",
+					"description": "The phone numbers of the player",
+					"items": {
+						"$ref": "#/definitions/PlayerPhoneNumbers",
+						"originalRef": "PlayerPhoneNumbers"
+					}
+				},
+				"firstName": {
+					"type": "string",
+					"description": "The first name of the player"
+				},
+				"middleName": {
+					"type": "string",
+					"description": "The middle name of the player"
+				},
+				"nickName": {
+					"type": "string",
+					"description": "The nickname of the player"
+				},
+				"lastName": {
+					"type": "string",
+					"description": "The last name of the player"
+				},
+				"gender": {
+					"type": "string",
+					"description": "The gender of the player ( M, F, U for Male, Female and Unknown"
+				},
+				"addressBooks": {
+					"type": "array",
+					"description": "The address details of a player",
+					"items": {
+						"$ref": "#/definitions/AddressBook",
+						"originalRef": "AddressBook"
+					}
+				},
+				"pepInfo": {
+					"description": "The pep information of a player",
+					"$ref": "#/definitions/PEPPlayerInfo",
+					"originalRef": "PEPPlayerInfo"
+				},
+				"currencyISO": {
+					"type": "string",
+					"description": "The currencyISO"
+				},
+				"languageISO": {
+					"type": "string",
+					"description": "The languageISO"
+				},
+				"dateOfBirth": {
+					"type": "string",
+					"description": "The birth date of the player"
+				},
+				"password": {
+					"type": "string",
+					"description": "The password"
+				},
+				"username": {
+					"type": "string",
+					"description": "The birth date of the player"
+				},
+				"bonusDontWant": {
+					"type": "boolean",
+					"description": "Check if the player don't want bonuses"
+				},
+				"bonusSeeker": {
+					"type": "boolean",
+					"description": "Check for bonus seeker"
+				},
+				"testPlayer": {
+					"type": "boolean",
+					"description": "Check if he is test player"
+				},
+				"testPlayerAllowTransfers": {
+					"type": "boolean",
+					"description": "Check if the test player is allowed to transfer money"
+				},
+				"activateAccount": {
+					"type": "boolean",
+					"description": "Check if the account is activated"
+				},
+				"contactByEmail": {
+					"type": "boolean",
+					"description": "Check if contacts with player's email"
+				},
+				"contactByPhone": {
+					"type": "boolean",
+					"description": "Check if contacts with player's phone"
+				},
+				"contactByPost": {
+					"type": "boolean",
+					"description": "Check if contacts with player's post"
+				},
+				"contactBySMS": {
+					"type": "boolean",
+					"description": "Check if contacts with player's sms"
+				},
+				"contactByThirdParty": {
+					"type": "boolean",
+					"description": "Check if contacts with the third party"
+				},
+				"receivePromotional": {
+					"type": "boolean",
+					"description": "Check if player receives promotional"
+				},
+				"receivePromotionalByEmail": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by email"
+				},
+				"receivePromotionalByPushNotification": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by push notification"
+				},
+				"receivePromotionalByPhone": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by phone"
+				},
+				"receivePromotionalByMobile": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by mobile phone"
+				},
+				"receivePromotionalByPost": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by post"
+				},
+				"receivePromotionalBySMS": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by sms"
+				},
+				"receivePromotionalByThirdParty": {
+					"type": "boolean",
+					"description": "Check if player receives promotional by third party"
+				},
+				"ipAddress": {
+					"type": "string",
+					"description": "The ip address of the player"
+				},
+				"activationCode": {
+					"type": "string",
+					"description": "The activation code of the player"
+				},
+				"smsVerificationToken": {
+					"type": "string",
+					"description": "The 6 sms verification token used for activation or account update"
+				},
+				"bonusCoupon": {
+					"description": "The bonus coupons",
+					"$ref": "#/definitions/BonusCoupon",
+					"originalRef": "BonusCoupon"
+				},
+				"bonusCouponStatus": {
+					"type": "string",
+					"description": "The status of bonus wager"
+				},
+				"clientID": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of the client"
+				},
+				"clientProfileID": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of client's profile"
+				},
+				"retailerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of the retailer that the player has been registered"
+				},
+				"activated": {
+					"type": "boolean",
+					"description": "The current bonus balance"
+				},
+				"playerRegistrationState": {
+					"type": "string",
+					"description": "The current ring fenced poker",
+					"enum": [
+						"FULL",
+						"PARTIAL",
+						"PROSPECT",
+						"ANONYMOUS",
+						"UNDEFINED"
+					]
+				},
+				"passwordDetails": {
+					"description": "The password details of a player",
+					"$ref": "#/definitions/PlayerPassword",
+					"originalRef": "PlayerPassword"
+				},
+				"governmentIssuedId": {
+					"type": "string",
+					"description": "The id of the government issued"
+				},
+				"governmentIssuedIdType": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The type of the government id"
+				},
+				"kycDataRegisterRequests": {
+					"type": "array",
+					"description": "The request data of the KYC document",
+					"items": {
+						"$ref": "#/definitions/KYCDataRegisterRequest",
+						"originalRef": "KYCDataRegisterRequest"
+					}
+				},
+				"citizenshipId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The id of the citizenship"
+				},
+				"paymentAccounts": {
+					"type": "array",
+					"description": "The player's payment account details (will be created upon registration)",
+					"items": {
+						"$ref": "#/definitions/PaymentAccount",
+						"originalRef": "PaymentAccount"
+					}
+				},
+				"terms": {
+					"type": "array",
+					"description": "The list of the player's accepted, rejected, revoked terms and conditions information",
+					"items": {
+						"$ref": "#/definitions/TermsAndConditionsStatusUpdateRequest",
+						"originalRef": "TermsAndConditionsStatusUpdateRequest"
+					}
+				}
+			},
+			"description": "The details that a player needs in order to register or update his account"
+		},
+		"PlayerPassword": {
+			"type": "object",
+			"properties": {
+				"authenticationPin": {
+					"type": "string",
+					"description": "The pin for authentication"
+				},
+				"newPassword": {
+					"type": "string",
+					"description": "The new password"
+				},
+				"oldPassword": {
+					"type": "string",
+					"description": "The old password"
+				},
+				"secretAnswer": {
+					"type": "string",
+					"description": "The secret answer"
+				},
+				"secretQuestionFreeText": {
+					"type": "string",
+					"description": "The secret question in text"
+				},
+				"secretQuestionID": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The id of secret question"
+				},
+				"passwordResetCode": {
+					"type": "string",
+					"description": "The code for reset password"
+				},
+				"forceChangePassword": {
+					"description": "In case of force change password",
+					"$ref": "#/definitions/ForceChangePassword",
+					"originalRef": "ForceChangePassword"
+				}
+			},
+			"description": "The password details of a player"
+		},
+		"PlayerPhoneNumbers": {
+			"type": "object",
+			"properties": {
+				"countryPrefix": {
+					"type": "string",
+					"description": "The country prefix"
+				},
+				"mobilePrefix": {
+					"type": "string",
+					"description": "The mobile prefix"
+				},
+				"phoneNumber": {
+					"type": "string",
+					"description": "The phone number"
+				},
+				"phoneNumberId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The phone number id"
+				},
+				"phoneNumberType": {
+					"type": "string",
+					"description": "The type of the phone number",
+					"enum": [
+						"PRIMARY_MOBILE",
+						"SECONDARY_MOBILE",
+						"PRIMARY_LAND_LINE",
+						"SECONDARY_LAND_LINE"
+					]
+				}
+			},
+			"description": "The numbers of a player"
+		},
+		"TermsAndConditionsStatusUpdateRequest": {
+			"type": "object",
+			"required": [
+				"status",
+				"tcId",
+				"versionNum"
+			],
+			"properties": {
+				"tcId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The terms and condition id"
+				},
+				"versionNum": {
+					"type": "integer",
+					"format": "int32",
+					"description": "The version number"
+				},
+				"status": {
+					"type": "string",
+					"description": "The status that is going to be changed for the selected T&C (ACCEPTED, REJECTED, REVOKED)",
+					"enum": [
+						"NONE",
+						"REVOKED",
+						"ACCEPTED",
+						"REJECTED",
+						"PENDING"
+					]
+				}
+			},
+			"description": "The player's terms and conditions update request"
+		},
+		"RequestMessage": {
+			"type": "object",
+			"description": "This type is an abstract object containing all core functionality that needs to be implemented from extending requests classes"
+		},
+		"SubmitLottoDeRequestDto": {
+			"type": "object",
+			"required": [
+				"ftpPath"
+			],
+			"properties": {
+				"ftpPath": {
+					"type": "string",
+					"example": "ftp-bit8-in/x.zip",
+					"description": "The file path in the FTP server"
+				}
+			},
+			"description": "The submit request from Bit8 for LottoDe file creation"
+		},
+		"ChangePlayerEmailAddressDto": {
+			"type": "object",
+			"properties": {
+				"eventType": {
+					"type": "string"
+				},
+				"eventID": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"clientData": {
+					"$ref": "#/definitions/ClientData",
+					"originalRef": "ClientData"
+				}
+			}
+		},
+		"ClientData": {
+			"type": "object",
+			"properties": {
+				"clientId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"clientStatId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"extClientId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"previousEmailAddress": {
+					"type": "string"
+				},
+				"currentEmailAddress": {
+					"type": "string"
+				}
+			}
+		},
+		"Mono": {
+			"type": "object"
+		},
+		"MonoBatchResultsDto": {
+			"type": "object"
+		},
+		"BatchResultElementDto": {
+			"type": "object",
+			"required": [
+				"dsId",
+				"lockInfo",
+				"status"
+			],
+			"properties": {
+				"dsId": {
+					"type": "string",
+					"example": "111",
+					"description": "dsId"
+				},
+				"status": {
+					"type": "string",
+					"example": "0018",
+					"description": "status"
+				},
+				"lockInfo": {
+					"type": "array",
+					"description": "lockInfo",
+					"items": {
+						"$ref": "#/definitions/LockInfo",
+						"originalRef": "LockInfo"
+					}
+				}
+			},
+			"description": "Gambles' lock information for the data defind by the dsID"
+		},
+		"BatchResultsDto": {
+			"type": "object",
+			"required": [
+				"batchId",
+				"status"
+			],
+			"properties": {
+				"status": {
+					"type": "string",
+					"example": "0078",
+					"description": "status"
+				},
+				"batchId": {
+					"type": "string",
+					"example": "123456",
+					"description": "batchId"
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "date-time",
+					"example": "2018-05-11T08:44:04.425+02:00",
+					"description": "timestamp"
+				},
+				"numberOfSuccessfullyProcessed": {
+					"type": "integer",
+					"format": "int32",
+					"example": 1,
+					"description": "numberOfSuccessfullyProcessed"
+				},
+				"numberOfNotLocked": {
+					"type": "integer",
+					"format": "int32",
+					"example": 1,
+					"description": "numberOfNotLocked"
+				},
+				"numberOfLocked": {
+					"type": "integer",
+					"format": "int32",
+					"example": 1,
+					"description": "numberOfLocked"
+				},
+				"numberOfNotUnique": {
+					"type": "integer",
+					"format": "int32",
+					"example": 1,
+					"description": "numberOfNotUnique"
+				},
+				"batchResultElementDtoList": {
+					"type": "array",
+					"description": "batchResultElementDtoList",
+					"items": {
+						"$ref": "#/definitions/BatchResultElementDto",
+						"originalRef": "BatchResultElementDto"
+					}
+				}
+			},
+			"description": "Results for the batch job"
+		},
+		"LockInfo": {
+			"type": "object",
+			"required": [
+				"name"
+			],
+			"properties": {
+				"lockId": {
+					"type": "integer",
+					"format": "int32",
+					"example": 0,
+					"description": "lockId"
+				},
+				"name": {
+					"type": "string",
+					"example": "Spielbank",
+					"description": "name"
+				},
+				"contactPerson": {
+					"type": "string",
+					"example": "Silvia Jackmann",
+					"description": "contactPerson"
+				},
+				"phone": {
+					"type": "string",
+					"example": "12345",
+					"description": "phone"
+				},
+				"email": {
+					"type": "string",
+					"example": "sj@spbk.de",
+					"description": "email"
+				}
+			},
+			"description": "Locked gambler's information"
+		},
+		"MonoBatchResponseDto": {
+			"type": "object"
+		},
+		"BatchResponseDto": {
+			"type": "object",
+			"required": [
+				"status"
+			],
+			"properties": {
+				"status": {
+					"type": "string",
+					"example": "0077",
+					"description": "status"
+				},
+				"batchId": {
+					"type": "string",
+					"example": "123456",
+					"description": "batchId"
+				}
+			},
+			"description": "Batch response information"
+		},
+		"BatchRequestDto": {
+			"type": "object",
+			"required": [
+				"dsId",
+				"gamblerInfoDto"
+			],
+			"properties": {
+				"dsId": {
+					"type": "string",
+					"example": "111",
+					"description": "dsId"
+				},
+				"gamblerInfoDto": {
+					"description": "gamblerInfoDto",
+					"$ref": "#/definitions/GamblerInfoDto",
+					"originalRef": "GamblerInfoDto"
+				}
+			},
+			"description": "Batch request information"
+		},
+		"GamblerInfoDto": {
+			"type": "object",
+			"required": [
+				"dateOfBirth",
+				"firstName",
+				"surname"
+			],
+			"properties": {
+				"firstName": {
+					"type": "string",
+					"example": "name",
+					"description": "firstName"
+				},
+				"surname": {
+					"type": "string",
+					"example": "surname",
+					"description": "surname"
+				},
+				"dateOfBirth": {
+					"type": "string",
+					"format": "date",
+					"example": "2018-06-18",
+					"description": "dateOfBirth"
+				}
+			},
+			"description": "GamblerInfo's information"
+		},
+		"MonoBatchStatusResponseDto": {
+			"type": "object"
+		},
+		"BatchStatusDto": {
+			"type": "object",
+			"required": [
+				"batchId",
+				"batchStatus"
+			],
+			"properties": {
+				"batchId": {
+					"type": "string",
+					"example": "123456",
+					"description": "batchId"
+				},
+				"batchStatus": {
+					"type": "string",
+					"description": "batchStatus",
+					"enum": [
+						"WAITING",
+						"RUNNING",
+						"FINISHED",
+						"COMPLETED",
+						"CANCELLED",
+						"ARCHIVED"
+					]
+				}
+			},
+			"description": "Batch Status information"
+		},
+		"BatchStatusResponseDto": {
+			"type": "object",
+			"required": [
+				"status"
+			],
+			"properties": {
+				"status": {
+					"type": "string",
+					"example": "0049",
+					"description": "status"
+				},
+				"batchStatusDtoList": {
+					"type": "array",
+					"description": "batchStatusDtoList",
+					"items": {
+						"$ref": "#/definitions/BatchStatusDto",
+						"originalRef": "BatchStatusDto"
+					}
+				}
+			},
+			"description": "Batch status information for all jobs"
+		},
+		"MonoGamblerLockInfoDto": {
+			"type": "object"
+		},
+		"GamblerLockInfoDto": {
+			"type": "object",
+			"required": [
+				"status"
+			],
+			"properties": {
+				"status": {
+					"type": "string",
+					"example": "0019",
+					"description": "status"
+				},
+				"lockInfoList": {
+					"type": "array",
+					"description": "lockInfoList",
+					"items": {
+						"$ref": "#/definitions/LockInfo",
+						"originalRef": "LockInfo"
+					}
+				}
+			},
+			"description": "GamblerInfo's lock information "
+		},
+		"MonoBankDetailsResponseDto": {
+			"type": "object"
+		},
+		"BankDetailsResponseDto": {
+			"type": "object",
+			"required": [
+				"resultCodes",
+				"version"
+			],
+			"properties": {
+				"version": {
+					"type": "string",
+					"example": "1.0",
+					"description": "Version. Currently used 1.0"
+				},
+				"resultCodes": {
+					"type": "array",
+					"description": "Result codes regarding check of bank details",
+					"items": {
+						"$ref": "#/definitions/BankDetailsResultCodesDto",
+						"originalRef": "BankDetailsResultCodesDto"
+					}
+				}
+			}
+		},
+		"BankDetailsResultCodesDto": {
+			"type": "object",
+			"required": [
+				"resultCode",
+				"resultText",
+				"resultType"
+			],
+			"properties": {
+				"resultCode": {
+					"type": "string",
+					"example": "s01",
+					"description": "Result code regarding check of bank details"
+				},
+				"resultType": {
+					"type": "string",
+					"example": "p01",
+					"description": "Result type regarding check of bank details"
+				},
+				"resultText": {
+					"type": "string",
+					"example": "Der SCHUFA ist eine Kombination aus der angefragten Bankverbindung und den angefragten Personendaten nicht bekannt.",
+					"description": "Textual explanation of syntax check code in Deutsch"
+				},
+				"resultTextEn": {
+					"type": "string",
+					"example": "Der SCHUFA ist eine Kombination aus der angefragten Bankverbindung und den angefragten Personendaten nicht bekannt.",
+					"description": "Textual explanation of syntax check code in English (it might not always be correct)"
+				}
+			}
+		},
+		"SchufaErrorInfo": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				}
+			}
+		},
+		"AddressRequestDto": {
+			"type": "object",
+			"required": [
+				"postCode",
+				"postTown",
+				"streetName"
+			],
+			"properties": {
+				"streetName": {
+					"type": "string",
+					"example": "Kleiberweg 115b",
+					"description": "The street name of the customer's current address"
+				},
+				"postCode": {
+					"type": "string",
+					"example": "22547",
+					"description": "Postal code of the customer's current address"
+				},
+				"postTown": {
+					"type": "string",
+					"example": "HAMBURG",
+					"description": "Town of the customer's current address"
+				},
+				"country": {
+					"type": "string",
+					"example": "DEU",
+					"description": "Customer's country. The three-letter code specified in ISO 3166 ALPHA-3, e.g. Deutch = DEU"
+				}
+			},
+			"description": "The customer address model that is being used by the IdentityRequestDto"
+		},
+		"BankDetailsRequestDto": {
+			"type": "object",
+			"required": [
+				"address",
+				"consumerData",
+				"version"
+			],
+			"properties": {
+				"version": {
+					"type": "string",
+					"example": "1.0",
+					"description": "Version. Currently used 1.0"
+				},
+				"checkType": {
+					"type": "string",
+					"example": "Standard",
+					"description": "Currently this element has no function. In the future it will indicate what variant of SCHUFA-BankaccountCheck plus IBAN is desired"
+				},
+				"address": {
+					"description": "Customer's address.",
+					"$ref": "#/definitions/AddressRequestDto",
+					"originalRef": "AddressRequestDto"
+				},
+				"consumerData": {
+					"description": "Customer's address.",
+					"$ref": "#/definitions/ConsumerDataRequestDto",
+					"originalRef": "ConsumerDataRequestDto"
+				},
+				"previousAddress": {
+					"description": "Use previous address in case you have the previous address data of the user",
+					"$ref": "#/definitions/AddressRequestDto",
+					"originalRef": "AddressRequestDto"
+				},
+				"iban": {
+					"type": "string",
+					"example": "DE19511700240033177700",
+					"description": "User's IBAN numbrer"
+				},
+				"accountNumber": {
+					"type": "string",
+					"example": "033177700",
+					"description": "User's account number"
+				},
+				"shortCode": {
+					"type": "string",
+					"example": "51170024",
+					"description": "User's sort code for account number"
+				}
+			}
+		},
+		"ConsumerDataRequestDto": {
+			"type": "object",
+			"required": [
+				"dateOfBirth",
+				"firstName",
+				"gender",
+				"lastName"
+			],
+			"properties": {
+				"title": {
+					"type": "string",
+					"example": "Dr.",
+					"description": "User's title like Dr. or Prof."
+				},
+				"dateOfBirth": {
+					"type": "string",
+					"format": "date",
+					"example": "01.04.1973",
+					"description": "Customer's date of birth"
+				},
+				"firstName": {
+					"type": "string",
+					"example": "Owen",
+					"description": "Customer's first name"
+				},
+				"lastName": {
+					"type": "string",
+					"example": "Burton",
+					"description": "Customer's last name"
+				},
+				"gender": {
+					"type": "string",
+					"example": "M",
+					"description": "Customer's gender. M or m for male F or w for female and U or u for unknown"
+				}
+			},
+			"description": "The customer address model that is being used by the IdentityRequestDto"
+		},
+		"MonoIdentityResponseDto": {
+			"type": "object"
+		},
+		"AddressResponseDto": {
+			"type": "object",
+			"required": [
+				"postCodePercentage",
+				"postTownPercentage",
+				"streetNamePercentage"
+			],
+			"properties": {
+				"streetNamePercentage": {
+					"type": "number",
+					"format": "double",
+					"example": 100.0,
+					"description": "The similarity percentage of the customer's current street name"
+				},
+				"postCodePercentage": {
+					"type": "number",
+					"format": "double",
+					"example": 100.0,
+					"description": "The similarity percentage of the customer's current post code"
+				},
+				"postTownPercentage": {
+					"type": "number",
+					"format": "double",
+					"example": 100.0,
+					"description": "The similarity percentage of the customer's current post town"
+				}
+			},
+			"description": "Model that contains the evaluation percentages for user address"
+		},
+		"ConsumerDataResponseDto": {
+			"type": "object",
+			"required": [
+				"dateOfBirthPercentage",
+				"namePercentage",
+				"surnamePercentage"
+			],
+			"properties": {
+				"schufaId": {
+					"type": "string",
+					"description": "Id that was found in the scufa database for the data provided"
+				},
+				"overallMatch": {
+					"type": "number",
+					"format": "double",
+					"description": "Shows the overall match score based on various individual match scores"
+				},
+				"dateOfBirthPercentage": {
+					"type": "number",
+					"format": "double",
+					"example": "2019-02-13",
+					"description": "Customer's date of birth similarity percentage"
+				},
+				"namePercentage": {
+					"type": "number",
+					"format": "double",
+					"example": "George",
+					"description": "Customer's first name similarity percentage"
+				},
+				"surnamePercentage": {
+					"type": "number",
+					"format": "double",
+					"example": "Smith",
+					"description": "Customer's last name similarity percentage"
+				}
+			},
+			"description": "Model that contains the evaluation percentages for user data"
+		},
+		"IdentityResponseDto": {
+			"type": "object",
+			"required": [
+				"addressData",
+				"consumerData",
+				"version"
+			],
+			"properties": {
+				"version": {
+					"type": "string",
+					"description": "Version"
+				},
+				"addressData": {
+					"description": "Customer's address.",
+					"$ref": "#/definitions/AddressResponseDto",
+					"originalRef": "AddressResponseDto"
+				},
+				"consumerData": {
+					"description": "Customers's data percentages in response",
+					"$ref": "#/definitions/ConsumerDataResponseDto",
+					"originalRef": "ConsumerDataResponseDto"
+				},
+				"proofOfIdentity": {
+					"type": "string",
+					"example": "nein",
+					"description": "Proof of identity. Contains ja or nein"
+				},
+				"formerAddress": {
+					"type": "string",
+					"description": "Found with a former address"
+				},
+				"processInfo": {
+					"type": "string",
+					"description": "Processing Info, e.g KEIN TREFFER = there are no matches for the queried consumer , VERSTORBEN = the queried consumer is deceased"
+				}
+			}
+		},
+		"IdentityRequestDto": {
+			"type": "object",
+			"required": [
+				"address",
+				"checkType",
+				"consumerData",
+				"version"
+			],
+			"properties": {
+				"version": {
+					"type": "string",
+					"example": "1.0",
+					"description": "Version. Currently used 1.0"
+				},
+				"checkType": {
+					"type": "string",
+					"example": "Premium",
+					"description": "Standard, Protection of Minors, Premium, Premium Deceased"
+				},
+				"consumerData": {
+					"description": "Customer's data.",
+					"$ref": "#/definitions/ConsumerDataRequestDto",
+					"originalRef": "ConsumerDataRequestDto"
+				},
+				"address": {
+					"description": "Customer's address.",
+					"$ref": "#/definitions/AddressRequestDto",
+					"originalRef": "AddressRequestDto"
+				}
+			},
+			"description": "The customer identity model"
+		}
+	}
+}

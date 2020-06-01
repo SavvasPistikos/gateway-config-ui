@@ -1,0 +1,1116 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "iLock-service"
+  },
+  "tags": [{
+    "name": "Draws"
+  }, {
+    "name": "Wagers"
+  }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/api/v1.0/draws/hash": {
+      "get": {
+        "tags": ["Draws"],
+        "summary": "Get draws hashes",
+        "description": "",
+        "operationId": "getDrawsHashes",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "gameId",
+          "in": "query",
+          "description": "The game id",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "drawId",
+          "in": "query",
+          "description": "The draw id",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "type",
+          "in": "query",
+          "description": "The draw hash type. 1 = participating file hash. 2 = winning file hash.",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "fromDate",
+          "in": "query",
+          "description": "From date in yyyy-MM-dd HH:mm:ss format",
+          "required": true,
+          "type": "string"
+        }, {
+          "name": "toDate",
+          "in": "query",
+          "description": "To date in yyyy-MM-dd HH:mm:ss format",
+          "required": true,
+          "type": "string"
+        }, {
+          "name": "page",
+          "in": "query",
+          "description": "The page to return",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "limit",
+          "in": "query",
+          "description": "The limit to return",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "property",
+          "in": "query",
+          "description": "The property to sort by. Possible values are none (default sorting), draw and date",
+          "required": false,
+          "type": "string",
+          "default": "id"
+        }, {
+          "name": "sort",
+          "in": "query",
+          "description": "The sorting order. Possible values asc and desc. No value defaults to asc",
+          "required": false,
+          "type": "string",
+          "default": "asc"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DrawHash",
+                "originalRef": "DrawHash"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DrawHash",
+                "originalRef": "DrawHash"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/draws/{gameId}/{drawId}/hash": {
+      "put": {
+        "tags": ["Draws"],
+        "summary": "Api for file-hash-service to post a draw's hash",
+        "description": "",
+        "operationId": "saveDrawHash",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "gameId",
+          "in": "path",
+          "description": "The game id",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "drawId",
+          "in": "path",
+          "description": "The draw id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }, {
+          "in": "body",
+          "name": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/SaveDrawHashRequest",
+            "originalRef": "SaveDrawHashRequest"
+          }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SaveDrawHashResponse",
+              "originalRef": "SaveDrawHashResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/SaveDrawHashResponse",
+              "originalRef": "SaveDrawHashResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/draws/{gameId}/{drawId}/hash-verification": {
+      "get": {
+        "tags": ["Draws"],
+        "summary": "Verify a draw's hash",
+        "description": "",
+        "operationId": "verifyDrawHash",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "gameId",
+          "in": "path",
+          "description": "The game id",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "drawId",
+          "in": "path",
+          "description": "The draw id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "revision",
+          "in": "query",
+          "description": "The draw revision",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "type",
+          "in": "query",
+          "description": "The draw hash type. 1 = participating file hash. 2 = winning file hash.",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{wagerId}/hash": {
+      "get": {
+        "tags": ["Wagers"],
+        "summary": "Get the wager hashes for all games",
+        "description": "",
+        "operationId": "getWagerHashes",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The wager id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "Operator",
+          "in": "header",
+          "description": "The operator",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "Channel",
+          "in": "header",
+          "description": "The channel",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WagerHash",
+                "originalRef": "WagerHash"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WagerHash",
+                "originalRef": "WagerHash"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Wagers"],
+        "summary": "Create a hash from the wager",
+        "description": "",
+        "operationId": "createWagerHash",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The wager id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "Operator",
+          "in": "header",
+          "description": "The operator",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "Channel",
+          "in": "header",
+          "description": "The channel",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }, {
+          "in": "body",
+          "name": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/PlayResponseModel",
+            "originalRef": "PlayResponseModel"
+          }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{wagerId}/hash-verification": {
+      "get": {
+        "tags": ["Wagers"],
+        "summary": "Verify a wager hash",
+        "description": "",
+        "operationId": "verifyWagerHash",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The wager id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "gameIds",
+          "in": "query",
+          "description": "The game ids",
+          "required": true,
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "collectionFormat": "multi"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/groups": {
+      "get": {
+        "tags": ["Wagers"],
+        "summary": "Get grouped wagers",
+        "description": "",
+        "operationId": "getWagerGroups",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "gameId",
+          "in": "query",
+          "description": "The game id",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "drawId",
+          "in": "query",
+          "description": "The draw id",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "fromDate",
+          "in": "query",
+          "description": "From date in yyyy-MM-dd HH:mm:ss format",
+          "required": true,
+          "type": "string"
+        }, {
+          "name": "toDate",
+          "in": "query",
+          "description": "To date in yyyy-MM-dd HH:mm:ss format",
+          "required": true,
+          "type": "string"
+        }, {
+          "name": "page",
+          "in": "query",
+          "description": "The page to return",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "limit",
+          "in": "query",
+          "description": "The limit to return",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "property",
+          "in": "query",
+          "description": "The property to sort by. Possible values are none (default sorting), draw and date",
+          "required": false,
+          "type": "string",
+          "default": "id"
+        }, {
+          "name": "sort",
+          "in": "query",
+          "description": "The sorting order. Possible values asc and desc. No value defaults to asc",
+          "required": false,
+          "type": "string",
+          "default": "asc"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WagerGroup",
+              "originalRef": "WagerGroup"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/WagerGroup",
+              "originalRef": "WagerGroup"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/exchange/{wagerId}/hash": {
+      "put": {
+        "tags": ["Wagers"],
+        "summary": "Create a hash from the exchange wager",
+        "description": "",
+        "operationId": "createExchangeWagerHash",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The wager id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "pilot",
+          "in": "query",
+          "description": "The pilot flag",
+          "required": false,
+          "type": "boolean"
+        }, {
+          "name": "Operator",
+          "in": "header",
+          "description": "The operator",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "Channel",
+          "in": "header",
+          "description": "The channel",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "RetailerId",
+          "in": "header",
+          "description": "The RetailerId",
+          "required": false,
+          "type": "integer",
+          "format": "int32"
+        }, {
+          "name": "TerminalId",
+          "in": "header",
+          "description": "The TerminalId",
+          "required": false,
+          "type": "integer",
+          "format": "int64"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }, {
+          "in": "body",
+          "name": "body",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/LotteryValidationResponseDTO",
+            "originalRef": "LotteryValidationResponseDTO"
+          }
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/hash-verification": {
+      "get": {
+        "tags": ["Wagers"],
+        "summary": "Verify multiple wagers hashes",
+        "description": "",
+        "operationId": "verifyMultipleWagersHashes",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }, {
+          "name": "wagerIds",
+          "in": "query",
+          "description": "The wager ids",
+          "required": true,
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "collectionFormat": "multi"
+        }, {
+          "name": "gameId",
+          "in": "query",
+          "description": "The game",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/groups/hash-verification": {
+      "get": {
+        "tags": ["Wagers"],
+        "summary": "Verify group ids",
+        "description": "",
+        "operationId": "verifyWagerGroups",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "groupIds",
+          "in": "query",
+          "description": "The group ids",
+          "required": true,
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "collectionFormat": "multi"
+        }, {
+          "name": "Guid",
+          "in": "header",
+          "description": "The Guid",
+          "required": false,
+          "type": "string"
+        }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoListDrawHash": {
+      "type": "object"
+    },
+    "DrawHash": {
+      "type": "object",
+      "properties": {
+        "draw": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "revision": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "game": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "hashVersion": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MonoSaveDrawHashResponse": {
+      "type": "object"
+    },
+    "DrawStats": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SaveDrawHashResponse": {
+      "type": "object",
+      "properties": {
+        "game": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "draw": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "drawRevision": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drawHashType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "hashVersion": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hashDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DrawStats",
+            "originalRef": "DrawStats"
+          }
+        }
+      }
+    },
+    "SaveDrawHashRequest": {
+      "type": "object",
+      "properties": {
+        "drawRevision": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drawHashType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "hashVersion": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hashDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DrawStats",
+            "originalRef": "DrawStats"
+          }
+        }
+      }
+    },
+    "MonoVoid": {
+      "type": "object"
+    },
+    "BoardModel": {
+      "type": "object",
+      "properties": {
+        "betType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "boardId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "multipliers": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "panels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PanelModel",
+            "originalRef": "PanelModel"
+          }
+        },
+        "quickPick": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DBGWagerModel": {
+      "type": "object",
+      "properties": {
+        "boards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BoardModel",
+            "originalRef": "BoardModel"
+          }
+        },
+        "cost": {
+          "type": "number"
+        },
+        "creationTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount": {
+          "type": "number"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "multipliers": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "participatingDraws": {
+          "$ref": "#/definitions/ParticipatingDrawModel",
+          "originalRef": "ParticipatingDrawModel"
+        },
+        "quickPick": {
+          "type": "boolean"
+        },
+        "pilot": {
+          "type": "boolean"
+        },
+        "columns": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "MetadataModel": {
+      "type": "object",
+      "properties": {
+        "posInfo": {
+          "$ref": "#/definitions/PosInfo",
+          "originalRef": "PosInfo"
+        },
+        "wagerId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "PanelModel": {
+      "type": "object",
+      "properties": {
+        "quickPick": {
+          "type": "boolean"
+        },
+        "requested": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "selection": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "ParticipatingDrawModel": {
+      "type": "object",
+      "properties": {
+        "draws": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "firstDraw": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "multipleDraws": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "playedDraw": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "PlayResponseModel": {
+      "type": "object",
+      "properties": {
+        "wagerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "wager": {
+          "$ref": "#/definitions/WagerDataModel",
+          "originalRef": "WagerDataModel"
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataModel",
+          "originalRef": "MetadataModel"
+        }
+      }
+    },
+    "PosInfo": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "terminalId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "WagerDataModel": {
+      "type": "object",
+      "properties": {
+        "dbg": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DBGWagerModel",
+            "originalRef": "DBGWagerModel"
+          }
+        }
+      }
+    },
+    "MonoListWagerHash": {
+      "type": "object"
+    },
+    "WagerHash": {
+      "type": "object",
+      "properties": {
+        "wagerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "game": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "draw": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "wagerType": {
+          "type": "string",
+          "enum": ["DBG", "STL", "SPB"]
+        },
+        "operator": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "channel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "date": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "grouped": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "scheduled": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "MonoPageWagerGroup": {
+      "type": "object"
+    },
+    "WagerGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "game": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "draw": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "wagerIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "LotteryValidationResponseDTO": {
+      "type": "object",
+      "properties": {
+        "dbg": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DBGWagerModel",
+            "originalRef": "DBGWagerModel"
+          }
+        },
+        "wagerId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Flux": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "FluxVoid": {
+      "type": "object",
+      "properties": {
+        "prefetch": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

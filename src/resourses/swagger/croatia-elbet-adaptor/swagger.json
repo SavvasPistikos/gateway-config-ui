@@ -1,0 +1,3482 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "elbet-adaptor"
+  },
+  "tags": [{
+    "name": "Elbet Draw Operations"
+  },
+    {
+      "name": "Elbet Services"
+    }],
+  "schemes": ["http",
+    "https"],
+  "paths": {
+    "/api/v1.0/draws-elbet/draw-date/{fromDate}/{toDate}": {
+      "get": {
+        "tags": ["Elbet Draw Operations"],
+        "summary": "Get elber draws by date range.",
+        "description": "",
+        "operationId": "getDrawsByDate",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "fromDate",
+          "in": "path",
+          "description": "The from date filter. Must be in 'yyyy-MM-dd' or 'yyyy-MM-dd HH:mm:ss' format.",
+          "required": true,
+          "type": "string"
+        },
+          {
+            "name": "toDate",
+            "in": "path",
+            "description": "The to date filter. Must be in 'yyyy-MM-dd' or 'yyyy-MM-dd HH:mm:ss' format.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc. Default is desc.",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/PageDrawV31",
+              "originalRef": "PageDrawV31"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageDrawV31",
+              "originalRef": "PageDrawV31"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/draws-elbet/{drawId}": {
+      "get": {
+        "tags": ["Elbet Draw Operations"],
+        "summary": "Get draw",
+        "description": "",
+        "operationId": "getDrawsByDrawId",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "drawId",
+          "in": "path",
+          "description": "The start draw id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/DrawV31",
+              "originalRef": "DrawV31"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/DrawV31",
+              "originalRef": "DrawV31"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/draws-elbet/draw-id/{fromDrawId}/{toDrawId}": {
+      "get": {
+        "tags": ["Elbet Draw Operations"],
+        "summary": "Get draws for a game by draw id range",
+        "description": "",
+        "operationId": "getDrawsByDrawId_1",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "fromDrawId",
+          "in": "path",
+          "description": "The start draw id",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+          {
+            "name": "toDrawId",
+            "in": "path",
+            "description": "The end draw id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc. Default is desc.",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/PageDrawV31",
+              "originalRef": "PageDrawV31"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageDrawV31",
+              "originalRef": "PageDrawV31"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/draws-elbet/statistics": {
+      "get": {
+        "tags": ["Elbet Draw Operations"],
+        "summary": "Get Game Statistics",
+        "description": "",
+        "operationId": "getGameStatistics",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/GameDisplayResponse",
+              "originalRef": "GameDisplayResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/GameDisplayResponse",
+              "originalRef": "GameDisplayResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/verify": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Validates a betslip",
+        "description": "When a customer places a bet before the bet is placed it its cost is validated.",
+        "operationId": "verify",
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "The place bet request domain object",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/LotteryWagerRequest",
+            "originalRef": "LotteryWagerRequest"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{version}/getVersion": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Get Version",
+        "description": "",
+        "operationId": "getVersion",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "version",
+          "in": "path",
+          "description": "The get version request object",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/VersionRequest",
+              "originalRef": "VersionRequest"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VersionRequest",
+              "originalRef": "VersionRequest"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{wagerId}/validation": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Validate ticket",
+        "description": "",
+        "operationId": "validation",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The coupon Id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "pin",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryValidationResponseDTO",
+              "originalRef": "LotteryValidationResponseDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryValidationResponseDTO",
+              "originalRef": "LotteryValidationResponseDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Elbet Services"],
+        "summary": "Rollsback a Validate transaction",
+        "description": "Used by agj to rollback a validate transaction",
+        "operationId": "rollbackValidateTransaction",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The betslip id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "pin",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "type": "boolean"
+            },
+            "responseSchema": {
+              "type": "boolean"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/transform": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Transforms Elbet's request to Bit8 Place Bet Request",
+        "description": "",
+        "operationId": "placeBet",
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "The place bet request domain object",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/OnlinePlayRequest",
+            "originalRef": "OnlinePlayRequest"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Places a betslip",
+        "description": "When a Sportsbook customer has loaded the betslip with one or more selections and clicks to submit their bets, the Sportsbook front end client sends a placeBets API call to the server. Click to see a Sample <a target='_blank' href='/swagger/examples/lotobetting-wagerRequest.json'> request",
+        "operationId": "placeBet_1",
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "The place bet request domain object",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/LotteryWagerRequest",
+            "originalRef": "LotteryWagerRequest"
+          }
+        },
+          {
+            "name": "transactionId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{wagerId}/winnings": {
+      "get": {
+        "tags": ["Elbet Services"],
+        "summary": "Get Coupon Winnings",
+        "description": "",
+        "operationId": "findWinnings",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "includeDbg",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryValidationResponseDTO",
+              "originalRef": "LotteryValidationResponseDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryValidationResponseDTO",
+              "originalRef": "LotteryValidationResponseDTO"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{wagerId}": {
+      "get": {
+        "tags": ["Elbet Services"],
+        "summary": "Get Coupon Details",
+        "description": "",
+        "operationId": "getCouponDetails",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{transactionId}/internal": {
+      "delete": {
+        "tags": ["Elbet Services"],
+        "summary": "Updates the status of a coupon",
+        "description": "",
+        "operationId": "rollbackPlaceBet",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "transactionId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS"
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{wagerId}/status": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Updates the status of a coupon",
+        "description": "",
+        "operationId": "updateCouponStatus",
+        "produces": ["application/json"],
+        "parameters": [{
+          "name": "wagerId",
+          "in": "path",
+          "description": "The coupon Id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "Pin",
+            "in": "query",
+            "description": "Pin of the Employee",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "description": "New status of the coupon",
+            "required": false,
+            "type": "string",
+            "enum": ["Played",
+              "Canceled",
+              "UndoCanceled",
+              "InternalRollback",
+              "Tagged",
+              "ExternalPlayedRollback"]
+          }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LotteryWagerResponse",
+              "originalRef": "LotteryWagerResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/settlements": {
+      "post": {
+        "tags": ["Elbet Services"],
+        "summary": "Send list of processed tickets from the completed game",
+        "description": "",
+        "operationId": "sendListofProcessedTickets",
+        "produces": ["application/json"],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "list of processed tickets from the completed game",
+          "required": false,
+          "schema": {
+            "$ref": "#/definitions/ReceiveTicketsRequest",
+            "originalRef": "ReceiveTicketsRequest"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/GetReportResponse",
+              "originalRef": "GetReportResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/GetReportResponse",
+              "originalRef": "GetReportResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR. Retry the request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoPageDrawV31": {
+      "type": "object"
+    },
+    "AddOnPricePointsV31DTO": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "gameType": {
+          "type": "string"
+        }
+      }
+    },
+    "AddOnWagerStatisticsDTO": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "wagers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gameType": {
+          "type": "string"
+        }
+      }
+    },
+    "AdvertisedJackpotV31DTO": {
+      "type": "object",
+      "properties": {
+        "initialValues": {
+          "$ref": "#/definitions/JackpotInitialValues",
+          "originalRef": "JackpotInitialValues"
+        },
+        "resultValues": {
+          "$ref": "#/definitions/JackpotResultValues",
+          "originalRef": "JackpotResultValues"
+        }
+      }
+    },
+    "DrawAnimationV31DTO": {
+      "type": "object",
+      "properties": {
+        "startTimestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepV31",
+            "originalRef": "StepV31"
+          }
+        }
+      }
+    },
+    "DrawResultV31": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "winningPattern": {
+          "type": "string"
+        },
+        "divident": {
+          "type": "number"
+        },
+        "netDividentAmount": {
+          "type": "number"
+        },
+        "winners": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "distributed": {
+          "type": "number"
+        },
+        "jackpot": {
+          "type": "number"
+        },
+        "bonus": {
+          "type": "number"
+        },
+        "fixed": {
+          "type": "number"
+        },
+        "categoryType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "promotionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gameType": {
+          "type": "string"
+        },
+        "minimumDistributed": {
+          "type": "number",
+          "format": "double"
+        },
+        "winnersAll": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "attrs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DrawV31": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drawId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drawTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["FUTURE",
+            "ACTIVE",
+            "PENDINGRESULTS",
+            "RESULTS",
+            "ALL"]
+        },
+        "statusNr": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drawBreak": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "visualDraw": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gameRuleVersion": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pricePoints": {
+          "$ref": "#/definitions/PricePointsV31DTO",
+          "originalRef": "PricePointsV31DTO"
+        },
+        "winningNumbers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WinningNumbersV31DTO",
+            "originalRef": "WinningNumbersV31DTO"
+          }
+        },
+        "prizeCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DrawResultV31",
+            "originalRef": "DrawResultV31"
+          }
+        },
+        "wagerStatistics": {
+          "$ref": "#/definitions/WagerStatisticsDTO",
+          "originalRef": "WagerStatisticsDTO"
+        },
+        "animation": {
+          "$ref": "#/definitions/DrawAnimationV31DTO",
+          "originalRef": "DrawAnimationV31DTO"
+        },
+        "drawType": {
+          "type": "string"
+        },
+        "advertisedJackpot": {
+          "$ref": "#/definitions/AdvertisedJackpotV31DTO",
+          "originalRef": "AdvertisedJackpotV31DTO"
+        }
+      }
+    },
+    "JackpotInitialValues": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        },
+        "valkans": {
+          "type": "string"
+        },
+        "valkansNr": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "JackpotResultValues": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["DROPPED",
+            "NOT_DROPPED",
+            "PARTIALLY_DROPPED"]
+        },
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "PageDrawV31": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DrawV31",
+            "originalRef": "DrawV31"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "sort": {
+          "type": "object"
+        }
+      }
+    },
+    "PricePointsV31DTO": {
+      "type": "object",
+      "properties": {
+        "addOn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AddOnPricePointsV31DTO",
+            "originalRef": "AddOnPricePointsV31DTO"
+          }
+        },
+        "amount": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "SideBetsWinningNumbers": {
+      "type": "object",
+      "properties": {
+        "winningColumn": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "winningParity": {
+          "type": "string",
+          "enum": ["ODD",
+            "EVEN",
+            "DRAW"]
+        }
+      }
+    },
+    "StepV31": {
+      "type": "object",
+      "properties": {
+        "bonusNumber": {
+          "type": "boolean"
+        },
+        "hopToNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "winningNumber": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "WagerStatisticsDTO": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "wagers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalSalesAll": {
+          "type": "number",
+          "format": "double"
+        },
+        "totalSales": {
+          "type": "number",
+          "format": "double"
+        },
+        "funds": {
+          "type": "number",
+          "format": "double"
+        },
+        "addOn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AddOnWagerStatisticsDTO",
+            "originalRef": "AddOnWagerStatisticsDTO"
+          }
+        }
+      }
+    },
+    "WinningNumbersV31DTO": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "listDecimal": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "bonus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sideBets": {
+          "$ref": "#/definitions/SideBetsWinningNumbers",
+          "originalRef": "SideBetsWinningNumbers"
+        }
+      }
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "object",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata"
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        },
+        "guid": {
+          "type": "string",
+          "description": "The unique identifier of the error process"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "MonoDrawV31": {
+      "type": "object"
+    },
+    "MonoGameDisplayResponse": {
+      "type": "object"
+    },
+    "GameDisplayDatum": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ID_Today": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GameStatus": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "HappyGame": {
+          "type": "boolean"
+        },
+        "GameTimer": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GameTimerResult": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GameTimeStart": {
+          "type": "string"
+        },
+        "GameTimeEnd": {
+          "type": "string"
+        },
+        "GameNumbers": {
+          "type": "string"
+        },
+        "GameBonusCounters": {
+          "type": "string"
+        },
+        "GameJackPotCode": {
+          "type": "string"
+        },
+        "HasJackPot": {
+          "type": "string"
+        },
+        "NextGameNewChance": {
+          "type": "boolean"
+        },
+        "AdditionalNumbType": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AdditionalNumbers": {
+          "type": "string"
+        },
+        "LastJackPot": {
+          "type": "string"
+        },
+        "Global_GameJackPotCode": {
+          "type": "string"
+        },
+        "Global_LastJackPot": {
+          "type": "string"
+        },
+        "Region_GameJackPotCode": {
+          "type": "object"
+        }
+      }
+    },
+    "GameDisplayResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GameID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ErrorCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ErrorDescription": {
+          "type": "string"
+        },
+        "GameDisplayData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GameDisplayDatum",
+            "originalRef": "GameDisplayDatum"
+          }
+        },
+        "GameDisplayStats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GameDisplayStat",
+            "originalRef": "GameDisplayStat"
+          }
+        },
+        "GameDisplayJPInfo": {
+          "type": "object"
+        }
+      }
+    },
+    "GameDisplayStat": {
+      "type": "object",
+      "properties": {
+        "ID_Game": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "MaxGames": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "HotNumbers": {
+          "type": "string"
+        },
+        "CoolNumbers": {
+          "type": "string"
+        },
+        "TopColor": {
+          "type": "string"
+        },
+        "Sum5": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OddEven": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "First_Color": {
+          "type": "string"
+        },
+        "First_Sum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "First_OddEven": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Last_Color": {
+          "type": "string"
+        },
+        "Last_Sum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Last_OddEven": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MonoLotteryWagerResponse": {
+      "type": "object"
+    },
+    "AddOn": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cost": {
+          "type": "number"
+        },
+        "handlingFee": {
+          "type": "number"
+        },
+        "gameTypeId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "BoardModel": {
+      "type": "object",
+      "required": ["boardId",
+        "panels"],
+      "properties": {
+        "betType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "bet type option depend on the game. e.g Straight, Box, Front-2, …, for Pick-x)"
+        },
+        "boardId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "multipliers": {
+          "type": "array",
+          "description": "per board multipliers",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "options": {
+          "type": "array",
+          "description": "special options depend on the game, in board level",
+          "items": {
+            "type": "string"
+          }
+        },
+        "panels": {
+          "type": "array",
+          "description": "panels thas this board holds",
+          "items": {
+            "$ref": "#/definitions/PanelModel",
+            "originalRef": "PanelModel"
+          }
+        },
+        "quickPick": {
+          "type": "boolean",
+          "description": "quick pick flag for this particular board"
+        },
+        "systemId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "extendedBetting": {
+          "description": "Extended Betting",
+          "$ref": "#/definitions/ExtendedBettingModel",
+          "originalRef": "ExtendedBettingModel"
+        }
+      }
+    },
+    "CardIdModel": {
+      "type": "object",
+      "required": ["number",
+        "series"],
+      "properties": {
+        "series": {
+          "type": "string",
+          "description": "The series"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the card"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the card",
+          "enum": ["available",
+            "shortTimedReserved",
+            "Sold"]
+        },
+        "ttl": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The reservation time ( Hours since epoch time)"
+        }
+      }
+    },
+    "DBGWagerModel": {
+      "type": "object",
+      "required": ["boards",
+        "gameId",
+        "multipliers"],
+      "properties": {
+        "addOn": {
+          "type": "array",
+          "description": "outcome parameter: the total cost and columns per game type",
+          "items": {
+            "$ref": "#/definitions/AddOn",
+            "originalRef": "AddOn"
+          }
+        },
+        "blockStatus": {
+          "type": "string",
+          "enum": ["Blocked",
+            "Unblocked",
+            "PartialBlocked",
+            "InternalBlockedRollback",
+            "ExternalBlockedRollback"]
+        },
+        "boards": {
+          "type": "array",
+          "description": "data related to the player prognostic selections",
+          "items": {
+            "$ref": "#/definitions/BoardModel",
+            "originalRef": "BoardModel"
+          }
+        },
+        "columns": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the produced number of columns per participated draw"
+        },
+        "cost": {
+          "type": "number",
+          "description": "Wager's total cost"
+        },
+        "handlingFee": {
+          "type": "number",
+          "description": "The handling fee per dbg"
+        },
+        "creationTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount": {
+          "type": "number",
+          "description": "amount that has been substracted from the cost when that wager participated in promotion"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isPrimary": {
+          "type": "boolean",
+          "description": "Flag indicating if the game is the primary game (Server side value)"
+        },
+        "multipliers": {
+          "type": "array",
+          "description": "Multipliers. The default value is [1].",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "options": {
+          "type": "array",
+          "description": "special options depend on the game, in wager level",
+          "items": {
+            "type": "string"
+          }
+        },
+        "participatingDraws": {
+          "description": "data related to the wager participated draws",
+          "$ref": "#/definitions/ParticipatingDrawModel",
+          "originalRef": "ParticipatingDrawModel"
+        },
+        "quickPick": {
+          "type": "boolean",
+          "description": "quickPick flag"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Played",
+            "Canceled",
+            "UndoCanceled",
+            "InternalRollback",
+            "Tagged",
+            "ExternalPlayedRollback"]
+        },
+        "teamShares": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pilot": {
+          "type": "boolean",
+          "description": "outcome parameter: flag indicating if the game is in pilot mode"
+        },
+        "selectionsType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Undefined = 0, Simple = 0x01, Complete = 0x02, System = 0x04, Combination = 0x08, QP = 0x10, PartialQP = 0x20"
+        },
+        "wagerOptions": {
+          "$ref": "#/definitions/WagerOptions",
+          "originalRef": "WagerOptions"
+        }
+      }
+    },
+    "DatePatternModel": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "date"
+        },
+        "index": {
+          "type": "integer",
+          "format": "int32",
+          "description": "index"
+        }
+      }
+    },
+    "DayPatternModel": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "type": "string",
+          "description": "day",
+          "enum": ["SUN",
+            "MON",
+            "TUE",
+            "WED",
+            "THU",
+            "FRI",
+            "SAT"]
+        },
+        "index": {
+          "type": "integer",
+          "format": "int32",
+          "description": "index"
+        }
+      }
+    },
+    "ExtendedBettingAddon": {
+      "type": "object",
+      "properties": {
+        "raffle": {
+          "$ref": "#/definitions/Raffle",
+          "originalRef": "Raffle"
+        }
+      }
+    },
+    "ExtendedBettingModel": {
+      "type": "object",
+      "properties": {
+        "betTypes": {
+          "type": "array",
+          "description": "Additional bet types",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "systems": {
+          "type": "array",
+          "description": "Systems",
+          "items": {
+            "$ref": "#/definitions/ExtendedSystemsModel",
+            "originalRef": "ExtendedSystemsModel"
+          }
+        },
+        "addon": {
+          "$ref": "#/definitions/ExtendedBettingAddon",
+          "originalRef": "ExtendedBettingAddon"
+        }
+      }
+    },
+    "ExtendedSystemsModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "System id"
+        },
+        "type": {
+          "type": "string",
+          "description": "System type"
+        },
+        "index": {
+          "type": "array",
+          "description": "System indices",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "LotteryWagerResponse": {
+      "type": "object",
+      "properties": {
+        "dbg": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DBGWagerModel",
+            "originalRef": "DBGWagerModel"
+          }
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfo",
+          "originalRef": "PosInfo"
+        },
+        "playerInfo": {
+          "$ref": "#/definitions/PlayerInfoModel",
+          "originalRef": "PlayerInfoModel"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serialNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "promotionOutcomes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WagerResponsePromotionReply",
+            "originalRef": "WagerResponsePromotionReply"
+          }
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetaData",
+          "originalRef": "MetaData"
+        },
+        "products": {
+          "$ref": "#/definitions/Product",
+          "originalRef": "Product"
+        }
+      }
+    },
+    "MetaData": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "wagerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "operator": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "participationMethod": {
+          "type": "string"
+        },
+        "parentWagerId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "OutcomeBonusMoney": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "Type": {
+          "type": "string",
+          "enum": ["PERCENTAGE",
+            "AMOUNT"]
+        }
+      }
+    },
+    "OutcomeCashOutTurnover": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "Type": {
+          "type": "string",
+          "enum": ["PERCENTAGE",
+            "AMOUNT"]
+        }
+      }
+    },
+    "OutcomeFreeBets": {
+      "type": "object",
+      "properties": {
+        "GameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumGroups": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumMultipleDraws": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Optional": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OutcomeOptionalFields",
+            "originalRef": "OutcomeOptionalFields"
+          }
+        },
+        "Bonus": {
+          "type": "boolean"
+        },
+        "Spots": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Multiplier": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "OutcomeIncrMultiDraws": {
+      "type": "object",
+      "properties": {
+        "NumDraws": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PcgDraws": {
+          "type": "number"
+        },
+        "GameId": {
+          "type": "number"
+        }
+      }
+    },
+    "OutcomeMetaData": {
+      "type": "object",
+      "properties": {
+        "RebateDiscount": {
+          "$ref": "#/definitions/OutcomeMetaDataRebateDiscount",
+          "originalRef": "OutcomeMetaDataRebateDiscount"
+        },
+        "IncrMultipleDraws": {
+          "$ref": "#/definitions/OutcomeIncrMultiDraws",
+          "originalRef": "OutcomeIncrMultiDraws"
+        },
+        "BonusMoney": {
+          "$ref": "#/definitions/OutcomeBonusMoney",
+          "originalRef": "OutcomeBonusMoney"
+        },
+        "RealMoney": {
+          "$ref": "#/definitions/OutcomeMetaDataRealMoney",
+          "originalRef": "OutcomeMetaDataRealMoney"
+        },
+        "CashOutTurnover": {
+          "$ref": "#/definitions/OutcomeCashOutTurnover",
+          "originalRef": "OutcomeCashOutTurnover"
+        },
+        "SecondChanceDrawTickets": {
+          "$ref": "#/definitions/OutcomeMetaDataSecondChanceDrawTickets",
+          "originalRef": "OutcomeMetaDataSecondChanceDrawTickets"
+        },
+        "Gifts": {
+          "$ref": "#/definitions/OutcomeMetaDataGifts",
+          "originalRef": "OutcomeMetaDataGifts"
+        },
+        "NormalBets": {
+          "$ref": "#/definitions/OutcomeNormalBets",
+          "originalRef": "OutcomeNormalBets"
+        },
+        "FreeBets": {
+          "$ref": "#/definitions/OutcomeFreeBets",
+          "originalRef": "OutcomeFreeBets"
+        },
+        "Vouchers": {
+          "$ref": "#/definitions/OutcomeMetaDataVouchers",
+          "originalRef": "OutcomeMetaDataVouchers"
+        }
+      }
+    },
+    "OutcomeMetaDataGifts": {
+      "type": "object",
+      "properties": {
+        "SerialNumber": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "number"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "OutcomeMetaDataRealMoney": {
+      "type": "object",
+      "properties": {
+        "Amount": {
+          "type": "number"
+        }
+      }
+    },
+    "OutcomeMetaDataRebateDiscount": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": ["Percentage",
+            "Amount"]
+        },
+        "Value": {
+          "type": "number"
+        },
+        "GameId": {
+          "type": "number"
+        }
+      }
+    },
+    "OutcomeMetaDataSecondChanceDrawTickets": {
+      "type": "object",
+      "properties": {
+        "secondChanceDrawTicket": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "OutcomeMetaDataVouchers": {
+      "type": "object",
+      "properties": {
+        "voucherCode": {
+          "type": "string"
+        },
+        "useVoucherCode": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OutcomeNormalBets": {
+      "type": "object",
+      "properties": {
+        "GameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumGroups": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumMultipleDraws": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Optional": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OutcomeOptionalFields",
+            "originalRef": "OutcomeOptionalFields"
+          }
+        }
+      }
+    },
+    "OutcomeOptionalFields": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "PanelModel": {
+      "type": "object",
+      "required": ["requested",
+        "selection"],
+      "properties": {
+        "options": {
+          "type": "array",
+          "description": "special options depend on the game, in wager level (for future use)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quickPick": {
+          "type": "boolean",
+          "description": "quick pick flag for this particular panel"
+        },
+        "requested": {
+          "type": "integer",
+          "format": "int32",
+          "description": "this value should be equally to the draw numbers that has configured in the Game Parameters. No validation performed for pick-x game family. For lotto game family, when systemId value is provided, requested must be 0."
+        },
+        "selection": {
+          "type": "array",
+          "description": "the player selected numbers. E.g. 1, 5, 8, 30, 35, 45 for a Lotto 6/49",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "QPSelections": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ParticipatingDrawModel": {
+      "type": "object",
+      "required": ["multipleDraws"],
+      "properties": {
+        "datePattern": {
+          "type": "array",
+          "description": "(for future use)",
+          "items": {
+            "$ref": "#/definitions/DatePatternModel",
+            "originalRef": "DatePatternModel"
+          }
+        },
+        "dayPattern": {
+          "type": "array",
+          "description": "(for future use)",
+          "items": {
+            "$ref": "#/definitions/DayPatternModel",
+            "originalRef": "DayPatternModel"
+          }
+        },
+        "drawOffsets": {
+          "type": "array",
+          "description": "incoming parameter: Advance draw index, specifically you can use \"drawOffsets\" : [x]  , where x is the offset from the active draw (Advance Draws)",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "draws": {
+          "type": "array",
+          "description": "outcome parameter: it holds the actual participated draws",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "firstDraw": {
+          "type": "integer",
+          "format": "int32",
+          "description": "outcome parameter: it holds the first participated draw"
+        },
+        "firstDrawTime": {
+          "type": "string",
+          "description": "outcome parameter: it holds the first participated draw date"
+        },
+        "firstVisualDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "outcome parameter: it holds the first Visual participated draw "
+        },
+        "lastDraw": {
+          "type": "integer",
+          "format": "int32",
+          "description": "outcome parameter: it holds the last participated draw"
+        },
+        "lastDrawTime": {
+          "type": "string",
+          "description": "outcome parameter: it holds the last participated draw date"
+        },
+        "lastVisualDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "outcome parameter: it holds the last Visual participated draw multipleDraws"
+        },
+        "multipleDraws": {
+          "type": "integer",
+          "format": "int32",
+          "description": "incoming parameter: it hold the number of consecutive draws"
+        },
+        "playedDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "outcome parameter: the active draw at the time the wager was played"
+        },
+        "specialOptions": {
+          "description": "Draw difference from current draw to special draw. 0 : Participates in the special draw, 1 : needs 1 extra draw to participate in the special draw, 2 : needs 2 extra draws to participate in the special draw",
+          "$ref": "#/definitions/SpecialDrawOptions",
+          "originalRef": "SpecialDrawOptions"
+        }
+      }
+    },
+    "ParticipatingDrawsDTO": {
+      "type": "object",
+      "required": ["multipleDraws"],
+      "properties": {
+        "draws": {
+          "type": "array",
+          "description": "Array of participating draws",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "firstDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "First participating draw"
+        },
+        "lastDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Last participating draw"
+        },
+        "multipleDraws": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of participating draws"
+        },
+        "firstDrawTime": {
+          "type": "string",
+          "description": "The first participated draw date"
+        },
+        "firstVisualDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The first Visual participated draw"
+        },
+        "lastDrawTime": {
+          "type": "string",
+          "description": "The last participated draw date"
+        },
+        "lastVisualDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The last Visual participated draw"
+        }
+      },
+      "description": "Participating draws data"
+    },
+    "PlayerInfoModel": {
+      "type": "object",
+      "properties": {
+        "syndicateId": {
+          "type": "string"
+        },
+        "payMethod": {
+          "type": "string"
+        },
+        "pin": {
+          "type": "string"
+        },
+        "playerId": {
+          "type": "string"
+        },
+        "sessionToken": {
+          "type": "string"
+        },
+        "subscriptionId": {
+          "type": "string"
+        }
+      }
+    },
+    "PosInfo": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "terminalId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Raffle": {
+      "type": "object",
+      "properties": {
+        "betType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leftLimit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rightLimit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "participatingDraws": {
+          "$ref": "#/definitions/ParticipatingDrawsDTO",
+          "originalRef": "ParticipatingDrawsDTO"
+        }
+      }
+    },
+    "SpecialDrawOptions": {
+      "type": "object",
+      "properties": {
+        "superSaturdayGap": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "WagerOptions": {
+      "type": "object",
+      "properties": {
+        "raffle": {
+          "$ref": "#/definitions/Raffle",
+          "originalRef": "Raffle"
+        },
+        "cardIdModel": {
+          "$ref": "#/definitions/CardIdModel",
+          "originalRef": "CardIdModel"
+        }
+      }
+    },
+    "WagerResponsePromotionReply": {
+      "type": "object",
+      "properties": {
+        "promotionId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outcomeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outcomeType": {
+          "type": "string",
+          "enum": ["CashoutTurnover",
+            "RebateDiscount",
+            "BonusMoney",
+            "RealMoney",
+            "FreeBets",
+            "NormalBets",
+            "Vouchers",
+            "Gifts",
+            "IncrMultipleDraws",
+            "SecondChanceTickets",
+            "SecondChanceDrawTickets",
+            "EmptyOutcome"]
+        },
+        "outcomeMetaData": {
+          "$ref": "#/definitions/OutcomeMetaData",
+          "originalRef": "OutcomeMetaData"
+        }
+      }
+    },
+    "HandlingFeeAmount": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        }
+      }
+    },
+    "HandlingFeeResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The scheme Id"
+        },
+        "description": {
+          "type": "string",
+          "description": "The description"
+        },
+        "method": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The calculation method id"
+        },
+        "transactionAmount": {
+          "description": "The transaction amount",
+          "$ref": "#/definitions/HandlingFeeAmount",
+          "originalRef": "HandlingFeeAmount"
+        },
+        "intervals": {
+          "type": "array",
+          "description": "The interval object",
+          "items": {
+            "$ref": "#/definitions/IntervalHandlingFeePerGame",
+            "originalRef": "IntervalHandlingFeePerGame"
+          }
+        },
+        "games": {
+          "type": "array",
+          "description": "The games",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "Header": {
+      "type": "object",
+      "properties": {
+        "trnsTime": {
+          "type": "string"
+        }
+      }
+    },
+    "IntervalHandlingFeePerGame": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fromAmount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toAmount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The payment type"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "LotteryWagerRequest": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Header",
+          "originalRef": "Header"
+        },
+        "promotionInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PromotionOutcomeModel",
+            "originalRef": "PromotionOutcomeModel"
+          }
+        },
+        "wager": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DBGWagerModel",
+            "originalRef": "DBGWagerModel"
+          }
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfo",
+          "originalRef": "PosInfo"
+        },
+        "playerInfo": {
+          "$ref": "#/definitions/PlayerInfoModel",
+          "originalRef": "PlayerInfoModel"
+        },
+        "products": {
+          "$ref": "#/definitions/Product",
+          "originalRef": "Product"
+        },
+        "feesInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HandlingFeeResponse",
+            "originalRef": "HandlingFeeResponse"
+          }
+        }
+      }
+    },
+    "OptionalPromotionModel": {
+      "type": "object",
+      "required": ["name",
+        "type",
+        "value"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "name"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "value": {
+          "type": "string",
+          "description": "value"
+        }
+      }
+    },
+    "OutcomeMetaDataModel": {
+      "type": "object",
+      "properties": {
+        "serialNumber": {
+          "type": "string",
+          "description": "serialNumber"
+        },
+        "voucherId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "voucherId"
+        },
+        "Amount": {
+          "type": "number",
+          "description": "Amount"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description"
+        },
+        "GameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "GameId"
+        },
+        "NumDraws": {
+          "type": "integer",
+          "format": "int32",
+          "description": "NumDraws"
+        },
+        "NumGroups": {
+          "type": "integer",
+          "format": "int32",
+          "description": "NumGroups"
+        },
+        "NumMultipleDraws": {
+          "type": "integer",
+          "format": "int32",
+          "description": "NumMultipleDraws"
+        },
+        "Optional": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OptionalPromotionModel",
+            "originalRef": "OptionalPromotionModel"
+          }
+        },
+        "PcgDraws": {
+          "type": "integer",
+          "format": "int32",
+          "description": "PcgDraws"
+        },
+        "Type": {
+          "type": "string",
+          "description": "Type",
+          "enum": ["Percentage",
+            "Amount"]
+        },
+        "Value": {
+          "type": "number",
+          "description": "Value"
+        },
+        "Bonus": {
+          "type": "boolean"
+        },
+        "Spots": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Multiplier": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PromotionOutcomeModel": {
+      "type": "object",
+      "properties": {
+        "promotionId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outcomeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outcomeType": {
+          "type": "string",
+          "enum": ["CashoutTurnOver",
+            "RebateDiscount",
+            "BonusMoney",
+            "RealMoney",
+            "FreeBets",
+            "NormalBets",
+            "Vouchers",
+            "Gifts",
+            "IncrMultipleDraws",
+            "SecondChanceTickets"]
+        },
+        "outcomeMetaData": {
+          "$ref": "#/definitions/OutcomeMetaDataModel",
+          "originalRef": "OutcomeMetaDataModel"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PromotionOutcomeModelMessages",
+            "originalRef": "PromotionOutcomeModelMessages"
+          }
+        }
+      }
+    },
+    "PromotionOutcomeModelMessages": {
+      "type": "object",
+      "required": ["type",
+        "version"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "type",
+          "enum": ["promotionTitle",
+            "messageTitle",
+            "messageBody",
+            "messageCDU",
+            "messageTerminal"]
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "version"
+        }
+      }
+    },
+    "MonoVersionResponse": {
+      "type": "object"
+    },
+    "VersionRequest": {
+      "type": "object",
+      "properties": {
+        "VersionRequest": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "MonoLotteryValidationResponseDTO": {
+      "type": "object"
+    },
+    "AmountsDTO": {
+      "type": "object",
+      "required": ["freeBet",
+        "gross",
+        "net",
+        "other",
+        "refund",
+        "tax"],
+      "properties": {
+        "gross": {
+          "type": "number",
+          "description": "Gross amount = Net + Other + Refund + Tax"
+        },
+        "net": {
+          "type": "number",
+          "description": "Net amount from "
+        },
+        "other": {
+          "type": "number",
+          "description": "Other amount (reserved for future use)"
+        },
+        "refund": {
+          "type": "number",
+          "description": "Refund amount (sportsbook specific)"
+        },
+        "tax": {
+          "type": "number",
+          "description": "Tax amount calculated using Pay Taxation options"
+        },
+        "freeBet": {
+          "type": "number",
+          "description": "Amount from free ticket promotion"
+        }
+      },
+      "description": "Monetary amounts broken down by type"
+    },
+    "DetailsDTO": {
+      "type": "object",
+      "required": ["draw",
+        "status"],
+      "properties": {
+        "detailAmounts": {
+          "description": "Sum of amounts of winnings for the draw",
+          "$ref": "#/definitions/AmountsDTO",
+          "originalRef": "AmountsDTO"
+        },
+        "draw": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Draw identifier"
+        },
+        "purgeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unix epoch timestamp of winnings expiration"
+        },
+        "status": {
+          "type": "string",
+          "description": "Draw status",
+          "enum": ["None",
+            "Win",
+            "Expired",
+            "Paid",
+            "NoWin",
+            "Pending",
+            "PendingWinningNumbers",
+            "PendingResults",
+            "Claimed",
+            "ClaimPaid"]
+        },
+        "winningsPerCategory": {
+          "type": "array",
+          "description": "Array of winnings details per winning category",
+          "items": {
+            "$ref": "#/definitions/WinningsPerCategoryDTO",
+            "originalRef": "WinningsPerCategoryDTO"
+          }
+        },
+        "payTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Pay time of wager"
+        },
+        "taxationLevel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Winning draw taxation level"
+        }
+      },
+      "description": "Detailed description of winnings for a draw"
+    },
+    "Gift": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "giftId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "LotteryValidationResponseDTO": {
+      "type": "object",
+      "required": ["cost",
+        "totalAmounts"],
+      "properties": {
+        "totalAmounts": {
+          "description": "Sum of amounts of all winnings",
+          "$ref": "#/definitions/AmountsDTO",
+          "originalRef": "AmountsDTO"
+        },
+        "status": {
+          "type": "string",
+          "description": "Final status of the wager",
+          "enum": ["None",
+            "Winning",
+            "WinningButNeedsAuthorization",
+            "WinningButCannotPay",
+            "WinningButNeedsClaim",
+            "Pending",
+            "PendingWinningNumbers",
+            "PendingResults",
+            "Paid",
+            "Claimed",
+            "ClaimPaid",
+            "Expired",
+            "Lost",
+            "OperatorNotIssuer"]
+        },
+        "highWinner": {
+          "type": "boolean",
+          "description": "Flag to signal a high winner"
+        },
+        "cost": {
+          "type": "number",
+          "description": "Total wager cost"
+        },
+        "dbg": {
+          "type": "array",
+          "description": "Dbg Model",
+          "items": {
+            "$ref": "#/definitions/DBGWagerModel",
+            "originalRef": "DBGWagerModel"
+          }
+        },
+        "games": {
+          "type": "array",
+          "description": "Array of draw based games",
+          "items": {
+            "$ref": "#/definitions/ValidationResponseDTO",
+            "originalRef": "ValidationResponseDTO"
+          }
+        }
+      },
+      "description": "Response for winnings data object for all Lottery games included in wager"
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["promotionTitle",
+            "messageTitle",
+            "messageBody",
+            "messageCDU",
+            "messageTerminal"]
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PromoReply": {
+      "type": "object",
+      "properties": {
+        "promotionId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outcomeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outcomeType": {
+          "type": "string",
+          "enum": ["CashoutTurnover",
+            "RebateDiscount",
+            "BonusMoney",
+            "RealMoney",
+            "FreeBets",
+            "NormalBets",
+            "Vouchers",
+            "Gifts",
+            "IncrMultipleDraws",
+            "SecondChanceTickets",
+            "SecondChanceDrawTickets",
+            "EmptyOutcome"]
+        },
+        "outcomeMetaData": {
+          "$ref": "#/definitions/OutcomeMetaData",
+          "originalRef": "OutcomeMetaData"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Message",
+            "originalRef": "Message"
+          }
+        },
+        "promotionType": {
+          "type": "string",
+          "enum": ["BUYXGETY",
+            "NTICKET",
+            "IW",
+            "SC",
+            "SCD",
+            "NSVOUCHER",
+            "SVOUCHER",
+            "VALIDATE",
+            "EXTERNAL",
+            "ESVOUCHER"]
+        },
+        "serialNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "SummaryDataDTO": {
+      "type": "object",
+      "properties": {
+        "winning": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Winning draws count"
+        },
+        "expired": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Expired draws count"
+        },
+        "paid": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Paid draws count"
+        },
+        "nonWinning": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Non-winning draws count"
+        },
+        "pending": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Pending draws count"
+        },
+        "claimed": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Claimed draws count"
+        },
+        "claimPaid": {
+          "type": "integer",
+          "format": "int32",
+          "description": "ClaimPaid draws count"
+        }
+      },
+      "description": "Summary counters for each draw status"
+    },
+    "ValidationResponseDTO": {
+      "type": "object",
+      "required": ["cost",
+        "endDraw",
+        "gameId",
+        "startDraw",
+        "totalAmounts"],
+      "properties": {
+        "gameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game identifier"
+        },
+        "totalAmounts": {
+          "description": "Sum of amounts of all winnings",
+          "$ref": "#/definitions/AmountsDTO",
+          "originalRef": "AmountsDTO"
+        },
+        "startDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "First participating draw of the wager"
+        },
+        "endDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Last participating draw of the wager"
+        },
+        "paidDraws": {
+          "type": "array",
+          "description": "Array of draw numbers already paid",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "details": {
+          "type": "array",
+          "description": "Array of detailed winnings",
+          "items": {
+            "$ref": "#/definitions/DetailsDTO",
+            "originalRef": "DetailsDTO"
+          }
+        },
+        "summary": {
+          "description": "Summarized draws status counters",
+          "$ref": "#/definitions/SummaryDataDTO",
+          "originalRef": "SummaryDataDTO"
+        },
+        "dbg": {
+          "description": "Draw-based game data",
+          "$ref": "#/definitions/DBGWagerModel",
+          "originalRef": "DBGWagerModel"
+        },
+        "status": {
+          "type": "string",
+          "description": "Final status of the wager",
+          "enum": ["None",
+            "Winning",
+            "WinningButNeedsAuthorization",
+            "WinningButCannotPay",
+            "WinningButNeedsClaim",
+            "Pending",
+            "PendingWinningNumbers",
+            "PendingResults",
+            "Paid",
+            "Claimed",
+            "ClaimPaid",
+            "Expired",
+            "Lost",
+            "OperatorNotIssuer"]
+        },
+        "blockingStatus": {
+          "type": "string",
+          "description": "Wager block status",
+          "enum": ["NA",
+            "Unblocked",
+            "Blocked",
+            "InternalBlockedRollback",
+            "ExternalBlockedRollback",
+            "PartiallyBlocked"]
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "Payment status of the wager winnings",
+          "enum": ["Cash",
+            "CashOrClaim",
+            "ClaimOnly",
+            "OverLimit"]
+        },
+        "highWinner": {
+          "type": "boolean",
+          "description": "Flag to signal a high winner"
+        },
+        "noReceipt": {
+          "type": "boolean",
+          "description": "Flag to signal a receipt should not be printed"
+        },
+        "claimCode": {
+          "type": "string",
+          "description": "Claim code"
+        },
+        "playedDraw": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Draw number when wager was sold"
+        },
+        "teamShares": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total shares issues for the wager"
+        },
+        "pilot": {
+          "type": "boolean",
+          "description": "flag indicating if the game is in pilot mode"
+        },
+        "wagerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The wager id"
+        },
+        "claimId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Bank claim / payment id"
+        },
+        "payTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Pay time of wager"
+        },
+        "taxationLevel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Taxation level applied to all draws"
+        },
+        "cost": {
+          "type": "number",
+          "description": "Total wager cost"
+        },
+        "saleRetailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Identifier of the retailer that sold the wager"
+        },
+        "saleChannel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Identifier of the play channel"
+        }
+      },
+      "description": "Response for the validation or winnings endpoints"
+    },
+    "WinningsPerCategoryDTO": {
+      "type": "object",
+      "required": ["categoryAmounts"],
+      "properties": {
+        "categoryAmounts": {
+          "description": "Amounts won in category",
+          "$ref": "#/definitions/AmountsDTO",
+          "originalRef": "AmountsDTO"
+        },
+        "categoryId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Category identifier"
+        },
+        "description": {
+          "type": "string",
+          "description": "Category description"
+        },
+        "boardId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Board identifier"
+        },
+        "subCategoryId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Sub-category identifier"
+        },
+        "successes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of category successes"
+        },
+        "gameTypeId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game type identifier"
+        },
+        "promoId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Promotion identifier"
+        },
+        "gift": {
+          "description": "Gift model",
+          "$ref": "#/definitions/Gift",
+          "originalRef": "Gift"
+        },
+        "promoReply": {
+          "type": "array",
+          "description": "Promotion Reply",
+          "items": {
+            "$ref": "#/definitions/PromoReply",
+            "originalRef": "PromoReply"
+          }
+        }
+      },
+      "description": "Detailed description of winnings for a winning category"
+    },
+    "MonoWagerPlayRequestModel": {
+      "type": "object"
+    },
+    "OnlinePlayRequest": {
+      "type": "object",
+      "properties": {
+        "CustomerId": {
+          "type": "string",
+          "description": "Bit8 Player Id"
+        },
+        "TicketId": {
+          "type": "string",
+          "description": "Betslip Id"
+        },
+        "GameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1 for Brzih35"
+        },
+        "TicketAmount": {
+          "type": "number",
+          "description": "Total cost in KN"
+        },
+        "TicketDetails": {
+          "type": "array",
+          "description": "Ticket details",
+          "items": {
+            "$ref": "#/definitions/TicketDatum",
+            "originalRef": "TicketDatum"
+          }
+        }
+      }
+    },
+    "TicketDatum": {
+      "type": "object",
+      "properties": {
+        "TicketID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TicketPIN": {
+          "type": "string"
+        },
+        "ID_Agency": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AgencyCode": {
+          "type": "string"
+        },
+        "AgencyName": {
+          "type": "string"
+        },
+        "AgencyCodeName": {
+          "type": "string"
+        },
+        "ID_Player": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TicketAmount": {
+          "type": "number"
+        },
+        "TicketTax1": {
+          "type": "number"
+        },
+        "TicketTax2": {
+          "type": "number"
+        },
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TicketStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TicketTime": {
+          "type": "string"
+        },
+        "TicketLocalTime": {
+          "type": "string"
+        },
+        "ID_User": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UserCreateLastFirstName": {
+          "type": "string"
+        },
+        "UserCreateFirstLastName": {
+          "type": "string"
+        },
+        "StornoTime": {
+          "type": "object"
+        },
+        "StornoLocalTime": {
+          "type": "object"
+        },
+        "ID_UserStorno": {
+          "type": "object"
+        },
+        "UserStornoLastFirstName": {
+          "type": "object"
+        },
+        "UserStornoFirstLastName": {
+          "type": "object"
+        },
+        "WinMoney": {
+          "type": "number"
+        },
+        "Tax1": {
+          "type": "number"
+        },
+        "Tax2": {
+          "type": "number"
+        },
+        "Payout": {
+          "type": "number"
+        },
+        "PayoutTime": {
+          "type": "object"
+        },
+        "PayoutLocalTime": {
+          "type": "string"
+        },
+        "ID_UserPayout": {
+          "type": "object"
+        },
+        "UserPayoutLastFirstName": {
+          "type": "object"
+        },
+        "UserPayoutFirstLastName": {
+          "type": "object"
+        },
+        "HappyGameMoney": {
+          "type": "number"
+        },
+        "BonusX": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "BonusMoney": {
+          "type": "number"
+        },
+        "JPCode": {
+          "type": "string"
+        },
+        "JPWinMoney": {
+          "type": "number"
+        },
+        "ItemGameID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ItemTodayGameID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OddType": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Odd": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Numbers": {
+          "type": "string"
+        },
+        "OddValue": {
+          "type": "object"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ItemStatus": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ItemAmount": {
+          "type": "number"
+        },
+        "ItemEvMinWin": {
+          "type": "number"
+        },
+        "ItemEvWin": {
+          "type": "number"
+        },
+        "ItemWinMoney": {
+          "type": "number"
+        },
+        "ItemHappyGameMoney": {
+          "type": "number"
+        },
+        "LatLong": {
+          "type": "object"
+        },
+        "PayoutIntoJackPot": {
+          "type": "number"
+        },
+        "ID_AgencyStorno": {
+          "type": "object"
+        },
+        "AgencyCodeStorno": {
+          "type": "object"
+        },
+        "AgencyNameStorno": {
+          "type": "object"
+        },
+        "AgencyCodeNameStorno": {
+          "type": "object"
+        },
+        "ID_AgencyPayout": {
+          "type": "object"
+        },
+        "AgencyCodePayout": {
+          "type": "object"
+        },
+        "AgencyNamePayout": {
+          "type": "object"
+        },
+        "AgencyCodeNamePayout": {
+          "type": "object"
+        },
+        "UnvisibleTax1": {
+          "type": "number"
+        },
+        "UnvisibleTax2": {
+          "type": "number"
+        },
+        "AwardID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "IDCard": {
+          "type": "string"
+        },
+        "PlayerFirstName": {
+          "type": "string"
+        },
+        "PlayerLastName": {
+          "type": "string"
+        },
+        "Global_JPCode": {
+          "type": "object"
+        },
+        "tempID_Today": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GameSeries": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TicketGUID": {
+          "type": "object"
+        },
+        "PotentialPayout": {
+          "type": "number"
+        },
+        "PotentialTax": {
+          "type": "number"
+        }
+      }
+    },
+    "MonoGetReportResponse": {
+      "type": "object"
+    },
+    "GetReportResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ReceiveTicketDTO": {
+      "type": "object",
+      "properties": {
+        "DrawID": {
+          "type": "integer",
+          "format": "int32",
+          "description": "DrawId ***For Dev/Testing ***"
+        },
+        "CustomerID": {
+          "type": "string",
+          "description": "Unique identifier of the player on client system"
+        },
+        "TicketID": {
+          "type": "integer",
+          "format": "int64",
+          "description": "12 digit Elbet’s ticket id"
+        },
+        "GameID": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Game ID see section Unique Game ID Codes"
+        },
+        "TicketStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Status of the ticket:\n 0 – Open\n 1 – Cancelled\n 2 – Lost\n 3 – Winning\n 4 – Paid"
+        },
+        "PayoutAmountGross": {
+          "type": "number",
+          "format": "double",
+          "description": "Winning amount for which players account should be credited"
+        },
+        "PayoutAmountNet": {
+          "type": "number",
+          "format": "double",
+          "description": "Winning amount for which players account should be credited"
+        }
+      }
+    },
+    "ReceiveTicketsRequest": {
+      "type": "object",
+      "properties": {
+        "ElbetCoupon": {
+          "type": "array",
+          "description": "Array list of processed tickets from the completed game to CIWS",
+          "items": {
+            "$ref": "#/definitions/ReceiveTicketDTO",
+            "originalRef": "ReceiveTicketDTO"
+          }
+        }
+      }
+    },
+    "MonoBoolean": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "trilix-adaptor"
+  },
+  "tags": [
+    {
+      "name": "GSM Vouchers"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/vas/external/gsm": {
+      "post": {
+        "tags": [
+          "GSM Vouchers"
+        ],
+        "summary": "Purchase a GSM voucher",
+        "description": "Submits a request to Trilix SOAP WebMethod \"TopUp\"",
+        "operationId": "topUp",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The place bet request domain object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TopUpRequest",
+              "originalRef": "TopUpRequest"
+            }
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "description": "The Retailer Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/TopUpResponse",
+              "originalRef": "TopUpResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TopUpResponse",
+              "originalRef": "TopUpResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "GSM Vouchers"
+        ],
+        "summary": "Rolls back a GSM voucher top-up transaction",
+        "description": "To be used by AGJ in case of timeout or unhandled exception in the purchase GSM voucher flow. Submits a request to Trilix SOAP WebMethod \"Reversal\"",
+        "operationId": "rollback",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The place bet request domain object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ReversalRequest",
+              "originalRef": "ReversalRequest"
+            }
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "description": "The Retailer Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/ReversalResponse",
+              "originalRef": "ReversalResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ReversalResponse",
+              "originalRef": "ReversalResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/vas/external/gsm/products": {
+      "get": {
+        "tags": [
+          "GSM Vouchers"
+        ],
+        "summary": "Get available GSM Vouchers",
+        "description": "Submits a request to Trilix SOAP WebMethod \"ServiceList\"",
+        "operationId": "serviceList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "header",
+            "description": "The Retailer Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/ServiceListResponse",
+              "originalRef": "ServiceListResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ServiceListResponse",
+              "originalRef": "ServiceListResponse"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoReversalResponse": {
+      "type": "object"
+    },
+    "ReversalResponse": {
+      "type": "object",
+      "required": [
+        "requestId",
+        "responseCode",
+        "tid"
+      ],
+      "properties": {
+        "tid": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "responseCode": {
+          "type": "string"
+        }
+      }
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "object",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata"
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        },
+        "guid": {
+          "type": "string",
+          "description": "The unique identifier of the error process"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "ReversalRequest": {
+      "type": "object",
+      "required": [
+        "denomination in KN",
+        "employee",
+        "method",
+        "mobileOperator",
+        "msidn",
+        "requestId",
+        "serialNo",
+        "timestamp",
+        "transactionId"
+      ],
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "employee": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "msidn": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "mobileOperator": {
+          "type": "string"
+        },
+        "denomination in KN": {
+          "type": "number"
+        },
+        "serialNo": {
+          "type": "string"
+        },
+        "transactionId": {
+          "type": "string"
+        }
+      }
+    },
+    "MonoTopUpResponse": {
+      "type": "object"
+    },
+    "TopUpResponse": {
+      "type": "object",
+      "required": [
+        "activationNumber",
+        "checkSum",
+        "denomination",
+        "denominationAmount",
+        "denominationFee",
+        "expirationDate",
+        "id",
+        "mobileOperator",
+        "productCode",
+        "receiptData",
+        "requestId",
+        "serialNo",
+        "tid",
+        "timestamp",
+        "transactionId",
+        "validationDays"
+      ],
+      "properties": {
+        "tid": {
+          "type": "string",
+          "description": "Value copied from request"
+        },
+        "requestId": {
+          "type": "string",
+          "description": "Value copied from request"
+        },
+        "checkSum": {
+          "type": "string",
+          "description": "Checksum calculated by trilix and should be validated by the client"
+        },
+        "mobileOperator": {
+          "type": "string",
+          "description": "Value copied from request"
+        },
+        "denomination": {
+          "type": "number",
+          "description": "Value copied from request"
+        },
+        "denominationFee": {
+          "type": "string",
+          "description": "Value of the fee in lipas (cents)"
+        },
+        "denominationAmount": {
+          "type": "string",
+          "description": "The value of the denomination with which the bills will be paid (the same as the DenominationValue if DenominationFee is 0)"
+        },
+        "transactionId": {
+          "type": "string",
+          "description": "Unique transaction ID in the Trilix DSDS system"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Date and time of creation of the response to the request in Trilis DSDS system in format yyyy-MM-dd'T'HH:mm:ss"
+        },
+        "activationNumber": {
+          "type": "string",
+          "description": "Encrypted GSM coupon activation code with DES CBC. The decryption key has a total length of 24 bytes. If the key is divided into three equal parts of 8 bytes, the first and third part of the key are the same. The first part of the key is the assigned terminal password. The second part of the key is the assigned CheckSumKey of the device. By joining these two values, the decryption key is obtained"
+        },
+        "expirationDate": {
+          "type": "string",
+          "description": "Expiry date of the voucher in format\nyyyy-MM-dd"
+        },
+        "validationDays": {
+          "type": "string",
+          "description": "Expiry date after activation"
+        },
+        "serialNo": {
+          "type": "string",
+          "description": "Serial number"
+        },
+        "productCode": {
+          "type": "string",
+          "description": "EAN-13 barcode"
+        },
+        "receiptData": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "description": "Voucher ID"
+        }
+      }
+    },
+    "TopUpRequest": {
+      "type": "object",
+      "required": [
+        "denomination",
+        "employee",
+        "method",
+        "mobileOperator",
+        "requestId",
+        "timestamp"
+      ],
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "description": "The unique request identifier defined by the user's information system. L10 transactionId to be used"
+        },
+        "employee": {
+          "type": "string",
+          "description": "Employee Id"
+        },
+        "method": {
+          "type": "string",
+          "description": "Constant 'M'"
+        },
+        "msisdn": {
+          "type": "string",
+          "description": "Not used"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Date and time of request creation in user information system in format yyyy-MM-dd'T'HH:mm:ss (e.g. 2017-08-10T13:40:32)"
+        },
+        "mobileOperator": {
+          "type": "string",
+          "description": "Service provider ID define on Trilix side"
+        },
+        "denomination": {
+          "type": "number",
+          "description": "Value of denomination in KN.\nAmount 10,00 HRK is written as 10"
+        }
+      }
+    },
+    "MonoServiceListResponse": {
+      "type": "object"
+    },
+    "ServiceList": {
+      "type": "object",
+      "required": [
+        "denominationAmount",
+        "denominationFee",
+        "denominationName",
+        "denominationValue",
+        "serviceCode",
+        "serviceGroupCode",
+        "serviceGroupName",
+        "serviceName",
+        "topUpEnabled"
+      ],
+      "properties": {
+        "serviceGroupCode": {
+          "type": "string",
+          "description": "Group type"
+        },
+        "serviceGroupName": {
+          "type": "string",
+          "description": "Group name"
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "Service name"
+        },
+        "serviceCode": {
+          "type": "string",
+          "description": "The value of this field is entered in the MobileOperator field of the TopUp method"
+        },
+        "operator": {
+          "type": "string",
+          "description": "Not used"
+        },
+        "denominationName": {
+          "type": "string",
+          "description": "Denomination name (e.g. Bon 10 kn)"
+        },
+        "denominationValue": {
+          "type": "number",
+          "description": "Value of denomination in KN.\nAmount 10,00 HRK is written as 10. The value of this field is entered in the \"Denomination\" field of the TopUp method"
+        },
+        "denominationFee": {
+          "type": "string",
+          "description": "Value of the fee in lipas (cents)"
+        },
+        "denominationAmount": {
+          "type": "string",
+          "description": "The value of the denomination with which the bills will be paid (the same as the DenominationValue if DenominationFee is 0)"
+        },
+        "topUpEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether the service is enabled for direct top up"
+        }
+      }
+    },
+    "ServiceListResponse": {
+      "type": "object",
+      "properties": {
+        "serviceList": {
+          "type": "array",
+          "description": "List of available GSM vouchers",
+          "items": {
+            "$ref": "#/definitions/ServiceList",
+            "originalRef": "ServiceList"
+          }
+        }
+      }
+    }
+  }
+}

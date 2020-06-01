@@ -1,0 +1,75 @@
+{
+  "wagerId" : 60,
+  "serialNumbers" : [ "00310640641073741854221632606559248" ],
+  "wager" : {
+    "dbg" : [ {
+      "boards" : [ {
+        "betType" : 1,
+        "boardId" : 1,
+        "multipliers" : [ 1 ],
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 2 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 3 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 4 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 5 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 6 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 7 ]
+        } ],
+        "quickPick" : false
+      }, {
+        "betType" : 1,
+        "boardId" : 2,
+        "multipliers" : [ 1 ],
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 7 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 6 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 5 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 4 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 3 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 2 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 1 ]
+        } ],
+        "quickPick" : false
+      } ],
+      "columns" : 2,
+      "cost" : 3,
+      "gameId" : 2101,
+      "multipliers" : [ 1 ],
+      "participatingDraws" : {
+        "drawOffsets" : [ 3 ],
+        "firstDraw" : 951,
+        "firstDrawTime" : "1540144800",
+        "lastDraw" : 953,
+        "lastDrawTime" : "1540753200",
+        "multipleDraws" : 3
+      }
+    } ]
+  }
+}

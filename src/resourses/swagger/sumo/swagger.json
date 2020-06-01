@@ -1,0 +1,3746 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Spring Boot REST API for Subscription Module",
+    "version": "1.0",
+    "title": "SuMo REST API Swagger",
+    "termsOfService": "Terms of service",
+    "contact": {
+      "name": "SuMo"
+    },
+    "license": {}
+  },
+  "host": "sumo-swagger.lh.app.osedev.l10.intralot.com:80",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "subscriptions-web-swagger-impl",
+      "description": "Operations exposed to players regarding subscription records"
+    },
+    {
+      "name": "subscriptions-admin-swagger-impl",
+      "description": "Operations exposed for administrative purposes"
+    },
+    {
+      "name": "application-parameters-admin-swagger-impl",
+      "description": "Application Parameters Admin Swagger Impl"
+    },
+    {
+      "name": "batch-process-admin-swagger-impl",
+      "description": "Batch Process Admin Swagger Impl"
+    }
+  ],
+  "paths": {
+    "/admin/v1/application-parameters": {
+      "get": {
+        "tags": [
+          "application-parameters-admin-swagger-impl"
+        ],
+        "summary": "Returns all existing application parameters.",
+        "operationId": "getAllApplicationParametersUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationParameterPagedResultsDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      },
+      "post": {
+        "tags": [
+          "application-parameters-admin-swagger-impl"
+        ],
+        "summary": "Creates a new application parameter based on user input",
+        "operationId": "createApplicationParameterUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "createApplicationParameterRequest",
+            "description": "createApplicationParameterRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateApplicationParameterRequest"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/application-parameters/{applicationParameterName}": {
+      "get": {
+        "tags": [
+          "application-parameters-admin-swagger-impl"
+        ],
+        "summary": "Returns an application parameter given the application parameter name",
+        "description": "An application parameter name is needed",
+        "operationId": "getApplicationParameterByIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "applicationParameterName",
+            "in": "path",
+            "description": "The name of the application parameter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationParameterDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      },
+      "put": {
+        "tags": [
+          "application-parameters-admin-swagger-impl"
+        ],
+        "summary": "Returns a single success response in case of a successful create",
+        "description": "An application parameter object need to be provided",
+        "operationId": "updateApplicationParameterUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "updateApplicationParameterRequest",
+            "description": "updateApplicationParameterRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateApplicationParameterRequest"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "applicationParameterName",
+            "in": "path",
+            "description": "The name of the application parameter to be updated",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/batch-processes": {
+      "get": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Returns all existing batch processes.",
+        "operationId": "getAllBatchProcessesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "orderBy",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "id",
+              "batchProcessName",
+              "gameId",
+              "subscriptionType"
+            ]
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "desc",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "gameId",
+            "in": "query",
+            "description": "The gameId that the batch job runs for",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "subscriptionType",
+            "in": "query",
+            "description": "The subscription type that the batch job runs for",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              "DRAW_BASED",
+              "TIME_BASED",
+              "JACKPOT"
+            ]
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the batch process",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE"
+            ]
+          },
+          {
+            "name": "showHidden",
+            "in": "query",
+            "description": "By setting this param to true, hidden batch jobs will be retrieved.",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "batchProcessType",
+            "in": "query",
+            "description": "The type of the job to be executed",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "WAGER",
+              "WAGER_FAILED",
+              "WAGER_NEW_SUBSCRIPTION",
+              "WAGER_FAILED_NEW_SUBSCRIPTION",
+              "COMMISSION",
+              "COMMISSION_FAILED"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessPagedResultsDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Create a batch process.",
+        "description": "Use batch process name \"Existing\" to trigger already exists error. Us cronExpression 0 to trigger validation error",
+        "operationId": "createBatchProcessUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "batchProcessDTO",
+            "description": "batchProcessDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchProcessDTO"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessDTO"
+            }
+          },
+          "404": {
+            "description": "210 - Unable to create batch process, one already exists with name : {0}"
+          },
+          "500": {
+            "description": "26 - Validations error!"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/multiple/status/{status}": {
+      "put": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Updates all batch processes matching the given criteria to the provided status",
+        "description": "Returns a simple success response",
+        "operationId": "updateMultipleBatchProcessStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "The new status of the batch process",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE"
+            ]
+          },
+          {
+            "name": "subscriptionTypes",
+            "in": "query",
+            "description": "Update batch processes that handle these type of subscriptions",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "DRAW_BASED",
+              "TIME_BASED",
+              "JACKPOT"
+            ]
+          },
+          {
+            "name": "batchProcessTypes",
+            "in": "query",
+            "description": "Update batch processes of these types",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "WAGER",
+              "WAGER_FAILED",
+              "WAGER_NEW_SUBSCRIPTION",
+              "WAGER_FAILED_NEW_SUBSCRIPTION",
+              "COMMISSION",
+              "COMMISSION_FAILED"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/name/{jobName}": {
+      "get": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Returns requested batch process based on the given name.",
+        "operationId": "getBatchProcessByNameUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the the batch process",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/{batchProcessId}": {
+      "get": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Returns requested batch process based on the given id.",
+        "operationId": "getBatchProcessByIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "batchProcessId",
+            "in": "path",
+            "description": "The id of the the batch process",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BatchProcessDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/{batchProcessId}/cron": {
+      "put": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Updates the cron expression that is responsible for the execution of the batch process ",
+        "description": "Returns a simple success response",
+        "operationId": "updateBatchProcessCronUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "batchProcessId",
+            "in": "path",
+            "description": "The id of the batch process that need to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "cronExp",
+            "description": "The new cron expression of the batch process",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/batch-processes/{batchProcessId}/status/{status}": {
+      "put": {
+        "tags": [
+          "batch-process-admin-swagger-impl"
+        ],
+        "summary": "Updates the batch process to the provided status",
+        "description": "Returns a simple success response",
+        "operationId": "updateBatchProcessStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "batchProcessId",
+            "in": "path",
+            "description": "The id of the batch process that need to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "The new status of the batch process",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "30 - No data found. {0}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/subscriptions": {
+      "get": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns all existing subscriptions.",
+        "description": "Includes the fields productGames, firstDrawDate, lastDrawDate when present.\nResults can be optionally filtered by providing gameId and status for the desired subscriptions. \n * To simulate exception 42 (Invalid filters) provide subscriptionName without playerId or cancelCode without  playerId or  any of the fromDate, toDate",
+        "operationId": "getSubscriptionsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subsRecId",
+            "in": "query",
+            "description": "The id of the the subscription",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "playerId",
+            "in": "query",
+            "description": "The id of the player that owns the subscription",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "subscriptionName",
+            "in": "query",
+            "description": "The id of the player that owns the subscription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "gameId",
+            "in": "query",
+            "description": "The id of the the game",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "productBundleId",
+            "in": "query",
+            "description": "The id of a product bundle",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PARTIAL_ACTIVE",
+              "ACTIVE",
+              "CANCELLED"
+            ]
+          },
+          {
+            "name": "cancelCode",
+            "in": "query",
+            "description": "The cancel code for cancelled subscriptions",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "platformType",
+            "in": "query",
+            "description": "The platformTypeName of the subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "WEB",
+              "DOWNLOAD",
+              "MOBILE",
+              "TABLET",
+              "TV",
+              "BACK_OFFICE",
+              "GABLET",
+              "TERMINAL",
+              "MOBILEAPP",
+              "TABLETAPP",
+              "TVAPP",
+              "SUBSCRIPTIONS",
+              "RETAILER"
+            ]
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "The earliest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "The latest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The property the results will be ordered by",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "subsRecId",
+              "playerId",
+              "creationDate"
+            ]
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "Set true to get the results in descending order",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "42": {
+            "description": "Invalid filters : {0}"
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the created subscription",
+        "description": "The returned subscription record has a subscription record id \n  * To simulate No Data Found exception (code=30) use productBundleId = 10 \n  * To simulate No Data Found With Details exception (code=31) use productBundleId = 11 \n  * To simulate Bad Request With Details exception (code=41) use productBundleId = 0 \n  * To simulate Bad Request exception (code=40) use productBundleId = \"string\" \n  * To simulate Generic Error exception (code=10) use productBundleId = 99 \n  * To simulate Misconfigured Product Bundle (code=55) use productBundleId = 100 \n  * CouponDTO data is defined based on the game engine. An example request including couponDTO data can be found <a href=\"./examples/createSubsRequest.json\" target=\"_blank\">Here</a> \n",
+        "operationId": "createSubscriptionUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload remains the same.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "createSubscriptionRequest",
+            "description": "The create subscription request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateSubscriptionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDetailedDTO"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "404": {
+            "description": "## No Data Found \n * 30 - No data found. {0} \n * 31 - No data found. {0} : {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "## Internal Server Error \n * 10 - Generic internal error \n * 52 - Product bundle with id {0} is not properly configured \n * 54 - Player {0} has already a subscription with name: {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the edited subscription",
+        "operationId": "editSubscriptionDataUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "editSubscriptionRequest",
+            "description": "The edit subscription request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditSubscriptionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/subscriptions/multiple": {
+      "post": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the created subscriptions",
+        "description": "The returned subscription records have a subscription record id",
+        "operationId": "createMultipleSubscriptionsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "createSubscriptionRequestList",
+            "description": "The list with create subscription requests",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMultipleSubscriptionsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/SubscriptionRecordDTO"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDetailedDTO"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "404": {
+            "description": "## No Data Found \n * 30 - No data found. {0} \n * 31 - No data found. {0} : {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "## Internal Server Error \n * 10 - Generic internal error \n * 52 - Product bundle with id {0} is not properly configured \n * 54 - Player {0} has already a subscription with name: {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the updated subscriptions",
+        "operationId": "editMultipleSubscriptionDataUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "editSubscriptionRequestList",
+            "description": "The list with edit subscription requests",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditMultipleSubscriptionsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/subscriptions/multiple/cancel": {
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Cancels and returns the subscriptions with updated status",
+        "description": "In some cases other properties may be updated as well.",
+        "operationId": "cancelMultipleSubsUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "cancelMultipleSubscriptionsAdminRequest",
+            "description": "The cancel multiple subscriptions request DTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelMultipleSubscriptionsAdminRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/subscriptions/multiple/status": {
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the subscriptions with updated status",
+        "description": "In some cases other properties may be updated as well.",
+        "operationId": "editMultipleSubscriptionStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "editMultipleSubscriptionStatusAdminRequest",
+            "description": "The edit multiple subscriptions status DTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditMultipleSubscriptionStatusAdminRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/subscriptions/player/{playerId}/cancel": {
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Cancels all subscriptions of the given player.",
+        "operationId": "cancelAllPlayerSubscriptionsUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "playerId",
+            "in": "path",
+            "description": "The id of the the player",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "cancelSubscriptionAdminRequest",
+            "description": "Contains the id of the operator/component and the cancellation code",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionAdminRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SimpleSuccessResponse"
+            }
+          },
+          "500": {
+            "description": "## Internal Server Error \n * 10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/subscriptions/{subRecId}": {
+      "get": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the unique subscription based on the id provided",
+        "operationId": "getSubscriptionUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDetailedDTO"
+            }
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/subscriptions/{subRecId}/cancel": {
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Cancels and returns the subscription with updated status",
+        "description": "In some cases other properties may be updated as well.\n  * To simulate No Data Found exception (code=30) use subRecId = 1 \n  * To simulate No Data Found With Details exception (code=31) use subRecId = 2 \n  * To simulate No Status Change exception (code=51) use subRecId = 100 \n  * To simulate Bad Request With Details exception (code=41) use cancelledBy = 0 \n  * To simulate Bad Request exception (code=40) use cancelSubscriptionAdminRequest = \"string\" \n  * To simulate Generic Error exception (code=10) use subRecId = 99 \n",
+        "operationId": "cancelSubUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "cancelSubscriptionAdminRequest",
+            "description": "Contains the id of the operation and the cancellation code",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionAdminRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0} \n * 51 - The status {0} is already the status of the subscription",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "404": {
+            "description": "## No Data Found \n * 30 - No data found. {0} \n * 31 - No data found. {0} : {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "## Internal Server Error \n * 10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/admin/v1/subscriptions/{subRecId}/participations": {
+      "get": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns all the participations of the provided sub rec id",
+        "operationId": "getParticipationsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productBundleId",
+            "in": "query",
+            "description": "productBundleId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "gameId",
+            "in": "query",
+            "description": "The id of the the game",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "SUCCESS",
+              "FATAL",
+              "FAILED",
+              "CANCELLED",
+              "NEW",
+              "PLAYED",
+              "COMMISSION_FAILED",
+              "CANCELLED_SEPA"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "The earliest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "The latest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionParticipationDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/subscriptions/{subRecId}/status": {
+      "put": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the subscription with updated status",
+        "description": "In some cases other properties may be updated as well.",
+        "operationId": "editSubscriptionStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "editSubscriptionStatusAdminRequest",
+            "description": "The edit subscription status DTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditSubscriptionStatusAdminRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/admin/v1/subscriptions/{subsRecId}/commands": {
+      "get": {
+        "tags": [
+          "subscriptions-admin-swagger-impl"
+        ],
+        "summary": "Returns the subscription record commands",
+        "operationId": "getSubRecCommandsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subsRecId",
+            "in": "query",
+            "description": "The id of the the subscription",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commandType",
+            "in": "query",
+            "description": "The command type",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "CREATE",
+              "CANCEL",
+              "CHANGE_PRODUCT",
+              "CHANGE_NUMBERS"
+            ]
+          },
+          {
+            "name": "createdBy",
+            "in": "query",
+            "description": "The id of the entity that created the subscription command",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "The earliest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "The latest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionCommandDTO"
+            }
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions": {
+      "get": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns all existing subscriptions.",
+        "description": "Does not include the fields productGames, firstDrawDate,lastDrawDate. Results can be optionally filtered by providing gameId,subsRecId,productBundleId and status for the desired subscriptions \n * To simulate exception 42 (Invalid filters) provide subscriptionName without playerId or cancelCode without  playerId or  any of the fromDate, toDate",
+        "operationId": "getSubscriptionsUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "productBundleId",
+            "in": "query",
+            "description": "The id of a product bundle",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "subsRecId",
+            "in": "query",
+            "description": "The id of a subscription record",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "subscriptionName",
+            "in": "query",
+            "description": "The id of the player that owns the subscription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "gameId",
+            "in": "query",
+            "description": "The id of the the game",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PARTIAL_ACTIVE",
+              "ACTIVE",
+              "CANCELLED"
+            ]
+          },
+          {
+            "name": "platformType",
+            "in": "query",
+            "description": "The platformTypeName of the subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "WEB",
+              "DOWNLOAD",
+              "MOBILE",
+              "TABLET",
+              "TV",
+              "BACK_OFFICE",
+              "GABLET",
+              "TERMINAL",
+              "MOBILEAPP",
+              "TABLETAPP",
+              "TVAPP",
+              "SUBSCRIPTIONS",
+              "RETAILER"
+            ]
+          },
+          {
+            "name": "cancelCode",
+            "in": "query",
+            "description": "The cancel code for cancelled subscriptions",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "playerId",
+            "in": "query",
+            "description": "The id of the player that owns the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "The earliest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "The latest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "The property the results will be ordered by",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "subsRecId",
+              "playerId",
+              "creationDate"
+            ]
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "description": "Set true to get the results in descending order",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "42": {
+            "description": "Invalid filters : {0}"
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "404": {},
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns the created subscription",
+        "description": "The returned subscription record has a subscription record id \n  * To simulate No Data Found exception (code=30) use productBundleId = 10 \n  * To simulate No Data Found With Details exception (code=31) use productBundleId = 11 \n  * To simulate Bad Request With Details exception (code=41) use productBundleId = 0 \n  * To simulate Bad Request exception (code=40) use productBundleId = \"string\" \n  * To simulate Generic Error exception (code=10) use productBundleId = 99 \n  * To simulate Misconfigured Product Bundle (code=55) use productBundleId = 100 \n  * CouponDTO data is defined based on the game engine. An example request including couponDTO data can be found <a href=\"./examples/createSubsRequest.json\" target=\"_blank\">Here</a> \n",
+        "operationId": "createSubscriptionUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID. It works as idempotency key provided that the payload \" +\n            \"remains the same.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "createSubscriptionRequest",
+            "description": "The create subscription request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateSubscriptionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDetailedDTO"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "404": {
+            "description": "## No Data Found \n * 30 - No data found. {0} \n * 31 - No data found. {0} : {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "## Internal Server Error \n * 10 - Generic internal error \n * 52 - Product bundle with id {0} is not properly configured \n * 54 - Player {0} has already a subscription with name: {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns the edited subscription",
+        "description": "Only coupon data can be updated here",
+        "operationId": "editSubCouponDataUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "editSubscriptionRequest",
+            "description": "The edit subscription request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditSubscriptionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDetailedDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions/multiple/cancel": {
+      "put": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Cancels and returns the subscriptions with updated status",
+        "description": "In some cases other properties may be updated as well.",
+        "operationId": "cancelMultipleSubsUsingPUT_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "cancelMultipleSubscriptionsRequest",
+            "description": "A list of the subscription ids and their cancellation reason codes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelMultipleSubscriptionsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions/multiple/status": {
+      "put": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns the subscriptions with updated status",
+        "description": "In some cases other properties may be updated as well.CANCELLED status is not allowed",
+        "operationId": "editMultipleSubStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "editMultipleSubscriptionStatusRequest",
+            "description": "contains the ids of the subscriptions, the new status and id of the player owning them",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditMultipleSubscriptionStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions/{subRecId}": {
+      "get": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns the unique subscription based on the id provided",
+        "operationId": "getSubscriptionUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "playerId",
+            "in": "query",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDetailedDTO"
+            }
+          },
+          "400": {
+            "description": "41 - Bad request, {0}"
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions/{subRecId}/cancel": {
+      "put": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Cancels and returns the subscription with updated status",
+        "description": "In some cases other properties  may be updated as well.\n  * To simulate No Data Found exception (code=30) use subRecId = 1 \n  * To simulate No Data Found With Details exception (code=31) use subRecId = 2 \n  * To simulate Forbiden Resource exception (code=21) use playerId = 1 and subsRecId=3 \n  * To simulate No Status Change exception (code=51) use subRecId = 100 \n  * To simulate Bad Request With Details exception (code=41) use playerId = 0 \n  * To simulate Bad Request exception (code=40) use cancelSubscriptionAdminRequest = \"string\" \n  * To simulate Generic Error exception (code=10) use subRecId = 99 \n",
+        "operationId": "cancelSubUsingPUT_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "cancelSubscriptionRequest",
+            "description": "Includes cancellation reason code and the player id of the owner of the subscription",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "400": {
+            "description": " ## Bad Request \n * 40 - Bad request \n * 41 - Bad request, {0} \n * 51 - The status {0} is already the status of the subscription",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "403": {
+            "description": "## Forbidden \n * 21 - The user does not have the necessary permissions for this resource.",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "404": {
+            "description": "## No Data Found \n * 30 - No data found. {0} \n * 31 - No data found. {0} : {1}",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorDetails"
+            }
+          },
+          "500": {
+            "description": "## Internal Server Error \n * 10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions/{subRecId}/participations": {
+      "get": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns all the participations of the provided sub rec id",
+        "operationId": "getParticipationsUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "playerId",
+            "in": "query",
+            "description": "The id of the the player",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "productBundleId",
+            "in": "query",
+            "description": "The id of the the product bundle",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the subscription",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "SUCCESS",
+              "FATAL",
+              "FAILED",
+              "CANCELLED",
+              "NEW",
+              "PLAYED",
+              "COMMISSION_FAILED",
+              "CANCELLED_SEPA"
+            ]
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "The earliest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "The latest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionParticipationDTO"
+            }
+          },
+          "404": {},
+          "500": {}
+        }
+      }
+    },
+    "/web/v1/subscriptions/{subRecId}/status": {
+      "put": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns the subscription with updated status",
+        "description": "In some cases other properties may be updated as well. CANCELLED status is not allowed",
+        "operationId": "editSubStatusUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subRecId",
+            "in": "path",
+            "description": "The id of the the subscription",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "editSubscriptionStatusRequest",
+            "description": "Includes the new status and the player's id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditSubscriptionStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionRecordDTO"
+            }
+          },
+          "400": {
+            "description": "40 - Bad request"
+          },
+          "404": {
+            "description": "31 - No data found. {0} : {1}"
+          },
+          "500": {
+            "description": "10 - Generic internal error"
+          }
+        }
+      }
+    },
+    "/web/v1/subscriptions/{subsRecId}/commands": {
+      "get": {
+        "tags": [
+          "subscriptions-web-swagger-impl"
+        ],
+        "summary": "Returns the subscription record commands",
+        "operationId": "getSubRecCommandsUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subsRecId",
+            "in": "query",
+            "description": "The id of the the subscription",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commandType",
+            "in": "query",
+            "description": "The command type",
+            "required": false,
+            "type": "ref",
+            "enum": [
+              "CREATE",
+              "CANCEL",
+              "CHANGE_PRODUCT",
+              "CHANGE_NUMBERS"
+            ]
+          },
+          {
+            "name": "createdBy",
+            "in": "query",
+            "description": "The id of the entity that created the subscription command",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "playerId",
+            "in": "query",
+            "description": "The id of the the player",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "The earliest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "The latest value for the subscriptions Creation Date MM/dd/yyyy HH:mm:ss",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size of the paged results",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SubscriptionCommandDTO"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SubscriptionParticipationDTO": {
+      "type": "object",
+      "properties": {
+        "activationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "batchProcessJobId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "billedFlag": {
+          "type": "string",
+          "enum": [
+            "WALLET",
+            "CARD"
+          ]
+        },
+        "changeDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "changedBy": {
+          "type": "string"
+        },
+        "chargeType": {
+          "type": "string",
+          "enum": [
+            "DIRECT_WALLET",
+            "PAYMENT_PROVIDER_FIRST"
+          ]
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "drawCost": {
+          "type": "number"
+        },
+        "drawDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "drawId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lotosCpnCost": {
+          "type": "number"
+        },
+        "lotosCpnId": {
+          "type": "string"
+        },
+        "orgId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "processFlag": {
+          "type": "string",
+          "enum": [
+            "NOT_PROCESSED",
+            "PROCESSED"
+          ]
+        },
+        "retries": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FATAL",
+            "FAILED",
+            "CANCELLED",
+            "NEW",
+            "PLAYED",
+            "COMMISSION_FAILED",
+            "CANCELLED_SEPA"
+          ]
+        },
+        "subCreationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "subsRecId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscriptionTemplateCouponId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "transType": {
+          "type": "string",
+          "enum": [
+            "VERIFY_RESERVE",
+            "PLAY",
+            "BLOCK",
+            "CANCEL_PLAY",
+            "CANCEL_VERIFY",
+            "PREPARE_FIX_TICKETS_RELEASE"
+          ]
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SubscriptionCancellationDTO": {
+      "type": "object",
+      "required": [
+        "cancellationCode",
+        "subsRecId"
+      ],
+      "properties": {
+        "cancellationCode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 16,
+          "description": "the cancellation code"
+        },
+        "subsRecId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 12,
+          "description": "the id of the subscription"
+        }
+      }
+    },
+    "EditSubscriptionRequest": {
+      "type": "object",
+      "required": [
+        "couponDTO",
+        "playerId",
+        "subRecId"
+      ],
+      "properties": {
+        "couponDTO": {
+          "description": "a wrapper for the coupon data",
+          "$ref": "#/definitions/CouponDTO"
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1234,
+          "description": "the id of the player requesting the update"
+        },
+        "productBundleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the game product id for the subscription edit request"
+        },
+        "subRecId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 12,
+          "description": "the id of the subscription record to be updated"
+        },
+        "updatedBy": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of the of the entity that updates the subscription. Required only in Subscription Admin interface"
+        }
+      }
+    },
+    "SimpleSuccessResponse": {
+      "type": "object",
+      "properties": {
+        "descr": {
+          "type": "string",
+          "description": "Response description"
+        },
+        "success": {
+          "type": "boolean",
+          "example": false,
+          "description": "true is success response"
+        }
+      }
+    },
+    "EditSubscriptionStatusRequest": {
+      "type": "object",
+      "required": [
+        "playerId",
+        "status"
+      ],
+      "properties": {
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of the player who owns the subscriptions"
+        },
+        "status": {
+          "type": "string",
+          "description": "the status of the subscription",
+          "enum": [
+            "PARTIAL_ACTIVE",
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        }
+      }
+    },
+    "CreateSubscriptionRequest": {
+      "type": "object",
+      "required": [
+        "channelId",
+        "couponDTO",
+        "createdBy",
+        "platformType",
+        "playerId",
+        "productBundleId",
+        "subscriptionCost",
+        "subscriptionRecordTypeDTO"
+      ],
+      "properties": {
+        "channelId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 8,
+          "description": "the channel id"
+        },
+        "couponDTO": {
+          "description": "a wrapper for the actual coupon data that will be wagered",
+          "$ref": "#/definitions/CouponDTO"
+        },
+        "createdBy": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of the of the subscription creator. If it is the player then the id is the id of the player else it is the id of the operator"
+        },
+        "jackpotThreshold": {
+          "type": "number",
+          "description": "the jackpot threshold over which the subscription will participate in the draw. Only when subscription type is jackpot"
+        },
+        "platformType": {
+          "type": "string",
+          "example": "WEB",
+          "description": "the source from which the request came",
+          "enum": [
+            "WEB",
+            "DOWNLOAD",
+            "MOBILE",
+            "TABLET",
+            "TV",
+            "BACK_OFFICE",
+            "GABLET",
+            "TERMINAL",
+            "MOBILEAPP",
+            "TABLETAPP",
+            "TVAPP",
+            "SUBSCRIPTIONS",
+            "RETAILER"
+          ]
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 17154,
+          "description": "the id of the player"
+        },
+        "productBundleId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "the product bundle id for the subscription create request"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "the retailer id"
+        },
+        "sourceIp": {
+          "type": "string",
+          "description": "The ip of the source through which the subscription was created"
+        },
+        "subscriptionAttributes": {
+          "type": "array",
+          "description": "A list of possible subscription attributes",
+          "items": {
+            "$ref": "#/definitions/AttributeDTO"
+          }
+        },
+        "subscriptionCost": {
+          "type": "number",
+          "example": 1,
+          "description": "the initial full cost of the subscription"
+        },
+        "subscriptionName": {
+          "type": "string",
+          "description": "The name of the subscription"
+        },
+        "subscriptionRecordTypeDTO": {
+          "type": "string",
+          "example": "DRAW_BASED",
+          "description": "the type of the subscription",
+          "enum": [
+            "DRAW_BASED",
+            "TIME_BASED",
+            "JACKPOT"
+          ]
+        }
+      }
+    },
+    "SubscriptionRecordDTO": {
+      "type": "object",
+      "required": [
+        "subscriptionType"
+      ],
+      "properties": {
+        "creationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the subscription was created"
+        },
+        "firstDrawDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the first draw the subscription participated"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "a unique internal id of the subscription"
+        },
+        "jackpotThreshold": {
+          "type": "number",
+          "description": "the jackpot threshold over which the subscription will participate in the draw. Only when subscription type is jackpot"
+        },
+        "lastDrawDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the last draw has participated until now"
+        },
+        "nextDrawDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the next draw that the subscription will participated"
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the player corresponding to the subscription"
+        },
+        "productBundleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the subscription's product bundle"
+        },
+        "productGames": {
+          "type": "string",
+          "description": "Game ids separated by comma"
+        },
+        "status": {
+          "type": "string",
+          "description": "An Enum with the possible Subscription statuses",
+          "enum": [
+            "PARTIAL_ACTIVE",
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        },
+        "subscriptionAttributes": {
+          "type": "array",
+          "description": "A list of possible subscription attributes",
+          "items": {
+            "$ref": "#/definitions/AttributeDTO"
+          }
+        },
+        "subscriptionCost": {
+          "type": "number",
+          "description": "The initial full cost of the subscription"
+        },
+        "subscriptionName": {
+          "type": "string",
+          "description": "The name of the subscription"
+        },
+        "subscriptionType": {
+          "type": "string",
+          "description": "The type of the subscription",
+          "enum": [
+            "DRAW_BASED",
+            "TIME_BASED",
+            "JACKPOT"
+          ]
+        }
+      }
+    },
+    "CouponDTO": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "the coupon data"
+        }
+      }
+    },
+    "SubscriptionCommandDTO": {
+      "type": "object",
+      "properties": {
+        "commandDesc": {
+          "type": "string"
+        },
+        "commandSource": {
+          "type": "string",
+          "enum": [
+            "CSSM",
+            "SYSTEM"
+          ]
+        },
+        "commandType": {
+          "type": "string",
+          "enum": [
+            "CREATE",
+            "CANCEL",
+            "CHANGE_PRODUCT",
+            "CHANGE_NUMBERS"
+          ]
+        },
+        "commandValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubscriptionCommandValueDTO"
+          }
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "productBundleId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startDrawId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAILED",
+            "CANCELLED"
+          ]
+        },
+        "subscriptionRecordID": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SubscriptionRecordDetailedDTO": {
+      "type": "object",
+      "required": [
+        "currentSubscriptionTemplateCoupon",
+        "subscriptionType"
+      ],
+      "properties": {
+        "activationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the subscription was activated"
+        },
+        "cancelDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the subscription was canceled"
+        },
+        "cancelDraw": {
+          "description": "The draw when the subscription got canceled",
+          "$ref": "#/definitions/DrawDTO"
+        },
+        "changeDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the subscription was last updated"
+        },
+        "changedBy": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Who edited the subscription last time"
+        },
+        "createdBy": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Who created the subscription"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date that the subscription was created"
+        },
+        "currentSubscriptionTemplateCoupon": {
+          "description": "The current coupon data of the subscription",
+          "$ref": "#/definitions/SubscriptionTemplateCouponDTO"
+        },
+        "firstPlayDraw": {
+          "description": "The draw when the subscription participated for the first time",
+          "$ref": "#/definitions/DrawDTO"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "a unique internal id of the subscription"
+        },
+        "jackpotThreshold": {
+          "type": "number",
+          "description": "the jackpot threshold over which the subscription will participate in the draw. Only when subscription type is jackpot"
+        },
+        "lastPlayDraw": {
+          "description": "The last draw when the subscription participated",
+          "$ref": "#/definitions/DrawDTO"
+        },
+        "marketingCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The marketing id used in case there is a subscription related promotion"
+        },
+        "nextPlayDraw": {
+          "description": "The next draw when the subscription will participate",
+          "$ref": "#/definitions/DrawDTO"
+        },
+        "platformTypeName": {
+          "type": "string",
+          "description": "The source platform from where the subscription was created",
+          "enum": [
+            "WEB",
+            "DOWNLOAD",
+            "MOBILE",
+            "TABLET",
+            "TV",
+            "BACK_OFFICE",
+            "GABLET",
+            "TERMINAL",
+            "MOBILEAPP",
+            "TABLETAPP",
+            "TVAPP",
+            "SUBSCRIPTIONS",
+            "RETAILER"
+          ]
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the player corresponding to the subscription"
+        },
+        "productBundleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the subscription's product bundle"
+        },
+        "productBundleName": {
+          "type": "string",
+          "description": "The name of the subscription's product bundle"
+        },
+        "retailerCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The initial full cost of the subscription"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the retailer"
+        },
+        "sourceIp": {
+          "type": "string",
+          "description": "The ip of the source through which the subscription was created"
+        },
+        "status": {
+          "type": "string",
+          "description": "An Enum with the possible Subscription statuses",
+          "enum": [
+            "PARTIAL_ACTIVE",
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        },
+        "subscriptionAttributes": {
+          "type": "array",
+          "description": "A list of possible subscription attributes",
+          "items": {
+            "$ref": "#/definitions/AttributeDTO"
+          }
+        },
+        "subscriptionCost": {
+          "type": "number",
+          "description": "The initial full cost of the subscription"
+        },
+        "subscriptionName": {
+          "type": "string",
+          "description": "The name of the subscription"
+        },
+        "subscriptionType": {
+          "type": "string",
+          "description": "The type of the subscription",
+          "enum": [
+            "DRAW_BASED",
+            "TIME_BASED",
+            "JACKPOT"
+          ]
+        }
+      }
+    },
+    "PagedResultsDTO첯ubscriptionParticipationDTO�": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/SubscriptionParticipationDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "PagedResultsDTO첕atchProcessDTO�": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/BatchProcessDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "PagedResultsDTO첔pplicationParameterDTO�": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/ApplicationParameterDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "ApiErrorDetails": {
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "PagedResultsDTO첯ubscriptionRecordDTO�": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/SubscriptionRecordDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "CancelSubscriptionRequest": {
+      "type": "object",
+      "required": [
+        "cancelCode",
+        "playerId"
+      ],
+      "properties": {
+        "cancelCode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "the cancellation code"
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of the player who owns the subscriptions"
+        }
+      }
+    },
+    "EditMultipleSubscriptionStatusRequest": {
+      "type": "object",
+      "required": [
+        "playerId",
+        "status",
+        "subscriptionRecordIds"
+      ],
+      "properties": {
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of the player who owns the subscriptions"
+        },
+        "status": {
+          "type": "string",
+          "description": "the new status of the subscriptions",
+          "enum": [
+            "PARTIAL_ACTIVE",
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        },
+        "subscriptionRecordIds": {
+          "type": "array",
+          "description": "the ids of the subscriptions",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "EditMultipleSubscriptionsRequest": {
+      "type": "object",
+      "properties": {
+        "editSubscriptionRequests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EditSubscriptionRequest"
+          }
+        }
+      }
+    },
+    "DrawDTO": {
+      "type": "object",
+      "properties": {
+        "drawDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the draw date"
+        },
+        "drawNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the draw number"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "a unique internal id of the game"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "a unique identifier of the draw"
+        },
+        "status": {
+          "type": "string",
+          "description": "the draw status",
+          "enum": [
+            "INITIAL",
+            "DEFINED",
+            "ACTIVE",
+            "COMPLETED",
+            "DISTRIBUTED_CALCULATED",
+            "WINNING_NUMBERS_ENTERED",
+            "WINNERS_DIVIDENTS_CALCULATED",
+            "PAYMENTS_SUSPENDED"
+          ]
+        }
+      }
+    },
+    "UpdateApplicationParameterRequest": {
+      "type": "object",
+      "properties": {
+        "dataTypeFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : String, 1:Dropdown, 2:Amount, 3:Long, 4:Double",
+          "enum": [
+            "String",
+            "DropDown",
+            "Amount",
+            "Long",
+            "Double"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "a description of the application parameter"
+        },
+        "value": {
+          "type": "string",
+          "description": "an alphanumerical corresponding to the value of the application parameter"
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "BatchProcessPagedResultsDTO": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/BatchProcessDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "EditMultipleSubscriptionStatusAdminRequest": {
+      "type": "object",
+      "required": [
+        "changedBy",
+        "status",
+        "subscriptionRecordIds"
+      ],
+      "properties": {
+        "changedBy": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of operator that updates the status of the subscriptions"
+        },
+        "status": {
+          "type": "string",
+          "description": "the new status of the subscriptions",
+          "enum": [
+            "PARTIAL_ACTIVE",
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        },
+        "subscriptionRecordIds": {
+          "type": "array",
+          "description": "the ids of the subscriptions",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "PagedResultsDTO첯ubscriptionCommandDTO�": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/SubscriptionCommandDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "ApplicationParameterPagedResultsDTO": {
+      "type": "object",
+      "properties": {
+        "numberOfPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of pages"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the page number - 0 is the first page"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the maximum number of results in each page"
+        },
+        "results": {
+          "type": "array",
+          "description": "one page results",
+          "items": {
+            "$ref": "#/definitions/ApplicationParameterDTO"
+          }
+        },
+        "totalNumberOfResults": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the total number of results"
+        }
+      }
+    },
+    "SubscriptionCommandValueDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "AttributeDTO": {
+      "type": "object",
+      "required": [
+        "dataType",
+        "name",
+        "value"
+      ],
+      "properties": {
+        "dataType": {
+          "type": "string",
+          "example": "Short",
+          "description": "the data type of the subscription attribute",
+          "enum": [
+            "String",
+            "Short",
+            "Amount",
+            "Long",
+            "Double",
+            "Boolean"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "example": "The number of boards the player has selected",
+          "description": "the description of the subscription attribute"
+        },
+        "name": {
+          "type": "string",
+          "example": "numberOfBoards",
+          "description": "the name of the subscription attribute"
+        },
+        "value": {
+          "type": "string",
+          "example": "4",
+          "description": "the actual value of the subscription attribute"
+        }
+      }
+    },
+    "SubscriptionTemplateCouponDTO": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "example": false,
+          "description": "a flag indicating whether the subscription template coupon is the active one"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "a date on which the template coupon was created"
+        },
+        "firstDraw": {
+          "description": "the draw corresponding to the first available draw",
+          "$ref": "#/definitions/DrawDTO"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "a unique internal id of the subscription template coupon"
+        },
+        "subscriptionRecordId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the subscription record id for the subscription template coupon"
+        },
+        "templateCoupon": {
+          "type": "object",
+          "description": "the actual (template) coupon data"
+        },
+        "variableFix": {
+          "type": "integer",
+          "format": "int32",
+          "description": "a number indicating the variable fix property of the coupon"
+        }
+      }
+    },
+    "CancelMultipleSubscriptionsAdminRequest": {
+      "type": "object",
+      "required": [
+        "changedBy",
+        "subscriptionCancellationDTOList"
+      ],
+      "properties": {
+        "changedBy": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of operator that cancels the subscription"
+        },
+        "subscriptionCancellationDTOList": {
+          "type": "array",
+          "description": "a list of subscription id and cancellation code pairs",
+          "items": {
+            "$ref": "#/definitions/SubscriptionCancellationDTO"
+          }
+        }
+      }
+    },
+    "CreateApplicationParameterRequest": {
+      "type": "object",
+      "properties": {
+        "dataTypeFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : String, 1:Dropdown, 2:Amount, 3:Long, 4:Double",
+          "enum": [
+            "String",
+            "DropDown",
+            "Amount",
+            "Long",
+            "Double"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "a description of the application parameter"
+        },
+        "name": {
+          "type": "string",
+          "description": "the name of the application parameter"
+        },
+        "value": {
+          "type": "string",
+          "description": "an alphanumerical corresponding to the value of the application parameter"
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "CancelSubscriptionAdminRequest": {
+      "type": "object",
+      "required": [
+        "cancelCode",
+        "cancelledBy"
+      ],
+      "properties": {
+        "cancelCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the cancellation code"
+        },
+        "cancelledBy": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of operator that cancels the subscription"
+        },
+        "paymentReferenceId": {
+          "type": "string",
+          "example": "paymentID12345",
+          "description": "the payment reference ID for the SEPA rejection"
+        }
+      }
+    },
+    "BatchProcessDTO": {
+      "type": "object",
+      "required": [
+        "subscriptionType"
+      ],
+      "properties": {
+        "batchNameDescription": {
+          "type": "string",
+          "description": "The description of the batch job's functionality"
+        },
+        "batchProcessName": {
+          "type": "string",
+          "description": "The name of the batch job"
+        },
+        "batchProcessType": {
+          "type": "string",
+          "description": "The type of the job to be executed",
+          "enum": [
+            "WAGER",
+            "WAGER_FAILED",
+            "WAGER_NEW_SUBSCRIPTION",
+            "WAGER_FAILED_NEW_SUBSCRIPTION",
+            "COMMISSION",
+            "COMMISSION_FAILED"
+          ]
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the job was initially created"
+        },
+        "cronExpression": {
+          "type": "string",
+          "description": "The cron expression which determines the execution timeframe of the job"
+        },
+        "cycleGameIds": {
+          "type": "string",
+          "description": "The game ids of all game/subgame draws to be played during this batch, concatenated with hashtag (#) etc. 1001#2002"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The game id that the job will run for"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the job was last updated"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the job",
+          "enum": [
+            "INACTIVE",
+            "ACTIVE"
+          ]
+        },
+        "subscriptionType": {
+          "type": "string",
+          "example": "DRAW_BASED",
+          "description": "the type of the subscription",
+          "enum": [
+            "DRAW_BASED",
+            "TIME_BASED",
+            "JACKPOT"
+          ]
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "EditSubscriptionStatusAdminRequest": {
+      "type": "object",
+      "required": [
+        "changedBy",
+        "status"
+      ],
+      "properties": {
+        "changedBy": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of operator that updates the status of the subscription"
+        },
+        "status": {
+          "type": "string",
+          "description": "the status of the subscription",
+          "enum": [
+            "PARTIAL_ACTIVE",
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        }
+      }
+    },
+    "ApplicationParameterDTO": {
+      "type": "object",
+      "properties": {
+        "dataTypeFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : String, 1:Dropdown, 2:Amount, 3:Long, 4:Double",
+          "enum": [
+            "String",
+            "DropDown",
+            "Amount",
+            "Long",
+            "Double"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "a description of the application parameter"
+        },
+        "name": {
+          "type": "string",
+          "description": "the name of the application parameter"
+        },
+        "value": {
+          "type": "string",
+          "description": "an alphanumerical corresponding to the value of the application parameter"
+        },
+        "viewFlag": {
+          "type": "string",
+          "description": "a number indicating the data type of the value. The possible values are as follows: 0 0 : Hidden, 1 : ViewOnly, 2 : Editable",
+          "enum": [
+            "Hidden",
+            "ViewOnly",
+            "Editable"
+          ]
+        }
+      }
+    },
+    "CreateMultipleSubscriptionsRequest": {
+      "type": "object",
+      "properties": {
+        "createSubscriptionRequests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateSubscriptionRequest"
+          }
+        }
+      }
+    },
+    "CancelMultipleSubscriptionsRequest": {
+      "type": "object",
+      "required": [
+        "playerId",
+        "subscriptionCancellationDTOList"
+      ],
+      "properties": {
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15,
+          "description": "the id of the player who owns the subscriptions"
+        },
+        "subscriptionCancellationDTOList": {
+          "type": "array",
+          "description": "a list of subscription id and cancellation code pairs",
+          "items": {
+            "$ref": "#/definitions/SubscriptionCancellationDTO"
+          }
+        }
+      }
+    }
+  }
+}

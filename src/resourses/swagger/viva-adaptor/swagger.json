@@ -1,0 +1,990 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "viva-adaptor"
+  },
+  "tags": [
+    {
+      "name": "Viva Wallet Adaptor v1.0"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/payment-provider/debit": {
+      "post": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Create a viva wallet debit",
+        "description": "Create a viva wallet debit",
+        "operationId": "createTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CreateDebitRequest",
+              "originalRef": "CreateDebitRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DebitResponse",
+              "originalRef": "DebitResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/DebitResponse",
+              "originalRef": "DebitResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/authentication/token": {
+      "post": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Auth",
+        "description": "Get Auth Token",
+        "operationId": "getAuthToken",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TokenResponse",
+              "originalRef": "TokenResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TokenResponse",
+              "originalRef": "TokenResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/charge-token": {
+      "post": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Charge Token",
+        "description": "Charge Token",
+        "operationId": "chargeTokens",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ChargeTokenRequest",
+              "originalRef": "ChargeTokenRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ChargeTokenResponse",
+              "originalRef": "ChargeTokenResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ChargeTokenResponse",
+              "originalRef": "ChargeTokenResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/debit/{orderId}": {
+      "delete": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Rollback an unsuccessfull viva wallet transaction",
+        "description": "Rollback an unsuccessfull viva wallet transaction",
+        "operationId": "rollbacklTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "The orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/debit/{transactionId}": {
+      "put": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Cancel viva wallet transaction",
+        "description": "Cancel viva wallet transaction",
+        "operationId": "cancelTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "The transactionId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            },
+            "responseSchema": {
+              "type": "boolean"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Get Transaction by Id",
+        "description": "Get Transaction by Id",
+        "operationId": "getTransactionsById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "The transaction id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Transaction",
+              "originalRef": "Transaction"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Transaction",
+              "originalRef": "Transaction"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/transactions": {
+      "get": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Get transaction by source code",
+        "description": "Get transaction by source code",
+        "operationId": "getTransactionsBySourceCode",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sourceCode",
+            "in": "query",
+            "description": "SourceCode",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Transaction date",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Transaction",
+              "originalRef": "Transaction"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Transaction",
+              "originalRef": "Transaction"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/checkInstallments": {
+      "get": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Check installments",
+        "description": "Check installments",
+        "operationId": "checkInstallments",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/card-token": {
+      "get": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Get card Token",
+        "description": "Get card Token",
+        "operationId": "geτCardToken",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "chargeToken",
+            "in": "query",
+            "description": "Get card token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CardTokenResponse",
+              "originalRef": "CardTokenResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CardTokenResponse",
+              "originalRef": "CardTokenResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/payment-provider/settlements": {
+      "post": {
+        "tags": [
+          "Viva Wallet Adaptor v1.0"
+        ],
+        "summary": "Issue refund",
+        "description": "Issue refund",
+        "operationId": "settle",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Settlement Request",
+              "originalRef": "Settlement Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            },
+            "responseSchema": {
+              "type": "boolean"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| - |  Bad request\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "405": {
+            "description": "Method Not Allowed"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoDebitResponse": {
+      "type": "object"
+    },
+    "DebitResponse": {
+      "type": "object",
+      "required": [
+        "transactionId"
+      ],
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "The transactionId"
+        }
+      }
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "CreateDebitRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "chargeToken",
+        "preauth"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The amount of the transaction"
+        },
+        "preauth": {
+          "type": "boolean",
+          "description": "The pre authorisation indicator flag"
+        },
+        "sourceCode": {
+          "type": "string",
+          "description": "The  source code"
+        },
+        "chargeToken": {
+          "type": "string",
+          "description": "The chargeToken"
+        },
+        "installments": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of installments"
+        },
+        "merchantTrns": {
+          "type": "string",
+          "description": "The merchant transaction id"
+        },
+        "customerTrns": {
+          "type": "string",
+          "description": "The customer transaction id"
+        },
+        "customer": {
+          "description": "The customer details",
+          "$ref": "#/definitions/Customer",
+          "originalRef": "Customer"
+        }
+      },
+      "description": "The crete transaction request object"
+    },
+    "Customer": {
+      "type": "object",
+      "required": [
+        "countryCode",
+        "email",
+        "fullname",
+        "phone",
+        "requestLang"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "The customer email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The customer phone"
+        },
+        "fullname": {
+          "type": "string",
+          "description": "The customer fullname"
+        },
+        "requestLang": {
+          "type": "string",
+          "description": "The customer language"
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The customer country code"
+        }
+      },
+      "description": "The viva customer object"
+    },
+    "MonoTokenResponse": {
+      "type": "object"
+    },
+    "TokenResponse": {
+      "type": "object",
+      "required": [
+        "access_token",
+        "expires_in",
+        "scope",
+        "token_type"
+      ],
+      "properties": {
+        "scope": {
+          "type": "string",
+          "description": "the scope of the generated token (space separated)"
+        },
+        "jti": {
+          "type": "string",
+          "description": "the jti (JWT ID) claim in case of JWT token"
+        },
+        "access_token": {
+          "type": "string",
+          "description": "the generated authorization token"
+        },
+        "token_type": {
+          "type": "string",
+          "description": "the type of the generated token"
+        },
+        "refresh_token": {
+          "type": "string",
+          "description": "the token used to refresh current token. Applicable for grant types: password, client_credentials, authorization_code"
+        },
+        "expires_in": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the time in seconds of the duration of the token"
+        }
+      }
+    },
+    "MonoChargeTokenResponse": {
+      "type": "object"
+    },
+    "ChargeTokenResponse": {
+      "type": "object",
+      "required": [
+        "chargeToken"
+      ],
+      "properties": {
+        "chargeToken": {
+          "type": "string",
+          "description": "the charge token"
+        },
+        "redirectToACSForm": {
+          "type": "string",
+          "description": " The redirection url"
+        }
+      }
+    },
+    "ChargeTokenRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "cvc",
+        "expirationMonth",
+        "expirationYear",
+        "holderName",
+        "number"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The amount of money to be charged"
+        },
+        "cvc": {
+          "type": "string",
+          "description": "The card cvc"
+        },
+        "number": {
+          "type": "string",
+          "description": "The card number"
+        },
+        "holderName": {
+          "type": "string",
+          "description": "The card owner"
+        },
+        "expirationYear": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The card expiration year"
+        },
+        "expirationMonth": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The card expiration month"
+        },
+        "sessionRedirectUrl": {
+          "type": "string",
+          "description": "The session redirect url"
+        }
+      },
+      "description": "The charge token request object"
+    },
+    "MonoVoid": {
+      "type": "object"
+    },
+    "MonoBoolean": {
+      "type": "object"
+    },
+    "MonoTransaction": {
+      "type": "object"
+    },
+    "Transaction": {
+      "type": "object",
+      "required": [
+        "amount",
+        "transactionDate",
+        "transactionId"
+      ],
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "The transaction id"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The transaction amount"
+        },
+        "transactionDate": {
+          "type": "string",
+          "description": "The transaction date"
+        }
+      }
+    },
+    "MonoCardTokenResponse": {
+      "type": "object"
+    },
+    "CardTokenResponse": {
+      "type": "object",
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "the card token"
+        }
+      }
+    },
+    "Settlement Request": {
+      "type": "object",
+      "required": [
+        "amount",
+        "tarnsactionId"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "Amount"
+        },
+        "tarnsactionId": {
+          "type": "string",
+          "description": "TransactionId"
+        }
+      },
+      "description": "The viva Settlement request"
+    }
+  }
+}

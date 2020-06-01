@@ -1,0 +1,1205 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the API documentation of Races Adaptor application.",
+    "version" : "1.0",
+    "title" : "Races Adaptor",
+    "contact" : {
+      "name" : "Intralot S.A."
+    }
+  },
+  "basePath" : "/api/v1.0",
+  "tags" : [ {
+    "name" : "Card Races"
+  } ],
+  "paths" : {
+    "/horses/card" : {
+      "get" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Get virtual horses card",
+        "description" : "Retrieves the virtual horses card",
+        "operationId" : "getHorsesCard_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "date",
+          "in" : "query",
+          "description" : "The date(format: YYYYMMDD)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "The type",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/GBIData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/horse/next" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for horse next event",
+        "description" : "",
+        "operationId" : "horseNext_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/HandleItemData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/horses/races" : {
+      "get" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Get virtual races info",
+        "description" : "Retrieves info for the specific race ",
+        "operationId" : "getRaceOdds_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "date",
+          "in" : "query",
+          "description" : "The date (format: YYYYMMDD)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "raceId",
+          "in" : "query",
+          "description" : "The race Id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/GBIData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/horse/result" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for horse result",
+        "description" : "",
+        "operationId" : "horseResult_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/GBIData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/greyhounds/card" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for live greyhounds card",
+        "description" : "",
+        "operationId" : "greyhoundCard_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/HandleItemData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/greyhounds/notification" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for live greyhounds notifications",
+        "description" : "",
+        "operationId" : "greyhoundNotification_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/HandleItemData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/greyhounds/info" : {
+      "get" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Get greyhounds info",
+        "description" : "Retrieves the greyhounds info. type 0: full results, type 2: current and next race, type 3: last result ",
+        "operationId" : "getGreyhoundsInfo_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "date",
+          "in" : "query",
+          "description" : "The date(format: YYYYMMDD)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "The type",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/HandleItemData"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/football/info" : {
+      "get" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Get virtual football info",
+        "description" : "Retrieves the virtual football info.",
+        "operationId" : "getFootballData_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "date",
+          "in" : "query",
+          "description" : "The date(format: YYYYMMDD)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/VirtualSchedule"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/football/next" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for football next event",
+        "description" : "",
+        "operationId" : "footballNext_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/football/result" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for football result event",
+        "description" : "",
+        "operationId" : "footballResult_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/football/league" : {
+      "post" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Notifies canvas for football league updates",
+        "description" : "",
+        "operationId" : "footballLeague_1",
+        "consumes" : [ "text/xml", "application/xml" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The data object",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/countries" : {
+      "get" : {
+        "tags" : [ "Card Races" ],
+        "summary" : "Get counties codes names ",
+        "description" : "",
+        "operationId" : "getCountries_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The system authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The GUID",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/Mapping"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Combination" : {
+      "type" : "object",
+      "properties" : {
+        "runners" : {
+          "type" : "string"
+        },
+        "betType" : {
+          "type" : "string"
+        },
+        "odd" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GBIData" : {
+      "type" : "object",
+      "properties" : {
+        "date" : {
+          "type" : "string"
+        },
+        "meeting" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Meeting"
+          }
+        },
+        "timestamp" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Horse" : {
+      "type" : "object",
+      "properties" : {
+        "silk" : {
+          "type" : "string"
+        },
+        "placeOdd" : {
+          "type" : "string"
+        },
+        "gender" : {
+          "type" : "string"
+        },
+        "weight" : {
+          "type" : "string"
+        },
+        "jockey" : {
+          "type" : "string"
+        },
+        "ewayOdd" : {
+          "type" : "string"
+        },
+        "statusDescription" : {
+          "type" : "string"
+        },
+        "boxNum" : {
+          "type" : "string"
+        },
+        "trainer" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "winOdd" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "position" : {
+          "type" : "string"
+        },
+        "clothNum" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "favorite" : {
+          "type" : "string"
+        },
+        "form" : {
+          "type" : "string"
+        },
+        "statNumRaces" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "statNumWins" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "statNumPlaces" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "daysLastRan" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "age" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "Meeting" : {
+      "type" : "object",
+      "properties" : {
+        "date" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "string"
+        },
+        "statusDescription" : {
+          "type" : "string"
+        },
+        "race" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Race"
+          }
+        },
+        "course" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Odds" : {
+      "type" : "object",
+      "properties" : {
+        "combination" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Combination"
+          }
+        }
+      }
+    },
+    "Race" : {
+      "type" : "object",
+      "properties" : {
+        "paroli" : {
+          "type" : "boolean"
+        },
+        "late" : {
+          "type" : "boolean"
+        },
+        "distance" : {
+          "type" : "string"
+        },
+        "tcOdd" : {
+          "type" : "string"
+        },
+        "fcOdd" : {
+          "type" : "string"
+        },
+        "trOdd" : {
+          "type" : "string"
+        },
+        "ran" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "runners" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resultTimestamp" : {
+          "type" : "string"
+        },
+        "selection" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Selection"
+          }
+        },
+        "num" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "grade" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "time" : {
+          "type" : "string"
+        },
+        "offtime" : {
+          "type" : "string"
+        },
+        "origId" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "handicap" : {
+          "type" : "string"
+        }
+      }
+    },
+    "FaultInfo" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The error code"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The error message"
+        },
+        "data" : {
+          "type" : "object",
+          "description" : "The error data which is an abstract object that may be used to provide any error metadata"
+        },
+        "source" : {
+          "type" : "string",
+          "description" : "The application at which the API error occured"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The error family, e.g. RUNTIME, VALIDATION, etc"
+        },
+        "guid" : {
+          "type" : "string",
+          "description" : "The unique identifier of the error process"
+        }
+      },
+      "description" : "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "DayEvent" : {
+      "type" : "object",
+      "properties" : {
+        "xmlns" : {
+          "type" : "string"
+        },
+        "race" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Race"
+          }
+        },
+        "races" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "eventType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "raceDate" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "HandleItemData" : {
+      "type" : "object",
+      "properties" : {
+        "dayEventDate" : {
+          "type" : "string"
+        },
+        "dayEvent" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DayEvent"
+          }
+        },
+        "timestamp" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Selection" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "num" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "selectionName" : {
+          "type" : "string"
+        },
+        "selectionID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "odd" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "placeOdd" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "pos" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "winner" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Event" : {
+      "type" : "object",
+      "properties" : {
+        "status" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "stadium" : {
+          "type" : "string"
+        },
+        "league" : {
+          "type" : "string"
+        },
+        "homeTeam" : {
+          "type" : "string"
+        },
+        "awayTeam" : {
+          "type" : "string"
+        },
+        "getaAMSSchID" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "time" : {
+          "type" : "string"
+        },
+        "homeTeamID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "awayTeamID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resultsTime" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "getaAMSEventID" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "eventID" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "distance" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "market" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Market"
+          }
+        },
+        "odds" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/VRDataEventOdd"
+          }
+        }
+      }
+    },
+    "Market" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "selection" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Selection"
+          }
+        }
+      }
+    },
+    "VRData" : {
+      "type" : "object",
+      "properties" : {
+        "providerID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "channelID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "refDate" : {
+          "type" : "string"
+        },
+        "event" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Event"
+          }
+        }
+      }
+    },
+    "VRDataEventOdd" : {
+      "type" : "object",
+      "properties" : {
+        "tpField" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "combField" : {
+          "type" : "string"
+        },
+        "oddField" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "VirtualSchedule" : {
+      "type" : "object",
+      "properties" : {
+        "vrData" : {
+          "$ref" : "#/definitions/VRData"
+        }
+      }
+    },
+    "Country" : {
+      "type" : "object",
+      "properties" : {
+        "newName" : {
+          "type" : "string"
+        },
+        "countryCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Mapping" : {
+      "type" : "object",
+      "properties" : {
+        "get_id" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "error" : {
+          "type" : "string"
+        },
+        "date" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Country"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+    "wager": {
+        "dbg": [
+            {
+                "gameId": 1001,
+                "participatingDraws": {
+                    "multipleDraws": 1,
+                    "firstDraw": 92,
+                    "lastDraw": 92,
+                    "draws": [
+                        92
+                    ]
+                },
+                "multipliers": [
+                    1
+                ],
+                "columns": 1,
+                "creationTime": 1520932268408,
+                "status": "Played",
+                "blockStatus": "Unblocked",
+                "cost": 100,
+                "discount": 0,
+                "boards": [
+                    {
+                        "boardId": 1,
+                        "quickPick": false,
+                        "multipliers": [
+                            1
+                        ],
+                        "panels": [
+                            {
+                                "quickPick": false,
+                                "requested": 10,
+                                "QPSelections": 6,
+                                "selection": [
+                                    1,
+                                    2,
+                                    3,
+                                    4,
+                                    5,
+                                    6,
+                                    7,
+                                    8,
+                                    9,
+                                    10
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "pilot": true,
+    "serialNumber": "000000100100000000000300311134"
+}
+

@@ -1,0 +1,1986 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the API documentation of ECard Adaptor application.",
+    "version" : "1.0",
+    "title" : "ECard Adaptor",
+    "contact" : {
+      "name" : "Intralot S.A."
+    }
+  },
+  "basePath" : "/api/v1.0",
+  "tags" : [ {
+    "name" : "sessions"
+  }, {
+    "name" : "players"
+  }, {
+    "name" : "wagers"
+  } ],
+  "paths" : {
+    "/sessions" : {
+      "post" : {
+        "tags" : [ "sessions" ],
+        "summary" : "Login",
+        "description" : "Login a player through the API by username (ecard operation 'authentication/login')",
+        "operationId" : "login_1",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "header",
+          "description" : "token",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "requestId",
+          "in" : "header",
+          "description" : "Request ID",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/Bit8TokenDTO"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/players/external" : {
+      "get" : {
+        "tags" : [ "players" ],
+        "summary" : "Get the details from external player",
+        "description" : "Retrieves external player's information (Bit8 operation 'playerGetDetailsWithOptions').",
+        "operationId" : "externalGetDetails_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "sessionToken",
+          "in" : "header",
+          "description" : "The authorization of the user that was provided upon authentication",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The globally unique identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/PlayerProfileExternalDTO"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/players/keepalive" : {
+      "get" : {
+        "tags" : [ "players" ],
+        "summary" : "Keeps a player's session alive",
+        "description" : "",
+        "operationId" : "keepALive_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "sessionToken",
+          "in" : "header",
+          "description" : "The authorization of the user that was provided upon authentication",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The globally unique identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS"
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/players" : {
+      "get" : {
+        "tags" : [ "players" ],
+        "summary" : "Get player Details",
+        "description" : "Retrieves player's information (ecard operation 'account/details').",
+        "operationId" : "playerGetDetails_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "shortProfile",
+          "in" : "header",
+          "description" : "Return short player's profile",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1 ]
+        }, {
+          "name" : "sessionToken",
+          "in" : "header",
+          "description" : "The authorization of the user that was provided upon authentication",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The globally unique identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "$ref" : "#/definitions/PlayerProfileFullDTO"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/wagers" : {
+      "delete" : {
+        "tags" : [ "wagers" ],
+        "summary" : "Rollback",
+        "description" : "Call rollback in eCard.",
+        "operationId" : "rollback_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The rollbackRequest object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/RollbackRequest"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The globally unique identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/wagers/placeBet" : {
+      "post" : {
+        "tags" : [ "wagers" ],
+        "summary" : "Place Bet",
+        "description" : "Call place Bet in eCard.",
+        "operationId" : "placeBet_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The wagerRequest object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/WagerPlayRequestModel"
+          }
+        }, {
+          "name" : "trnsId",
+          "in" : "header",
+          "description" : "The transaction id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The globally unique identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/wagers/{uid}/settlements" : {
+      "put" : {
+        "tags" : [ "wagers" ],
+        "summary" : "Settlement",
+        "description" : "...",
+        "operationId" : "eCardSettlement_1",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "uid",
+          "in" : "path",
+          "description" : "The bet id as path parameter",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "channelId",
+          "in" : "header",
+          "description" : "The channel id",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The Settlement Request Object",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SettlementRequestModel"
+          }
+        }, {
+          "name" : "authorization",
+          "in" : "header",
+          "description" : "The authorization",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "guid",
+          "in" : "header",
+          "description" : "The globally unique identifier",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "boolean"
+            }
+          },
+          "400" : {
+            "description" : "VALIDATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "401" : {
+            "description" : "AUTHENTICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          },
+          "500" : {
+            "description" : "APPLICATION ERROR",
+            "schema" : {
+              "$ref" : "#/definitions/FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Bit8TokenDTO" : {
+      "type" : "object",
+      "required" : [ "access_token", "clientId", "token_type" ],
+      "properties" : {
+        "access_token" : {
+          "type" : "string",
+          "description" : "the generated authorization token"
+        },
+        "token_type" : {
+          "type" : "string",
+          "description" : "the type of the generated token"
+        },
+        "refresh_token" : {
+          "type" : "string",
+          "description" : "the token used to refresh login of the user"
+        },
+        "expires_in" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "the time in seconds of the duration of the token"
+        },
+        "scope" : {
+          "type" : "string",
+          "description" : "the scope of the generated token"
+        },
+        "lastLoginDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "the last login date"
+        },
+        "greetingMessage" : {
+          "type" : "string",
+          "description" : "the greeting message"
+        },
+        "playerRegistrationSts" : {
+          "type" : "string",
+          "description" : "the player registration status"
+        },
+        "clientId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "the player registration status"
+        },
+        "cardStatus" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "the card status"
+        },
+        "cardExpirationDate" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "the card expiration date(epoch)"
+        }
+      }
+    },
+    "FaultInfo" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The error code"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "The error message"
+        },
+        "data" : {
+          "type" : "object",
+          "description" : "The error data which is an abstract object that may be used to provide any error metadata"
+        },
+        "source" : {
+          "type" : "string",
+          "description" : "The application at which the API error occured"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The error family, e.g. RUNTIME, VALIDATION, etc"
+        },
+        "guid" : {
+          "type" : "string",
+          "description" : "The unique identifier of the error process"
+        }
+      },
+      "description" : "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "PlayerProfileExternalDTO" : {
+      "type" : "object",
+      "properties" : {
+        "clientID" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The client id of the user"
+        },
+        "clientStatID" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The client stat id of the user"
+        },
+        "currencyISO" : {
+          "type" : "string",
+          "description" : "The currencyISO of the user"
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "The username of the user"
+        },
+        "languageISO" : {
+          "type" : "string",
+          "description" : "The languageISO of the user"
+        },
+        "countryISO" : {
+          "type" : "string",
+          "description" : "The countryISO of the user"
+        }
+      },
+      "description" : "The external profile of a player"
+    },
+    "ClientSegmentData" : {
+      "type" : "object",
+      "properties" : {
+        "clientSegmentID" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The segment id of the client"
+        },
+        "displayName" : {
+          "type" : "string",
+          "description" : "The name of the display"
+        },
+        "fraudConfN" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Fraud confidence level"
+        },
+        "fraudK" : {
+          "type" : "number",
+          "description" : "Fraud average multiplier"
+        },
+        "fraudMeanKMultiplier" : {
+          "type" : "number",
+          "description" : "Fraud average calculation weight"
+        },
+        "fraudStdMultiplier" : {
+          "type" : "number",
+          "description" : "Fraud standard deviation weight"
+        },
+        "defaulted" : {
+          "type" : "boolean",
+          "description" : "Check if the client segment is default"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the segment"
+        },
+        "playerSelectedSegment" : {
+          "type" : "boolean",
+          "description" : "Check if the segment of the player is selected"
+        },
+        "rangeMax" : {
+          "type" : "number",
+          "description" : "The max range"
+        },
+        "rangeMin" : {
+          "type" : "number",
+          "description" : "The min range"
+        },
+        "withdrawalIntervalMinutes" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The minutes of the interval withdrawal"
+        }
+      },
+      "description" : "The data of a client segment"
+    },
+    "PlayerPhoneNumbers" : {
+      "type" : "object",
+      "required" : [ "phoneNumber" ],
+      "properties" : {
+        "countryPrefix" : {
+          "type" : "string",
+          "description" : "The country prefix (not used in ECard)"
+        },
+        "mobilePrefix" : {
+          "type" : "string",
+          "description" : "The mobile prefix (not used in ECard)"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "description" : "The phone number (eg +31206255763)"
+        },
+        "phoneNumberType" : {
+          "type" : "string",
+          "description" : "The type of the phone number (not used in ECard)",
+          "enum" : [ "PRIMARY_MOBILE", "SECONDARY_MOBILE", "PRIMARY_LAND_LINE", "SECONDARY_LAND_LINE" ]
+        }
+      },
+      "description" : "The numbers of a player"
+    },
+    "PlayerProfileFullDTO" : {
+      "type" : "object",
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "enum" : [ "OK", "ERROR", "NOT_FOUND", "INVALID_DATA", "SESSION_EXPIRED", "SYSTEM_ERROR" ]
+        },
+        "statusMessage" : {
+          "type" : "string"
+        },
+        "activateAccount" : {
+          "type" : "boolean",
+          "description" : "The activate account flag"
+        },
+        "clientID" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The client id of the user"
+        },
+        "clientStatID" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The client stat id of the user"
+        },
+        "playerState" : {
+          "type" : "string",
+          "description" : "The state of the user"
+        },
+        "currencyISO" : {
+          "type" : "string",
+          "description" : "The currencyISO of the user"
+        },
+        "emailAddress" : {
+          "type" : "string",
+          "description" : "The email address of the user"
+        },
+        "firstName" : {
+          "type" : "string",
+          "description" : "The first name of the user"
+        },
+        "selfExclusion" : {
+          "type" : "boolean",
+          "description" : "The self exclusion flag"
+        },
+        "playerRestrictions" : {
+          "type" : "array",
+          "description" : "player restriction object",
+          "items" : {
+            "$ref" : "#/definitions/RestrictionPlayerData"
+          }
+        },
+        "lastName" : {
+          "type" : "string",
+          "description" : "The last name of the user"
+        },
+        "userName" : {
+          "type" : "string",
+          "description" : "The username of the user"
+        },
+        "languageISO" : {
+          "type" : "string",
+          "description" : "The languageISO of the user"
+        },
+        "acceptedLatestTerms" : {
+          "type" : "boolean",
+          "description" : "Check if the latest accepted terms has been accepted"
+        },
+        "activationCode" : {
+          "type" : "string",
+          "description" : "The activation code"
+        },
+        "address1" : {
+          "type" : "string",
+          "description" : "The first address of the player"
+        },
+        "address2" : {
+          "type" : "string",
+          "description" : "The second address of the player"
+        },
+        "betFactor" : {
+          "type" : "number",
+          "description" : "The bet factor"
+        },
+        "city" : {
+          "type" : "string",
+          "description" : "The city of the player"
+        },
+        "clientSegment" : {
+          "description" : "The segment of the client",
+          "$ref" : "#/definitions/ClientSegmentData"
+        },
+        "contactByEmail" : {
+          "type" : "boolean",
+          "description" : "Contact by email"
+        },
+        "contactByPhone" : {
+          "type" : "boolean",
+          "description" : "Contact by phone"
+        },
+        "contactByPost" : {
+          "type" : "boolean",
+          "description" : "Contact by post"
+        },
+        "contactBySMS" : {
+          "type" : "boolean",
+          "description" : "Contact by sms"
+        },
+        "contactByThirdParty" : {
+          "type" : "boolean",
+          "description" : "Contact by a third party"
+        },
+        "countryISO" : {
+          "type" : "string",
+          "description" : "The country ISO"
+        },
+        "countryStateName" : {
+          "type" : "string",
+          "description" : "The name of the country state"
+        },
+        "dateOfBirth" : {
+          "type" : "string",
+          "description" : "The date of birth"
+        },
+        "emailVerificationTypeID" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The type id for email Verification"
+        },
+        "flatNumber" : {
+          "type" : "string",
+          "description" : "The flat number"
+        },
+        "gender" : {
+          "type" : "string",
+          "description" : "The gender of the player"
+        },
+        "houseName" : {
+          "type" : "string",
+          "description" : "The name of the house"
+        },
+        "houseNumber" : {
+          "type" : "string",
+          "description" : "The number of the house"
+        },
+        "flatNumberExtension" : {
+          "type" : "string",
+          "description" : "The player's flatnumber extension."
+        },
+        "accountClosed" : {
+          "type" : "boolean",
+          "description" : "Check if the account is closed"
+        },
+        "actived" : {
+          "type" : "boolean",
+          "description" : "Check if the account is active"
+        },
+        "kycChecked" : {
+          "type" : "boolean",
+          "description" : "Check if the KYC is checked"
+        },
+        "playAllowed" : {
+          "type" : "boolean",
+          "description" : "Check if it is allowed to play"
+        },
+        "suspicious" : {
+          "type" : "boolean",
+          "description" : "Check if the account is suspicious"
+        },
+        "kycCheckedStatus" : {
+          "type" : "string",
+          "description" : "The status of the KYC is checked"
+        },
+        "kycCheckedStatusCode" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The code of the KYC checked status"
+        },
+        "lastUpdated" : {
+          "type" : "string",
+          "description" : "Last time updated"
+        },
+        "middleName" : {
+          "type" : "string",
+          "description" : "The middlename"
+        },
+        "newsFeedsAllow" : {
+          "type" : "boolean",
+          "description" : "Check if it is allowed the news feeds"
+        },
+        "nickname" : {
+          "type" : "string",
+          "description" : "The nickname"
+        },
+        "poBoxName" : {
+          "type" : "string",
+          "description" : "The name of poBox"
+        },
+        "paymentSegmentName" : {
+          "type" : "string",
+          "description" : "The name of payment segment"
+        },
+        "phoneNumbers" : {
+          "type" : "array",
+          "description" : "List of phone numbers of a player",
+          "items" : {
+            "$ref" : "#/definitions/PlayerPhoneNumbers"
+          }
+        },
+        "phoneVerificationTypeID" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The id of the phone verification type"
+        },
+        "playerAccountStatus" : {
+          "type" : "string",
+          "description" : "The status of the account"
+        },
+        "playerRegistrationState" : {
+          "type" : "string",
+          "description" : "The state of the player's registration",
+          "enum" : [ "FULL", "PARTIAL", "PROSPECT", "ANONYMOUS", "UNDEFINED" ]
+        },
+        "postCode" : {
+          "type" : "string",
+          "description" : "The postcode"
+        },
+        "postVerificationTypeID" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The id of post verification type"
+        },
+        "receivePromotionalByEmail" : {
+          "type" : "boolean",
+          "description" : "Receive promotional by email"
+        },
+        "receivePromotionalByPhone" : {
+          "type" : "boolean",
+          "description" : "Receive promotional by phone"
+        },
+        "receivePromotionalByMobile" : {
+          "type" : "boolean",
+          "description" : "Receive promotional by mobile phone"
+        },
+        "receivePromotionalByPost" : {
+          "type" : "boolean",
+          "description" : "Receive promotional by post"
+        },
+        "receivePromotionalBySMS" : {
+          "type" : "boolean",
+          "description" : "Receive promotional by sms"
+        },
+        "receivePromotionalByThirdParty" : {
+          "type" : "boolean",
+          "description" : "Receive promotional by third party"
+        },
+        "smsVerificationTypeID" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The ID of the sms verification"
+        },
+        "secondaryLastName" : {
+          "type" : "string",
+          "description" : "The secondary last name"
+        },
+        "secretAnswer" : {
+          "type" : "string",
+          "description" : "The secret answer"
+        },
+        "secretQuestionFreeText" : {
+          "type" : "string",
+          "description" : "The secret question free text"
+        },
+        "secretQuestionID" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The id of the secret question"
+        },
+        "signUpDate" : {
+          "type" : "string",
+          "description" : "The sign up date"
+        },
+        "streetName" : {
+          "type" : "string",
+          "description" : "The name of the street"
+        },
+        "streetNumber" : {
+          "type" : "string",
+          "description" : "The number of the street"
+        },
+        "suburbName" : {
+          "type" : "string",
+          "description" : "The name of the suburb"
+        },
+        "thirdPartyVerificationTypeID" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The id of the third party verification type"
+        },
+        "title" : {
+          "type" : "string",
+          "description" : "Title"
+        },
+        "townName" : {
+          "type" : "string",
+          "description" : "The name of the town"
+        },
+        "vipLevel" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The vip's level"
+        },
+        "vipLevelID" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The id of the vip's level"
+        },
+        "vipLevelName" : {
+          "type" : "string",
+          "description" : "The name of the vip's level"
+        },
+        "initials" : {
+          "type" : "string",
+          "description" : "The initials of the player"
+        },
+        "prefixName" : {
+          "type" : "string",
+          "description" : "The prefix name of the player"
+        },
+        "bankAccountNumber" : {
+          "type" : "string",
+          "description" : "The bank account number"
+        }
+      },
+      "description" : "The full version profile of a player"
+    },
+    "RestrictionPlayerData" : {
+      "type" : "object",
+      "properties" : {
+        "indefinitely" : {
+          "type" : "boolean",
+          "description" : "Check if it is indefinitely"
+        },
+        "playerRestrictionType" : {
+          "type" : "string",
+          "description" : "The type of a restricted player"
+        },
+        "reason" : {
+          "type" : "string",
+          "description" : "The reason that a player has a restriction"
+        },
+        "requestDate" : {
+          "type" : "string",
+          "description" : "The requested date"
+        },
+        "restrictFromDate" : {
+          "type" : "string",
+          "description" : "The date that the restriction starts"
+        },
+        "restrictUntilDate" : {
+          "type" : "string",
+          "description" : "The date that the restriction ends"
+        },
+        "restrictNumMinutes" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      },
+      "description" : "The data for a player's restriction"
+    },
+    "RollbackRequest" : {
+      "type" : "object",
+      "properties" : {
+        "token" : {
+          "type" : "string",
+          "description" : "Current user token"
+        },
+        "userId" : {
+          "type" : "string",
+          "description" : "Current user id"
+        },
+        "requestId" : {
+          "type" : "string",
+          "description" : "Unique request ID"
+        },
+        "betId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The bet id"
+        },
+        "transactionId" : {
+          "type" : "string",
+          "description" : "BetSlip transaction ID of the rollback operation"
+        },
+        "rollbackTransactionId" : {
+          "type" : "string",
+          "description" : "TransactionId of the bet, sent in betPlaced Intralot wants to rollback"
+        }
+      }
+    },
+    "AutoCashoutModel" : {
+      "type" : "object",
+      "properties" : {
+        "ascOdds" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "This will be Odds that are Greater than the odds of the bet"
+        },
+        "descOdds" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "This will be Odds that are Less than the odds of the bet"
+        },
+        "stopLoss" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "This will be a value less than the stake of the bet"
+        },
+        "stopWin" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "This will be a Value that is Greater than the stake of the bet"
+        }
+      }
+    },
+    "BetModel" : {
+      "type" : "object",
+      "required" : [ "selections" ],
+      "properties" : {
+        "accountBonusId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The total price of the bet"
+        },
+        "autoCashout" : {
+          "description" : "The total price of the bet",
+          "$ref" : "#/definitions/AutoCashoutModel"
+        },
+        "barcode" : {
+          "type" : "string",
+          "description" : "barcode for this bet"
+        },
+        "betId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The bet id"
+        },
+        "betNo" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The bet number"
+        },
+        "betTime" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Datetime of bet"
+        },
+        "bonusCodeAwarded" : {
+          "type" : "string",
+          "description" : "The bonus code awarded. Server side generated"
+        },
+        "bonusCodeRulesOfUse" : {
+          "type" : "string",
+          "description" : "bonusCodeRulesOfUse"
+        },
+        "bonusStake" : {
+          "$ref" : "#/definitions/StakeModel"
+        },
+        "bonusWinnings" : {
+          "type" : "number",
+          "description" : "For bets in an ACCEPTED state, this will be the potential bonus winnings if the bet wins, for WINNING or SETTLED bets it will be the actual bonus winnings"
+        },
+        "cashOut" : {
+          "type" : "boolean",
+          "description" : "In case this bet can be cashed out"
+        },
+        "channelId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Channel ID that this bet part was played"
+        },
+        "checkOdds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Check type of the additional odds data. The system will reject a coupons when: 1. a selected forecast has lower current Odds or different current Handicap / UO value than these the player has seen 2. a selected forecast has different current Odds / Handicap / UO value than these the player has seen 3. a selected forecast has different Handicap / UO value than these the player has seen"
+        },
+        "childBetId" : {
+          "type" : "string",
+          "description" : "The child bet id. This should exist after an Edit or Patially cashout bet"
+        },
+        "currentlyInplay" : {
+          "type" : "boolean"
+        },
+        "discountBonusAmount" : {
+          "type" : "number",
+          "description" : "discountBonusAmount"
+        },
+        "discountBonusId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "discountBonusId"
+        },
+        "displayStatus" : {
+          "type" : "string",
+          "description" : "Status of the part bet"
+        },
+        "extBetId" : {
+          "type" : "string"
+        },
+        "freeBet" : {
+          "type" : "boolean",
+          "description" : "Free bet indicator"
+        },
+        "freeBetBonusAmount" : {
+          "$ref" : "#/definitions/FreeBetBonusAmountModel"
+        },
+        "limitedStake" : {
+          "type" : "number",
+          "description" : "When bet limit or stake limit validation fails, this contains the maximum stake the user can enter, in their currency"
+        },
+        "liveBet" : {
+          "type" : "boolean",
+          "description" : "In case this is live bet or not"
+        },
+        "originalCashoutBetId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "If this bet is a child bet from partial cashout, this betId is its parent"
+        },
+        "overAskId" : {
+          "type" : "string",
+          "description" : "Over/Ask identification number"
+        },
+        "parentBetId" : {
+          "type" : "string",
+          "description" : "The parent bet id. This should exist after an Edit or Patially cashout bet"
+        },
+        "partialCashoutBetIds" : {
+          "type" : "array",
+          "description" : "If this bet is a parent of partial cashout those betIds are their children",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "payout" : {
+          "type" : "number",
+          "description" : "Settled winning amount"
+        },
+        "potentialBonusWinnings" : {
+          "type" : "number"
+        },
+        "potentialPayout" : {
+          "type" : "number",
+          "description" : "The potential payout"
+        },
+        "promoDescription" : {
+          "type" : "string",
+          "description" : "promoDescription"
+        },
+        "referralPath" : {
+          "type" : "string",
+          "description" : "Canvas might have this field as registration source"
+        },
+        "refund" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "refund"
+        },
+        "rejectionReason" : {
+          "type" : "string",
+          "description" : "The reason why a bet has been rejected"
+        },
+        "selections" : {
+          "type" : "array",
+          "description" : "The bet selections",
+          "items" : {
+            "$ref" : "#/definitions/SelectionModel"
+          }
+        },
+        "stake" : {
+          "description" : "The stake amount",
+          "$ref" : "#/definitions/StakeModel"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the part bet, e.g. ACCEPTED, REJECTED, VOID"
+        },
+        "system" : {
+          "description" : "The selected bet system",
+          "$ref" : "#/definitions/SystemModel"
+        },
+        "taxOnReturnsPcnt" : {
+          "type" : "number",
+          "description" : "Taxation percentage on returns amount (on winnings amount)"
+        },
+        "totalCost" : {
+          "type" : "number",
+          "description" : "Bet’s total cost that the player have pay"
+        },
+        "totalDiscountStake" : {
+          "type" : "number",
+          "description" : "The discounted bet stake. Server side generated"
+        },
+        "totalOdds" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total odds of the specific bet part"
+        },
+        "totalPrice" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "The total price of the bet"
+        },
+        "totalStake" : {
+          "type" : "number",
+          "description" : "Total selection stake"
+        },
+        "transactionId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The transaction id"
+        },
+        "voucherCode" : {
+          "type" : "string",
+          "description" : "The bonus code awarded. Server side generated"
+        },
+        "voucherCodeUsed" : {
+          "type" : "string",
+          "description" : "voucherCodeUsed"
+        },
+        "winType" : {
+          "type" : "string",
+          "description" : "Win bet data type,WIN, PLACE, EACH_WAY"
+        },
+        "retailerId" : {
+          "type" : "string",
+          "description" : "retailerId"
+        },
+        "paidByRetailer" : {
+          "type" : "string",
+          "description" : "paidByRetailer"
+        },
+        "paidTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "paidTime"
+        },
+        "buildABet" : {
+          "type" : "boolean",
+          "description" : "Indicates that bet is created by bet builder."
+        }
+      }
+    },
+    "FreeBetBonusAmountModel" : {
+      "type" : "object",
+      "required" : [ "amount", "type" ],
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "amount"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "type",
+          "enum" : [ "BONUS" ]
+        }
+      }
+    },
+    "MetadataModel" : {
+      "type" : "object",
+      "required" : [ "trnsTime" ],
+      "properties" : {
+        "playerInfo" : {
+          "$ref" : "#/definitions/PlayerInfoModel"
+        },
+        "promotionInfo" : {
+          "$ref" : "#/definitions/PromotionInfoModel"
+        },
+        "trnsTime" : {
+          "type" : "string",
+          "description" : "Transaction time in ISO 8601 format"
+        },
+        "posInfo" : {
+          "$ref" : "#/definitions/PosInfo"
+        },
+        "channel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "wagerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "operator" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "participationMethod" : {
+          "type" : "string"
+        },
+        "crId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "NamesModel" : {
+      "type" : "object",
+      "properties" : {
+        "longName" : {
+          "type" : "string",
+          "description" : "longName"
+        },
+        "shortName" : {
+          "type" : "string",
+          "description" : "shortName"
+        },
+        "veryshortName" : {
+          "type" : "string",
+          "description" : "veryshortName"
+        }
+      }
+    },
+    "OddDataModel" : {
+      "type" : "object",
+      "required" : [ "decimal" ],
+      "properties" : {
+        "decimal" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Decimal odds of each selection. e.g. 2,60"
+        },
+        "fractional" : {
+          "type" : "string",
+          "description" : "Fractional representation of odds. E.g. 8/5"
+        }
+      }
+    },
+    "PlayerInfoModel" : {
+      "type" : "object",
+      "properties" : {
+        "syndicateId" : {
+          "type" : "string",
+          "description" : "id of a group/syndicate bet"
+        },
+        "payMethod" : {
+          "type" : "string",
+          "description" : "payMethod"
+        },
+        "pin" : {
+          "type" : "string",
+          "description" : "Players pin. Mandatory for Bit8 PAM"
+        },
+        "playerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "playerId"
+        },
+        "sessionToken" : {
+          "type" : "string",
+          "description" : "sessionToken"
+        },
+        "subscriptionId" : {
+          "type" : "string",
+          "description" : "subscriptionId"
+        }
+      }
+    },
+    "PosInfo" : {
+      "type" : "object",
+      "properties" : {
+        "retailerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "terminalId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "userName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PromotionInfoModel" : {
+      "type" : "object",
+      "properties" : {
+        "optIn" : {
+          "type" : "array",
+          "description" : "to optIn a list of promotion ids. The client selects which promotions will be evaluated (if they are optIn promotions)",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "outcomeId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "the outcome that is returned from the engine to the caller. A reference for the given promotion"
+        },
+        "promotionId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "the id of the promotion that generated the outcomeId"
+        },
+        "voucherCode" : {
+          "type" : "string",
+          "description" : "a string literal placeholder for a voucher code"
+        }
+      }
+    },
+    "ResponseMessage" : {
+      "type" : "object",
+      "required" : [ "type" ],
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "enum" : [ "SUCCESS", "ERROR" ]
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "text" : {
+          "type" : "string"
+        },
+        "paymentStatus" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SelectionModel" : {
+      "type" : "object",
+      "required" : [ "odds", "partNo", "position", "selectionId" ],
+      "properties" : {
+        "position" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Selection's position"
+        },
+        "banker" : {
+          "type" : "boolean",
+          "description" : "The banker definition"
+        },
+        "eventId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "getiMarket" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The index market, -1:No i-market 0..19: i-market played position OR 0..127: Live Home Team Score when the forecast=724..729)"
+        },
+        "groupValue" : {
+          "type" : "array",
+          "description" : "Mandatory for Iflex. 0: No group, 1..10 : groups A, B, C, D, AB, AC, AD, BC, BD, CD, 11..20: R-groups A, B, C, D, AB, AC, AD, BC, BD, CD, +100 : Banker selection",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "imarket" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "imarket"
+        },
+        "lines" : {
+          "type" : "array",
+          "description" : "The Handicap/Under-Over value. Only IFlex will have 2 indexes: var0, var1",
+          "items" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        },
+        "odds" : {
+          "description" : "The odds data object",
+          "$ref" : "#/definitions/OddDataModel"
+        },
+        "partNo" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of the selection. If there are 3 selections they should have 1,2,3 respectively"
+        },
+        "scores" : {
+          "type" : "array",
+          "description" : "The match score. Indexed by team A score{0} & team B score {1}",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "selectionId" : {
+          "type" : "string",
+          "description" : "The selection id. For Iflex will be MARK_CODE_EVENT_CODE"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "The status of the selection, equivalent to the status of the BetPartPlacementResult"
+        },
+        "selectionNames" : {
+          "description" : "An object contain variations of names",
+          "$ref" : "#/definitions/NamesModel"
+        },
+        "selectionName" : {
+          "type" : "string",
+          "description" : "The selection name"
+        },
+        "marketName" : {
+          "type" : "string",
+          "description" : "The market name"
+        },
+        "eventName" : {
+          "type" : "string",
+          "description" : "The event name"
+        },
+        "eventTime" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The event kickoff time"
+        },
+        "resultType" : {
+          "type" : "string",
+          "description" : "Result description of selection result: e.g NOT_SET,WIN,LOST"
+        },
+        "priceChangedAfterLockDate" : {
+          "type" : "boolean",
+          "description" : "priceChangedAfterLockDate"
+        },
+        "inplay" : {
+          "type" : "boolean",
+          "description" : "inplay"
+        },
+        "pitcherAName" : {
+          "type" : "string",
+          "description" : "pitcherAName"
+        },
+        "pitcherBName" : {
+          "type" : "string",
+          "description" : "pitcherBName"
+        }
+      }
+    },
+    "SportsBookPlayModel" : {
+      "type" : "object",
+      "required" : [ "bets", "extBetslipId", "gameId" ],
+      "properties" : {
+        "extendedResponse" : {
+          "type" : "boolean",
+          "description" : "Extended flag"
+        },
+        "acceptOdds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Accept odds types: 1 = Higher Odds, 2 = All, 3 = None, Only same odds"
+        },
+        "acceptPriceChange" : {
+          "type" : "boolean",
+          "description" : "The accept price change"
+        },
+        "betSlipId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The betSlipId"
+        },
+        "bets" : {
+          "type" : "array",
+          "description" : "List of placed bets",
+          "items" : {
+            "$ref" : "#/definitions/BetModel"
+          }
+        },
+        "employeeId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The employeedId"
+        },
+        "freeBets" : {
+          "type" : "array",
+          "description" : "List of freebets",
+          "items" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object"
+            }
+          }
+        },
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The game id"
+        },
+        "multifactor" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "placedTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "totalCount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "In response only, The total number of bets"
+        },
+        "sumOfStake" : {
+          "type" : "number",
+          "description" : "The sumOfStake"
+        },
+        "sumOfPayout" : {
+          "type" : "number",
+          "description" : "The sumOfPayout"
+        },
+        "sumOfBonusWinnings" : {
+          "type" : "number",
+          "description" : "The sumOfBonusWinnings"
+        },
+        "sumOfTotalCost" : {
+          "type" : "number",
+          "description" : "The sumOfTotalCost"
+        },
+        "result" : {
+          "description" : "If present, contains the payment status of the betslip",
+          "$ref" : "#/definitions/ResponseMessage"
+        },
+        "extBetslipId" : {
+          "type" : "string",
+          "description" : "Used for undo bet request"
+        }
+      }
+    },
+    "StakeModel" : {
+      "type" : "object",
+      "required" : [ "amount", "currency" ],
+      "properties" : {
+        "amount" : {
+          "type" : "number",
+          "description" : "Betting amount on each combination will be produced from those parts"
+        },
+        "currency" : {
+          "type" : "string",
+          "description" : "Description of the currency with letters e.g. \"GBP\""
+        }
+      }
+    },
+    "SystemModel" : {
+      "type" : "object",
+      "required" : [ "type" ],
+      "properties" : {
+        "systems" : {
+          "type" : "array",
+          "description" : "The bet system multiplier. Only IFlex",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "Betting data type:SINGLE, MULTIPLE, DOUBLE, SYSTEM_3, SYSTEM_4, SYSTEM_5, SYSTEM_6, SYSTEM_7, SYSTEM_8, BANKER_2BANKER_3BANKER_4BANKER_5BANKER_6BANKER_7BANKER_8TRIXIECANADIAN, HEINZ, SUPER_HEINZ, PATENT, LUCKY_15, LUCKY_31, LUCKY_63, LUCKY_127YANKEE, GOLIATH, SUPER_GOLIATH, WINCAST, SCORECAST, ANYTIME_SCORECAST, TIMECAST, STRAIGHT_FORECAST, REVERSE_FORECAST, COMBINATION_FORECAST, TRICAST, COMBINATION_TRICAST"
+        }
+      }
+    },
+    "WagerDataModel" : {
+      "type" : "object",
+      "properties" : {
+        "sportsbook" : {
+          "description" : "sports game",
+          "$ref" : "#/definitions/SportsBookPlayModel"
+        },
+        "productId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      },
+      "description" : "one of the dbg,instant,spbt,sportsbook should be used depending on the played game"
+    },
+    "WagerPlayRequestModel" : {
+      "type" : "object",
+      "required" : [ "metadata", "wager" ],
+      "properties" : {
+        "isecure" : {
+          "type" : "array",
+          "description" : "unique number that is printed on each ticket (retailer specific)",
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        },
+        "metadata" : {
+          "$ref" : "#/definitions/MetadataModel"
+        },
+        "wager" : {
+          "$ref" : "#/definitions/WagerDataModel"
+        }
+      }
+    },
+    "ChannelModel" : {
+      "type" : "object",
+      "required" : [ "description", "id", "name" ],
+      "properties" : {
+        "description" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CreditTypeModel" : {
+      "type" : "object",
+      "required" : [ "organization" ],
+      "properties" : {
+        "creditTypeId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "organization" : {
+          "$ref" : "#/definitions/OrganizationModel"
+        }
+      }
+    },
+    "OrganizationModel" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ParticipationModel" : {
+      "type" : "object",
+      "required" : [ "participationStatus", "prizes" ],
+      "properties" : {
+        "drawNumber" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "participationId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "participationStatus" : {
+          "$ref" : "#/definitions/ParticipationStatusModel"
+        },
+        "prizes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PrizeModel"
+          }
+        }
+      }
+    },
+    "ParticipationStatusModel" : {
+      "type" : "object",
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "enum" : [ "PLAYING", "PLAYED", "CANCELLING", "CANCELED", "WINNING", "PAID", "NOT_WINNING", "PENDING_PROCESSING", "CANCEL_PAYMENT", "CANCELED_NO_AMOUNT", "FAILED_ON_VALIDATING", "PROVISIONAL_WIN", "BLOCKED", "CASHOUT", "PARTIAL_CASHOUT" ]
+        }
+      }
+    },
+    "PrizeApprovalStatusModel" : {
+      "type" : "object",
+      "properties" : {
+        "statusPrizeStatusModel" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PrizeModel" : {
+      "type" : "object",
+      "required" : [ "gross", "net", "tax" ],
+      "properties" : {
+        "approvalLastUpdate" : {
+          "type" : "string"
+        },
+        "approvalStatus" : {
+          "$ref" : "#/definitions/PrizeApprovalStatusModel"
+        },
+        "bonus" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "credit" : {
+          "$ref" : "#/definitions/CreditTypeModel"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "gross" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "net" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "other" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "prizeStatus" : {
+          "$ref" : "#/definitions/PrizeStatusModel"
+        },
+        "refund" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "specialPrize" : {
+          "$ref" : "#/definitions/SpecialPrizeModel"
+        },
+        "tax" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "winningId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PrizeStatusModel" : {
+      "type" : "object"
+    },
+    "SettlementRequestModel" : {
+      "type" : "object",
+      "required" : [ "participation", "transactionRequest" ],
+      "properties" : {
+        "gameId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "betSlipId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "betType" : {
+          "type" : "string"
+        },
+        "gameCategory" : {
+          "type" : "string",
+          "enum" : [ "DBG", "IWG", "BET", "POOL", "CASINO" ]
+        },
+        "selections" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SelectionModel"
+          }
+        },
+        "participation" : {
+          "$ref" : "#/definitions/ParticipationModel"
+        },
+        "transactionRequest" : {
+          "$ref" : "#/definitions/TransactionRequestModel"
+        },
+        "notifyPlayer" : {
+          "type" : "boolean"
+        },
+        "identicalBetRef" : {
+          "type" : "string"
+        },
+        "bonusMoneyAmount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "bonusRef" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "bonusRule" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "secondaryBetId" : {
+          "type" : "string"
+        },
+        "highWinner" : {
+          "type" : "boolean"
+        },
+        "participationMethod" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SpecialPrizeModel" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TransactionRequestModel" : {
+      "type" : "object",
+      "required" : [ "channel", "id", "playerId", "refId", "type" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "playerId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "channel" : {
+          "$ref" : "#/definitions/ChannelModel"
+        },
+        "refId" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "transactionTime" : {
+          "type" : "string"
+        },
+        "wagerPlacedTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "wagerSettledTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "type" : {
+          "$ref" : "#/definitions/TransactionTypeModel"
+        }
+      }
+    },
+    "TransactionTypeModel" : {
+      "type" : "object",
+      "required" : [ "description", "type" ],
+      "properties" : {
+        "description" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3313 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "voucher-system"
+  },
+  "tags": [
+    {
+      "name": "Configuration Operations v1.0"
+    },
+    {
+      "name": "Anonymous Sessions Operations v1.0"
+    },
+    {
+      "name": "Terminal Operations v1.0"
+    },
+    {
+      "name": "Voucher Operations v1.0"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/configuration": {
+      "get": {
+        "tags": [
+          "Configuration Operations v1.0"
+        ],
+        "summary": "Get global session configuration",
+        "description": "",
+        "operationId": "getConfiguration",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionConfigurationDTO",
+              "originalRef": "AnonymousSessionConfigurationDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionConfigurationDTO",
+              "originalRef": "AnonymousSessionConfigurationDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/{sessionId}/action": {
+      "post": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Record action with session Id",
+        "description": "",
+        "operationId": "recordTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "trnsId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucherId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The list of action data",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AnonymousSessionTransactionDTO",
+                "originalRef": "AnonymousSessionTransactionDTO"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/extSessionId/{extSessionId}/action": {
+      "post": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Record action",
+        "description": "",
+        "operationId": "recordTransaction_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "extSessionId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "trnsId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The action data",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AnonymousSessionTransactionDTO",
+                "originalRef": "AnonymousSessionTransactionDTO"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/{sessionId}": {
+      "get": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Get session with session Id",
+        "description": "",
+        "operationId": "getSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Terminate session with session Id",
+        "description": "",
+        "operationId": "terminateSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/code/{code}/extStatus": {
+      "put": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Update external status for code",
+        "description": "",
+        "operationId": "updateExtStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/extSessionId/{extSessionId}": {
+      "get": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Get session with external session Id",
+        "description": "",
+        "operationId": "getSessionExternal",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "extSessionId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Start session with external session Id",
+        "description": "",
+        "operationId": "startSessionExternal",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "extSessionId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Terminate session with external session Id",
+        "description": "",
+        "operationId": "terminateSessionExternal",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "extSessionId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/transactions": {
+      "get": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Get transaction of the session using extSessionId",
+        "description": "",
+        "operationId": "findSessionTransactionsByStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive"
+            ]
+          },
+          {
+            "name": "extStatus",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "maximum": 1,
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 500,
+            "maximum": 500,
+            "minimum": 1
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc. Default is desc.",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: retailerId, creationDate.",
+            "required": false,
+            "type": "string",
+            "default": "creationDate"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions/code/{code}/transactions": {
+      "get": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Get transaction of the session using code",
+        "description": "",
+        "operationId": "findSessionTransactionByCode",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/anonymous-sessions": {
+      "post": {
+        "tags": [
+          "Anonymous Sessions Operations v1.0"
+        ],
+        "summary": "Start session with session Id",
+        "description": "",
+        "operationId": "startSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "terminalType",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/AnonymousSessionDTO",
+              "originalRef": "AnonymousSessionDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/{terminalId}": {
+      "get": {
+        "tags": [
+          "Terminal Operations v1.0"
+        ],
+        "summary": "Get terminal by id",
+        "description": "",
+        "operationId": "findById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "terminalId",
+            "in": "path",
+            "description": "The terminal id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TerminalDTO",
+              "originalRef": "TerminalDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TerminalDTO",
+              "originalRef": "TerminalDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/{terminalId}/removal": {
+      "put": {
+        "tags": [
+          "Terminal Operations v1.0"
+        ],
+        "summary": "Remove amount from terminal",
+        "description": "",
+        "operationId": "terminalRemoval",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "terminalId",
+            "in": "path",
+            "description": "The terminal id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The terminalUpdateRequest object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TerminalUpdateRequest",
+              "originalRef": "TerminalUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TerminalDTO",
+              "originalRef": "TerminalDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TerminalDTO",
+              "originalRef": "TerminalDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/{terminalId}/removal/rollback": {
+      "put": {
+        "tags": [
+          "Terminal Operations v1.0"
+        ],
+        "summary": "Undo Remove amount from terminal",
+        "description": "",
+        "operationId": "terminalRemovalRollback",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "terminalId",
+            "in": "path",
+            "description": "The terminal id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The terminalUpdateRequest object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TerminalUpdateRequest",
+              "originalRef": "TerminalUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TerminalDTO",
+              "originalRef": "TerminalDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TerminalDTO",
+              "originalRef": "TerminalDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/{voucherId}/redemption": {
+      "put": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Redeem a voucher.",
+        "description": "",
+        "operationId": "redeemVoucher",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "description": "The voucher id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "playerId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "transactionId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15001 | Action is allowed only at the retailer that created the voucher |\r\n| 15002 | Action not allowed, voucher is not active |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/{voucherId}/cashout": {
+      "put": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Cashout a voucher.",
+        "description": "",
+        "operationId": "cashoutVoucher",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "description": "The voucher id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15001 | Action is allowed only at the retailer that created the voucher |\r\n| 15002 | Action not allowed, voucher is not active |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/{voucherId}/cancellation": {
+      "put": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Cancel a voucher",
+        "description": "",
+        "operationId": "cancelVoucher",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "description": "The voucher id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15001 | Action is allowed only at the retailer that created the voucher |\r\n| 15002 | Action not allowed, voucher is not active |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/{voucherId}/reactivation": {
+      "put": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Administration endpoint to manually update status",
+        "description": "",
+        "operationId": "reactivateVoucher",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "description": "The voucher id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15001 | Action is allowed only at the retailer that created the voucher |\r\n| 15003 | Voucher is already active |\r\n| 15005 | Reactivation time limit exceeded",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/{voucherId}/rollback/{rollbackTransactionId}": {
+      "delete": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Administration endpoint to rollback last voucher's modification",
+        "description": "",
+        "operationId": "rollbackVoucher",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "description": "The voucher id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "rollbackTransactionId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15001 | Action is allowed only at the retailer that created the voucher |\r\n| 15004 | Rollback not allowed",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/playerid/{playerId}/paymentkey/{paymentKey}": {
+      "get": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Get voucher by playerId and paymentKey",
+        "description": "",
+        "operationId": "findVoucherByPlayerIdAndPaymentKey",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "paymentKey",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers": {
+      "get": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Get vouchers",
+        "description": "",
+        "operationId": "findVouchers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "normal",
+              "cashout",
+              "withdraw",
+              "deposit"
+            ]
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "active",
+              "canceled",
+              "redeemed",
+              "cashedout",
+              "deleted"
+            ]
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "createdFrom",
+            "in": "query",
+            "description": "Creation date from in UTC in milliseconds",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "createdTo",
+            "in": "query",
+            "description": "Creation date to in UTC in milliseconds",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "updatedFrom",
+            "in": "query",
+            "description": "Update date from in UTC in milliseconds",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "updatedTo",
+            "in": "query",
+            "description": "Update date to in UTC in milliseconds",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Results per page",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "maximum": 2000,
+            "minimum": 1
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order. Options: asc, desc. Default is desc.",
+            "required": false,
+            "type": "string",
+            "default": "desc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "description": "Sorting column. Options: retailerId, creationDate.",
+            "required": false,
+            "type": "string",
+            "default": "retailerId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/active/total-amount": {
+      "get": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Get the total amount of the unclaimed withdraw vouchers",
+        "description": "",
+        "operationId": "findUnclaimedVouchers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "normal",
+              "cashout",
+              "withdraw",
+              "deposit"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "number"
+            },
+            "responseSchema": {
+              "type": "number"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1.0/vouchers/{voucherId}": {
+      "get": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Get voucher by id",
+        "description": "",
+        "operationId": "findVoucherById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "description": "The voucher id",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "404": {
+            "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |\r\n| 15006 | At least one of creation or update dates must be filled |\r\n| 15007 | Invalid session id |\r\n| 15008 | Session is inactive |\r\n| 15009 | Session doesn't exist |\r\n| 15010 | Session has expired |\r\n| 15011 | Channel is required |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Voucher Operations v1.0"
+        ],
+        "summary": "Create a voucher",
+        "description": "",
+        "operationId": "registerVoucher",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "minimum": -1,
+            "format": "int64"
+          },
+          {
+            "name": "employeeId",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The voucher data",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/VoucherRegistrationRequest",
+              "originalRef": "VoucherRegistrationRequest"
+            }
+          },
+          {
+            "name": "voucherId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/VoucherDTO",
+              "originalRef": "VoucherDTO"
+            }
+          },
+          "400": {
+            "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+          },
+          "500": {
+            "description": "Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AnonymousSessionConfigurationDTO": {
+      "type": "object",
+      "properties": {
+        "sessionAmountLimit": {
+          "type": "number"
+        }
+      }
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "ActionSummary": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "createVoucher",
+            "redeemVoucher",
+            "cashoutVoucher",
+            "cancelVoucher",
+            "reactivateVoucher",
+            "placeBet",
+            "cancelBet",
+            "validate",
+            "deposit",
+            "undoDeposit",
+            "undoCreateVoucher",
+            "specialCancel",
+            "undoPlaceBet",
+            "undoValidate",
+            "undoCancelBet",
+            "payout",
+            "undoPayout",
+            "undoRedeemVoucher"
+          ]
+        },
+        "amount": {
+          "type": "number"
+        }
+      }
+    },
+    "AnonymousSessionDTO": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the session"
+        },
+        "extSessionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The external id of the session"
+        },
+        "balance": {
+          "type": "number",
+          "description": "The financial balance of the session"
+        },
+        "activationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The activation time of the session"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the session",
+          "enum": [
+            "active",
+            "inactive"
+          ]
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The retailer id"
+        },
+        "terminalId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The terminal id"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The code"
+        },
+        "extStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The external status"
+        },
+        "actionSummaries": {
+          "type": "array",
+          "description": "The list of action summmaries",
+          "items": {
+            "$ref": "#/definitions/ActionSummary",
+            "originalRef": "ActionSummary"
+          }
+        }
+      }
+    },
+    "AnonymousSessionTransactionDetailsDTO": {
+      "type": "object",
+      "properties": {
+        "voucher": {
+          "description": "The voucher object",
+          "$ref": "#/definitions/VoucherDTO",
+          "originalRef": "VoucherDTO"
+        },
+        "trnsId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the transaction"
+        },
+        "anonymousSession": {
+          "description": "The anonymous session object",
+          "$ref": "#/definitions/AnonymousSessionDTO",
+          "originalRef": "AnonymousSessionDTO"
+        }
+      }
+    },
+    "VoucherDTO": {
+      "type": "object",
+      "required": [
+        "amount",
+        "status",
+        "type",
+        "voucherId"
+      ],
+      "properties": {
+        "voucherId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The unique id of the voucher"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The retailer id"
+        },
+        "terminalId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The terminal id"
+        },
+        "employeeId": {
+          "type": "string",
+          "description": "The user id"
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The player id"
+        },
+        "paymentKey": {
+          "type": "string",
+          "description": "The bit8 payment key"
+        },
+        "lastUsedRetailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The last used retailer id"
+        },
+        "lastUsedTerminalId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The last used terminal id"
+        },
+        "lastUsedEmployeeId": {
+          "type": "string",
+          "description": "The last used employee id"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the voucher",
+          "enum": [
+            "normal",
+            "cashout",
+            "withdraw",
+            "deposit"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the voucher",
+          "enum": [
+            "active",
+            "canceled",
+            "redeemed",
+            "cashedout",
+            "deleted"
+          ]
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The voucher's creation date in milliseconds"
+        },
+        "updateDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The voucher's update date in milliseconds"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The voucher's expiration date in milliseconds"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "voucherHistory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VoucherHistoryDTO",
+            "originalRef": "VoucherHistoryDTO"
+          }
+        }
+      }
+    },
+    "VoucherHistoryDTO": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "trnsId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "terminalId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "canceled",
+            "redeemed",
+            "cashedout",
+            "deleted"
+          ]
+        },
+        "changeDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "AnonymousSessionTransactionDTO": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "The action",
+          "enum": [
+            "createVoucher",
+            "redeemVoucher",
+            "cashoutVoucher",
+            "cancelVoucher",
+            "reactivateVoucher",
+            "placeBet",
+            "cancelBet",
+            "validate",
+            "deposit",
+            "undoDeposit",
+            "undoCreateVoucher",
+            "specialCancel",
+            "undoPlaceBet",
+            "undoValidate",
+            "undoCancelBet",
+            "payout",
+            "undoPayout",
+            "undoRedeemVoucher"
+          ]
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of the action",
+          "minimum": 0.1,
+          "exclusiveMinimum": false
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The game id of the action"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the action"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the product"
+        },
+        "promotion": {
+          "type": "boolean"
+        },
+        "freePlay": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PageAnonymousSessionDTO": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnonymousSessionDTO",
+            "originalRef": "AnonymousSessionDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Pageable": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "unpaged": {
+          "type": "boolean"
+        },
+        "paged": {
+          "type": "boolean"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Sort": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean"
+        },
+        "unsorted": {
+          "type": "boolean"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TerminalDTO": {
+      "type": "object",
+      "properties": {
+        "terminalId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "balance": {
+          "type": "number"
+        }
+      }
+    },
+    "TerminalUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The amount",
+          "minimum": 0.1,
+          "exclusiveMinimum": false
+        }
+      }
+    },
+    "PageVoucherDTO": {
+      "type": "object",
+      "properties": {
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VoucherDTO",
+            "originalRef": "VoucherDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VoucherRegistrationRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "type"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The amount",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the voucher",
+          "enum": [
+            "normal",
+            "cashout",
+            "withdraw",
+            "deposit"
+          ]
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The playerId"
+        },
+        "paymentKey": {
+          "type": "string",
+          "description": "The bit8 payment key"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Metadata",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

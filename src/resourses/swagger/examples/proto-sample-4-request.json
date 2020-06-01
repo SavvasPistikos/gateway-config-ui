@@ -1,0 +1,68 @@
+{
+  "wager": {
+    "dbg": [
+      {
+        "gameId": 2101,
+        "multipliers": [1],
+        "participatingDraws": {
+          "drawOffsets": [3],
+          "multipleDraws": 3
+        },
+        "boards": [
+          {
+            "boardId": 1,
+            "betType": 1,
+            "panels": [
+              {
+                "requested": 0,
+                "selection": [
+                  1
+                ]
+              },
+              {
+                "requested": 0,
+                "selection": [
+                  2
+                ]
+              },
+              {
+                "requested": 0,
+                "selection": [
+                  3
+                ]
+              },
+              {
+                "requested": 0,
+                "selection": [
+                  4
+                ]
+              },
+              {
+                "requested": 0,
+                "selection": [
+                  5
+                ]
+              },
+              {
+                "requested": 0,
+                "selection": [
+                  6
+                ]
+              },
+              {
+                "requested": 0,
+                "selection": [
+                  7
+                ]
+              }
+            ],
+            "quickPick": true
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "trnsTime": "2018-10-03T12:19:48+03:00"
+  }
+}

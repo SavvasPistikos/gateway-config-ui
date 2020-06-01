@@ -1,0 +1,3361 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "puint"
+  },
+  "tags": [
+    {
+      "name": "Pulse Integrations -BCLC modification of retailer by external Systems"
+    },
+    {
+      "name": "Pulse Integrations - Core Accounting API"
+    },
+    {
+      "name": "Pulse Integrations - Core Document API"
+    },
+    {
+      "name": "Pulse Integrations - Core Export API"
+    },
+    {
+      "name": "Pulse Integrations - Core Retailer API"
+    },
+    {
+      "name": "Pulse Integrations - HL Logistics Integration API"
+    },
+    {
+      "name": "Pulse Integrations - CR Retailer API"
+    },
+    {
+      "name": "Pulse Integrations - LH Document API"
+    },
+    {
+      "name": "Pulse Integrations - OASIS API"
+    },
+    {
+      "name": "Instant Games - NLO File Management API"
+    },
+    {
+      "name": "Pulse Integrations - NLO Retailer API"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/pulse/bclc/retailer/{retailerId}": {
+      "put": {
+        "tags": [
+          "Pulse Integrations -BCLC modification of retailer by external Systems"
+        ],
+        "summary": "Insert or update the Profile of retailer",
+        "description": "",
+        "operationId": "upsertRetailerFromExternalSystem",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "description": "The retailer's id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "transaction guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10ModifyRetailerRequestDTO",
+              "originalRef": "L10ModifyRetailerRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/bclc/owner/{ownerId}": {
+      "put": {
+        "tags": [
+          "Pulse Integrations -BCLC modification of retailer by external Systems"
+        ],
+        "summary": "Insert or update the profile of the owner",
+        "description": "",
+        "operationId": "upsertOwnerFromExternalSystem",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ownerId",
+            "in": "path",
+            "description": "The ownerId's id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "transaction guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10ModifyOwnerRequestDTO",
+              "originalRef": "L10ModifyOwnerRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/accounting/periods": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Accounting API"
+        ],
+        "summary": "Retrieve list of account Periods",
+        "description": "",
+        "operationId": "getPeriods",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The operator's id.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Year of  Accounting Periods.",
+            "required": true,
+            "type": "integer",
+            "maximum": 9999,
+            "minimum": 1000,
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status of Accounting Periods.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "DEFINED",
+              "ISSUING_BALANCE_SHEETS",
+              "BALANCE_SHEETS_ISSUED",
+              "BALANCE_STATEMENTS_SETTLED",
+              "CREATING_BANK_FILES",
+              "BANK_FILES_CREATED",
+              "LOADING_REPLIES",
+              "BALANCE_REPLIES_LOADED"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": true,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": true,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/AccountingPeriodDto",
+                "originalRef": "AccountingPeriodDto"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AccountingPeriodDto",
+                "originalRef": "AccountingPeriodDto"
+              },
+              "uniqueItems": true
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/accounting/period": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Accounting API"
+        ],
+        "summary": "Retrieve Account Period By Id",
+        "description": "",
+        "operationId": "getPeriod",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The operator's id.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Year of  Accounting Periods.",
+            "required": true,
+            "type": "integer",
+            "maximum": 9999,
+            "minimum": 1000,
+            "format": "int32"
+          },
+          {
+            "name": "accountingCode",
+            "in": "query",
+            "description": "Accounting Period Code.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/AccountingPeriodDto",
+                "originalRef": "AccountingPeriodDto"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AccountingPeriodDto",
+                "originalRef": "AccountingPeriodDto"
+              },
+              "uniqueItems": true
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/document/{id}": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Document API"
+        ],
+        "summary": "Retrieve a single document information",
+        "description": "Retrieve a single document information",
+        "operationId": "findDocument",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The document id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/DocumentFile",
+              "originalRef": "DocumentFile"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/DocumentFile",
+              "originalRef": "DocumentFile"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pulse Integrations - Core Document API"
+        ],
+        "summary": "Deletes a single document",
+        "description": "Retrieve a single document",
+        "operationId": "deleteDocument",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The document id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "boolean"
+            },
+            "responseSchema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/document": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Document API"
+        ],
+        "summary": "Retrieve a page of all created documents",
+        "description": "Retrieve a page of all public created documents uploaded via Pulse UI",
+        "operationId": "findDocuments",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "createdFrom",
+            "in": "query",
+            "description": "The inserted creation date",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "createdTo",
+            "in": "query",
+            "description": "The inserted end creation date",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The user name who created the file",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "documentExtension",
+            "in": "query",
+            "description": "The document extension",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/DocumentFilePage",
+              "originalRef": "DocumentFilePage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/DocumentFilePage",
+              "originalRef": "DocumentFilePage"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/export/retailer": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Export API"
+        ],
+        "summary": "Retrieve retailers' export",
+        "description": "",
+        "operationId": "createRetailerAggregationFile",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The operator's id.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "description": "The starting date",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "description": "The ending date",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/export/draw": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Export API"
+        ],
+        "summary": "Retrieve draws' export",
+        "description": "",
+        "operationId": "createDrawsAggregationFile",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The operator's id.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "description": "The starting date",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "description": "The ending date",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/retailer/all": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - Core Retailer API"
+        ],
+        "summary": "Retrieve list of retailers",
+        "description": "",
+        "operationId": "getRetailers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The operator's id.",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status of Retailers.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "INACTIVE",
+              "ACTIVE",
+              "PENDINGACTIVE",
+              "CANCELLED"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/AccountingPeriodDto",
+                "originalRef": "AccountingPeriodDto"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AccountingPeriodDto",
+                "originalRef": "AccountingPeriodDto"
+              },
+              "uniqueItems": true
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/cancel-order": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Cancels the order of Consumables or Instants and pushes it to HL Logistics",
+        "description": "This API call cancels the order of Consumables or Instants and pushes it to HL Logistics",
+        "operationId": "cancelOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/confirm-transfer-from-regional-office": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Confirmation about Transfer from Regional Office of Consumables or Instants and pushes it to HL Logistics",
+        "description": "This API call triggers the confirmation about Transfer from Regional Office of Consumables or Instants and pushes it to HL Logistics",
+        "operationId": "confirmTransferReceipt",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10ConfirmTransferFromRegionalOfficeRequestDTO",
+              "originalRef": "L10ConfirmTransferFromRegionalOfficeRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/confirm-shipment-receipt": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Confirmation about shipment receipt of Consumables or Instants and pushes it to HL Logistics",
+        "description": "This API call triggers the confirmation about shipment receipt of Consumables or Instants and pushes it to HL Logistics",
+        "operationId": "confirmTransferReceipt_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10ConfirmShipmentReceiptRequestDTO",
+              "originalRef": "L10ConfirmShipmentReceiptRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CancelOrderRequestDTO",
+              "originalRef": "L10CancelOrderRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/consumables/create-order": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Creates the order of Consumables and pushes it to HL Logistics",
+        "description": "This API call creates the order of Consumables and pushes it to HL Logistics",
+        "operationId": "createConsumablesOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Receives Consumable Orders",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/retailer/{retailerId}/parameters": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - CR Retailer API"
+        ],
+        "summary": "Gets Retailer Parameterized values for specific retailer",
+        "description": "This API call gets Retailer Parameterized values for specific retailer",
+        "operationId": "searchRetailerGeneralParameters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "description": "retailerId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RetailerParametersResponseDto",
+              "originalRef": "RetailerParametersResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerParametersResponseDto",
+              "originalRef": "RetailerParametersResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pulse Integrations - CR Retailer API"
+        ],
+        "summary": "Updates Retailer Parameterized values for specific retailer",
+        "description": "This API call updates Retailer Parameterized values for specific retailer",
+        "operationId": "updateRetailerParameters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "description": "retailerId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/RetailerParametersUpdateRequestDto",
+              "originalRef": "RetailerParametersUpdateRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RetailerParametersResponseDto",
+              "originalRef": "RetailerParametersResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerParametersResponseDto",
+              "originalRef": "RetailerParametersResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Pulse Integrations - CR Retailer API"
+        ],
+        "summary": "Deletes Retailer Parameterized values for specific retailer",
+        "description": "This API call deletes Retailer Parameterized values for specific retailer",
+        "operationId": "deleteRetailerGeneralParameters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "description": "retailerId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/retailer/parameters": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - CR Retailer API"
+        ],
+        "summary": "Creates Retailer Parameterized values for specific retailer",
+        "description": "This API call creates Retailer Parameterized values for specific retailer",
+        "operationId": "createRetailerParameters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/RetailerParametersCreateRequestDto",
+              "originalRef": "RetailerParametersCreateRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RetailerParametersResponseDto",
+              "originalRef": "RetailerParametersResponseDto"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerParametersResponseDto",
+              "originalRef": "RetailerParametersResponseDto"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/cancel-inventory-adjustment": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Cancels Inventory Adjustment and pushes it to HL Logistics",
+        "description": "This API call cancels inventory adjustment and pushes it to HL Logistics",
+        "operationId": "cancelInventoryAdjustment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Cancel Inventory Adjustment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/L10CancelInventoryAdjustmentRequestDTO",
+              "originalRef": "L10CancelInventoryAdjustmentRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CancelInventoryAdjustmentRequestDTO",
+              "originalRef": "L10CancelInventoryAdjustmentRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CancelInventoryAdjustmentRequestDTO",
+              "originalRef": "L10CancelInventoryAdjustmentRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/cancel-transfer-to-regional-office": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Cancellation of Transfer from Regional Office of Instants and pushes it to HL Logistics",
+        "description": "This API call triggers the cancellation of Transfer from Regional Office of Instants and pushes it to HL Logistics",
+        "operationId": "cancelTransferToRegionalOfficeReceipt",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10CancelTransferToRegionalOfficeRequestDTO",
+              "originalRef": "L10CancelTransferToRegionalOfficeRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CancelTransferToRegionalOfficeRequestDTO",
+              "originalRef": "L10CancelTransferToRegionalOfficeRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CancelTransferToRegionalOfficeRequestDTO",
+              "originalRef": "L10CancelTransferToRegionalOfficeRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/create-inventory-adjustment": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Creates Inventory Adjustment and pushes it to HL Logistics",
+        "description": "This API call creates inventory adjustment and pushes it to HL Logistics",
+        "operationId": "createInventoryAdjustment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Creates Inventory Adjustment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/L10CreateInventoryAdjustmentRequestDTO",
+              "originalRef": "L10CreateInventoryAdjustmentRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/create-order": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Creates the order of Instants and pushes it to HL Logistics",
+        "description": "This API call creates the order of Instants and pushes it to HL Logistics",
+        "operationId": "createOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10InstantsOrderDTO",
+              "originalRef": "L10InstantsOrderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10InstantsOrderDTO",
+              "originalRef": "L10InstantsOrderDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10InstantsOrderDTO",
+              "originalRef": "L10InstantsOrderDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/cancel-return-notification": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Cancels Return Notification and pushes it to HL Logistics",
+        "description": "This API call cancels return notification and pushes it to HL Logistics",
+        "operationId": "cancelReturnNotification",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Return Notification",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/L10InstantsCancelReturnNotificationRequestDTO",
+              "originalRef": "L10InstantsCancelReturnNotificationRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10InstantsCancelReturnNotificationRequestDTO",
+              "originalRef": "L10InstantsCancelReturnNotificationRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10InstantsCancelReturnNotificationRequestDTO",
+              "originalRef": "L10InstantsCancelReturnNotificationRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/create-return-notification": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Creates Return Notification and pushes it to HL Logistics",
+        "description": "This API call creates return notification and pushes it to HL Logistics",
+        "operationId": "cancelReturnNotification_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Return Notification",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/L10CreateReturnNotificationDTO",
+              "originalRef": "L10CreateReturnNotificationDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10ConsumableOrderDTO",
+              "originalRef": "L10ConsumableOrderDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/create-transfer-to-regional-office": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Creation of Transfer from Regional Office of Instants and pushes it to HL Logistics",
+        "description": "This API call triggers the creation of Transfer from Regional Office of Instants and pushes it to HL Logistics",
+        "operationId": "createTransferToRegionalOffice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10CreateTransferToRegionalOfficeRequestDTO",
+              "originalRef": "L10CreateTransferToRegionalOfficeRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CreateTransferToRegionalOfficeRequestDTO",
+              "originalRef": "L10CreateTransferToRegionalOfficeRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CreateTransferToRegionalOfficeRequestDTO",
+              "originalRef": "L10CreateTransferToRegionalOfficeRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/instants/create-transfer-between-employees": {
+      "post": {
+        "tags": [
+          "Pulse Integrations - HL Logistics Integration API"
+        ],
+        "summary": "Creation of Transfer of Instants between employees and pushes it to HL Logistics",
+        "description": "This API call triggers the creation of Transfer of Instants between employees and pushes it to HL Logistics",
+        "operationId": "createTransferBetweenEmployees",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/L10CreateTransferBetweenEmployeesRequestDTO",
+              "originalRef": "L10CreateTransferBetweenEmployeesRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/L10CreateTransferBetweenEmployeesRequestDTO",
+              "originalRef": "L10CreateTransferBetweenEmployeesRequestDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10CreateTransferBetweenEmployeesRequestDTO",
+              "originalRef": "L10CreateTransferBetweenEmployeesRequestDTO"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/document/retailer/{retailerId}": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - LH Document API"
+        ],
+        "summary": "Lists files for specific retailer from Navision",
+        "description": "This API call lists files for specific retailer from Navision",
+        "operationId": "listDirectoryContentsForRetailerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "description": "The retailer's id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "directory",
+            "in": "query",
+            "description": "Directory",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NavisionDocumentFile",
+                "originalRef": "NavisionDocumentFile"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NavisionDocumentFile",
+                "originalRef": "NavisionDocumentFile"
+              }
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/oasis/owner": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - OASIS API"
+        ],
+        "summary": "Check employees' status at OASIS",
+        "description": "",
+        "operationId": "triggerOasisOwnerLockFlow",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/oasis/employee": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - OASIS API"
+        ],
+        "summary": "Check employees' status at OASIS",
+        "description": "",
+        "operationId": "triggerOasisEmployeesLockFlow",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoVoid",
+              "originalRef": "MonoVoid"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/nlo/rmf": {
+      "post": {
+        "tags": [
+          "Instant Games - NLO File Management API"
+        ],
+        "summary": "Create and Upload RMF files to SG",
+        "description": "Create and Upload RMF files to SG",
+        "operationId": "createAndUploadInterface",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/nlo/chainhead/{chainHeadFileType}": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - NLO Retailer API"
+        ],
+        "summary": "Get chain head Retailers",
+        "description": "Get chain head Retailers",
+        "operationId": "getChainHeadList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date",
+            "required": true,
+            "type": "string",
+            "x-example": "19012020"
+          },
+          {
+            "name": "chainHeadFileType",
+            "in": "path",
+            "description": "ChainHead File Type",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "INVOIC",
+              "DESADV",
+              "RETURNS"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PulseChainHeadInfo",
+                "originalRef": "PulseChainHeadInfo"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PulseChainHeadInfo",
+                "originalRef": "PulseChainHeadInfo"
+              }
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/pulse/nlo/chainhead/list/{chainHeadCode}": {
+      "get": {
+        "tags": [
+          "Pulse Integrations - NLO Retailer API"
+        ],
+        "summary": "Get retailers under chain head",
+        "description": "Get retailers under chain head",
+        "operationId": "getRetailersUnderChainHead",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "chainHeadCode",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PulseChainHeadRetInfo",
+              "originalRef": "PulseChainHeadRetInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PulseChainHeadRetInfo",
+              "originalRef": "PulseChainHeadRetInfo"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoVoid": {
+      "type": "object"
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "L10ModifyRetailerHourModelDTO": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "L10ModifyRetailerRequestDTO": {
+      "type": "object",
+      "required": [
+        "name",
+        "retailerOutletType",
+        "transactionStatus"
+      ],
+      "properties": {
+        "taxNumber": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "retailerOutletType": {
+          "type": "string",
+          "example": "Head",
+          "description": "The retailer id",
+          "enum": [
+            "Head",
+            "Branch",
+            "Independent"
+          ]
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "Agency",
+            "CentralAgency",
+            "Cashier",
+            "CentralCashier",
+            "RegionalOffices",
+            "CentralOffices"
+          ]
+        },
+        "transactionStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product Type (0->Consumables, 1->Instants, 2->VAS)",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Business Name",
+          "minLength": 0,
+          "maxLength": 100
+        },
+        "alias": {
+          "type": "string",
+          "description": "8 Digit Code",
+          "minLength": 0,
+          "maxLength": 33
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer Type",
+          "enum": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            12,
+            13,
+            99,
+            100,
+            200,
+            300,
+            400,
+            500
+          ]
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer status (nactive (0) Active (1) Pending active (2))",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "headRetailerId": {
+          "type": "integer",
+          "format": "int32",
+          "example": "101010 (required if Outlet Type is Branch)",
+          "description": "The head retailer id"
+        },
+        "operationalHours": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10ModifyRetailerHourModelDTO",
+            "originalRef": "L10ModifyRetailerHourModelDTO"
+          }
+        },
+        "city": {
+          "type": "string",
+          "description": "City name"
+        },
+        "callFrequency": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Call Frequency",
+          "enum": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      }
+    },
+    "L10ModifyOwnerRequestDTO": {
+      "type": "object",
+      "required": [
+        "email",
+        "lastName",
+        "name",
+        "phoneNumber",
+        "type",
+        "username"
+      ],
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Owner Type",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            7
+          ]
+        },
+        "name": {
+          "type": "string",
+          "description": "Owner Name",
+          "minLength": 0,
+          "maxLength": 64
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Owner Lastname",
+          "minLength": 0,
+          "maxLength": 64
+        },
+        "username": {
+          "type": "string",
+          "description": "Username",
+          "minLength": 0,
+          "maxLength": 64
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Mobile Phone Number",
+          "minLength": 0,
+          "maxLength": 64
+        },
+        "email": {
+          "type": "string",
+          "description": "Email Address",
+          "minLength": 0,
+          "maxLength": 64
+        }
+      }
+    },
+    "AccountingPeriodDto": {
+      "type": "object",
+      "required": [
+        "accountingPeriodCd",
+        "endDate",
+        "startDate",
+        "status",
+        "statusCd",
+        "year"
+      ],
+      "properties": {
+        "accountingPeriodCd": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Accounting Period Code"
+        },
+        "year": {
+          "type": "integer",
+          "format": "int32",
+          "description": "year"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start Date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End Date"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Status"
+        },
+        "statusCd": {
+          "type": "string",
+          "description": "status code"
+        }
+      }
+    },
+    "DocumentFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "username": {
+          "type": "string"
+        },
+        "documentTitle": {
+          "type": "string"
+        },
+        "documentFileName": {
+          "type": "string"
+        },
+        "documentExtension": {
+          "type": "string"
+        },
+        "documentPath": {
+          "type": "string"
+        }
+      }
+    },
+    "DocumentFilePage": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentFile",
+            "originalRef": "DocumentFile"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "previousPage": {
+          "type": "boolean"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "nextPage": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Sort": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean"
+        },
+        "unsorted": {
+          "type": "boolean"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GameDto": {
+      "type": "object",
+      "properties": {
+        "gmCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lotCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gmVar": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "descr": {
+          "type": "string"
+        },
+        "gmFamily": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "activated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gmFamilyDescr": {
+          "type": "string"
+        },
+        "productVertical": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "OwnerDto": {
+      "type": "object",
+      "properties": {
+        "ownerCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ownerTypeCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ownerTypeDescription": {
+          "type": "string"
+        }
+      }
+    },
+    "RetHieDto": {
+      "type": "object",
+      "properties": {
+        "hierarchCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parentRetailerCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "RetLimitsDto": {
+      "type": "object",
+      "properties": {
+        "amn": {
+          "type": "number",
+          "format": "double"
+        },
+        "debitAmn": {
+          "type": "number",
+          "format": "double"
+        },
+        "tempCreditAmn": {
+          "type": "number",
+          "format": "double"
+        },
+        "extraCreditAmn": {
+          "type": "number",
+          "format": "double"
+        },
+        "creditLimit": {
+          "type": "number",
+          "format": "double"
+        },
+        "debitLimit": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "RetailerDto": {
+      "type": "object",
+      "properties": {
+        "retCd": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "retCdInternal": {
+          "type": "number",
+          "format": "double"
+        },
+        "payLvlCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "payLvldcr": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "retStsCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retStsName": {
+          "type": "string"
+        },
+        "blockSts": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tmZone": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retTp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dsc": {
+          "type": "string"
+        },
+        "ahPhone": {
+          "type": "string"
+        },
+        "bhPhone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "address1": {
+          "type": "string"
+        },
+        "addressNumber": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "address3": {
+          "type": "string"
+        },
+        "address4": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "routeCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactFromTm": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "contactToTm": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "operLicDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "operStartDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "suspendStartDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "suspendEndDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "operEndDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deletionDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "crdLimAmn": {
+          "type": "number",
+          "format": "double"
+        },
+        "crdLimFlg": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dbtLimAmn": {
+          "type": "number",
+          "format": "double"
+        },
+        "dbtLimFlg": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "blockUnsettledLim": {
+          "type": "number",
+          "format": "double"
+        },
+        "blockUnsettledFlg": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "blockNotPrintedBalShFlg": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "licenseNo": {
+          "type": "string"
+        },
+        "taxNbr": {
+          "type": "string"
+        },
+        "taxOrg": {
+          "type": "string"
+        },
+        "retCallCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retGamesCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reportRetCd": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "commercialChannelCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "commercialStatusCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "latX": {
+          "type": "string"
+        },
+        "guaranteeAmn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retSalesChannelCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "propertyLength": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "propertyWidth": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "propertyExitStreet": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "propertyExitPassage": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "propertyType": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "socialSecurity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "bonus": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lng": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "creationDt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "stakeFactor": {
+          "type": "number",
+          "format": "double"
+        },
+        "liabilityFactor": {
+          "type": "number",
+          "format": "double"
+        },
+        "retExecutivePri": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retExecutiveSec": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "telesalesCallDayId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "telesalesRepresentativeId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "weekNumberId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "finResponsible": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "monitorSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "serviceFee": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "telesalesPhone": {
+          "type": "string"
+        },
+        "serviceFeeAmn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "locationId": {
+          "type": "string"
+        },
+        "printBalSts": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isOfflineRetailer": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "elctrMessgae": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "elctrInvoice": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "games": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GameDto",
+            "originalRef": "GameDto"
+          }
+        },
+        "limits": {
+          "$ref": "#/definitions/RetLimitsDto",
+          "originalRef": "RetLimitsDto"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserDto",
+            "originalRef": "UserDto"
+          }
+        },
+        "retHie": {
+          "$ref": "#/definitions/RetHieDto",
+          "originalRef": "RetHieDto"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OwnerDto",
+            "originalRef": "OwnerDto"
+          }
+        },
+        "terminals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TerminalDto",
+            "originalRef": "TerminalDto"
+          }
+        },
+        "longY": {
+          "type": "string"
+        }
+      }
+    },
+    "TerminalDto": {
+      "type": "object",
+      "properties": {
+        "terminalCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "terminalSequence": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "statusDescription": {
+          "type": "string"
+        },
+        "typeCode": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "UserDto": {
+      "type": "object",
+      "properties": {
+        "userCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userTypeCd": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "MonoL10CancelOrderRequestDTO": {
+      "type": "object"
+    },
+    "L10CancelOrderRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateCanceled",
+        "employeeId",
+        "orderId",
+        "retailerId",
+        "type"
+      ],
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "orderId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product Type (0->Consumables, 1->Instants, 2->VAS)",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "dateCanceled": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MonoL10ConfirmTransferFromRegionalOfficeRequestDTO": {
+      "type": "object"
+    },
+    "L10ConfirmTransferFromRegionalOfficeRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateReceived",
+        "employeeId",
+        "retailerId",
+        "transferId",
+        "type"
+      ],
+      "properties": {
+        "transferId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "transferId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product Type (0->Consumables, 1->Instants, 2->VAS)",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "dateReceived": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MonoL10ConfirmShipmentReceiptRequestDTO": {
+      "type": "object"
+    },
+    "L10ConfirmShipmentReceiptRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateReceived",
+        "employeeId",
+        "retailerId",
+        "shipmentId",
+        "type"
+      ],
+      "properties": {
+        "shipmentId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "shipmentId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product Type (0->Consumables, 1->Instants, 2->VAS)",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "dateReceived": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MonoL10ConsumableOrderDTO": {
+      "type": "object"
+    },
+    "L10ConsumableDTO": {
+      "type": "object",
+      "required": [
+        "externalId",
+        "quantity"
+      ],
+      "properties": {
+        "externalId": {
+          "type": "string",
+          "example": "5",
+          "description": "externalId"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "quantity"
+        }
+      }
+    },
+    "L10ConsumableOrderDTO": {
+      "type": "object",
+      "required": [
+        "dateCreated",
+        "employeeId",
+        "orderId",
+        "retailerId"
+      ],
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "orderId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "5",
+          "description": "retailerId"
+        },
+        "employeeId": {
+          "type": "string",
+          "example": "5",
+          "description": "employeeId"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the order created"
+        },
+        "consumables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10ConsumableDTO",
+            "originalRef": "L10ConsumableDTO"
+          }
+        }
+      }
+    },
+    "RetailerParametersResponseDto": {
+      "type": "object",
+      "required": [
+        "checksum",
+        "externalPassword",
+        "externalTerminalId",
+        "retailerId"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The retailerId"
+        },
+        "externalTerminalId": {
+          "type": "string",
+          "description": "The external terminal id"
+        },
+        "externalPassword": {
+          "type": "string",
+          "description": "The external password"
+        },
+        "checksum": {
+          "type": "string",
+          "description": "The ckecksum"
+        }
+      }
+    },
+    "RetailerParametersCreateRequestDto": {
+      "type": "object",
+      "required": [
+        "checksum",
+        "externalPassword",
+        "externalTerminalId",
+        "retailerId"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The retailer"
+        },
+        "externalTerminalId": {
+          "type": "string",
+          "description": "The external terminal id"
+        },
+        "externalPassword": {
+          "type": "string",
+          "description": "The external password"
+        },
+        "checksum": {
+          "type": "string",
+          "description": "The ckecksum"
+        }
+      }
+    },
+    "RetailerParametersUpdateRequestDto": {
+      "type": "object",
+      "required": [
+        "checksum",
+        "externalPassword",
+        "externalTerminalId"
+      ],
+      "properties": {
+        "externalTerminalId": {
+          "type": "string",
+          "description": "The external terminal id"
+        },
+        "externalPassword": {
+          "type": "string",
+          "description": "The external password"
+        },
+        "checksum": {
+          "type": "string",
+          "description": "The checksum"
+        }
+      }
+    },
+    "MonoL10CancelInventoryAdjustmentRequestDTO": {
+      "type": "object"
+    },
+    "L10CancelInventoryAdjustmentRequestDTO": {
+      "type": "object",
+      "required": [
+        "adjustmentId",
+        "dateCanceled",
+        "employeeId",
+        "retailerId"
+      ],
+      "properties": {
+        "adjustmentId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "adjustmentId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "5",
+          "description": "retailerId"
+        },
+        "employeeId": {
+          "type": "string",
+          "example": "5",
+          "description": "employeeId"
+        },
+        "dateCanceled": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the order created"
+        }
+      }
+    },
+    "MonoL10CancelTransferToRegionalOfficeRequestDTO": {
+      "type": "object"
+    },
+    "L10CancelTransferToRegionalOfficeRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateCanceled",
+        "employeeId",
+        "regionId",
+        "retailerId",
+        "transferId"
+      ],
+      "properties": {
+        "transferId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "transferId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "regionId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 6,
+          "description": "The region id"
+        },
+        "dateCanceled": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MonoL10CreateInventoryAdjustmentRequestDTO": {
+      "type": "object"
+    },
+    "L10CreateInventoryAdjustmentRequestDTO": {
+      "type": "object",
+      "required": [
+        "adjustmentCashAmount",
+        "adjustmentId",
+        "dateCreated",
+        "employeeId",
+        "items",
+        "retailerId"
+      ],
+      "properties": {
+        "adjustmentId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "adjustmentId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10InstantsPackageItemDTO",
+            "originalRef": "L10InstantsPackageItemDTO"
+          }
+        },
+        "adjustmentCashAmount": {
+          "type": "number"
+        }
+      }
+    },
+    "L10InstantsPackageItemDTO": {
+      "type": "object",
+      "required": [
+        "externalId",
+        "quantity"
+      ],
+      "properties": {
+        "externalId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "The external Id"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "The quantity"
+        },
+        "unitsOfMeasure": {
+          "type": "string",
+          "example": "units",
+          "description": "The units of measure"
+        },
+        "salesPrice": {
+          "type": "number",
+          "example": 5,
+          "description": "The sales price"
+        }
+      }
+    },
+    "MonoL10InstantsOrderDTO": {
+      "type": "object"
+    },
+    "L10InstantsOrderDTO": {
+      "type": "object",
+      "required": [
+        "dateCreated",
+        "employeeId",
+        "orderId",
+        "retailerId"
+      ],
+      "properties": {
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "orderId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "5",
+          "description": "retailerId"
+        },
+        "employeeId": {
+          "type": "string",
+          "example": "5",
+          "description": "employeeId"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the order created"
+        },
+        "instants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10InstantsPackageItemDTO",
+            "originalRef": "L10InstantsPackageItemDTO"
+          }
+        }
+      }
+    },
+    "MonoL10InstantsCancelReturnNotificationRequestDTO": {
+      "type": "object"
+    },
+    "L10InstantsCancelReturnNotificationRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateCanceled",
+        "employeeId",
+        "notificationId",
+        "retailerId"
+      ],
+      "properties": {
+        "notificationId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "notificationId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "5",
+          "description": "retailerId"
+        },
+        "employeeId": {
+          "type": "string",
+          "example": "5",
+          "description": "employeeId"
+        },
+        "dateCanceled": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the order created"
+        }
+      }
+    },
+    "MonoL10CreateReturnNotificationDTO": {
+      "type": "object"
+    },
+    "L10CreateReturnNotificationDTO": {
+      "type": "object",
+      "required": [
+        "dateCreated",
+        "employeeId",
+        "items",
+        "regionId",
+        "retailerId",
+        "transferId"
+      ],
+      "properties": {
+        "transferId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "transferId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "regionId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 15,
+          "description": "The target region"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10InstantsPackageItemDTO",
+            "originalRef": "L10InstantsPackageItemDTO"
+          }
+        }
+      }
+    },
+    "MonoL10CreateTransferToRegionalOfficeRequestDTO": {
+      "type": "object"
+    },
+    "L10CreateTransferToRegionalOfficeRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateCreated",
+        "employeeId",
+        "items",
+        "regionId",
+        "retailerId",
+        "transferId"
+      ],
+      "properties": {
+        "transferId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "transferId"
+        },
+        "retailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The retailer id"
+        },
+        "employeeId": {
+          "type": "string"
+        },
+        "regionId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 15,
+          "description": "The target region"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10InstantsPackageItemDTO",
+            "originalRef": "L10InstantsPackageItemDTO"
+          }
+        }
+      }
+    },
+    "MonoL10CreateTransferBetweenEmployeesRequestDTO": {
+      "type": "object"
+    },
+    "L10CreateTransferBetweenEmployeesRequestDTO": {
+      "type": "object",
+      "required": [
+        "dateCreated",
+        "dateReceived",
+        "items",
+        "sourceEmployeeId",
+        "sourceRetailerId",
+        "targetEmployeeId",
+        "targetRetailerId",
+        "transferId"
+      ],
+      "properties": {
+        "transferId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 5,
+          "description": "transferId"
+        },
+        "sourceRetailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The source retailer id"
+        },
+        "sourceEmployeeId": {
+          "type": "string"
+        },
+        "targetRetailerId": {
+          "type": "string",
+          "example": "101010",
+          "description": "The target retailer id"
+        },
+        "targetEmployeeId": {
+          "type": "string"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateReceived": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L10InstantsPackageItemDTO",
+            "originalRef": "L10InstantsPackageItemDTO"
+          }
+        }
+      }
+    },
+    "NavisionDocumentFile": {
+      "type": "object",
+      "properties": {
+        "documentFileName": {
+          "type": "string"
+        },
+        "documentPath": {
+          "type": "string"
+        },
+        "isDirectory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PulseChainHeadInfo": {
+      "type": "object",
+      "properties": {
+        "retCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taxNumber": {
+          "type": "string"
+        },
+        "retGtin": {
+          "type": "string"
+        }
+      }
+    },
+    "PulseChainHeadRetInfo": {
+      "type": "object",
+      "properties": {
+        "deliveryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pulseRetUnderChainHeadInfoList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PulseRetUnderChainHeadInfo",
+            "originalRef": "PulseRetUnderChainHeadInfo"
+          }
+        }
+      }
+    },
+    "PulseRetUnderChainHeadInfo": {
+      "type": "object",
+      "properties": {
+        "retGtin": {
+          "type": "string"
+        },
+        "retCode": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

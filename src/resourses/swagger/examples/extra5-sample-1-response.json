@@ -1,0 +1,28 @@
+{
+  "wagerId" : 3,
+  "serialNumbers" : [ "24494735920117440512382779031131379" ],
+  "wager" : {
+    "dbg" : [ {
+      "boards" : [ {
+        "betType" : 1,
+        "boardId" : 1,
+        "multipliers" : [ 1 ],
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1, 2, 3, 4, 5 ]
+        } ],
+        "quickPick" : false
+      } ],
+      "columns" : 1,
+      "cost" : 0.5,
+      "gameId" : 5106,
+      "multipliers" : [ 1 ],
+      "participatingDraws" : {
+        "firstDraw" : 7241,
+        "firstDrawTime" : "1539259200",
+        "lastDraw" : 7241,
+        "lastDrawTime" : "1539259200"
+      }
+    } ]
+  }
+}

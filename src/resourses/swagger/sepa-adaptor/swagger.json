@@ -1,0 +1,315 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "sepa-adaptor"
+  },
+  "tags": [
+    {
+      "name": "Submit SEPA file input Service"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/submit/subscription_credit": {
+      "post": {
+        "tags": [
+          "Submit SEPA file input Service"
+        ],
+        "summary": "Create and Upload SEPA files for Subscription Credit",
+        "description": "",
+        "operationId": "submitSubscriptionCredit",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The submit request from Bit8",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitSepaRequestDto",
+              "originalRef": "SubmitSepaRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/submit/internet_debit": {
+      "post": {
+        "tags": [
+          "Submit SEPA file input Service"
+        ],
+        "summary": "Create and Upload SEPA files for Internet Debit",
+        "description": "",
+        "operationId": "submitInternetDebit",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The submit request from Bit8",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitSepaRequestDto",
+              "originalRef": "SubmitSepaRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/submit/subscription_debit": {
+      "post": {
+        "tags": [
+          "Submit SEPA file input Service"
+        ],
+        "summary": "Create and Upload SEPA files for Subscription Debit",
+        "description": "",
+        "operationId": "submitSubscriptionDebit",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The submit request from Bit8",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitSepaRequestDto",
+              "originalRef": "SubmitSepaRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/submit/card_customer": {
+      "post": {
+        "tags": [
+          "Submit SEPA file input Service"
+        ],
+        "summary": "Create and Upload SEPA files for Card Customer",
+        "description": "",
+        "operationId": "submitCardCustomer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The submit request from Bit8",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitSepaRequestDto",
+              "originalRef": "SubmitSepaRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/submit/internet_credit": {
+      "post": {
+        "tags": [
+          "Submit SEPA file input Service"
+        ],
+        "summary": "Create and Upload SEPA files for Internet Credit",
+        "description": "",
+        "operationId": "submitInternetCredit",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The submit request from Bit8",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitSepaRequestDto",
+              "originalRef": "SubmitSepaRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            },
+            "responseSchema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Runtime Fault",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "SubmitSepaRequestDto": {
+      "type": "object",
+      "required": [
+        "ftpPath"
+      ],
+      "properties": {
+        "ftpPath": {
+          "type": "string",
+          "example": "ftp-bit8-in/x.ZIP",
+          "description": "The file path in the FTP server"
+        }
+      },
+      "description": "The submit request from Bit8 for SEPA file creation"
+    }
+  }
+}

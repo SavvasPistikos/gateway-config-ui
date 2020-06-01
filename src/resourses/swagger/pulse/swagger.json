@@ -1,0 +1,3619 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "pulseservices"
+  },
+  "tags": [
+    {
+      "name": "Accounting Management - Services"
+    },
+    {
+      "name": "Employee Management - Services"
+    },
+    {
+      "name": "Handling Fee Management - Services"
+    },
+    {
+      "name": "Role based messaging services"
+    },
+    {
+      "name": "Pulse Services"
+    },
+    {
+      "name": "Accounting Terminal Reports"
+    },
+    {
+      "name": "Retailer Management - Services"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/financials/operator/{operatorId}/year/{year}/period/{periodId}/settlement": {
+      "post": {
+        "tags": [
+          "Accounting Management - Services"
+        ],
+        "operationId": "createBalance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "periodId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/financials/{operatorId}/processExternalBasket": {
+      "post": {
+        "tags": [
+          "Accounting Management - Services"
+        ],
+        "operationId": "undoBalance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/financials/operator/{operatorId}/year/{year}/period/{periodId}/undo-settlement": {
+      "post": {
+        "tags": [
+          "Accounting Management - Services"
+        ],
+        "operationId": "undoBalance_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "periodId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/financials/reset": {
+      "get": {
+        "tags": [
+          "Accounting Management - Services"
+        ],
+        "summary": "Reset retailers and employee limits at the end of the business day",
+        "description": "",
+        "operationId": "undoBalance_2",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/financials/operator/{operatorId}/year/{year}/period/{periodId}/balance": {
+      "post": {
+        "tags": [
+          "Accounting Management - Services"
+        ],
+        "operationId": "redoBalance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "periodId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoBoolean",
+              "originalRef": "MonoBoolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/employees": {
+      "get": {
+        "tags": [
+          "Employee Management - Services"
+        ],
+        "summary": "Retieve a page of Employees, with filternig criteria",
+        "description": "",
+        "operationId": "getRetailers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "1: Active , 2: Inactive",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageEmployee",
+              "originalRef": "PageEmployee"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageEmployee",
+              "originalRef": "PageEmployee"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/employees/{userName}": {
+      "get": {
+        "tags": [
+          "Employee Management - Services"
+        ],
+        "summary": "Retieve Employee by userName",
+        "description": "",
+        "operationId": "getEmployeeByUserName",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Employee",
+              "originalRef": "Employee"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Employee",
+              "originalRef": "Employee"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/employees/search": {
+      "get": {
+        "tags": [
+          "Employee Management - Services"
+        ],
+        "summary": "Retieve Employees, by searching with a provided keyword",
+        "description": "",
+        "operationId": "getRetailersBySearchToken",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/KeyValueIntegerString",
+                "originalRef": "KeyValueIntegerString"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/KeyValueIntegerString",
+                "originalRef": "KeyValueIntegerString"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/handling-fees/operator/{operatorId}/channel/{channelId}": {
+      "get": {
+        "tags": [
+          "Handling Fee Management - Services"
+        ],
+        "summary": "Retrieve Active Handling Fees Schemes",
+        "description": "",
+        "operationId": "getHandlingFees",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HandlingFeeGameIntervalView",
+                "originalRef": "HandlingFeeGameIntervalView"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HandlingFeeGameIntervalView",
+                "originalRef": "HandlingFeeGameIntervalView"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/handling-fees": {
+      "get": {
+        "tags": [
+          "Handling Fee Management - Services"
+        ],
+        "summary": "Retrieve Active Handling Fees Schemes",
+        "description": "",
+        "operationId": "getHandlingFees_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HandlingFeeGameIntervalView",
+                "originalRef": "HandlingFeeGameIntervalView"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HandlingFeeGameIntervalView",
+                "originalRef": "HandlingFeeGameIntervalView"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/handling-fees/operator/{operatorId}/channel/{channelId}/game/{gameId}": {
+      "get": {
+        "tags": [
+          "Handling Fee Management - Services"
+        ],
+        "summary": "Retrieve Active Handling Fees Schemes",
+        "description": "",
+        "operationId": "getHandlingFees_2",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "operatorId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/HandlingFeeView",
+              "originalRef": "HandlingFeeView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/HandlingFeeView",
+              "originalRef": "HandlingFeeView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/messages/attachment/{fileName}": {
+      "get": {
+        "tags": [
+          "Role based messaging services"
+        ],
+        "summary": "Get Message Attachment by filename",
+        "description": "",
+        "operationId": "getAttachment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fileName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MonoString",
+              "originalRef": "MonoString"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/MonoString",
+              "originalRef": "MonoString"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/messages/{id}/user/{userName}/status": {
+      "put": {
+        "tags": [
+          "Role based messaging services"
+        ],
+        "summary": "Set Message status as read ot unread for a given user",
+        "description": "",
+        "operationId": "setMessageStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "read",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1.0/messages/{id}/user/{userName}": {
+      "delete": {
+        "tags": [
+          "Role based messaging services"
+        ],
+        "summary": "Delete a Message by a given id",
+        "description": "",
+        "operationId": "deleteMessage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1.0/messages/user/{userName}": {
+      "get": {
+        "tags": [
+          "Role based messaging services"
+        ],
+        "summary": "Retrieve a page of role based, user messages",
+        "description": "",
+        "operationId": "findByUserName",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "subject",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "0: UnRead, 1: Read",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "description": "0: Low, 1: High",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "dtfrom",
+            "in": "query",
+            "description": "Created after date period",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "dtto",
+            "in": "query",
+            "description": "Created after date period",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "sortKey",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "date"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageRoleBasedMessageView",
+              "originalRef": "PageRoleBasedMessageView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageRoleBasedMessageView",
+              "originalRef": "PageRoleBasedMessageView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/segments": {
+      "get": {
+        "tags": [
+          "Pulse Services"
+        ],
+        "summary": "Retieve a page of Segments",
+        "description": "",
+        "operationId": "getSegments",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "1: Retailers, 2: Terminals, 3: Employees, 4:Owners",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "description"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageSegmentDTO",
+              "originalRef": "PageSegmentDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageSegmentDTO",
+              "originalRef": "PageSegmentDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/segments/{id}/retailers": {
+      "get": {
+        "tags": [
+          "Pulse Services"
+        ],
+        "summary": "Retieve a Segment Retailers",
+        "description": "",
+        "operationId": "getSegmentRetailers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/segments/entities/{id}/segments": {
+      "get": {
+        "tags": [
+          "Pulse Services"
+        ],
+        "summary": "Retieve a Segments of an Entity (1:Retailer, 2:Terminal, 3:Employee, 4:Owner)",
+        "description": "",
+        "operationId": "getSegmentsOfAnEntity",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/segments/snapshots": {
+      "get": {
+        "tags": [
+          "Pulse Services"
+        ],
+        "summary": "Retieve a page of Segment Snapshots",
+        "description": "",
+        "operationId": "getSegmentSnapshots",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "description"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageSegmentSnapshotDTO",
+              "originalRef": "PageSegmentSnapshotDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageSegmentSnapshotDTO",
+              "originalRef": "PageSegmentSnapshotDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/segments/snapshots/{id}/retailers": {
+      "get": {
+        "tags": [
+          "Pulse Services"
+        ],
+        "summary": "Retieve a Segment Snapshot Retailers",
+        "description": "",
+        "operationId": "getSegmentSnapshotRetailers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-reports/accounting-period-summary": {
+      "get": {
+        "tags": [
+          "Accounting Terminal Reports"
+        ],
+        "summary": "Summary Report",
+        "description": "",
+        "operationId": "getSummaryReportx",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "operatorId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "qRetailerId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "qTerminalId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "games",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "total",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "keyValue",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerSummaryReport",
+              "originalRef": "RetailerSummaryReport"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerSummaryReport",
+              "originalRef": "RetailerSummaryReport"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-reports/retailer-limits": {
+      "get": {
+        "tags": [
+          "Accounting Terminal Reports"
+        ],
+        "summary": "Summary Report",
+        "description": "",
+        "operationId": "getRetailerLimits",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "operatorId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerLimitsReport",
+              "originalRef": "RetailerLimitsReport"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerLimitsReport",
+              "originalRef": "RetailerLimitsReport"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-reports/date-range-summary": {
+      "get": {
+        "tags": [
+          "Accounting Terminal Reports"
+        ],
+        "summary": "Summary Report",
+        "description": "",
+        "operationId": "getDailyReport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "terminalId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "operatorId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "employee",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "qRetailerId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "qTerminalId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "games",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "description": "0: custom, 1: single day (offset), 2: current week",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "total",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "keyValue",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerSummaryReport",
+              "originalRef": "RetailerSummaryReport"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerSummaryReport",
+              "originalRef": "RetailerSummaryReport"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer by a given Id",
+        "description": "",
+        "operationId": "getRetailerId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerAllocation",
+              "originalRef": "RetailerAllocation"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerAllocation",
+              "originalRef": "RetailerAllocation"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve a page of Retailers, with allocation properties",
+        "description": "",
+        "operationId": "getRetailers_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pos",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "0: Inactive, 1: Active, 2: Pending, 3:Cancelled",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageRetailerAllocation",
+              "originalRef": "PageRetailerAllocation"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageRetailerAllocation",
+              "originalRef": "PageRetailerAllocation"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/games": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer Games",
+        "description": "",
+        "operationId": "getRetailerGames",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RetailerGameView",
+                "originalRef": "RetailerGameView"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RetailerGameView",
+                "originalRef": "RetailerGameView"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/rewards/{prizeId}": {
+      "put": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Reward Retailer Prize",
+        "description": "",
+        "operationId": "rewardPrize",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "prizeId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/incentives": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve a page of Retailer Incentives",
+        "description": "",
+        "operationId": "getRetailerIncentives",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "completed",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "description"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageRetailerIncentiveDTO",
+              "originalRef": "PageRetailerIncentiveDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageRetailerIncentiveDTO",
+              "originalRef": "PageRetailerIncentiveDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/loyalty/status": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retieve Retailer Loyalty Status",
+        "description": "",
+        "operationId": "getRetailerLoyaltyStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerLoyaltyStatus",
+              "originalRef": "RetailerLoyaltyStatus"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerLoyaltyStatus",
+              "originalRef": "RetailerLoyaltyStatus"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/rewards": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve a page of Retailer Rewards",
+        "description": "",
+        "operationId": "getRetailerRewards",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "prizeName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Page_RetailerReward",
+              "originalRef": "Page_RetailerReward"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Page_RetailerReward",
+              "originalRef": "Page_RetailerReward"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/operational-hours": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer Operational Hours",
+        "description": "",
+        "operationId": "getRetailerOperationalHours",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RetailerOperationalHourResponse",
+                "originalRef": "RetailerOperationalHourResponse"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RetailerOperationalHourResponse",
+                "originalRef": "RetailerOperationalHourResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/employees": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer's employees",
+        "description": "",
+        "operationId": "getRetailerEmployees",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Employee",
+                "originalRef": "Employee"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Employee",
+                "originalRef": "Employee"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/terminals": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer's Terminals",
+        "description": "",
+        "operationId": "getRetailerTerminals",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerTerminalView",
+              "originalRef": "RetailerTerminalView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerTerminalView",
+              "originalRef": "RetailerTerminalView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/employees/{username}": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer's employees",
+        "description": "",
+        "operationId": "getEmployeeByRetailerIdAndUserName",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Employee",
+              "originalRef": "Employee"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/Employee",
+              "originalRef": "Employee"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/operators": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer operators",
+        "description": "",
+        "operationId": "getRetailerOperators",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerOperatorsView",
+              "originalRef": "RetailerOperatorsView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerOperatorsView",
+              "originalRef": "RetailerOperatorsView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/operator/{id}": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailers by given operator, and provided keyword",
+        "description": "",
+        "operationId": "getRetailersByKeywordAndOperator",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/KeyValueIntegerString",
+                "originalRef": "KeyValueIntegerString"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/KeyValueIntegerString",
+                "originalRef": "KeyValueIntegerString"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/alias/{alias}": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer  by a given alias ",
+        "description": "",
+        "operationId": "getRetailerByAlias",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RetailerAliasView",
+              "originalRef": "RetailerAliasView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerAliasView",
+              "originalRef": "RetailerAliasView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/games/{gameId}/payment-level": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer Payment Level",
+        "description": "",
+        "operationId": "getRetailerPayLevel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "gameId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "vertical",
+            "in": "query",
+            "description": "1: Lottery, 2: Instant Games, 2: Betting, 3:Value Added Services",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "Operator",
+            "in": "header",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "csv"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RetailerPaymentLevelView",
+              "originalRef": "RetailerPaymentLevelView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerPaymentLevelView",
+              "originalRef": "RetailerPaymentLevelView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/payouts": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Retrieve Retailer's Payouts",
+        "description": "",
+        "operationId": "getRetailerPayLevel_1",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Operator",
+            "in": "header",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PayoutVerticalView",
+                "originalRef": "PayoutVerticalView"
+              }
+            },
+            "responseSchema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PayoutVerticalView",
+                "originalRef": "PayoutVerticalView"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/transaction-attibutes": {
+      "get": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Returns Retailer Transaction Attributes",
+        "description": "",
+        "operationId": "getRetailerTransactionAttributes",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RetailerTransactionView",
+              "originalRef": "RetailerTransactionView"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerTransactionView",
+              "originalRef": "RetailerTransactionView"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers/{id}/commission": {
+      "put": {
+        "tags": [
+          "Retailer Management - Services"
+        ],
+        "summary": "Returns Retailer Commission Scheme",
+        "description": "",
+        "operationId": "getRetailerCommissionScheme",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CommissionRequest",
+              "originalRef": "CommissionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommissionResponse",
+              "originalRef": "CommissionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CommissionResponse",
+              "originalRef": "CommissionResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoBoolean": {
+      "type": "object"
+    },
+    "Employee": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "fax": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "changePasswordFlag": {
+          "type": "number",
+          "format": "double"
+        },
+        "insertedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "password": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "card": {
+          "type": "string"
+        },
+        "cardType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cardStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "taxNumber": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PageEmployee": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Employee",
+            "originalRef": "Employee"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Pageable": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "unpaged": {
+          "type": "boolean"
+        },
+        "paged": {
+          "type": "boolean"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Sort": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean"
+        },
+        "unsorted": {
+          "type": "boolean"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "KeyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "object"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    },
+    "KeyValueIntegerString": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "HandlingFeeGameIntervalView": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "intervals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HandlingFeeIntervalView",
+            "originalRef": "HandlingFeeIntervalView"
+          }
+        },
+        "method": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "transactionAmount": {
+          "$ref": "#/definitions/HandlingFeeTransactionView",
+          "originalRef": "HandlingFeeTransactionView"
+        },
+        "games": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "HandlingFeeIntervalView": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fromAmount": {
+          "type": "number"
+        },
+        "toAmount": {
+          "type": "number"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "HandlingFeeTransactionView": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        }
+      }
+    },
+    "HandlingFeeView": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "intervals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HandlingFeeIntervalView",
+            "originalRef": "HandlingFeeIntervalView"
+          }
+        },
+        "method": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "transactionAmount": {
+          "$ref": "#/definitions/HandlingFeeTransactionView",
+          "originalRef": "HandlingFeeTransactionView"
+        }
+      }
+    },
+    "MonoString": {
+      "type": "object"
+    },
+    "PageRoleBasedMessageView": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleBasedMessageView",
+            "originalRef": "RoleBasedMessageView"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RoleBasedMessageView": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "sender": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "method": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PageSegmentDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SegmentDTO",
+            "originalRef": "SegmentDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SegmentDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "MonoListInteger": {
+      "type": "object"
+    },
+    "PageSegmentSnapshotDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SegmentSnapshotDTO",
+            "originalRef": "SegmentSnapshotDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SegmentSnapshotDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "RetailerSummaryReport": {
+      "type": "object",
+      "properties": {
+        "geterrorCode": {
+          "type": "string",
+          "enum": [
+            "UKNOWN_ERROR",
+            "SUCCESS",
+            "INVALID_EMPLOYEE",
+            "INVALID_RETAILER",
+            "INVALID_TERMINAL",
+            "INVALID_DATERANGE",
+            "ACC_BAL_NOT_ISSUED"
+          ]
+        },
+        "accPeriod": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fromDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "toDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "totals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetailerSummaryReportSection",
+            "originalRef": "RetailerSummaryReportSection"
+          }
+        },
+        "keyValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetailerSummaryReportSimpleValue",
+            "originalRef": "RetailerSummaryReportSimpleValue"
+          }
+        },
+        "balance": {
+          "$ref": "#/definitions/RetailerSummaryReportBalance",
+          "originalRef": "RetailerSummaryReportBalance"
+        }
+      }
+    },
+    "RetailerSummaryReportBalance": {
+      "type": "object",
+      "properties": {
+        "salesAmn": {
+          "type": "number"
+        },
+        "creditCheckNumber": {
+          "type": "string"
+        },
+        "previousPeriodTransferredAmn": {
+          "type": "number"
+        },
+        "roundedBalance": {
+          "type": "number"
+        },
+        "bankReplyDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "commissionsErp": {
+          "type": "number"
+        },
+        "commissionsPromo": {
+          "type": "number"
+        },
+        "debitNextBalance": {
+          "type": "number"
+        },
+        "epaymentCode": {
+          "type": "string"
+        }
+      }
+    },
+    "RetailerSummaryReportSection": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalAmounts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetailerSummaryReportSectionData",
+            "originalRef": "RetailerSummaryReportSectionData"
+          }
+        }
+      }
+    },
+    "RetailerSummaryReportSectionData": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "var": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amounts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "RetailerSummaryReportSimpleValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "RetailerLimitsReport": {
+      "type": "object",
+      "properties": {
+        "geterrorCode": {
+          "type": "string",
+          "enum": [
+            "UKNOWN_ERROR",
+            "SUCCESS",
+            "NOT_FOUND"
+          ]
+        },
+        "getlimits": {
+          "$ref": "#/definitions/RetailerLimitsReportLimits",
+          "originalRef": "RetailerLimitsReportLimits"
+        }
+      }
+    },
+    "RetailerLimitsReportLimits": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "debit": {
+          "type": "number"
+        },
+        "credit": {
+          "type": "number"
+        }
+      }
+    },
+    "RetailerAllocation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "statusDescription": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "addressNumber": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "municipality": {
+          "type": "string"
+        },
+        "area": {
+          "type": "string"
+        },
+        "community": {
+          "type": "string"
+        },
+        "town": {
+          "type": "string"
+        },
+        "longitude": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "string"
+        },
+        "retailerType": {
+          "type": "string"
+        },
+        "postalAddress": {
+          "type": "string"
+        },
+        "suburb": {
+          "type": "string"
+        },
+        "hierarchyCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isOffline": {
+          "type": "boolean"
+        },
+        "identification": {
+          "type": "string"
+        }
+      }
+    },
+    "PageRetailerAllocation": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetailerAllocation",
+            "originalRef": "RetailerAllocation"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RetailerGameView": {
+      "type": "object",
+      "properties": {
+        "gameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "operatorId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PageRetailerIncentiveDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetailerIncentiveDTO",
+            "originalRef": "RetailerIncentiveDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RetailerIncentiveDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "fromDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "toDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "games": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "currentPrize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "minGoal": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "maxGoal": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "prizeDescription": {
+          "type": "string"
+        },
+        "prizeValue": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RetailerLoyaltyStatus": {
+      "type": "object",
+      "properties": {
+        "totalPoints": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/_RetailerLoyaltyPoint",
+            "originalRef": "_RetailerLoyaltyPoint"
+          }
+        }
+      }
+    },
+    "_RetailerLoyaltyPoint": {
+      "type": "object",
+      "properties": {
+        "levelProgramId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "levelProgramRevisionId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "levelSegmentId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "segmentId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "series": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seriesPeriodMonths": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "activeStartPeriod": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "activeEndPeriod": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "totalPeriodPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "minPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "programName": {
+          "type": "string"
+        },
+        "levelStatus": {
+          "type": "string"
+        }
+      }
+    },
+    "Page_RetailerReward": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/_RetailerReward",
+            "originalRef": "_RetailerReward"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "_RetailerReward": {
+      "type": "object",
+      "properties": {
+        "prizeId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "levelProgramId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "levelSegmentId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prizeName": {
+          "type": "string"
+        },
+        "prizeDescription": {
+          "type": "string"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RetailerOperationalHourDTO": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "RetailerOperationalHourResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "day": {
+          "type": "string"
+        },
+        "hours": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetailerOperationalHourDTO",
+            "originalRef": "RetailerOperationalHourDTO"
+          }
+        }
+      }
+    },
+    "RetailerTerminalView": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "terminals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TerminalView",
+            "originalRef": "TerminalView"
+          }
+        }
+      }
+    },
+    "TerminalView": {
+      "type": "object",
+      "properties": {
+        "terminalId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sequence": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RetailerOperatorsView": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "RetailerAliasView": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "alias": {
+          "type": "string"
+        }
+      }
+    },
+    "MonoRetailerPaymentLevelView": {
+      "type": "object"
+    },
+    "PayoutLevelView": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "example": "0: Cash,1: Bank ,2: Player, 3: Cash Claim"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "vertical": {
+          "type": "integer",
+          "format": "int32",
+          "example": "1: Lottery,2: Instants,3: Betting, 4: Vas(Value Added Services)"
+        }
+      }
+    },
+    "RetailerPaymentLevelView": {
+      "type": "object",
+      "properties": {
+        "paymentLevel": {
+          "type": "integer",
+          "format": "int32",
+          "example": "1:Agency, 2:CentralAgency, 3:Cashier, 4:CentralCashier ,5:Regional ,6:Cenrtal"
+        },
+        "operatorId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "payouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PayoutLevelView",
+            "originalRef": "PayoutLevelView"
+          }
+        }
+      }
+    },
+    "MonoListPayoutVerticalView": {
+      "type": "object"
+    },
+    "PayoutVerticalView": {
+      "type": "object",
+      "properties": {
+        "vertical": {
+          "type": "integer",
+          "format": "int32",
+          "example": "1: Lottery,2: Instants,3: Betting, 4: Vas(Value Added Services)"
+        },
+        "verticalPayouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PayoutLevelView",
+            "originalRef": "PayoutLevelView"
+          }
+        }
+      }
+    },
+    "MonoRetailerTransactionView": {
+      "type": "object"
+    },
+    "RetailerTransactionView": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "transactionStatuses": {
+          "type": "array",
+          "example": "0:Unblock, 1:Block Sales,2:Block All, 3:Block Validations",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "MonoCommissionResponse": {
+      "type": "object"
+    },
+    "CommissionResponse": {
+      "type": "object",
+      "properties": {
+        "commissionId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fromAmn": {
+          "type": "number"
+        },
+        "toAmn": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string",
+          "example": "1: Amount,2: Percentage",
+          "enum": [
+            "NA",
+            "AMOUNT",
+            "PERCENTAGE"
+          ]
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "CommissionRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "channelId",
+        "date",
+        "gameId",
+        "gameVariationId",
+        "operatorId",
+        "type"
+      ],
+      "properties": {
+        "operatorId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gameVariationId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "channelId": {
+          "type": "integer",
+          "format": "int32",
+          "example": "2: Terminal"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "example": "1: Play,3: Validations , 4:Cancellation, 6:Manual Cancel, 7:Undo Manual Cancel , 19;Special Cancel"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

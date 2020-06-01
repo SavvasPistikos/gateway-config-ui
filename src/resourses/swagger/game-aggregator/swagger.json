@@ -1,0 +1,1591 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "Game Aggregator"
+  },
+  "tags": [
+    {
+      "name": "Games"
+    },
+    {
+      "name": "Sessions"
+    },
+    {
+      "name": "Terminals"
+    },
+    {
+      "name": "Transactions"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/games/url/translation": {
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "It is used to translate launch URL to remote launch URL.",
+        "description": "",
+        "operationId": "translateGameLaunchURL",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "launchURL",
+            "in": "header",
+            "description": "The game launch URL",
+            "required": true,
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GameLaunchURLResponse",
+              "originalRef": "GameLaunchURLResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/GameLaunchURLResponse",
+              "originalRef": "GameLaunchURLResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/games": {
+      "get": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "Retrieves list of games.",
+        "description": "",
+        "operationId": "getListOfGames",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "launchToken",
+            "in": "header",
+            "description": "The launch token value",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          },
+          {
+            "name": "clientId",
+            "in": "header",
+            "description": "The client id",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GameListResponse",
+              "originalRef": "GameListResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/GameListResponse",
+              "originalRef": "GameListResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Games"
+        ],
+        "summary": "It is used to register and update a list of games.",
+        "description": "",
+        "operationId": "registerListOfGames",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GameDTO",
+                "originalRef": "GameDTO"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sessions/{sessionId}/rounds/{roundId}": {
+      "delete": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "It is used to close a round.",
+        "description": "",
+        "operationId": "closeRound",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "header",
+            "description": "Hash value of the request",
+            "required": true,
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 64
+          },
+          {
+            "name": "roundId",
+            "in": "path",
+            "description": "The round Id",
+            "required": true,
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The session identifier",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sessions/{sessionId}": {
+      "get": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "It is used to get the session info.",
+        "description": "",
+        "operationId": "getSessionInfo",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The session identifier",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SessionInfo",
+              "originalRef": "SessionInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/SessionInfo",
+              "originalRef": "SessionInfo"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "It is used to close a game session.",
+        "description": "",
+        "operationId": "closeGameSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The session identifier",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CloseGameSessionResponse",
+              "originalRef": "CloseGameSessionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CloseGameSessionResponse",
+              "originalRef": "CloseGameSessionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/sessions": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "It is used to launch new game session.",
+        "description": "",
+        "operationId": "startGameSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GameSessionRequest",
+              "originalRef": "GameSessionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GameSessionResponse",
+              "originalRef": "GameSessionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/GameSessionResponse",
+              "originalRef": "GameSessionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/session": {
+      "post": {
+        "tags": [
+          "Terminals"
+        ],
+        "summary": "It is used to launch a terminal session.",
+        "description": "",
+        "operationId": "launchTerminalSession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Channel",
+            "in": "header",
+            "description": "The channel id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/LaunchTerminalSessionRequest",
+              "originalRef": "LaunchTerminalSessionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LaunchTerminalSessionResponse",
+              "originalRef": "LaunchTerminalSessionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/LaunchTerminalSessionResponse",
+              "originalRef": "LaunchTerminalSessionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transactions/{id}/sessions/{sessionId}": {
+      "delete": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "It is used to rollback a transaction",
+        "description": "",
+        "operationId": "rollbackTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The transaction Id",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "The session id",
+            "required": true,
+            "type": "string",
+            "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transactions/finalization": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "It is used to finalize a transaction",
+        "description": "",
+        "operationId": "finalizeTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/FinalizeTransactionRequest",
+              "originalRef": "FinalizeTransactionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transactions/credit": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "It is used to prepare a new credit transaction",
+        "description": "",
+        "operationId": "creditTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "header",
+            "description": "Hash value of the request",
+            "required": false,
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 64
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CreditRequest",
+              "originalRef": "CreditRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CreditTransactionResponse",
+              "originalRef": "CreditTransactionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CreditTransactionResponse",
+              "originalRef": "CreditTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transactions/refund": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "It is used to prepare a new refund transaction",
+        "description": "",
+        "operationId": "refundTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "header",
+            "description": "Hash value of the request",
+            "required": false,
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 64
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/RefundTransactionRequest",
+              "originalRef": "RefundTransactionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RefundTransactionResponse",
+              "originalRef": "RefundTransactionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RefundTransactionResponse",
+              "originalRef": "RefundTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transactions/debit": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "It is used to prepare a new debit transaction",
+        "description": "",
+        "operationId": "debitTransaction",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "header",
+            "description": "Hash value of the request",
+            "required": false,
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 64
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/DebitTransactionRequest",
+              "originalRef": "DebitTransactionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/DebitTransactionResponse",
+              "originalRef": "DebitTransactionResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/DebitTransactionResponse",
+              "originalRef": "DebitTransactionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GameLaunchURLResponse": {
+      "type": "object",
+      "properties": {
+        "launchURL": {
+          "type": "string",
+          "description": "Remote game launch URL"
+        }
+      }
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "GameDTO": {
+      "type": "object",
+      "required": [
+        "clientId",
+        "currency",
+        "description",
+        "enabled",
+        "id",
+        "launchURL",
+        "locale",
+        "mode",
+        "name",
+        "profileId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The client's unique game Id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Client id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "name": {
+          "type": "string",
+          "description": "Game name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Game description",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "mode": {
+          "type": "string",
+          "description": "Game profile mode (Demo, Normal)",
+          "enum": [
+            "NORMAL",
+            "DEMO"
+          ]
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter currency code (ISO4217 Alpha3 code)"
+        },
+        "locale": {
+          "type": "string",
+          "description": "The five-letter locale code (ISO-639, ISO-3166)"
+        },
+        "profileId": {
+          "type": "string",
+          "description": "The ID of the current game's profile",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "launchURL": {
+          "type": "string",
+          "description": "The Game's Launch URL",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Indicates if game profile is enabled"
+        },
+        "label": {
+          "type": "string",
+          "description": "Game label",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
+    },
+    "GameListResponse": {
+      "type": "object",
+      "properties": {
+        "games": {
+          "type": "array",
+          "description": "List of enabled games",
+          "items": {
+            "$ref": "#/definitions/GameDTO",
+            "originalRef": "GameDTO"
+          }
+        }
+      }
+    },
+    "PosInfoDTO": {
+      "type": "object",
+      "required": [
+        "password",
+        "retailerId",
+        "terminalId",
+        "userId"
+      ],
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "retailerId": {
+          "type": "string",
+          "description": "Retailer ID",
+          "minLength": 1,
+          "maxLength": 8
+        },
+        "terminalId": {
+          "type": "string",
+          "description": "Terminal ID",
+          "minLength": 1,
+          "maxLength": 8
+        },
+        "userId": {
+          "type": "string",
+          "description": "User ID",
+          "minLength": 1,
+          "maxLength": 8
+        }
+      }
+    },
+    "SessionInfo": {
+      "type": "object",
+      "properties": {
+        "posInfo": {
+          "description": "Pos info in case of terminal",
+          "$ref": "#/definitions/PosInfoDTO",
+          "originalRef": "PosInfoDTO"
+        },
+        "sessionToken": {
+          "type": "string",
+          "description": "Session token"
+        }
+      }
+    },
+    "CloseGameSessionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "The session id that was closed"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter currency code (ISO4217 Alpha3 code)"
+        }
+      }
+    },
+    "GameSessionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionInfo": {
+          "description": "Pos info in case of terminal",
+          "$ref": "#/definitions/SessionInfo",
+          "originalRef": "SessionInfo"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Represents the session identifier"
+        }
+      }
+    },
+    "GameSessionRequest": {
+      "type": "object",
+      "required": [
+        "currency",
+        "gameId",
+        "launchToken",
+        "locale",
+        "profileId"
+      ],
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "Client Id. If client id is present the game is started with remote game and profile.",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "gameId": {
+          "type": "string",
+          "description": "Represents the game identifier which is being launched",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "launchToken": {
+          "type": "string",
+          "description": "Represents the launch token",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter currency code (ISO4217 Alpha3 code)"
+        },
+        "locale": {
+          "type": "string",
+          "description": "The five-letter locale code (ISO-639, ISO-3166)"
+        },
+        "profileId": {
+          "type": "string",
+          "description": "Game profile Id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        }
+      }
+    },
+    "LaunchTerminalSessionResponse": {
+      "type": "object",
+      "properties": {
+        "launchToken": {
+          "type": "string",
+          "description": "Represents the launch token"
+        }
+      }
+    },
+    "LaunchTerminalSessionRequest": {
+      "type": "object",
+      "required": [
+        "launchSessionId",
+        "posInfo"
+      ],
+      "properties": {
+        "posInfo": {
+          "description": "Pos info",
+          "$ref": "#/definitions/PosInfoDTO",
+          "originalRef": "PosInfoDTO"
+        },
+        "launchSessionId": {
+          "type": "string",
+          "description": "Launch session Id",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "FinalizeTransactionRequest": {
+      "type": "object",
+      "required": [
+        "sessionId",
+        "transactions"
+      ],
+      "properties": {
+        "sessionInfo": {
+          "description": "The session details",
+          "$ref": "#/definitions/SessionInfo",
+          "originalRef": "SessionInfo"
+        },
+        "trnsStatus": {
+          "type": "string",
+          "description": "The transaction status(SUCCESS or FAIL)",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAIL"
+          ]
+        },
+        "transactions": {
+          "type": "array",
+          "description": "List of transactions to be finalized",
+          "items": {
+            "$ref": "#/definitions/TransactionDTO",
+            "originalRef": "TransactionDTO"
+          }
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Represents the session identifier",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        }
+      }
+    },
+    "TransactionDTO": {
+      "type": "object",
+      "required": [
+        "status",
+        "transactionId"
+      ],
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "The transaction id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "walletTransactionId": {
+          "type": "string",
+          "description": "Wallet transaction Id"
+        },
+        "closeRound": {
+          "type": "boolean",
+          "description": "Close round"
+        },
+        "status": {
+          "type": "string",
+          "description": "Transaction status",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAIL"
+          ]
+        },
+        "balance": {
+          "type": "number",
+          "description": "Balance",
+          "minimum": 0.01,
+          "exclusiveMinimum": false
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of transaction",
+          "minimum": 0.01,
+          "exclusiveMinimum": false
+        }
+      }
+    },
+    "CreditTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionInfo": {
+          "description": "The session details",
+          "$ref": "#/definitions/SessionInfo",
+          "originalRef": "SessionInfo"
+        },
+        "trnsStatus": {
+          "type": "string",
+          "description": "The transaction status(SUCCESS or FAIL)",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAIL"
+          ]
+        },
+        "debitAmount": {
+          "type": "number",
+          "description": "Debit amount"
+        },
+        "creditTrns": {
+          "type": "array",
+          "description": "Credit transactions statuses",
+          "items": {
+            "$ref": "#/definitions/TransactionDTO",
+            "originalRef": "TransactionDTO"
+          }
+        },
+        "closeRound": {
+          "type": "boolean",
+          "description": "It indicates if it's the round should close"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Represents the session identifier"
+        }
+      }
+    },
+    "CreditRequest": {
+      "type": "object",
+      "required": [
+        "debitTransactionId",
+        "roundId",
+        "sessionId",
+        "transactions"
+      ],
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Represents the session identifier",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter currency code (ISO4217 Alpha3 code)"
+        },
+        "debitTransactionId": {
+          "type": "string",
+          "description": "Debit transaction id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "transactions": {
+          "type": "array",
+          "description": "Credit transactions",
+          "items": {
+            "$ref": "#/definitions/CreditTransactionRequest",
+            "originalRef": "CreditTransactionRequest"
+          }
+        },
+        "roundId": {
+          "type": "string",
+          "description": "Round Id",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "CreditTransactionRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "transactionId"
+      ],
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "Transaction Id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Credit amount",
+          "minimum": 0.01,
+          "exclusiveMinimum": false
+        },
+        "closeRound": {
+          "type": "boolean",
+          "description": "It indicates if it's the round should close"
+        },
+        "prizeId": {
+          "type": "string",
+          "description": "The id of the prize won (required even if the amounts are zero)"
+        }
+      }
+    },
+    "RefundTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionInfo": {
+          "description": "The session details",
+          "$ref": "#/definitions/SessionInfo",
+          "originalRef": "SessionInfo"
+        },
+        "trnsStatus": {
+          "type": "string",
+          "description": "The transaction status(SUCCESS or FAIL)",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAIL"
+          ]
+        },
+        "debitAmount": {
+          "type": "number",
+          "description": "Debit amount"
+        },
+        "balance": {
+          "type": "number",
+          "description": "The session balance after the successful execution of the refund"
+        }
+      }
+    },
+    "RefundTransactionRequest": {
+      "type": "object",
+      "required": [
+        "closeRound",
+        "debitTransactionId",
+        "roundId",
+        "sessionId",
+        "transactionId"
+      ],
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Represents the session identifier",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "debitTransactionId": {
+          "type": "string",
+          "description": "The debit transaction Id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "transactionId": {
+          "type": "string",
+          "description": "Transaction Id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "roundId": {
+          "type": "string",
+          "description": "Round Id",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "closeRound": {
+          "type": "boolean",
+          "description": "It indicates if it's the round should close"
+        }
+      }
+    },
+    "DebitTransactionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionInfo": {
+          "description": "The session details",
+          "$ref": "#/definitions/SessionInfo",
+          "originalRef": "SessionInfo"
+        },
+        "trnsStatus": {
+          "type": "string",
+          "description": "The transaction status(SUCCESS or FAIL)",
+          "enum": [
+            "PENDING",
+            "SUCCESS",
+            "FAIL"
+          ]
+        },
+        "balance": {
+          "type": "number",
+          "description": "The session balance after the successful execution of the debit"
+        }
+      }
+    },
+    "DebitTransactionRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency",
+        "roundId",
+        "sessionId",
+        "transactionId"
+      ],
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Represents the session identifier",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter currency code (ISO4217 Alpha3 code)"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Debit amount",
+          "minimum": 0.01,
+          "exclusiveMinimum": false
+        },
+        "transactionId": {
+          "type": "string",
+          "description": "Transaction Id",
+          "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        },
+        "roundId": {
+          "type": "string",
+          "description": "Round Id",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    }
+  }
+}

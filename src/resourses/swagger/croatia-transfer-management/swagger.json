@@ -1,0 +1,897 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "croatia-transfer-management"
+  },
+  "tags": [
+    {
+      "name": "Cash Management"
+    },
+    {
+      "name": "Employee Wallet Management"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/transfers/{id}/status": {
+      "put": {
+        "tags": [
+          "Cash Management"
+        ],
+        "summary": "Update trasfer status",
+        "description": "",
+        "operationId": "updateTransferStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UpdateTransferStatusRequestDTO",
+              "originalRef": "UpdateTransferStatusRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transfers": {
+      "get": {
+        "tags": [
+          "Cash Management"
+        ],
+        "summary": "Get transfers",
+        "description": "",
+        "operationId": "getTransfers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "typeFamily",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "asc"
+          },
+          {
+            "name": "column",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "a.created"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PageTransferDTO",
+              "originalRef": "PageTransferDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PageTransferDTO",
+              "originalRef": "PageTransferDTO"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cash Management"
+        ],
+        "summary": "Register transfer",
+        "description": "",
+        "operationId": "registerTransfer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TransferRequest",
+              "originalRef": "TransferRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transfers/{id}": {
+      "get": {
+        "tags": [
+          "Cash Management"
+        ],
+        "summary": "Retrieve trasfer",
+        "description": "",
+        "operationId": "getTransfer",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/transfers/order-id/{id}": {
+      "get": {
+        "tags": [
+          "Cash Management"
+        ],
+        "summary": "Retrieve trasfer by order id",
+        "description": "",
+        "operationId": "getTransferByOrderId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TransferDTO",
+              "originalRef": "TransferDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-employees/{retailerId}/{username}/wallet": {
+      "post": {
+        "tags": [
+          "Employee Wallet Management"
+        ],
+        "summary": "Register wallet transaction",
+        "description": "",
+        "operationId": "updateWallet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/WalletTransactionRequest",
+              "originalRef": "WalletTransactionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-employees/{retailerId}/{username}/cash-balance": {
+      "get": {
+        "tags": [
+          "Employee Wallet Management"
+        ],
+        "summary": "Get Employee Cash Balance",
+        "description": "",
+        "operationId": "getEmployeeCashBalance",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CashBalanceDTO",
+              "originalRef": "CashBalanceDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CashBalanceDTO",
+              "originalRef": "CashBalanceDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-employees/{retailerId}/{username}/inventory": {
+      "get": {
+        "tags": [
+          "Employee Wallet Management"
+        ],
+        "summary": "Get employee inventory",
+        "description": "",
+        "operationId": "getEmployeeInventory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/EmployeeInventoryDTO",
+              "originalRef": "EmployeeInventoryDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/EmployeeInventoryDTO",
+              "originalRef": "EmployeeInventoryDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminal-employees/{retailerId}/mfr/{year}/{month}": {
+      "get": {
+        "tags": [
+          "Employee Wallet Management"
+        ],
+        "summary": "Get Retailer MFR",
+        "description": "",
+        "operationId": "getRetailerMFR",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CashBalanceDTO",
+              "originalRef": "CashBalanceDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/CashBalanceDTO",
+              "originalRef": "CashBalanceDTO"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TransferDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The id of the transfer"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The status of the transfer"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date created of the transfer"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date update of the transfer"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The type of the transfer (0 -> CASH_IN_FROM_LOTTERY_HQ, 1 -> CASH_IN_FROM_REGIONAL_OFFICE, 2 -> CASH_IN_FROM_SSBT, 3 -> CASH_IN_FROM_SLOT_MACHINE, 4 -> CASH_IN_FROM_EXCHANGE_OFFICE, 5 -> CASH_OUT_TO_OTHER_EMPLOYEE, 6 -> CASH_OUT_TO_BANK, 7-> CASH_OUT_TO_REGIONAL_OFFICE, 8 -> CASH_OUT_TO_SLOT_MACHINE, 9 -> CASH_OUT_TO_EXCHANGE_OFFICE, 10 -> IGMS_IN_FROM_LOTTERY_HQ, 11-> IGMS_IN_FROM_REGIONAL_OFFICE, 12 -> IGMS_OUT_TO_OTHER_EMPLOYEE, 13 -> IGMS_OUT_TO_REGIONAL_OFFICE, 14 -> CASH_OUT_FOR_OPERATIONAL_NEEDS)"
+        },
+        "source": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The source of the transfer (0 - TERMINAL, 1 - HL_LOGISTICS, 2 - OPERATIONS_UI)"
+        },
+        "fromUser": {
+          "type": "string",
+          "description": "The sender of the transfer"
+        },
+        "toUser": {
+          "type": "string",
+          "description": "The receiver of the transfer"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The retailer id"
+        },
+        "regionalOfficeId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The regional office id"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of the transfer"
+        },
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The order id"
+        },
+        "items": {
+          "type": "array",
+          "description": "The items of the transfer",
+          "items": {
+            "$ref": "#/definitions/TransferOrderItemDTO",
+            "originalRef": "TransferOrderItemDTO"
+          }
+        }
+      },
+      "description": "The transfer DTO"
+    },
+    "TransferOrderItemDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id of transfer item"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The quantity of transfer item"
+        }
+      },
+      "description": "The transfer item object"
+    },
+    "UpdateTransferStatusRequestDTO": {
+      "type": "object",
+      "required": [
+        "source",
+        "status",
+        "username"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The status of the transfer (0 - PENDING, 1 - APPROVED, 2 - REJECTED)"
+        },
+        "username": {
+          "type": "string",
+          "description": "The employee"
+        },
+        "source": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The source of the transfer (0 - TERMINAL, 1 - HL_LOGISTICS, 2 - OPERATIONS_UI)"
+        },
+        "items": {
+          "type": "array",
+          "description": "The items of the transfer",
+          "items": {
+            "$ref": "#/definitions/TransferOrderItemDTO",
+            "originalRef": "TransferOrderItemDTO"
+          }
+        }
+      },
+      "description": "The update transfer status request"
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PageTransferDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable",
+          "originalRef": "Pageable"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransferDTO",
+            "originalRef": "TransferDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Pageable": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort",
+          "originalRef": "Sort"
+        },
+        "paged": {
+          "type": "boolean"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unpaged": {
+          "type": "boolean"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Sort": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean"
+        },
+        "unsorted": {
+          "type": "boolean"
+        },
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TransferRequest": {
+      "type": "object",
+      "required": [
+        "retailerId",
+        "source",
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The type of the transfer (0 -> CASH_IN_FROM_LOTTERY_HQ, 1 -> CASH_IN_FROM_REGIONAL_OFFICE, 2 -> CASH_IN_FROM_SSBT, 3 -> CASH_IN_FROM_SLOT_MACHINE, 4 -> CASH_IN_FROM_EXCHANGE_OFFICE, 5 -> CASH_OUT_TO_OTHER_EMPLOYEE, 6 -> CASH_OUT_TO_BANK, 7-> CASH_OUT_TO_REGIONAL_OFFICE, 8 -> CASH_OUT_TO_SLOT_MACHINE, 9 -> CASH_OUT_TO_EXCHANGE_OFFICE, 10 -> IGMS_IN_FROM_LOTTERY_HQ, 11-> IGMS_IN_FROM_REGIONAL_OFFICE, 12 -> IGMS_OUT_TO_OTHER_EMPLOYEE, 13 -> IGMS_OUT_TO_REGIONAL_OFFICE, 14 -> CASH_OUT_FOR_OPERATIONAL_NEEDS)"
+        },
+        "source": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The source of the transfer (0 - TERMINAL, 1 - HL_LOGISTICS, 2 - OPERATIONS_UI)"
+        },
+        "fromUser": {
+          "type": "string",
+          "description": "The sender of the transfer"
+        },
+        "toUser": {
+          "type": "string",
+          "description": "The receiver of the transfer"
+        },
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The retailer id"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of the transfer"
+        },
+        "orderId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The order id"
+        },
+        "items": {
+          "type": "array",
+          "description": "The items of the transfer",
+          "items": {
+            "$ref": "#/definitions/TransferOrderItemDTO",
+            "originalRef": "TransferOrderItemDTO"
+          }
+        }
+      },
+      "description": "The transfer request"
+    },
+    "WalletTransactionRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "date",
+        "extTrnsId",
+        "type"
+      ],
+      "properties": {
+        "extTrnsId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The external transaction id"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the transaction"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The type of the transaction",
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount"
+        },
+        "iid": {
+          "type": "string",
+          "description": "The external id of igms"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The quantity of igms"
+        }
+      }
+    },
+    "CashBalanceDTO": {
+      "type": "object",
+      "properties": {
+        "initialState": {
+          "type": "number"
+        },
+        "currentState": {
+          "type": "number"
+        },
+        "transfersFromHQ": {
+          "type": "number"
+        },
+        "transfersFromOthers": {
+          "type": "number"
+        },
+        "transfersToBank": {
+          "type": "number"
+        },
+        "transfersToOthers": {
+          "type": "number"
+        },
+        "sales": {
+          "type": "number"
+        },
+        "payments": {
+          "type": "number"
+        },
+        "turnover": {
+          "type": "number"
+        }
+      }
+    },
+    "EmployeeInventoryDTO": {
+      "type": "object",
+      "properties": {
+        "employeePockets": {
+          "type": "array",
+          "description": "The employee wallet pockets",
+          "items": {
+            "$ref": "#/definitions/WalletPocketDTO",
+            "originalRef": "WalletPocketDTO"
+          }
+        },
+        "retailerPockets": {
+          "type": "array",
+          "description": "The retailer wallet pockets",
+          "items": {
+            "$ref": "#/definitions/WalletPocketDTO",
+            "originalRef": "WalletPocketDTO"
+          }
+        }
+      }
+    },
+    "WalletPocketDTO": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The wallet pocket type: 0 -> cash, i -> igms"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The wallet pocket amount"
+        },
+        "iid": {
+          "type": "string",
+          "description": "The wallet pocket external igms id"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The wallet pocket quantity"
+        }
+      }
+    }
+  }
+}

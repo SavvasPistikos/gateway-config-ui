@@ -1,0 +1,2044 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "NeoGames Adaptor"
+  },
+  "tags": [
+    {
+      "name": "Casino Wagers V1.0"
+    },
+    {
+      "name": "Casino Operations"
+    },
+    {
+      "name": "PAM Wallet Service"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/players-neogames/balance": {
+      "post": {
+        "tags": [
+          "Casino Wagers V1.0"
+        ],
+        "summary": "Get player balance",
+        "description": "",
+        "operationId": "getBalance",
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The Operator",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The channel",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Guid",
+            "in": "header",
+            "description": "The Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/NeogamesBalanceRequest",
+              "originalRef": "NeogamesBalanceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/NeogamesBalanceResponse",
+              "originalRef": "NeogamesBalanceResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesBalanceResponse",
+              "originalRef": "NeogamesBalanceResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "403": {
+            "description": "PAM error",
+            "schema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers-neogames/debit": {
+      "post": {
+        "tags": [
+          "Casino Wagers V1.0"
+        ],
+        "summary": "Place e-scratches wager",
+        "description": "",
+        "operationId": "debit",
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The Operator",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The channel",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Guid",
+            "in": "header",
+            "description": "The Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/NeogamesDebitRequest",
+              "originalRef": "NeogamesDebitRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/NeogamesDebitResponse",
+              "originalRef": "NeogamesDebitResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesDebitResponse",
+              "originalRef": "NeogamesDebitResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "403": {
+            "description": "PAM error",
+            "schema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers-neogames/canceldebit": {
+      "post": {
+        "tags": [
+          "Casino Wagers V1.0"
+        ],
+        "summary": "Rollback wager",
+        "description": "",
+        "operationId": "cancelDebit",
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The Operator",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The channel",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Guid",
+            "in": "header",
+            "description": "The Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/NeogamesCancelDebitRequest",
+              "originalRef": "NeogamesCancelDebitRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/NeogamesCancelDebitResponse",
+              "originalRef": "NeogamesCancelDebitResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesCancelDebitResponse",
+              "originalRef": "NeogamesCancelDebitResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "403": {
+            "description": "PAM error",
+            "schema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers-neogames/credit": {
+      "post": {
+        "tags": [
+          "Casino Wagers V1.0"
+        ],
+        "summary": "Credit player",
+        "description": "",
+        "operationId": "credit",
+        "parameters": [
+          {
+            "name": "Operator",
+            "in": "header",
+            "description": "The Operator",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The channel",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Guid",
+            "in": "header",
+            "description": "The Guid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/NeogamesCreditRequest",
+              "originalRef": "NeogamesCreditRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/NeogamesCreditResponse",
+              "originalRef": "NeogamesCreditResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesCreditResponse",
+              "originalRef": "NeogamesCreditResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "403": {
+            "description": "PAM error",
+            "schema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/v1.0/neogames/games/list": {
+      "get": {
+        "tags": [
+          "Casino Operations"
+        ],
+        "summary": "Get Games List",
+        "description": "",
+        "operationId": "cancelDebit_1",
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "header",
+            "description": "The ChannelId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "The locale",
+            "required": true,
+            "type": "string",
+            "default": "en-gb"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/NeogamesCancelDebitResponse",
+              "originalRef": "NeogamesCancelDebitResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesCancelDebitResponse",
+              "originalRef": "NeogamesCancelDebitResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "403": {
+            "description": "PAM error",
+            "schema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/NeogamesErrorResponse",
+              "originalRef": "NeogamesErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/v1.0/wallets/balance": {
+      "get": {
+        "tags": [
+          "PAM Wallet Service"
+        ],
+        "summary": "Get Players Wallet",
+        "description": "Retrieves player's balance<br><strong>External endpoint: </strong> POST: /api/v1/wallet/getBalance",
+        "operationId": "balance_1",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "header",
+            "description": "The authorization of the user that was provided upon authentication",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/PlayerBalance",
+              "originalRef": "PlayerBalance"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/PlayerBalance",
+              "originalRef": "PlayerBalance"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "UNAUTHORIZED ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wallets/debit": {
+      "post": {
+        "tags": [
+          "PAM Wallet Service"
+        ],
+        "summary": "Debit wallet",
+        "description": "Perform a multiple debit transaction to a player’s wallet<br><strong>External endpoint: </strong> POST: /api/v1/wallet/multipleDebit",
+        "operationId": "multipleDebit_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The play wager request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WagerPlayRequestModel",
+              "originalRef": "WagerPlayRequestModel"
+            }
+          },
+          {
+            "name": "trnsId",
+            "in": "header",
+            "description": "The transaction id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "header",
+            "description": "The channel id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage",
+              "originalRef": "ResponseMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ResponseMessage",
+              "originalRef": "ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "UNAUTHORIZED ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PAM Wallet Service"
+        ],
+        "summary": "Cancels debit",
+        "description": "Cancel a previous debit transaction performed to a player’s wallet.<br><strong>External endpoint: </strong> POST: /api/v1/wallet/cancelDebit",
+        "operationId": "cancelDebit_3",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "header",
+            "description": "The player id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "debitTrnsId",
+            "in": "header",
+            "description": "The debit transaction id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage",
+              "originalRef": "ResponseMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ResponseMessage",
+              "originalRef": "ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "UNAUTHORIZED ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wallets/debit/validation": {
+      "post": {
+        "tags": [
+          "PAM Wallet Service"
+        ],
+        "summary": "Verify debit",
+        "description": "Perform validations in advance the debit transaction<br><strong>External endpoint: </strong> POST: /api/v1/wallet/validateDebit",
+        "operationId": "validateDebit_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The play wager request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WagerPlayRequestModel",
+              "originalRef": "WagerPlayRequestModel"
+            }
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The globally unique identifier",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "header",
+            "description": "The channel id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SUCCESS",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage",
+              "originalRef": "ResponseMessage"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/ResponseMessage",
+              "originalRef": "ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "VALIDATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "401": {
+            "description": "UNAUTHORIZED ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          },
+          "500": {
+            "description": "APPLICATION ERROR",
+            "schema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/FaultInfo",
+              "originalRef": "FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoNeogamesBalanceResponse": {
+      "type": "object"
+    },
+    "NeogamesBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "ErrorCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 indicates there was no Error"
+        },
+        "ErrorMessage": {
+          "type": "string",
+          "description": "Error message from PAM"
+        },
+        "Balance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Sum of bonus and real balance in cents"
+        }
+      }
+    },
+    "FaultInfo": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The error code"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "data": {
+          "type": "array",
+          "description": "The error data which is an abstract object that may be used to provide any error metadata",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "The application at which the API error occured"
+        },
+        "type": {
+          "type": "string",
+          "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+        }
+      },
+      "description": "The FaultInfo object contains all the details assosiated with an API error"
+    },
+    "NeogamesErrorResponse": {
+      "type": "object",
+      "properties": {
+        "ErrorCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 indicates there was no Error"
+        },
+        "ErrorMessage": {
+          "type": "string",
+          "description": "Error message from PAM"
+        }
+      }
+    },
+    "NeogamesBalanceRequest": {
+      "type": "object",
+      "required": [
+        "SessionID",
+        "Username"
+      ],
+      "properties": {
+        "Username": {
+          "type": "string",
+          "description": "Username received in LoadGame call"
+        },
+        "SessionID": {
+          "type": "string",
+          "description": "SessionId received in LoadGame call"
+        },
+        "CurrencyCode": {
+          "type": "string",
+          "description": "Currency code e.g \"HRK\""
+        }
+      }
+    },
+    "MonoNeogamesDebitResponse": {
+      "type": "object"
+    },
+    "NeogamesDebitResponse": {
+      "type": "object",
+      "required": [
+        "BalanceAfterBet"
+      ],
+      "properties": {
+        "ErrorCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 indicates there was no Error"
+        },
+        "ErrorMessage": {
+          "type": "string",
+          "description": "Error message from PAM"
+        },
+        "BalanceAfterBet": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Sum of bonus and real money after successful bet in cents"
+        },
+        "GameRoundID": {
+          "type": "string",
+          "description": "The roundId. Will be echoed back from request"
+        }
+      }
+    },
+    "NeogamesDebitRequest": {
+      "type": "object",
+      "required": [
+        "DebitAmount",
+        "GameRoundID",
+        "SessionID",
+        "TransactionID",
+        "Username"
+      ],
+      "properties": {
+        "Username": {
+          "type": "string",
+          "description": "Username received in LoadGame call"
+        },
+        "CurrencyCode": {
+          "type": "string",
+          "description": "value=\"Currency code e.g \"HRK\""
+        },
+        "SessionID": {
+          "type": "string",
+          "description": "SessionId received in LoadGame call"
+        },
+        "DebitAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Debit amount in cents"
+        },
+        "GameID": {
+          "type": "integer",
+          "format": "int32",
+          "description": "NeoGames Game ID"
+        },
+        "GameRoundID": {
+          "type": "string",
+          "description": "Identifier of a game round in NeoGames system. In case of multiple steps or transactions, the identifier of game round will remain constant between calls."
+        },
+        "TransactionID": {
+          "type": "string",
+          "description": "NeoGames Debit transaction Identifier. NG bet request identifier + ‘_d’"
+        },
+        "GameRoundDate": {
+          "type": "string",
+          "description": "The date on which the game round started (Debit transaction request date) saved in NG system as ExternalReference"
+        },
+        "NumberOfSubCards": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of SubCards, e.g. Tickets (lines/pairs/etc.). (For example, if DebitAmount = 500 and NumberOfSubCards = 5, then the bet consists of 5 tickets, and the debit amount for each ticket is 100). Return 0 if no subcards exists for this game or if game is not limited series."
+        },
+        "PlatformType": {
+          "type": "string",
+          "description": "Client platform performing the bet {W=Mega Lobby, S=Mobile Web, A =Native App}"
+        },
+        "WagerPercent": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Percent of DebitAmount that should be considered as valid for calculations towards wagering requirements.\nExpressed in Basis point (1/100 of Percent) e.g. 5000 indicates 50%."
+        },
+        "IsFree": {
+          "type": "boolean",
+          "description": "Identification for type of transaction 0=Money, 1=Free Game"
+        },
+        "FreeGames": {
+          "description": "Freegames object",
+          "$ref": "#/definitions/NeogamesFreeGames",
+          "originalRef": "NeogamesFreeGames"
+        }
+      }
+    },
+    "NeogamesFreeGames": {
+      "type": "object",
+      "properties": {
+        "PlayerBonusID": {
+          "type": "string",
+          "description": "NG PlayerBonus that was used for the bet"
+        },
+        "ExternalBonusID": {
+          "type": "string",
+          "description": "The PAM Bonus ID"
+        },
+        "TotalFreeGamesNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Only for credit request. Free games number that were given to the player according to bonus policy (Relevant only for current bonus)"
+        },
+        "FreeGameCounter": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Only for credit request. Total free games number that were used by the player for the specific bonues, including the current bet"
+        }
+      }
+    },
+    "MonoNeogamesCancelDebitResponse": {
+      "type": "object"
+    },
+    "NeogamesCancelDebitResponse": {
+      "type": "object",
+      "properties": {
+        "ErrorCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 indicates there was no Error"
+        },
+        "ErrorMessage": {
+          "type": "string",
+          "description": "Error message from PAM"
+        }
+      }
+    },
+    "NeogamesCancelDebitRequest": {
+      "type": "object",
+      "required": [
+        "DebitAmount",
+        "SessionID",
+        "TransactionId",
+        "Username"
+      ],
+      "properties": {
+        "Username": {
+          "type": "string",
+          "description": "Username received in LoadGame call"
+        },
+        "TransactionId": {
+          "type": "string",
+          "description": "NeoGames Debit transaction Identifier. NG bet request identifier + ‘_d’"
+        },
+        "SessionID": {
+          "type": "string",
+          "description": "SessionId received in LoadGame call."
+        },
+        "DebitAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Debit amount in cents. TBD if it is indeed needed"
+        }
+      }
+    },
+    "MonoNeogamesCreditResponse": {
+      "type": "object"
+    },
+    "NeogamesCreditResponse": {
+      "type": "object",
+      "properties": {
+        "ErrorCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 indicates there was no Error"
+        },
+        "ErrorMessage": {
+          "type": "string",
+          "description": "Error message from PAM"
+        },
+        "BalanceBeforeWin": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Bonus and real money balance before win in cents"
+        },
+        "BalanceAfterWin": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Bonus and real money balance after win in cents"
+        },
+        "GameRoundID": {
+          "type": "string",
+          "description": "The roundId. Will be echoed back from request"
+        }
+      }
+    },
+    "NeogamesCreditRequest": {
+      "type": "object",
+      "required": [
+        "CreditAmount",
+        "SessionID",
+        "TransactionID",
+        "Username"
+      ],
+      "properties": {
+        "Username": {
+          "type": "string",
+          "description": "Username received in LoadGame call"
+        },
+        "CreditAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Credit amount in cents"
+        },
+        "TransactionID": {
+          "type": "string",
+          "description": "NeoGames Credit transaction Identifier. NG bet request identifier + ‘_c’"
+        },
+        "SessionID": {
+          "type": "string",
+          "description": "SessionId received in LoadGame call."
+        },
+        "CurrencyCode": {
+          "type": "string",
+          "description": "Currency code e.g \"HRK\""
+        },
+        "FreeGames": {
+          "description": "Freegames object",
+          "$ref": "#/definitions/NeogamesFreeGames",
+          "originalRef": "NeogamesFreeGames"
+        },
+        "GameID": {
+          "type": "integer",
+          "format": "int32",
+          "description": "NeoGames Game ID"
+        },
+        "GameRoundDate": {
+          "type": "string",
+          "description": "The date on which the game round started (Debit transaction request date) saved in NG system as ExternalReference"
+        },
+        "GameRoundID": {
+          "type": "string",
+          "description": "Identifier of a game round in NeoGames system. In case of multiple steps or transactions, the identifier of game round will remain constant between calls."
+        },
+        "NumberOfSubCards": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of SubCards, e.g. Tickets (lines/pairs/etc.). (For example, if DebitAmount = 500 and NumberOfSubCards = 5, then the bet consists of 5 tickets, and the debit amount for each ticket is 100). Return 0 if no subcards exists for this game or if game is not limited series."
+        },
+        "PlatformType": {
+          "type": "string",
+          "description": "Client platform performing the bet {W=Mega Lobby, S=Mobile Web, A=Native App}"
+        },
+        "SubCards": {
+          "description": "SubCards object",
+          "$ref": "#/definitions/NeogamesSubCards",
+          "originalRef": "NeogamesSubCards"
+        },
+        "CloseRound": {
+          "type": "boolean",
+          "description": "Should be true if the round is closed and no additional debit/credit transactions will be made on it"
+        }
+      }
+    },
+    "NeogamesSubCardDatum": {
+      "type": "object",
+      "properties": {
+        "SeriesNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of the game series of the transaction\nReturn 0 if no subcards exists for this game or if game is not limited series."
+        },
+        "SubCardCreditAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Expressed in cents (1/100 unit) e.g. 100 indicates 1 EUR."
+        },
+        "SubCardDebitAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Expressed in cents (1/100 unit) e.g. 100 indicates 1 EUR."
+        },
+        "SubCardNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Running number of SubCard in the current bet"
+        },
+        "SubCardPrizeMultiplier": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The multiplier of the prize according to the game pay table"
+        },
+        "SubCardSerialNo": {
+          "type": "string",
+          "description": "Number of the subcard position within the series. For example, in case this is the first card in the series then will be “1“\nThe value can be up to 8 digits (For series of 10,000,000)"
+        },
+        "SubGameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "SubGameID (0 if no SubGames defined)"
+        }
+      }
+    },
+    "NeogamesSubCards": {
+      "type": "object",
+      "properties": {
+        "SubCardData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NeogamesSubCardDatum",
+            "originalRef": "NeogamesSubCardDatum"
+          }
+        }
+      }
+    },
+    "MonoObject": {
+      "type": "object"
+    },
+    "MonoPlayerBalance": {
+      "type": "object"
+    },
+    "PlayerBalance": {
+      "type": "object",
+      "properties": {
+        "currencyISO": {
+          "type": "string",
+          "description": "The currency ISO"
+        },
+        "currentBalance": {
+          "type": "number",
+          "description": "The current balance"
+        }
+      },
+      "description": "The balance of a player"
+    },
+    "MonoResponseMessage": {
+      "type": "object"
+    },
+    "ResponseMessage": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "ERROR"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "paymentStatus": {
+          "type": "string"
+        }
+      }
+    },
+    "AutoCashoutModel": {
+      "type": "object",
+      "properties": {
+        "ascOdds": {
+          "type": "number",
+          "format": "double",
+          "description": "This will be Odds that are Greater than the odds of the bet"
+        },
+        "descOdds": {
+          "type": "number",
+          "format": "double",
+          "description": "This will be Odds that are Less than the odds of the bet"
+        },
+        "stopLoss": {
+          "type": "number",
+          "format": "double",
+          "description": "This will be a value less than the stake of the bet"
+        },
+        "stopWin": {
+          "type": "number",
+          "format": "double",
+          "description": "This will be a Value that is Greater than the stake of the bet"
+        }
+      }
+    },
+    "BetModel": {
+      "type": "object",
+      "required": [
+        "selections"
+      ],
+      "properties": {
+        "accountBonusId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total price of the bet"
+        },
+        "autoCashout": {
+          "description": "The total price of the bet",
+          "$ref": "#/definitions/AutoCashoutModel",
+          "originalRef": "AutoCashoutModel"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "barcode for this bet"
+        },
+        "betId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The bet id"
+        },
+        "betNo": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The bet number"
+        },
+        "betTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Datetime of bet"
+        },
+        "bonusCodeAwarded": {
+          "type": "string",
+          "description": "The bonus code awarded. Server side generated"
+        },
+        "bonusCodeRulesOfUse": {
+          "type": "string",
+          "description": "bonusCodeRulesOfUse"
+        },
+        "bonusStake": {
+          "$ref": "#/definitions/StakeModel",
+          "originalRef": "StakeModel"
+        },
+        "bonusWinnings": {
+          "type": "number",
+          "description": "For bets in an ACCEPTED state, this will be the potential bonus winnings if the bet wins, for WINNING or SETTLED bets it will be the actual bonus winnings"
+        },
+        "cashOut": {
+          "type": "boolean",
+          "description": "In case this bet can be cashed out"
+        },
+        "channelId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Channel ID that this bet part was played"
+        },
+        "checkOdds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Check type of the additional odds data. The system will reject a coupons when: 1. a selected forecast has lower current Odds or different current Handicap / UO value than these the player has seen 2. a selected forecast has different current Odds / Handicap / UO value than these the player has seen 3. a selected forecast has different Handicap / UO value than these the player has seen"
+        },
+        "childBetId": {
+          "type": "string",
+          "description": "The child bet id. This should exist after an Edit or Patially cashout bet"
+        },
+        "currentlyInplay": {
+          "type": "boolean"
+        },
+        "discountBonusAmount": {
+          "type": "number",
+          "description": "discountBonusAmount"
+        },
+        "discountBonusId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "discountBonusId"
+        },
+        "displayStatus": {
+          "type": "string",
+          "description": "Status of the part bet"
+        },
+        "extBetId": {
+          "type": "string"
+        },
+        "freeBet": {
+          "type": "boolean",
+          "description": "Free bet indicator"
+        },
+        "freeBetBonusAmount": {
+          "$ref": "#/definitions/FreeBetBonusAmountModel",
+          "originalRef": "FreeBetBonusAmountModel"
+        },
+        "limitedStake": {
+          "type": "number",
+          "description": "When bet limit or stake limit validation fails, this contains the maximum stake the user can enter, in their currency"
+        },
+        "liveBet": {
+          "type": "boolean",
+          "description": "In case this is live bet or not"
+        },
+        "originalCashoutBetId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "If this bet is a child bet from partial cashout, this betId is its parent"
+        },
+        "overAskId": {
+          "type": "string",
+          "description": "Over/Ask identification number"
+        },
+        "parentBetId": {
+          "type": "string",
+          "description": "The parent bet id. This should exist after an Edit or Patially cashout bet"
+        },
+        "partialCashoutBetIds": {
+          "type": "array",
+          "description": "If this bet is a parent of partial cashout those betIds are their children",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "payout": {
+          "type": "number",
+          "description": "Settled winning amount"
+        },
+        "potentialBonusWinnings": {
+          "type": "number"
+        },
+        "potentialPayout": {
+          "type": "number",
+          "description": "The potential payout"
+        },
+        "promoDescription": {
+          "type": "string",
+          "description": "promoDescription"
+        },
+        "referralPath": {
+          "type": "string",
+          "description": "Canvas might have this field as registration source"
+        },
+        "refund": {
+          "type": "integer",
+          "format": "int64",
+          "description": "refund"
+        },
+        "rejectionReason": {
+          "type": "string",
+          "description": "The reason why a bet has been rejected"
+        },
+        "selections": {
+          "type": "array",
+          "description": "The bet selections",
+          "items": {
+            "$ref": "#/definitions/SelectionModel",
+            "originalRef": "SelectionModel"
+          }
+        },
+        "stake": {
+          "description": "The stake amount",
+          "$ref": "#/definitions/StakeModel",
+          "originalRef": "StakeModel"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the part bet, e.g. ACCEPTED, REJECTED, VOID"
+        },
+        "system": {
+          "description": "The selected bet system",
+          "$ref": "#/definitions/SystemModel",
+          "originalRef": "SystemModel"
+        },
+        "taxOnReturnsPcnt": {
+          "type": "number",
+          "description": "Taxation percentage on returns amount (on winnings amount)"
+        },
+        "totalCost": {
+          "type": "number",
+          "description": "Bet’s total cost that the player have pay"
+        },
+        "totalDiscountStake": {
+          "type": "number",
+          "description": "The discounted bet stake. Server side generated"
+        },
+        "totalOdds": {
+          "type": "number",
+          "format": "double",
+          "description": "Total odds of the specific bet part"
+        },
+        "totalPrice": {
+          "type": "number",
+          "format": "double",
+          "description": "The total price of the bet"
+        },
+        "totalStake": {
+          "type": "number",
+          "description": "Total selection stake"
+        },
+        "transactionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The transaction id"
+        },
+        "voucherCode": {
+          "type": "string",
+          "description": "The bonus code awarded. Server side generated"
+        },
+        "voucherCodeUsed": {
+          "type": "string",
+          "description": "voucherCodeUsed"
+        },
+        "winType": {
+          "type": "string",
+          "description": "Win bet data type,WIN, PLACE, EACH_WAY"
+        },
+        "retailerId": {
+          "type": "string",
+          "description": "retailerId"
+        },
+        "paidByRetailer": {
+          "type": "string",
+          "description": "paidByRetailer"
+        },
+        "paidTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "paidTime"
+        },
+        "buildABet": {
+          "type": "boolean",
+          "description": "Indicates that bet is created by bet builder."
+        }
+      }
+    },
+    "FreeBetBonusAmountModel": {
+      "type": "object",
+      "required": [
+        "amount",
+        "type"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "amount"
+        },
+        "type": {
+          "type": "string",
+          "description": "type",
+          "enum": [
+            "BONUS"
+          ]
+        }
+      }
+    },
+    "MetadataModel": {
+      "type": "object",
+      "required": [
+        "trnsTime"
+      ],
+      "properties": {
+        "playerInfo": {
+          "$ref": "#/definitions/PlayerInfoModel",
+          "originalRef": "PlayerInfoModel"
+        },
+        "promotionInfo": {
+          "$ref": "#/definitions/PromotionInfoModel",
+          "originalRef": "PromotionInfoModel"
+        },
+        "trnsTime": {
+          "type": "string",
+          "description": "Transaction time in ISO 8601 format"
+        },
+        "posInfo": {
+          "$ref": "#/definitions/PosInfo",
+          "originalRef": "PosInfo"
+        },
+        "channel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "wagerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "operator": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "participationMethod": {
+          "type": "string"
+        },
+        "crId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "NamesModel": {
+      "type": "object",
+      "properties": {
+        "longName": {
+          "type": "string",
+          "description": "longName"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "shortName"
+        },
+        "veryshortName": {
+          "type": "string",
+          "description": "veryshortName"
+        }
+      }
+    },
+    "OddDataModel": {
+      "type": "object",
+      "required": [
+        "decimal"
+      ],
+      "properties": {
+        "decimal": {
+          "type": "number",
+          "format": "double",
+          "description": "Decimal odds of each selection. e.g. 2,60"
+        },
+        "fractional": {
+          "type": "string",
+          "description": "Fractional representation of odds. E.g. 8/5"
+        }
+      }
+    },
+    "PlayerInfoModel": {
+      "type": "object",
+      "properties": {
+        "syndicateId": {
+          "type": "string",
+          "description": "id of a group/syndicate bet"
+        },
+        "payMethod": {
+          "type": "string",
+          "description": "payMethod"
+        },
+        "pin": {
+          "type": "string",
+          "description": "Players pin. Mandatory for Bit8 PAM"
+        },
+        "playerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "playerId"
+        },
+        "sessionToken": {
+          "type": "string",
+          "description": "sessionToken"
+        },
+        "subscriptionId": {
+          "type": "string",
+          "description": "subscriptionId"
+        }
+      }
+    },
+    "PosInfo": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "terminalId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userName": {
+          "type": "string"
+        }
+      }
+    },
+    "PromotionInfoModel": {
+      "type": "object",
+      "properties": {
+        "optIn": {
+          "type": "array",
+          "description": "to optIn a list of promotion ids. The client selects which promotions will be evaluated (if they are optIn promotions)",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "outcomeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "the outcome that is returned from the engine to the caller. A reference for the given promotion"
+        },
+        "promotionId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "the id of the promotion that generated the outcomeId"
+        },
+        "voucherCode": {
+          "type": "string",
+          "description": "a string literal placeholder for a voucher code"
+        }
+      }
+    },
+    "SelectionModel": {
+      "type": "object",
+      "required": [
+        "odds",
+        "partNo",
+        "position",
+        "selectionId"
+      ],
+      "properties": {
+        "position": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Selection's position"
+        },
+        "banker": {
+          "type": "boolean",
+          "description": "The banker definition"
+        },
+        "eventId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "getiMarket": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The index market, -1:No i-market 0..19: i-market played position OR 0..127: Live Home Team Score when the forecast=724..729)"
+        },
+        "groupValue": {
+          "type": "array",
+          "description": "Mandatory for Iflex. 0: No group, 1..10 : groups A, B, C, D, AB, AC, AD, BC, BD, CD, 11..20: R-groups A, B, C, D, AB, AC, AD, BC, BD, CD, +100 : Banker selection",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "imarket": {
+          "type": "integer",
+          "format": "int64",
+          "description": "imarket"
+        },
+        "lines": {
+          "type": "array",
+          "description": "The Handicap/Under-Over value. Only IFlex will have 2 indexes: var0, var1",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "odds": {
+          "description": "The odds data object",
+          "$ref": "#/definitions/OddDataModel",
+          "originalRef": "OddDataModel"
+        },
+        "partNo": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of the selection. If there are 3 selections they should have 1,2,3 respectively"
+        },
+        "scores": {
+          "type": "array",
+          "description": "The match score. Indexed by team A score{0} & team B score {1}",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "selectionId": {
+          "type": "string",
+          "description": "The selection id. For Iflex will be MARK_CODE_EVENT_CODE"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the selection, equivalent to the status of the BetPartPlacementResult"
+        },
+        "selectionNames": {
+          "description": "An object contain variations of names",
+          "$ref": "#/definitions/NamesModel",
+          "originalRef": "NamesModel"
+        },
+        "selectionName": {
+          "type": "string",
+          "description": "The selection name"
+        },
+        "marketName": {
+          "type": "string",
+          "description": "The market name"
+        },
+        "eventName": {
+          "type": "string",
+          "description": "The event name"
+        },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The event kickoff time"
+        },
+        "resultType": {
+          "type": "string",
+          "description": "Result description of selection result: e.g NOT_SET,WIN,LOST"
+        },
+        "priceChangedAfterLockDate": {
+          "type": "boolean",
+          "description": "priceChangedAfterLockDate"
+        },
+        "inplay": {
+          "type": "boolean",
+          "description": "inplay"
+        },
+        "pitcherAName": {
+          "type": "string",
+          "description": "pitcherAName"
+        },
+        "pitcherBName": {
+          "type": "string",
+          "description": "pitcherBName"
+        }
+      }
+    },
+    "SportsBookPlayModel": {
+      "type": "object",
+      "required": [
+        "bets",
+        "extBetslipId",
+        "gameId"
+      ],
+      "properties": {
+        "extendedResponse": {
+          "type": "boolean",
+          "description": "Extended flag"
+        },
+        "acceptOdds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Accept odds types: 1 = Higher Odds, 2 = All, 3 = None, Only same odds"
+        },
+        "acceptPriceChange": {
+          "type": "boolean",
+          "description": "The accept price change"
+        },
+        "betSlipId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The betSlipId"
+        },
+        "bets": {
+          "type": "array",
+          "description": "List of placed bets",
+          "items": {
+            "$ref": "#/definitions/BetModel",
+            "originalRef": "BetModel"
+          }
+        },
+        "employeeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The employeedId"
+        },
+        "freeBets": {
+          "type": "array",
+          "description": "List of freebets",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        },
+        "gameId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The game id"
+        },
+        "multifactor": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "placedTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In response only, The total number of bets"
+        },
+        "sumOfStake": {
+          "type": "number",
+          "description": "The sumOfStake"
+        },
+        "sumOfPayout": {
+          "type": "number",
+          "description": "The sumOfPayout"
+        },
+        "sumOfBonusWinnings": {
+          "type": "number",
+          "description": "The sumOfBonusWinnings"
+        },
+        "sumOfTotalCost": {
+          "type": "number",
+          "description": "The sumOfTotalCost"
+        },
+        "result": {
+          "description": "If present, contains the payment status of the betslip",
+          "$ref": "#/definitions/ResponseMessage",
+          "originalRef": "ResponseMessage"
+        },
+        "extBetslipId": {
+          "type": "string",
+          "description": "Used for undo bet request"
+        }
+      }
+    },
+    "StakeModel": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "Betting amount on each combination will be produced from those parts"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Description of the currency with letters e.g. \"GBP\""
+        }
+      }
+    },
+    "SystemModel": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "systems": {
+          "type": "array",
+          "description": "The bet system multiplier. Only IFlex",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "type": {
+          "type": "string",
+          "description": "Betting data type:SINGLE, MULTIPLE, DOUBLE, SYSTEM_3, SYSTEM_4, SYSTEM_5, SYSTEM_6, SYSTEM_7, SYSTEM_8, BANKER_2BANKER_3BANKER_4BANKER_5BANKER_6BANKER_7BANKER_8TRIXIECANADIAN, HEINZ, SUPER_HEINZ, PATENT, LUCKY_15, LUCKY_31, LUCKY_63, LUCKY_127YANKEE, GOLIATH, SUPER_GOLIATH, WINCAST, SCORECAST, ANYTIME_SCORECAST, TIMECAST, STRAIGHT_FORECAST, REVERSE_FORECAST, COMBINATION_FORECAST, TRICAST, COMBINATION_TRICAST"
+        }
+      }
+    },
+    "WagerDataModel": {
+      "type": "object",
+      "properties": {
+        "sportsbook": {
+          "description": "sports game",
+          "$ref": "#/definitions/SportsBookPlayModel",
+          "originalRef": "SportsBookPlayModel"
+        }
+      },
+      "description": "one of the dbg,instant,spbt,sportsbook should be used depending on the played game"
+    },
+    "WagerPlayRequestModel": {
+      "type": "object",
+      "required": [
+        "metadata",
+        "wager"
+      ],
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/MetadataModel",
+          "originalRef": "MetadataModel"
+        },
+        "wager": {
+          "$ref": "#/definitions/WagerDataModel",
+          "originalRef": "WagerDataModel"
+        }
+      }
+    }
+  }
+}

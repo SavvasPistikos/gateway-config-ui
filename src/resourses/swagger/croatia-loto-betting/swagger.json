@@ -1,0 +1,2316 @@
+{
+  "swagger": "2.0",
+  "info": {},
+  "paths": {
+    "/api/Coupon/Verify": {
+      "post": {
+        "tags": [
+          "Coupon"
+        ],
+        "operationId": "Verify",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/VerifyCouponDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VerifyCouponResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Coupon/Play": {
+      "post": {
+        "tags": [
+          "Coupon"
+        ],
+        "operationId": "Play",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/PlayCouponDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PlayCouponResponseDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Coupon/{hlCouponId}/Details": {
+      "get": {
+        "tags": [
+          "Coupon"
+        ],
+        "operationId": "Details",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "hlCouponId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoadCouponDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/GameStatistics/GetPlainNumberStatistics": {
+      "post": {
+        "tags": [
+          "GameStatistics"
+        ],
+        "operationId": "GetPlainNumberStatistics",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetPlainStatisticsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlainNumberStatisticDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/GameStatistics/GetAdvancedNumberStatistics": {
+      "post": {
+        "tags": [
+          "GameStatistics"
+        ],
+        "operationId": "GetAdvancedNumberStatistics",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetAdvancedStatisticsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AdvancedNumberStatisticsDTO"
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Offer/GetLotoGames": {
+      "get": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetLotoGames",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Offer/GetLotoDraws": {
+      "get": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetLotoDraws",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Offer/GetMostPlayedLotoGames": {
+      "get": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetMostPlayedLotoGames",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "format": "int32",
+                "type": "integer"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Offer/GetOfferForLotoGame": {
+      "post": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetOfferForLotoGame",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetOfferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Offer/GetOfferInNearFuture": {
+      "get": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetOfferInNearFuture",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Offer/GetOffer": {
+      "post": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetOffer",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetOfferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/Offer/GetDrawDetails": {
+      "post": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetDrawDetails",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetDrawDetailsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/Offer/GetFilteredOffer": {
+      "post": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetFilteredOffer",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetFilteredOfferDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/Offer/GetFilteredOfferCount": {
+      "post": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetFilteredOfferCount",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetFilteredDrawsCountDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FilteredDrawsCountDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Offer/GetLotoCountryCodes": {
+      "get": {
+        "tags": [
+          "Offer"
+        ],
+        "operationId": "GetLotoCountryCodes",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Results/GetLatestLotoResults": {
+      "get": {
+        "tags": [
+          "Results"
+        ],
+        "operationId": "GetLatestLotoResults",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Results/GetResults": {
+      "post": {
+        "tags": [
+          "Results"
+        ],
+        "operationId": "GetResults",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetLotoResultsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/Results/GetResultsForLastDays": {
+      "post": {
+        "tags": [
+          "Results"
+        ],
+        "operationId": "GetResultsForLastDays",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "req",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/GetResultsForLastDaysDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LotoDrawInfoDTO"
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Transaction/{ilotTransactionId}/Details": {
+      "get": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Details",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotTransactionId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LoadTransactionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/Cancel": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Cancel",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CancelCouponPerTransactionIdDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/AdminCancel": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "AdminCancel",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CancelCouponPerTransactionIdDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/SuperAdminCancel": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "SuperAdminCancel",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CancelCouponPerTransactionIdDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/UndoCancel": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "UndoCancel",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UndoCancelCouponPerTransactionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/Rollback": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Rollback",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RollbackCouponPerTransactionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/UndoRollback": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "UndoRollback",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UndoRollbackCouponPerTransactionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/Payout": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "Payout",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PayoutCouponPerTransactionDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Transaction/UndoPayout": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "operationId": "UndoPayout",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "ilotCouponHeader",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ILOTCouponHeaderDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AdminPayoutCancelCouponPerTransactionDTO"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "VerifyCouponDTO": {
+      "type": "object",
+      "properties": {
+        "lotoId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roundId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "subscription": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numbersPlayed": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "systemsPlayed": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "paymentDetails": {
+          "$ref": "#/definitions/PaymentDetailsDTO"
+        }
+      }
+    },
+    "PaymentDetailsDTO": {
+      "type": "object",
+      "properties": {
+        "isPlainSlip": {
+          "type": "boolean"
+        },
+        "amount": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "VerifyCouponResponseDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "lotoCoupons": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LotoSlipDTO"
+          }
+        },
+        "errorAsLocalizedString": {
+          "type": "string"
+        }
+      }
+    },
+    "LotoSlipDTO": {
+      "type": "object",
+      "properties": {
+        "drawID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "draw": {
+          "$ref": "#/definitions/LotoDrawInfoDTO"
+        },
+        "error": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "globalStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "inputTaxIncluded": {
+          "type": "boolean"
+        },
+        "invoice": {
+          "format": "double",
+          "type": "number"
+        },
+        "lotoID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "lotoRoundID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxOutTaxes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tuple[Decimal,Decimal]"
+          }
+        },
+        "maxProfit": {
+          "format": "double",
+          "type": "number"
+        },
+        "outTaxes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tuple[Decimal,Decimal]"
+          }
+        },
+        "payinTax": {
+          "format": "double",
+          "type": "number"
+        },
+        "payoutAmountBrutto": {
+          "format": "double",
+          "type": "number"
+        },
+        "payoutAmountNetto": {
+          "format": "double",
+          "type": "number"
+        },
+        "payoutInfoList": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SinglePayoutInfoDTO"
+          }
+        },
+        "payoutTaxRate": {
+          "format": "double",
+          "type": "number"
+        },
+        "payoutTax": {
+          "format": "double",
+          "type": "number"
+        },
+        "playedNumbers": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "systems": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LotoSlipSystemDTO"
+          }
+        },
+        "warningList": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "templateId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "smsCode": {
+          "type": "string"
+        },
+        "hlCouponId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "payInTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "couponStatus": {
+          "type": "string"
+        }
+      }
+    },
+    "LotoDrawInfoDTO": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "bettingCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "drawID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "drawnNumbers": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "drawDateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "drawDate": {
+          "type": "string"
+        },
+        "drawTime": {
+          "type": "string"
+        },
+        "payinLimitTimeInMinutes": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "applianceDate": {
+          "type": "string"
+        },
+        "lotoID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxBettingNumbers": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "odds": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "officialComment": {
+          "type": "string"
+        },
+        "officialRound": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "officialRoundName": {
+          "type": "string"
+        },
+        "officialURL": {
+          "type": "string"
+        },
+        "strOdds": {
+          "type": "string"
+        },
+        "totalNumbers": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "webName1": {
+          "type": "string"
+        },
+        "webName2": {
+          "type": "string"
+        },
+        "winningNumbers": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "stats": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatsDTO"
+          }
+        },
+        "iocCode": {
+          "type": "string"
+        },
+        "countryName": {
+          "type": "string"
+        },
+        "drawsAhead": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "officialCommentMandatory": {
+          "type": "boolean"
+        },
+        "payinLimitTime": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "Tuple[Decimal,Decimal]": {
+      "type": "object",
+      "properties": {
+        "item1": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        },
+        "item2": {
+          "format": "double",
+          "type": "number",
+          "readOnly": true
+        }
+      }
+    },
+    "SinglePayoutInfoDTO": {
+      "type": "object",
+      "properties": {
+        "numbersWon": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "payout": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "LotoSlipSystemDTO": {
+      "type": "object",
+      "properties": {
+        "combinations": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxProfit": {
+          "format": "double",
+          "type": "number"
+        },
+        "minProfit": {
+          "format": "double",
+          "type": "number"
+        },
+        "odd": {
+          "format": "double",
+          "type": "number"
+        },
+        "stake": {
+          "format": "double",
+          "type": "number"
+        },
+        "system": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "StatsDTO": {
+      "type": "object",
+      "properties": {
+        "statId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "statDesc": {
+          "type": "string"
+        },
+        "numbers": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "PlayCouponDTO": {
+      "type": "object",
+      "properties": {
+        "ilotCouponHeader": {
+          "$ref": "#/definitions/ILOTCouponHeaderDTO"
+        },
+        "lotoId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roundId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "subscription": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numbersPlayed": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "systemsPlayed": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "paymentDetails": {
+          "$ref": "#/definitions/PaymentDetailsDTO"
+        }
+      }
+    },
+    "ILOTCouponHeaderDTO": {
+      "type": "object",
+      "properties": {
+        "hlCouponId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_TransactionId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_PlayerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_RetailId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "iloT_TerminalId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_EmployeeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "iloT_ChannelId": {
+          "format": "int32",
+          "enum": [
+            1,
+            2,
+            3,
+            6,
+            7,
+            22
+          ],
+          "type": "integer"
+        }
+      }
+    },
+    "PlayCouponResponseDTO": {
+      "type": "object",
+      "properties": {
+        "iloT_TransactionId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "lotoCoupons": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LotoSlipDTO"
+          }
+        },
+        "errorAsLocalizedString": {
+          "type": "string"
+        }
+      }
+    },
+    "LoadCouponDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "generalError": {
+          "type": "string"
+        },
+        "lotoSlip": {
+          "$ref": "#/definitions/LotoSlipDTO"
+        }
+      }
+    },
+    "GetPlainStatisticsDTO": {
+      "type": "object",
+      "properties": {
+        "bettingCode": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "PlainNumberStatisticDTO": {
+      "type": "object",
+      "properties": {
+        "nr": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalDrawn": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "passedRounds": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "GetAdvancedStatisticsDTO": {
+      "type": "object",
+      "properties": {
+        "bettingCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "statId": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "AdvancedNumberStatisticsDTO": {
+      "type": "object",
+      "properties": {
+        "statistics": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "GetOfferDTO": {
+      "type": "object",
+      "properties": {
+        "lotoGameIds": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "date": {
+          "type": "string"
+        }
+      }
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "GetDrawDetailsDTO": {
+      "type": "object",
+      "properties": {
+        "bettingCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "officialRound": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "GetFilteredOfferDTO": {
+      "type": "object",
+      "properties": {
+        "queryString": {
+          "type": "string"
+        },
+        "fromDate": {
+          "type": "string"
+        },
+        "fromTime": {
+          "type": "string"
+        },
+        "toDate": {
+          "type": "string"
+        },
+        "toTime": {
+          "type": "string"
+        }
+      }
+    },
+    "GetFilteredDrawsCountDTO": {
+      "type": "object",
+      "properties": {
+        "bettingCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roundId": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "FilteredDrawsCountDTO": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "GetLotoResultsDTO": {
+      "type": "object",
+      "properties": {
+        "lotoGameIds": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "date": {
+          "type": "string"
+        }
+      }
+    },
+    "GetResultsForLastDaysDTO": {
+      "type": "object",
+      "properties": {
+        "lotoGameIds": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "days": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "LoadTransactionDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "generalError": {
+          "type": "string"
+        },
+        "lotoSlip": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LotoSlipDTO"
+          }
+        }
+      }
+    },
+    "CancelCouponPerTransactionIdDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "generalError": {
+          "type": "string"
+        },
+        "cancelledCoupon": {
+          "$ref": "#/definitions/SlipCancelDataDTO"
+        }
+      }
+    },
+    "SlipCancelDataDTO": {
+      "type": "object",
+      "properties": {
+        "cancelTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "invoiceAmt": {
+          "format": "double",
+          "type": "number"
+        },
+        "slipStatus": {
+          "type": "string"
+        },
+        "iloT_ChannelId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_EmployeeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_PlayerID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_RetailId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_TerminalId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "iloT_TransactionId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "hL_TransactionId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "calYear": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roundID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sequentialID": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "UndoCancelCouponPerTransactionDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "generalError": {
+          "type": "string"
+        },
+        "cancelledCoupon": {
+          "$ref": "#/definitions/SlipCancelDataDTO"
+        }
+      }
+    },
+    "RollbackCouponPerTransactionDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        },
+        "rollbackTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "couponDetails": {
+          "$ref": "#/definitions/LotoSlipDTO"
+        }
+      }
+    },
+    "UndoRollbackCouponPerTransactionDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "PayoutCouponPerTransactionDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        },
+        "payoutTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "couponDetails": {
+          "$ref": "#/definitions/LotoSlipDTO"
+        }
+      }
+    },
+    "AdminPayoutCancelCouponPerTransactionDTO": {
+      "type": "object",
+      "properties": {
+        "responseCode": {
+          "format": "int32",
+          "enum": [
+            0,
+            19,
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010,
+            1011,
+            1012,
+            1013,
+            1014,
+            1015,
+            1016,
+            1017,
+            1018,
+            1019,
+            1020,
+            1021,
+            1022,
+            1023,
+            1024,
+            1025,
+            1026,
+            1027,
+            1028,
+            1029,
+            1030,
+            1031,
+            1032,
+            1033,
+            1034,
+            1035,
+            1036,
+            1037,
+            1038,
+            1100,
+            5000
+          ],
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        },
+        "couponDetails": {
+          "$ref": "#/definitions/SlipCancelDataDTO"
+        }
+      }
+    }
+  }
+}

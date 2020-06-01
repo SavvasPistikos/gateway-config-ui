@@ -1,0 +1,126 @@
+{
+    "wagerId": 100153841,
+    "pilot": false,
+    "promotionOutcomes": [],
+    "serialNumbers": [
+        "21975605680000000000231643267301"
+    ],
+    "wager": {
+        "dbg": [
+            {
+                "addOn": [
+                    {
+                        "columns": 1,
+                        "cost": 2,
+                        "gameTypeId": 0
+                    }
+                ],
+                "blockStatus": "Unblocked",
+                "boards": [
+                    {
+                        "boardId": 1,
+                        "multipliers": [
+                            1
+                        ],
+                        "panels": [
+                            {
+                                "quickPick": false,
+                                "requested": 6,
+                                "selection": [
+                                    5,
+                                    10,
+                                    15,
+                                    2,
+                                    3,
+                                    11
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "columns": 1,
+                "cost": 2,
+                "creationTime": 1551265042380,
+                "discount": 0,
+                "gameId": 5155,
+                "multipliers": [
+                    1
+                ],
+                "participatingDraws": {
+                    "draws": [
+                        13
+                    ],
+                    "firstDraw": 13,
+                    "firstDrawTime": "1556982240000",
+                    "firstVisualDraw": 13,
+                    "lastDraw": 13,
+                    "lastDrawTime": "1556982240000",
+                    "lastVisualDraw": 13,
+                    "multipleDraws": 1,
+                    "playedDraw": 13,
+                    "specialOptions": {
+                        "superSaturdayGap": 6
+                    }
+                },
+                "status": "Played"
+            },
+            {
+                "addOn": [
+                    {
+                        "columns": 1,
+                        "cost": 1,
+                        "gameTypeId": 0
+                    }
+                ],
+                "blockStatus": "Unblocked",
+                "boards": [
+                    {
+                        "boardId": 1,
+                        "multipliers": [],
+                        "panels": [
+                            {
+                                "quickPick": false,
+                                "requested": 6,
+                                "selection": [
+                                    5,
+                                    10,
+                                    15,
+                                    2,
+                                    3,
+                                    11
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "columns": 1,
+                "cost": 1,
+                "creationTime": 1551265042380,
+                "discount": 0,
+                "gameId": 5279,
+                "multipliers": [
+                    1
+                ],
+                "participatingDraws": {
+                    "draws": [
+                        4
+                    ],
+                    "firstDraw": 4,
+                    "firstDrawTime": "1551542640000",
+                    "firstVisualDraw": 4,
+                    "lastDraw": 4,
+                    "lastDrawTime": "1551542640000",
+                    "lastVisualDraw": 4,
+                    "multipleDraws": 1,
+                    "playedDraw": 4
+                },
+                "status": "Played"
+            }
+        ]
+    },
+    "metadata": {
+        "playerInfo": {
+            "playerId": 110646134
+        }
+    }
+}

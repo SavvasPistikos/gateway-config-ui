@@ -1,0 +1,853 @@
+{
+  "swagger": "2.0",
+  "info": {},
+  "paths": {
+    "/api/v1.0/playersettings/{playerId}": {
+      "get": {
+        "tags": ["PlayerSettings"],
+        "operationId": "PlayerSettings_Get",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "playerId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/playersettings": {
+      "post": {
+        "tags": ["PlayerSettings"],
+        "operationId": "PlayerSettings_Post",
+        "consumes": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "playerWagerSettings",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/PlayerWagerSettings"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/{betslipId}/details": {
+      "get": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_BetDetails",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "betslipId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "includeEventResults",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeWinSelections",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{hlCouponId}": {
+      "delete": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_CancelBetslip",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "hlCouponId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{hlCouponId}/admin": {
+      "delete": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_AdminCancelBetslip",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "hlCouponId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{hlCouponId}/superadmin": {
+      "delete": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_SuperAdminCancelBetslip",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "hlCouponId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/rollback": {
+      "delete": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_RollBackBetslip",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "transactionId",
+          "in": "query",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "rollbackFrom",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/betslips/{betSlipId}/settlements": {
+      "put": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_SettleBetslip",
+        "consumes": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "betSlipId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CroatiaSpbAdaptorTerminalPayRequestL10"
+            }
+          }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers": {
+      "post": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_PlaceBet",
+        "consumes": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "req",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorBetRequest"
+          }
+        },
+          {
+            "name": "extendedResponse",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_UndoBet",
+        "consumes": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorUndoRequest"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/checkauthorization": {
+      "post": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_CheckAuthorization",
+        "consumes": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "req",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorBetRequest"
+          }
+        },
+          {
+            "name": "extendedResponse",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/verify": {
+      "post": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_VerifyBet",
+        "consumes": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/x-www-form-urlencoded"],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "req",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorBetRequest"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/wagers/templates/{templateId}": {
+      "get": {
+        "tags": ["SportsbookWagersApi"],
+        "operationId": "SportsbookWagersApi_GetBetslipByTemplateId",
+        "consumes": [],
+        "produces": ["application/json",
+          "text/json",
+          "application/xml",
+          "text/xml"],
+        "parameters": [{
+          "name": "templateId",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PlayerWagerSettings": {
+      "type": "object",
+      "properties": {
+        "UserId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "AllowPositiveOddChanges": {
+          "type": "boolean"
+        },
+        "AllowAnyOddChanges": {
+          "type": "boolean"
+        },
+        "AllowDecreasedStake": {
+          "type": "boolean"
+        },
+        "ForcedSlipClearing": {
+          "type": "boolean"
+        },
+        "PredefinedAmount_1": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "PredefinedAmount_2": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "PredefinedAmount_3": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "IndexLight": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorTerminalPayRequestL10": {
+      "type": "object",
+      "properties": {
+        "betSlipID": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "externalRetailerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "terminalId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorUndoRequest": {
+      "required": ["extBetslipId"],
+      "type": "object",
+      "properties": {
+        "extBetslipId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betPlacementTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "channel": {
+          "type": "string"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorBetRequest": {
+      "required": ["bets",
+        "transaction"],
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "bets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorBet"
+          }
+        },
+        "transaction": {
+          "$ref": "#/definitions/CroatiaSpbAdaptorTransaction"
+        },
+        "acceptPriceChange": {
+          "type": "boolean"
+        },
+        "acceptOdds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "extBetslipId": {
+          "type": "string"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorBet": {
+      "required": ["selections",
+        "stake",
+        "system"],
+      "type": "object",
+      "properties": {
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorSelection"
+          }
+        },
+        "stake": {
+          "$ref": "#/definitions/CroatiaSpbAdaptorStake"
+        },
+        "system": {
+          "$ref": "#/definitions/CroatiaSpbAdaptorSystem"
+        },
+        "checkOdds": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "potentialPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "totalOdds": {
+          "format": "double",
+          "type": "number"
+        },
+        "betId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "betNo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "rejectionReason": {
+          "type": "string"
+        },
+        "liveBet": {
+          "type": "boolean"
+        },
+        "cashOut": {
+          "type": "boolean"
+        },
+        "totalPrice": {
+          "format": "double",
+          "type": "number"
+        },
+        "limitedStake": {
+          "format": "double",
+          "type": "number"
+        },
+        "betTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "channelId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "payout": {
+          "format": "double",
+          "type": "number"
+        },
+        "displayStatus": {
+          "type": "string"
+        },
+        "overAskId": {
+          "type": "string"
+        },
+        "extBetId": {
+          "type": "string"
+        },
+        "totalCost": {
+          "format": "double",
+          "type": "number"
+        },
+        "paidTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "buildABet": {
+          "type": "boolean"
+        },
+        "payoutPerWonEvent": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorPayoutPerWonEvent"
+          }
+        },
+        "systemDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CroatiaSpbAdaptorSystemDetails"
+          }
+        },
+        "currentlyInplay": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorTransaction": {
+      "required": ["channelId"],
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "channelId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retailerId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "retailerTerminalId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "retailerEmployeeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "transactionTime": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorSelection": {
+      "required": ["selectionId",
+        "odds"],
+      "type": "object",
+      "properties": {
+        "partNo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "selectionId": {
+          "type": "string"
+        },
+        "selectionIdOriginal": {
+          "type": "string"
+        },
+        "eventId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "odds": {
+          "$ref": "#/definitions/CroatiaSpbAdaptorOddData"
+        },
+        "newOdds": {
+          "$ref": "#/definitions/CroatiaSpbAdaptorOdds"
+        },
+        "banker": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "errorcode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "errormessage": {
+          "type": "string"
+        },
+        "marketId": {
+          "type": "string"
+        },
+        "marketIdOriginal": {
+          "type": "string"
+        },
+        "selectionNames": {
+          "$ref": "#/definitions/CroatiaSpbAdaptorNames"
+        },
+        "selectionName": {
+          "type": "string"
+        },
+        "marketName": {
+          "type": "string"
+        },
+        "eventName": {
+          "type": "string"
+        },
+        "eventTime": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "resultType": {
+          "type": "string"
+        },
+        "inplay": {
+          "type": "boolean"
+        },
+        "pitcherAName": {
+          "type": "string"
+        },
+        "pitcherBName": {
+          "type": "string"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorStake": {
+      "required": ["amount",
+        "currency"],
+      "type": "object",
+      "properties": {
+        "amount": {
+          "format": "double",
+          "type": "number"
+        },
+        "amountPerSystem": {
+          "type": "array",
+          "items": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorSystem": {
+      "type": "object",
+      "properties": {
+        "systems": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "CroatiaSpbAdaptorPayoutPerWonEvent": {
+      "type": "object",
+      "properties": {
+        "minPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "nrOfEvents": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorSystemDetails": {
+      "type": "object",
+      "properties": {
+        "systemId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numOfCombinations": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "stakePerSystem": {
+          "format": "double",
+          "type": "number"
+        },
+        "minPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxPayout": {
+          "format": "double",
+          "type": "number"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "errorCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "errorCodeMessage": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorOddData": {
+      "required": ["decimal"],
+      "type": "object",
+      "properties": {
+        "decimal": {
+          "format": "double",
+          "type": "number"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorOdds": {
+      "type": "object",
+      "properties": {
+        "dec": {
+          "type": "string"
+        },
+        "frac": {
+          "type": "string"
+        },
+        "rootIdx": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "CroatiaSpbAdaptorNames": {
+      "type": "object",
+      "properties": {
+        "longName": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "veryshortName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

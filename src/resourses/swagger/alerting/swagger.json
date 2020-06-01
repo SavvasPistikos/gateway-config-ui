@@ -1,0 +1,656 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Spring REST Documentation with Swagger",
+    "version": "1.5.3.0-SNAPSHOT",
+    "title": "Alerting Service",
+    "contact": {
+      "name": "Intralot SA"
+    },
+    "license": {}
+  },
+  "host": "alerting.lh.app.osedev.l10.intralot.com:80",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "health-check-controller",
+      "description": "Health Check Controller"
+    },
+    {
+      "name": "instantalert",
+      "description": "Instant Alert Controller that creates an alert"
+    },
+    {
+      "name": "version-controller",
+      "description": "Version Controller"
+    },
+    {
+      "name": "executealertquery",
+      "description": "Execute Alert Query in ElasticSearch"
+    }
+  ],
+  "paths": {
+    "/alerting/api/v1.0/executeAlertQuery/{id}": {
+      "post": {
+        "tags": [
+          "executealertquery"
+        ],
+        "summary": "executeAlertQuery",
+        "operationId": "executeAlertQueryUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ALT_QUERY DB ID ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/alerting/api/v1.0/instantAlert": {
+      "post": {
+        "tags": [
+          "instantalert"
+        ],
+        "summary": "createAlert",
+        "operationId": "createAlertUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "alertEvent",
+            "description": "alertEvent",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlertEventInput"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/alerting/api/v1.0/instantAlert/{id}": {
+      "post": {
+        "tags": [
+          "instantalert"
+        ],
+        "summary": "sendNotificationAlert",
+        "operationId": "sendNotificationAlertUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ALT_EVENT DB ID ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "GUID",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ResponseOutput"
+            }
+          }
+        }
+      }
+    },
+    "/alerting/gtg": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "goodToGo",
+        "operationId": "goodToGoUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/alerting/health": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "getHealthStatus",
+        "operationId": "getHealthStatusUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HealthDTO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/alerting/metrics": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "metrics",
+        "operationId": "metricsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Metrics"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/alerting/response_log/{items}": {
+      "get": {
+        "tags": [
+          "health-check-controller"
+        ],
+        "summary": "responseLog",
+        "operationId": "responseLogUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "items",
+            "in": "path",
+            "description": "items",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Log"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/alerting/version": {
+      "get": {
+        "tags": [
+          "version-controller"
+        ],
+        "summary": "configurationChange",
+        "operationId": "configurationChangeUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EvictingQueue«ResponseLog»": {},
+    "Metrics": {
+      "properties": {
+        "builtWhen": {
+          "type": "string"
+        },
+        "compilerVersion": {
+          "type": "string"
+        },
+        "gitSHa1": {
+          "type": "string"
+        },
+        "machineName": {
+          "type": "string"
+        },
+        "osname": {
+          "type": "string"
+        },
+        "osversion": {
+          "type": "string"
+        },
+        "requestCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseErrorCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rqp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serviceTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "statistics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MethodMetrics"
+          }
+        },
+        "upSince": {
+          "type": "string"
+        }
+      }
+    },
+    "HealthDTO": {
+      "properties": {
+        "dependentService": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "machineName": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "serviceName": {
+          "type": "string"
+        },
+        "serviceTime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Map«string,string»": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Log": {
+      "properties": {
+        "responseLog": {
+          "$ref": "#/definitions/EvictingQueue«ResponseLog»"
+        }
+      }
+    },
+    "AlertEventInput": {
+      "required": [
+        "criticality",
+        "description",
+        "name",
+        "origin"
+      ],
+      "properties": {
+        "ack": {
+          "type": "boolean",
+          "description": "Check if alert is acknowledged"
+        },
+        "alertType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Alert raised with an alertType"
+        },
+        "alertTypeName": {
+          "type": "string",
+          "description": "Alert raised with an alertType Name, optioannly used instead of alert Type Id"
+        },
+        "criticality": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Alert raised with a criticality"
+        },
+        "dataElements": {
+          "type": "object",
+          "description": "Alert raised with dataElements",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the instant alert"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the instant alert"
+        },
+        "notification": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Alert raised with a notification"
+        },
+        "origin": {
+          "type": "string",
+          "description": "External system that called alerting api"
+        },
+        "recipients": {
+          "type": "string",
+          "description": "Alert raised with recipients"
+        }
+      }
+    },
+    "ResponseOutput": {
+      "required": [
+        "code",
+        "guid",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Response Code"
+        },
+        "data": {
+          "type": "string",
+          "description": "Response data"
+        },
+        "detail": {
+          "type": "string",
+          "description": "Response detail. Usually used in erroneous cases"
+        },
+        "guid": {
+          "type": "string",
+          "description": "Unique GUID as generated from the Message Originator"
+        },
+        "message": {
+          "type": "string",
+          "description": "Response Message"
+        },
+        "source": {
+          "type": "string",
+          "description": "Response source"
+        },
+        "type": {
+          "type": "string",
+          "description": "Response Type"
+        }
+      }
+    },
+    "MethodMetrics": {
+      "properties": {
+        "aet": {
+          "type": "number",
+          "format": "double"
+        },
+        "highResponseTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "lowResponseTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requestCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "responseErrorCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ResponseLog": {
+      "properties": {
+        "errorCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

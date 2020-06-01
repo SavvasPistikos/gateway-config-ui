@@ -1,0 +1,27 @@
+{
+  "wager": {
+    "dbg": [
+      {
+        "gameId": 2101,
+        "multipliers": [4,5],
+        "boards": [
+          {
+            "boardId": 1,
+            "betType": 1,
+            "options": ["RANDOM_NUM4"],
+            "panels": [
+              {
+                "requested": 0,
+                "selection": [1,41,948,9384]
+              }
+            ],
+            "quickPick": true
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "trnsTime": "2018-10-03T12:19:48+03:00"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "wagerId" : 61,
+  "serialNumbers" : [ "30198988830000015744088976076033696" ],
+  "wager" : {
+    "dbg" : [ {
+      "boards" : [ {
+        "betType" : 1,
+        "boardId" : 1,
+        "options" : [ "SEQ5" ],
+        "panels" : [ {
+          "requested" : 0,
+          "selection" : [ 1 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 2 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 3 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 4 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 5 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 6 ]
+        }, {
+          "requested" : 0,
+          "selection" : [ 7 ]
+        } ],
+        "quickPick" : false
+      } ],
+      "columns" : 5,
+      "cost" : 2.5,
+      "gameId" : 2101,
+      "multipliers" : [ 1 ],
+      "participatingDraws" : {
+        "drawOffsets" : [ 1 ],
+        "firstDraw" : 949,
+        "firstDrawTime" : "1539540000",
+        "lastDraw" : 949,
+        "lastDrawTime" : "1539540000",
+        "multipleDraws" : 1
+      }
+    } ]
+  }
+}

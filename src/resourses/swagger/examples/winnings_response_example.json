@@ -1,0 +1,52 @@
+[
+  {
+    "gameId": 5001,
+    "totalAmounts": {
+      "gross": 9000,
+      "net": 9000,
+      "other": 0,
+      "refund": 0,
+      "tax": 0
+    },
+    "startDraw": 1457,
+    "endDraw": 1457,
+    "paidDraws": [],
+    "details": [
+      {
+        "detailAmounts": {
+          "gross": 9000,
+          "net": 9000,
+          "other": 0,
+          "refund": 0,
+          "tax": 0
+        },
+        "draw": 1457,
+        "purgeTime": 1536218522000,
+        "status": "Win",
+        "winningsPerCategory": [
+          {
+            "categoryAmounts": {
+              "gross": 9000,
+              "net": 9000,
+              "other": 0,
+              "refund": 0,
+              "tax": 0
+            },
+            "categoryId": 3,
+            "subCategoryId": 0,
+            "successes": 3
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "winning": 1,
+      "expired": 0,
+      "paid": 0,
+      "nonWinning": 0,
+      "pending": 0
+    },
+    "status": "Winning",
+    "cost": 7
+  }
+]

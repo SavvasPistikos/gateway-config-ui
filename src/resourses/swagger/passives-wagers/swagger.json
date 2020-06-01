@@ -1,0 +1,422 @@
+{
+   "swagger": "2.0",
+   "info": {
+      "description": "API specification",
+      "version": "1.0",
+      "title": "passives-wager-engine"
+   },
+   "tags": [
+      {
+         "name": "Passives"
+      }
+   ],
+   "schemes": [
+      "http",
+      "https"
+   ],
+   "paths": {
+      "/passives/api/v1.0/wagers/reservations/{reservationId}": {
+         "get": {
+            "tags": [
+               "Passives"
+            ],
+            "summary": "It is used to get passives reservation",
+            "description": "",
+            "operationId": "getReservation",
+            "consumes": [
+               "application/json"
+            ],
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "name": "reservationId",
+                  "in": "path",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+               },
+               {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Authorization token",
+                  "required": true,
+                  "type": "string",
+                  "default": "Bearer token"
+               },
+               {
+                  "name": "RetailerId",
+                  "in": "header",
+                  "description": "The retailer id",
+                  "required": false,
+                  "type": "integer"
+               },
+               {
+                  "name": "TerminalId",
+                  "in": "header",
+                  "description": "The terminal id",
+                  "required": false,
+                  "type": "integer"
+               },
+               {
+                  "name": "Channel",
+                  "in": "header",
+                  "description": "The channel id",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "Operator",
+                  "in": "header",
+                  "description": "The operator id",
+                  "required": true,
+                  "type": "integer"
+               },
+               {
+                  "name": "Guid",
+                  "in": "header",
+                  "description": "The guid",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK",
+                  "schema": {
+                     "$ref": "#/definitions/ReservationResponse"
+                  }
+               },
+               "400": {
+                  "description": "Bad Request",
+                  "schema": {
+                     "$ref": "#/definitions/InlineResponse401"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized",
+                  "schema": {
+                     "$ref": "#/definitions/InlineResponse401"
+                  }
+               },
+               "500": {
+                  "description": "Internal Server Error",
+                  "schema": {
+                     "$ref": "#/definitions/InlineResponse401"
+                  }
+               }
+            }
+         }
+      },
+      "/passives/api/v1.0/wagers/{game}/{draw}/{ticket}": {
+         "get": {
+            "tags": [
+               "Passives"
+            ],
+            "summary": "It is used to search passives",
+            "description": "Returns the ids of the wagers that contains the ticket for the specific game and draw.",
+            "operationId": "searchTickets",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "name": "game",
+                  "in": "path",
+                  "description": "The game id",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+               },
+               {
+                  "name": "draw",
+                  "in": "path",
+                  "description": "The draw id",
+                  "required": true,
+                  "type": "integer",
+                  "format": "int64"
+               },
+               {
+                  "name": "ticket",
+                  "in": "path",
+                  "description": "The ticket",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK",
+                  "schema": {
+                     "type": "array",
+                     "items": {
+                        "type": "integer",
+                        "format": "int64"
+                     }
+                  },
+                  "responseSchema": {
+                     "type": "array",
+                     "items": {
+                        "type": "integer",
+                        "format": "int64"
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+                  "schema": {
+                     "originalRef": "FaultInfo",
+                     "$ref": "#/definitions/FaultInfo"
+                  },
+                  "responseSchema": {
+                     "originalRef": "FaultInfo",
+                     "$ref": "#/definitions/FaultInfo"
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+               },
+               "404": {
+                  "description": "Not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Not found |\r\n| 30 | Entity of class: {class}, id: {id} not found |\r\n",
+                  "schema": {
+                     "originalRef": "FaultInfo",
+                     "$ref": "#/definitions/FaultInfo"
+                  },
+                  "responseSchema": {
+                     "originalRef": "FaultInfo",
+                     "$ref": "#/definitions/FaultInfo"
+                  }
+               },
+               "500": {
+                  "description": "Internal server error",
+                  "schema": {
+                     "originalRef": "FaultInfo",
+                     "$ref": "#/definitions/FaultInfo"
+                  },
+                  "responseSchema": {
+                     "originalRef": "FaultInfo",
+                     "$ref": "#/definitions/FaultInfo"
+                  }
+               },
+               "502": {
+                  "description": "Bad Gateway"
+               },
+               "503": {
+                  "description": "Service Unavailable"
+               }
+            }
+         }
+      }
+   },
+   "definitions": {
+      "ReservationResponse": {
+         "type": "object",
+         "properties": {
+            "reservationId": {
+               "type": "integer",
+               "format": "int64"
+            },
+            "passives": {
+               "$ref": "#/definitions/ReservationResponseModel"
+            }
+         }
+      },
+      "ReservationResponseModel": {
+         "type": "object",
+         "properties": {
+            "tickets": {
+               "type": "array",
+               "items": {
+                  "$ref": "#/definitions/TicketModel"
+               }
+            },
+            "options": {
+               "type": "array",
+               "items": {
+                  "type": "string"
+               }
+            },
+            "gameId": {
+               "type": "integer",
+               "format": "int32"
+            },
+            "participatingDraws": {
+               "$ref": "#/definitions/ReservationParticipatingDrawModel"
+            }
+         }
+      },
+      "ReservationParticipatingDrawModel": {
+         "type": "object",
+         "properties": {
+            "draws": {
+               "type": "array",
+               "description": "outcome parameter: it holds the actual participated draws",
+               "items": {
+                  "type": "integer",
+                  "format": "int32"
+               }
+            },
+            "firstDraw": {
+               "type": "integer",
+               "format": "int32",
+               "description": "outcome parameter: it holds the first participated draw"
+            },
+            "firstDrawTime": {
+               "type": "string",
+               "description": "outcome parameter: it holds the first participated draw date"
+            },
+            "lastDraw": {
+               "type": "integer",
+               "format": "int32",
+               "description": "outcome parameter: it holds the last participated draw"
+            },
+            "lastDrawTime": {
+               "type": "string",
+               "description": "outcome parameter: it holds the last participated draw date"
+            },
+            "multipleDraws": {
+               "type": "integer",
+               "format": "int32",
+               "description": "outcome parameter: it holds the first participated draw"
+            }
+         }
+      },
+      "TicketModel": {
+         "type": "object",
+         "properties": {
+            "fractions": {
+               "type": "integer",
+               "format": "int32"
+            },
+            "productRef": {
+               "type": "integer",
+               "format": "int32"
+            },
+            "options": {
+               "type": "array",
+               "items": {
+                  "type": "string"
+               }
+            },
+            "multiRequests": {
+               "type": "boolean"
+            },
+            "passivesGenerated": {
+               "type": "array",
+               "items": {
+                  "$ref": "#/definitions/TicketPart"
+               }
+            },
+            "productType": {
+               "type": "string",
+               "enum": ["Simple", "Street", "Boulevard", "BoulevardShared"]
+            },
+            "betType": {
+               "type": "array",
+               "description": "1 : No Addon (default)\n 2 : XL\n 3 : Jackpot",
+               "items": {
+                  "type": "string",
+                  "enum": ["1", "2", "3"]
+               }
+            },
+            "selection": {
+               "$ref": "#/definitions/PassiveSelection"
+            },
+            "eanCode": {
+               "type": "string"
+            },
+            "share": {
+               "type": "integer",
+               "format": "int32"
+            }
+         }
+      },
+      "PassiveSelection": {
+         "type": "object",
+         "properties": {
+            "digits": {
+               "type": "string"
+            },
+            "series": {
+               "type": "string"
+            },
+            "pattern": {
+               "type": "string"
+            }
+         }
+      },
+      "TicketPart": {
+         "type": "object",
+         "properties": {
+            "id": {
+               "type": "string"
+            },
+            "parts": {
+               "type": "array",
+               "items": {
+                  "type": "integer",
+                  "format": "int32"
+               }
+            }
+         }
+      },
+      "InlineResponse401": {
+         "type": "object",
+         "required": ["code", "guid", "message", "source"],
+         "properties": {
+            "code": {
+               "type": "integer",
+               "format": "int32",
+               "description": "code"
+            },
+            "guid": {
+               "type": "string",
+               "description": "guid"
+            },
+            "message": {
+               "type": "string",
+               "description": "message"
+            },
+            "source": {
+               "type": "string",
+               "description": "source"
+            },
+            "type": {
+               "type": "string",
+               "description": "type"
+            }
+         }
+      },
+      "FaultInfo": {
+         "type": "object",
+         "properties": {
+            "code": {
+               "type": "integer",
+               "format": "int32",
+               "description": "The error code"
+            },
+            "message": {
+               "type": "string",
+               "description": "The error message"
+            },
+            "data": {
+               "type": "array",
+               "description": "The error data which is an abstract object that may be used to provide any error metadata",
+               "items": {
+                  "type": "object"
+               }
+            },
+            "source": {
+               "type": "string",
+               "description": "The application at which the API error occured"
+            },
+            "type": {
+               "type": "string",
+               "description": "The error family, e.g. RUNTIME, VALIDATION, etc"
+            }
+         },
+         "description": "The FaultInfo object contains all the details assosiated with an API error"
+      }
+   }
+}

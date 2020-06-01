@@ -1,0 +1,876 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API specification",
+    "version": "1.0",
+    "title": "salesforce-adaptor"
+  },
+  "tags": [
+    {
+      "name": "Retailers"
+    },
+    {
+      "name": "Terminals"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/v1.0/retailers/{retailerId}": {
+      "get": {
+        "tags": [
+          "Retailers"
+        ],
+        "summary": "Get information about a Retailer.",
+        "description": "",
+        "operationId": "retailerGet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/RetailerData",
+              "originalRef": "RetailerData"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerData",
+              "originalRef": "RetailerData"
+            }
+          },
+          "404": {
+            "description": "In case where the retailerId is not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200005      |     RETAILER_NOT_FOUND \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Retailers"
+        ],
+        "summary": "Update Retailer data.",
+        "description": "",
+        "operationId": "retailerUpdate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "retailerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "maximum": 999999,
+            "minimum": 100000,
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/RetailerDTO",
+              "originalRef": "RetailerDTO"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/RetailerResponseDTO",
+              "originalRef": "RetailerResponseDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerResponseDTO",
+              "originalRef": "RetailerResponseDTO"
+            }
+          },
+          "404": {
+            "description": "In case where the retailerId is not found\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200005      |     RETAILER_NOT_FOUND \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "400": {
+            "description": "In case of bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200001  \t   |     INVALID_OUTLET_TYPE \t\r\n| 200002      |     INVALID_PAYMENT_LEVEL \t\r\n| 200029      |     INVALID_RETAILER_TYPE \t\r\n| 200003      |     CANNOT_CHANGE_RETAILER_ID \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/retailers": {
+      "post": {
+        "tags": [
+          "Retailers"
+        ],
+        "summary": "Create retailer registry data.",
+        "description": "",
+        "operationId": "retailerSave",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/RetailerDTO",
+              "originalRef": "RetailerDTO"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/RetailerResponseFullDTO",
+              "originalRef": "RetailerResponseFullDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/RetailerResponseFullDTO",
+              "originalRef": "RetailerResponseFullDTO"
+            }
+          },
+          "400": {
+            "description": "Raised upon conflict. In the case where the retailerId is already present, then this status code is returned, and no updates will happen in the database. Also raised in case of bad request data\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200001  \t   |     INVALID_OUTLET_TYPE \t\r\n| 200002      |     INVALID_PAYMENT_LEVEL \t\r\n| 200013      |     MUST_HAVE_HEAD_RETAILER_ID \t\r\n| 200020      |     RETAILER_ALREADY_EXISTS \t\r\n| 200029      |     INVALID_RETAILER_TYPE \t\r\n| 200034      |     INVALID_PARENT_RETAILER \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of an internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/{terminalCode}/qr/plain": {
+      "get": {
+        "tags": [
+          "Terminals"
+        ],
+        "summary": "Get Terminal qr code plain data.",
+        "description": "",
+        "operationId": "getTerminalQR",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "terminalCode",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "404": {
+            "description": "In case where the terminalCode is not found or terminal cannot be retrieved by DMS\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200015      |     TERMINAL_NOT_FOUND \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals": {
+      "post": {
+        "tags": [
+          "Terminals"
+        ],
+        "summary": "Creates a Terminal",
+        "description": "",
+        "operationId": "createTerminal",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TerminalRequestDTO",
+              "originalRef": "TerminalRequestDTO"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success"
+          },
+          "500": {
+            "description": "In case of internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "400": {
+            "description": "In case of validation error \r\n| Error code | Description |\r\n| :-: | - |\r\n| 200009  \t   |     INVALID_TERMINAL_TYPE \t\r\n| 200030      |     INVALID_MODE \t\r\n| 200032      |     TERMINAL_ALREADY_EXISTS \t\r\n| 200033      |     TERMINAL_SN_ALREADY_EXISTS \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "404": {
+            "description": "In case retailer does not exist\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200005      |     RETAILER_NOT_FOUND \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1.0/terminals/{terminalCode}": {
+      "get": {
+        "tags": [
+          "Terminals"
+        ],
+        "summary": "Get information about a Terminal.",
+        "description": "",
+        "operationId": "getTerminal",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "terminalCode",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The system authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "guid",
+            "in": "header",
+            "description": "The GUID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned upon success",
+            "schema": {
+              "$ref": "#/definitions/TerminalResponseDTO",
+              "originalRef": "TerminalResponseDTO"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/TerminalResponseDTO",
+              "originalRef": "TerminalResponseDTO"
+            }
+          },
+          "404": {
+            "description": "In case where the terminalCode is not found or terminal cannot be retrieved by DMS\r\n| Error code | Description |\r\n| :-: | - |\r\n| 200015      |     TERMINAL_NOT_FOUND \t\r\n",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          },
+          "500": {
+            "description": "In case of internal error",
+            "schema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            },
+            "responseSchema": {
+              "$ref": "#/definitions/L10FaultInfo",
+              "originalRef": "L10FaultInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mono": {
+      "type": "object"
+    },
+    "MonoRetailerResponseDTO": {
+      "type": "object"
+    },
+    "RetailerResponseDTO": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The retailer Id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer status. 0: Inactive, 1: Active, 2: Pending Active, 3: Cancelled"
+        },
+        "transactionStatus": {
+          "type": "string",
+          "description": "Retailer transaction status. 0: Unblocked, 1: Block Sales, 2: Block All"
+        }
+      },
+      "description": "The edit retailer response moodel"
+    },
+    "L10FaultInfo": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "source": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "RetailerDTO": {
+      "type": "object",
+      "required": [
+        "businessName",
+        "outletType",
+        "paymentLevel",
+        "retailerId",
+        "type"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "6-digit ID as assigned by Salesforce."
+        },
+        "businessName": {
+          "type": "string"
+        },
+        "outletType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Outlet type values:\n1\tHEAD\n2\tBRANCH\n3\tINDEPENDENT",
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        },
+        "headRetailerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Is mandatory only when the outlet type is set to 'Branch'."
+        },
+        "paymentLevel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Payment level values:\n1\tAgency\n2\tCentralAgency\n3\tCashier\n4\tCentralCashier\n5\tRegionalOffices\n6\tCentralOffices\n",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer category values: \n0\tOthers\n501\tPetrol\n502\tB2B\n503\tBook\n504\tDrugstore\n505\tTobacco & Convenience\n506\tSport Association\n507\tFood"
+        },
+        "streetName": {
+          "type": "string",
+          "description": "The street name"
+        },
+        "houseNumber": {
+          "type": "string",
+          "description": "The house number"
+        },
+        "houseNumberExtension": {
+          "type": "string",
+          "description": "The house number extension"
+        },
+        "zipcode": {
+          "type": "string",
+          "description": "The zip code"
+        },
+        "city": {
+          "type": "string",
+          "description": "The city"
+        },
+        "province": {
+          "type": "string",
+          "description": "The province"
+        },
+        "operationalStartDate": {
+          "type": "string",
+          "description": "The start date. format: YYYY-MM-DD",
+          "pattern": "^((2000|2400|2800|(19|2[0-9](0[48]|[2468][048]|[13579][26])))-02-29)$|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$|^(?![\\s\\S])"
+        },
+        "operationalEndDate": {
+          "type": "string",
+          "description": "The operational enabled date. format: YYYY-MM-DD",
+          "pattern": "^((2000|2400|2800|(19|2[0-9](0[48]|[2468][048]|[13579][26])))-02-29)$|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$|^(?![\\s\\S])"
+        },
+        "finalDeletionDate": {
+          "type": "string",
+          "description": "The final deletion date. format: YYYY-MM-DD",
+          "pattern": "^((2000|2400|2800|(19|2[0-9](0[48]|[2468][048]|[13579][26])))-02-29)$|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$|^(?![\\s\\S])"
+        },
+        "ediInclude": {
+          "type": "boolean",
+          "description": "Include chain members in Electronic Invoice (EDI)"
+        },
+        "glnCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GLN Code"
+        },
+        "ediDesadvInclude": {
+          "type": "boolean",
+          "description": "Include chain member in EAB/DESADV (EDI) message"
+        },
+        "offlineRetailer": {
+          "type": "boolean",
+          "description": "Indicates whether the status of instant ticket packs that have been send to the retailer are automatically set to 'Available' after a configurable amount of time"
+        },
+        "taxNumber": {
+          "type": "string",
+          "description": "Retailer tax number"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer status. 0: Inactive, 1: Active, 2: Pending Active, 3: Cancelled."
+        },
+        "transactionStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Transaction status values:\n0\tUnblock\n1\tBlock Sales\n2\tBlock All\nInitial status is 0. Set 1 to block sale transactions. Set to 2 to block all transactions."
+        }
+      },
+      "description": "Retailer model"
+    },
+    "MonoRetailerData": {
+      "type": "object"
+    },
+    "RetailerData": {
+      "type": "object",
+      "properties": {
+        "retailerStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer status. 0: Inactive, 1: Active, 2: Pending Active, 3: Cancelled"
+        },
+        "retailerTransactionStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer transaction status. 0: Unblocked, 1: Block Sales, 2: Block All"
+        },
+        "cashLowLimit": {
+          "type": "number",
+          "format": "double",
+          "description": "Pay-out cash low limit"
+        },
+        "cashHighLimit": {
+          "type": "number",
+          "format": "double",
+          "description": "Pay-out cash high limit"
+        },
+        "bankLowLimit": {
+          "type": "number",
+          "format": "double",
+          "description": "Pay-out bank low limit"
+        },
+        "bankHighLimit": {
+          "type": "number",
+          "format": "double",
+          "description": "Pay-out bank high limit"
+        },
+        "terminalIds": {
+          "type": "array",
+          "description": "Associated with this retailer",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "description": "Retailer data model"
+    },
+    "MonoRetailerResponseFullDTO": {
+      "type": "object"
+    },
+    "RetailerResponseFullDTO": {
+      "type": "object",
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The retailer Id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer status. 0: Inactive, 1: Active, 2: Pending Active, 3: Cancelled"
+        },
+        "transactionStatus": {
+          "type": "string",
+          "description": "Retailer transaction status. 0: Unblocked, 1: Block Sales, 2: Block All"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp when retailer was created. Format yyyy-MM-dd'T'HH:mm:ss.SSS'Z' eg.: 2019-09-23T00:00:00.000Z"
+        }
+      },
+      "description": "The create retailer response model"
+    },
+    "MonoTerminalQRData": {
+      "type": "object"
+    },
+    "MonoBoolean": {
+      "type": "object"
+    },
+    "TerminalRequestDTO": {
+      "type": "object",
+      "required": [
+        "retailerId",
+        "sequence",
+        "terminalCode",
+        "terminalType"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer id. 6-digit",
+          "minimum": 100000,
+          "maximum": 999999
+        },
+        "terminalCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Terminal code 8-digits. 6-digit Retailer ID plus a 2-digit sequence number",
+          "minimum": 10000001,
+          "maximum": 99999999
+        },
+        "signOnMethod": {
+          "type": "array",
+          "description": "Defaults to 1 if not set. SignOnMethod values:\n1\tScreen\n2\tSmart Card\n3\tSmart Phone\n4\tFingerprint\n5\tFace Recognition\n",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "mode": {
+          "type": "array",
+          "description": "Defaults to 0 if not set. Mode values:\n0\tNormal\n1\tPlay/Cancel\n2\tPlay\n3\tFind Success\n10\tCashier\n11\tOrganization\n12\tIGMS Terminal",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "terminalType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Terminal Type values:\n13\tPHOTON\n100\tINLANE\n"
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Terminal serial number. Defaults to terminalCode if not set"
+        },
+        "sequence": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Terminal sequence. Convention is sequence to be the last 2 digits of terminalCode.",
+          "minimum": 1,
+          "maximum": 99
+        }
+      },
+      "description": "Terminal model"
+    },
+    "MonoTerminalResponseDTO": {
+      "type": "object"
+    },
+    "TerminalResponseDTO": {
+      "type": "object",
+      "required": [
+        "retailerId",
+        "sequence",
+        "terminalCode",
+        "terminalType"
+      ],
+      "properties": {
+        "retailerId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Retailer id. 6-digit",
+          "minimum": 100000,
+          "maximum": 999999
+        },
+        "terminalCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Terminal code 8-digits. 6-digit Retailer ID plus a 2-digit sequence number",
+          "minimum": 10000001,
+          "maximum": 99999999
+        },
+        "signOnMethod": {
+          "type": "array",
+          "description": "Defaults to 1 if not set. SignOnMethod values:\n1\tScreen\n2\tSmart Card\n3\tSmart Phone\n4\tFingerprint\n5\tFace Recognition\n",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "mode": {
+          "type": "array",
+          "description": "Defaults to 0 if not set. Mode values:\n0\tNormal\n1\tPlay/Cancel\n2\tPlay\n3\tFind Success\n10\tCashier\n11\tOrganization\n12\tIGMS Terminal",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "terminalType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Terminal Type values:\n13\tPHOTON\n100\tINLANE\n"
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Terminal serial number. Defaults to terminalCode if not set"
+        },
+        "sequence": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Terminal sequence. Convention is sequence to be the last 2 digits of terminalCode.",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1: Active, 2: Inactive, 3: Deleted"
+        },
+        "creationDateTime": {
+          "type": "string",
+          "description": "The creation date of terminal"
+        }
+      },
+      "description": "Terminal model"
+    }
+  }
+}

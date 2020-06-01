@@ -1,0 +1,448 @@
+{
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "definitions": {
+    "GrouRequestpModel": {
+      "properties": {
+        "exclusion": {
+          "description": "exclusion",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "exclusionRef": {
+          "description": "exclusionRef",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "max": {
+          "description": "max",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "maxRef": {
+          "description": "maxRef",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "min": {
+          "description": "Test",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "minRef": {
+          "description": "minRef",
+          "format": "uint16",
+          "type": "integer"
+        },
+        "size": {
+          "description": "size",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "unique": {
+          "description": "unique",
+          "type": "boolean"
+        }
+      },
+      "required": ["size", "unique"],
+      "type": "object"
+    },
+    "MapperModel": {
+      "properties": {
+        "map": {
+          "description": "map",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "size": {
+          "description": "size",
+          "format": "uint32",
+          "type": "integer"
+        },
+        "stops": {
+          "description": "stops",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": ["size", "stops", "map"],
+      "type": "object"
+    },
+    "RngRequestModel": {
+      "items": {
+        "properties": {
+          "group": {
+            "$ref": "#/definitions/GrouRequestpModel"
+          },
+          "mapper": {
+            "$ref": "#/definitions/MapperModel"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "RngResponseModel": {
+      "items": {
+        "$ref": "#/definitions/SimpleRandomResponseModel"
+      },
+      "type": "array"
+    },
+    "SimpleRandomResponseModel": {
+      "properties": {
+        "numbers": {
+          "description": "numbers",
+          "items": {
+            "format": "uint32",
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "required": ["numbers"],
+      "type": "object"
+    }
+  },
+  "host": "",
+  "info": {
+    "description": "RnG",
+    "title": "Random Number Generator Service",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1.0/min/{min}/max/{max}/size/{size}": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1.0/min/<>/max/<>/size/<>",
+        "parameters": [{
+          "description": "",
+          "format": "uint32",
+          "in": "path",
+          "name": "min",
+          "required": true,
+          "type": "integer"
+        }, {
+          "description": "",
+          "format": "uint32",
+          "in": "path",
+          "name": "max",
+          "required": true,
+          "type": "integer"
+        }, {
+          "description": "",
+          "format": "uint32",
+          "in": "path",
+          "name": "size",
+          "required": true,
+          "type": "integer"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "format": "uint32",
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "properties": {
+                "code": {
+                  "description": "code",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "guid": {
+                  "description": "guid",
+                  "type": "string"
+                },
+                "message": {
+                  "description": "message",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "source",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "type",
+                  "type": "string"
+                }
+              },
+              "required": ["code", "message", "guid", "source"],
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get non unique random numbers in a range",
+        "tags": ["rng"]
+      }
+    },
+    "/api/v1.0/min/{min}/max/{max}/size/{size}/unique": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1.0/min/<>/max/<>/size/<>/unique",
+        "parameters": [{
+          "description": "",
+          "format": "uint32",
+          "in": "path",
+          "name": "min",
+          "required": true,
+          "type": "integer"
+        }, {
+          "description": "",
+          "format": "uint32",
+          "in": "path",
+          "name": "max",
+          "required": true,
+          "type": "integer"
+        }, {
+          "description": "",
+          "format": "uint32",
+          "in": "path",
+          "name": "size",
+          "required": true,
+          "type": "integer"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "properties": {
+                "code": {
+                  "description": "code",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "guid": {
+                  "description": "guid",
+                  "type": "string"
+                },
+                "message": {
+                  "description": "message",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "source",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "type",
+                  "type": "string"
+                }
+              },
+              "required": ["code", "message", "guid", "source"],
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get unique random numbers in a range",
+        "tags": ["rng"]
+      }
+    },
+    "/api/v1.0/random": {
+      "post": {
+        "description": "\nEach request consists of an array of mapper or group objects.\n\n**group object**\n\nEach group definition will result in a set of random numbers in the response.\n\nFor each group with size s,\n\n**s** random numbers will be produced in range [**min**, **max**]\nwhere min and max are the relative properties of the group.\nAdditionally random numbers can be unique or not by setting the *unique* propery of the group object to true or false.\nAlso a set of numbers can be excluded from the result by setting the field *exclusion* appropriately.\n\n\ne.g.\n\n```javascript\n\"group\": {\n\"min\": 0,\n\"max\": 1000,\n\"size\": 10,\nunique: true,\n\"exclusion\": [5, 6]\n}\n```\nfor the group above: 10 unique random number will be produced in the range [0,1000] but no number will be equal to 5 or 6\n\n\n**more groups in the same request**\n\nIn a single request more than one group can be specified\n\n*e.g.*\n\n```javascript\n[\n{\n\"group\": {\n\"max\": 10,\n\"min\": 1,\n\"size\": 2,\n\"unique\": true\n}\n},\n\n\n{\n\"group\": {\n\"max\": 11,\n\"min\": 0,\n\"size\": 2,\n\"unique\": false\n}\n}\n]\n```\n\nOn each group its possible for certain properties to reference the random numbers produced for the previous groups.\nThose properties are:\n\n* minRef\n* maxRef\n* exclusionRef\n\nSo for a request like the following:\n\n```javascript\n[\n{\n\"group\": {\n\"max\": 20,\n\"min\": 1,\n\"size\": 1,\n\"unique\": true\n}\n},\n\n{\n\"group\": {\n\"max\": 120,\n\"min\": 100,\n\"size\": 1,\n\"unique\": true\n}\n},\n\n{\n\"group\": {\n\"maxRef\": 1,\n\"minRef\": 0,\n\"size\": 10,\n\"exlusionRef\" : [0,1],\n\"unique\": false\n}\n}\n]\n```\n\n\nFrom the first group a number ***f*** in [1,20] will be produced.\nFrom the second group a number ***s*** in [100,120] will be produced\nFrom the third group a number in (***f***,***s***) will be produced\n\nThis is because, for the third group *minRef* proeprty is set equal to 0, which means that the minimum value of the range will be set equal to the first random number that will be generated (related to the first group). Also the *maxRef* property is set to 1, which means that the maximum value of the range for the third group, will be set equal to the second random number that will be generated (related to the second group). Finally because the *exclusionRef* property has been set, the first two random numbers will not appear as the outcome of the third group.\n\n\n\n\n**mapper object**\n\nOn each request one or more mapper objects might appear.\n\n*e.g.*\n\n```javascript\n[\n{\n\"group\": {\n\"max\": 10,\n\"min\": 9,\n\"size\": 1,\n\"unique\": true\n}\n},\n{\n\"group\": {\n\"max\": 11,\n\"exclusionRef\":[0],\n\"min\": 0,\n\"size\": 20,\n\"unique\": false\n}\n},\n{\n\"mapper\": {\n\"map\": [1,10,100,1000],\n\"stops\" : [1,40,60,76,80],\n\"size\": 20\n}\n}\n]\n```\nA *mapper* object  uses the *stops* field to form sub-ranges,and defining a maping:\n\n\n* [1,40]  ïƒ  maps to 1\n* [41,60] ïƒ  maps to 10\n* [61,76] ïƒ  maps to 100\n* [77,80] ïƒ  maps to 1000\n\n\nHint: All the numbers in stops array must be sorted\n\nThe first number in stops field is rendered as the minimum and the last number of stops is rendered as the maximum value of the sum of the above sub-ranges. In our example the whole range will be [1,80].\n\nThe RNG engine will select 20 (because of the size field) numbers in the range [1,80]. For each random number:\nIf the random number belongs to the first sub-range the first number in the map will be returned.\nIf the random number belongs to the second sub-range the second number in the map will be returned.\n\nIf the random number belongs to the nth sub-range the nth number in the map will be returned.\n",
+        "operationId": "post_/api/v1.0/random",
+        "parameters": [{
+          "description": "",
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/RngRequestModel"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "properties": {
+                "code": {
+                  "description": "code",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "guid": {
+                  "description": "guid",
+                  "type": "string"
+                },
+                "message": {
+                  "description": "message",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "source",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "type",
+                  "type": "string"
+                }
+              },
+              "required": ["code", "message", "guid", "source"],
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "properties": {
+                "code": {
+                  "description": "code",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "guid": {
+                  "description": "guid",
+                  "type": "string"
+                },
+                "message": {
+                  "description": "message",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "source",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "type",
+                  "type": "string"
+                }
+              },
+              "required": ["code", "message", "guid", "source"],
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Generic random number geneartion",
+        "tags": ["rng"]
+      }
+    },
+    "/api/v1.0/uuid": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1.0/uuid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Generates a uuid",
+        "tags": ["uuid"]
+      }
+    },
+    "/api/v1.0/uuid/{uuid}/validation": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1.0/uuid/<>/validation",
+        "parameters": [{
+          "description": "",
+          "in": "path",
+          "name": "uuid",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "summary": "Validates a uuid",
+        "tags": ["uuid"]
+      }
+    },
+    "/api/v1.0/version": {
+      "get": {
+        "description": "",
+        "operationId": "get_/api/v1.0/version",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "summary": "Get binary version"
+      }
+    },
+    "/gtg": {
+      "get": {
+        "description": "",
+        "operationId": "get_/gtg",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "summary": ""
+      }
+    },
+    "/swagger": {
+      "get": {
+        "description": "",
+        "operationId": "get_/swagger",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "format": "json",
+              "type": "string"
+            }
+          }
+        },
+        "summary": ""
+      }
+    }
+  },
+  "produces": ["application/json"],
+  "schemes": ["http"],
+  "swagger": "2.0",
+  "tags": []
+}

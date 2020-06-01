@@ -1,0 +1,176 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "description":"API specification",
+      "version":"1.0",
+      "title":"lottery-winners"
+   },
+   "tags":[
+      {
+         "name":"Seek Winners v1.0"
+      }
+   ],
+   "schemes":[
+      "http",
+      "https"
+   ],
+   "paths":{
+      "/api/lottery/v1.0/winners/{gameId}/list/{drawId}":{
+         "post":{
+            "tags":[
+               "Lottery Operations v1.0"
+            ],
+            "summary":"Seek winners",
+            "description":"Seek winners",
+            "operationId":"Seek winners",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"gameId",
+                  "in":"path",
+                  "description":"The game id",
+                  "required":true,
+                  "type":"integer",
+                  "minimum":0,
+                  "format":"int64"
+               },
+               {
+                  "name":"drawId",
+                  "in":"path",
+                  "description":"The draw id",
+                  "required":true,
+                  "type":"integer",
+                  "minimum":0,
+                  "format":"int64"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"The winning colums list",
+                  "required":false,
+                  "schema":{
+                     "$ref":"#/definitions/WinnersRequestDTO",
+                     "originalRef":"WinnersRequestDTO"
+                  }
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"successful operation",
+                  "schema" :{
+                     "type":"object",
+                     "$ref":"#/definitions/WinnersResponse",
+                     "originalRef":"WinnersResponse"
+                  },
+                  "responseSchema":{
+                     "$ref":"#/definitions/WinnersResponse",
+                     "originalRef":"WinnersResponse"
+                  }
+               },
+               "400":{
+                  "description":"Bad request\r\n| Error code | Description |\r\n| :-: | - |\r\n| 26 | Validation Error: [...] |\r\n",
+                  "schema":{
+                     "$ref":"#/definitions/FaultInfo",
+                     "originalRef":"FaultInfo"
+                  },
+                  "responseSchema":{
+                     "$ref":"#/definitions/FaultInfo",
+                     "originalRef":"FaultInfo"
+                  }
+               },
+               "401":{
+                  "description":"Unauthorized\r\n| Error code | Description |\r\n| :-: | - |\r\n| - | Full authentication is required to access this resource |\r\n| - | Access token expired: {token} |\r\n"
+               },
+               "500":{
+                  "description":"Internal server error\r\n| Error code | Description |\r\n| :-: | - |\r\n| 25 | System Error |",
+                  "schema":{
+                     "$ref":"#/definitions/FaultInfo",
+                     "originalRef":"FaultInfo"
+                  },
+                  "responseSchema":{
+                     "$ref":"#/definitions/FaultInfo",
+                     "originalRef":"FaultInfo"
+                  }
+               },
+               "502":{
+                  "description":"Bad Gateway"
+               },
+               "503":{
+                  "description":"Service Unavailable"
+               }
+            }
+         }
+      }
+   },
+   "definitions":{
+      "FaultInfo":{
+         "type":"object",
+         "properties":{
+            "code":{
+               "type":"integer",
+               "format":"int32",
+               "description":"The error code"
+            },
+            "message":{
+               "type":"string",
+               "description":"The error message"
+            },
+            "data":{
+               "type":"array",
+               "description":"The error data which is an abstract object that may be used to provide any error metadata",
+               "items":{
+                  "type":"object"
+               }
+            },
+            "source":{
+               "type":"string",
+               "description":"The application at which the API error occured"
+            },
+            "type":{
+               "type":"string",
+               "description":"The error family, e.g. RUNTIME, VALIDATION, etc"
+            }
+         },
+         "description":"The FaultInfo object contains all the details assosiated with an API error"
+      },
+      "WinnersRequestDTO":{
+      	"type":"object",
+      	"properties":{
+      		 "winningColumn":{
+                "type":"array",
+         		"items":{
+            		"type":"string"
+         		}
+            }
+      	}
+      },
+      "WinnersResponse":{
+      	"type":"object",
+      	"properties":{
+			"winners":{
+      			"type":"array",
+      	 		"items":{
+         			"$ref":"#/definitions/CategoryWinners"
+         		}
+     		}
+      	}
+     },
+     "CategoryWinners" :{
+         "type":"object",
+         "required": [ "category", "winners" ],  
+         "properties":{
+            "category":{
+               "type":"integer"
+            },
+            "winners":{
+               "type":"integer"
+            },
+             "nearWinners":{
+               "type":"integer"
+            }
+         }
+      }
+   }
+}
