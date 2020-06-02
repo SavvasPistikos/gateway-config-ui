@@ -6,7 +6,7 @@ class SwaggerApi extends React.Component {
     return (
       <div>
         {Object.keys(this.props.api.paths).map((s) => (
-          <SwaggerPath path={s} />
+          <SwaggerPath url={s} path={this.props.api.paths[s]} />
         ))}
       </div>
     );
