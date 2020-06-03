@@ -1,13 +1,20 @@
 import React from "react";
 
 class ConfigurationForm extends React.Component {
-  state = { authorize: false, display: true, endpoint: "" };
+  state = {
+    authorize: false,
+    display: true,
+    endpoint: "",
+    path: "",
+    trnsId: "",
+  };
 
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
     });
+    this.props.handleForm(this.state);
   };
 
   render() {
@@ -37,6 +44,20 @@ class ConfigurationForm extends React.Component {
         <input
           //placeholder="endpoint"
           name="endpoint"
+          onChange={this.handleChange}
+        ></input>
+        <br></br>
+        <label>path: </label>
+        <input
+          //placeholder="endpoint"
+          name="path"
+          onChange={this.handleChange}
+        ></input>
+        <br></br>
+        <label>trnsId: </label>
+        <input
+          //placeholder="endpoint"
+          name="trnsId"
           onChange={this.handleChange}
         ></input>
       </form>

@@ -11,6 +11,15 @@ class SwaggerPath extends React.Component {
     this.props.handlePath(this);
   };
 
+  handleForm = (configuration) => {
+    this.setState((prev) => {
+      return {
+        ...prev,
+        configuration,
+      };
+    });
+  };
+
   render() {
     return (
       <div>
@@ -23,7 +32,7 @@ class SwaggerPath extends React.Component {
           ></input>
         </p>
 
-        <ConfigurationForm />
+        <ConfigurationForm handleForm={this.handleForm} />
       </div>
     );
   }

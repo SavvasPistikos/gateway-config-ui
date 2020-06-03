@@ -9,7 +9,11 @@ class SwaggerApi extends React.Component {
     if (!path.state.checked) {
       newPaths = [
         ...this.state.paths,
-        { path: path.props.url, method: path.props.method },
+        {
+          path: path.props.url,
+          method: path.props.method,
+          configuration: path.state.configuration,
+        },
       ];
     } else {
       newPaths = this.state.paths.filter(
