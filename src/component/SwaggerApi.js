@@ -5,25 +5,36 @@ class SwaggerApi extends React.Component {
   state = { paths: [] };
 
   handlePath = (path) => {
+    let newPaths = [];
     if (!path.state.checked) {
-      this.setState((prev) => {
-        const paths = [...this.state.paths, path.props.url];
-        return {
-          paths,
-        };
-      });
+      newPaths = [
+        ...this.state.paths,
+        { path: path.props.url, method: path.props.method },
+      ];
+    } else {
+      newPaths = this.state.paths.filter(
+        (p) => !(p.path === path.props.url && p.method === path.props.method)
+      );
     }
+
+    this.setState(() => {
+      return {
+        paths: newPaths,
+      };
+    });
   };
+
   render() {
     return (
       <div>
-        {Object.keys(this.props.api.paths).map((s) => (
-          <SwaggerPath
-            url={s}
-            path={this.props.api.paths[s]}
-            handlePath={this.handlePath}
-          />
-        ))}
+        <h1>{this.props.api.info.title}</h1>
+        {Object.entries(this.props.api.paths).map(([k, v]) =>
+          Object.keys(v).map((m) => {
+            return (
+              <SwaggerPath method={m} url={k} handlePath={this.handlePath} />
+            );
+          })
+        )}
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from "react";
+import ConfigurationForm from "./ConfigurationForm.js";
 
 class SwaggerPath extends React.Component {
   state = { checked: false };
@@ -11,25 +12,20 @@ class SwaggerPath extends React.Component {
   };
 
   render() {
-    let httpmethods = [];
-    Object.keys(this.props.path).forEach((m) => {
-      httpmethods.push(m);
-    });
+    return (
+      <div>
+        <p>
+          {this.props.method} {this.props.url}
+          <input
+            type="checkbox"
+            checked={this.state.checked}
+            onChange={this.handleChange}
+          ></input>
+        </p>
 
-    return httpmethods.map((m) => {
-      return (
-        <div>
-          <p>
-            {m} {this.props.url}
-            <input
-              type="checkbox"
-              checked={this.state.checked}
-              onChange={this.handleChange}
-            ></input>
-          </p>
-        </div>
-      );
-    });
+        <ConfigurationForm />
+      </div>
+    );
   }
 }
 
