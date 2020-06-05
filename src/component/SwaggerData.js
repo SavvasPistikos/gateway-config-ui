@@ -5,9 +5,9 @@ import sumo from "../resourses/swagger/sumo/swagger.json";
 
 const swaggerData = {
   alerting: alerting,
-  auth: auth,
-  pulse: pulse,
-  sumo: sumo,
+  // auth: auth,
+  // pulse: pulse,
+  // sumo: sumo,
 };
 
 export default swaggerData;
