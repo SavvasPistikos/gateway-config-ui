@@ -1,23 +1,24 @@
 import React from "react";
 import SwaggerPath from "./SwaggePath.js";
+import YAML from "json-to-pretty-yaml";
 
 class SwaggerApi extends React.Component {
-  state = { paths: [] };
+  state = { [this.props.name]: { paths: [] } };
 
   handlePath = (path) => {
     let newPaths = [];
     if (!path.state.checked) {
-      newPaths = this.state.paths.filter(
+      newPaths = this.state[this.props.name].paths.filter(
         (p) => !(p.path === path.props.url && p.method === path.props.method)
       );
     } else {
-      newPaths = [...this.state.paths];
+      newPaths = [...this.state[this.props.name].paths];
       let idx = newPaths.findIndex(
         (p) => p.path === path.props.url && p.method === path.props.method
       );
-      if (idx == -1) {
+      if (idx === -1) {
         newPaths = [
-          ...this.state.paths,
+          ...this.state[this.props.name].paths,
           {
             path: path.props.url,
             method: path.props.method,
@@ -34,9 +35,9 @@ class SwaggerApi extends React.Component {
     }
     this.setState(() => {
       return {
-        paths: newPaths,
+        [this.props.name]: { paths: newPaths },
       };
-    });
+    }, console.log(YAML.stringify(this.state)));
   };
 
   render() {

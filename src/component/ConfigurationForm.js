@@ -1,4 +1,7 @@
 import React from "react";
+import InputLabel from "@material-ui/core/InputLabel";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import TextField from "@material-ui/core/TextField";
 
 class ConfigurationForm extends React.Component {
   state = {
@@ -25,54 +28,63 @@ class ConfigurationForm extends React.Component {
     return (
       <form hidden={this.props.hidden}>
         <div className="x">
-          <label>authorize: </label>
-          <select
+          <InputLabel shrink htmlFor="age-native-label-placeholder">
+            Authorize
+          </InputLabel>
+          <NativeSelect
             value={this.state.authorize}
             name="authorize"
             onChange={this.handleChange}
           >
             <option value="false"> false</option>
             <option value="true"> true</option>
-          </select>
-        </div>
-        <div className="x">
-          <label>display: </label>
-          <select
+          </NativeSelect>
+          <InputLabel shrink htmlFor="age-native-label-placeholder">
+            Display
+          </InputLabel>
+          <NativeSelect
             value={this.state.display}
             name="display"
             onChange={this.handleChange}
           >
             <option value="false"> false</option>
             <option value="true"> true</option>
-          </select>
+          </NativeSelect>
         </div>
         <div className="x">
-          <label>endpoint: </label>
-          <input
-            value={this.state.endpoint}
-            //placeholder="endpoint"
+          <TextField
+            id="standard-multiline-flexible"
+            label="Endpoint"
+            multiline
+            rowsMax={4}
             name="endpoint"
+            value={this.state.value}
             onChange={this.handleChange}
-          ></input>
+          />
         </div>
         <div className="x">
-          <label>path: </label>
-          <input
-            value={this.state.path}
-            style={{ width: this.state.path.length }}
-            //placeholder="endpoint"
+          <TextField
+            id="standard-multiline-flexible"
+            label="Path"
+            multiline
+            rowsMax={4}
             name="path"
+            value={this.state.path}
             onChange={this.handleChange}
-          ></input>
+          />
         </div>
         <div className="x">
-          <label>trnsId: </label>
-          <input
-            style={{ width: 30, height: 12, padding: 1 }}
-            //placeholder="endpoint"
+          <TextField
+            label="TrnsId"
+            type="number"
+            size="small"
             name="trnsId"
             onChange={this.handleChange}
-          ></input>
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+          />
         </div>
       </form>
     );
