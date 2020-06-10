@@ -7,7 +7,7 @@ class SwaggerApi extends React.Component {
 
   handlePath = (path) => {
     let newPaths = [];
-    if (!path.state.checked) {
+    if (!path.state.add) {
       newPaths = this.state[this.props.name].paths.filter(
         (p) => !(p.path === path.props.url && p.method === path.props.method)
       );
@@ -22,14 +22,14 @@ class SwaggerApi extends React.Component {
           {
             path: path.props.url,
             method: path.props.method,
-            configuration: path.state.configuration,
+            ...path.state,
           },
         ];
       } else {
         newPaths[idx] = {
           path: path.props.url,
           method: path.props.method,
-          configuration: path.state.configuration,
+          ...path.state,
         };
       }
     }

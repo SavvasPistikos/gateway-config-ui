@@ -8,7 +8,7 @@ class SwaggerApiContainer extends React.Component {
   render() {
     return Object.keys(swaggerData).map((api) => (
       <div>
-        <SwaggerApi name={api} api={swaggerData[api]} handleApi={} />
+        <SwaggerApi name={api} api={swaggerData[api]} />
       </div>
     ));
   }
