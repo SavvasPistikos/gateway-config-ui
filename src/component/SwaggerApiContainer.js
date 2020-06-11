@@ -1,17 +1,16 @@
+import { useState } from "react";
 import React from "react";
 import swaggerData from "./SwaggerData.js";
 import SwaggerApi from "./SwaggerApi.js";
 
-class SwaggerApiContainer extends React.Component {
-  state = { apis: [] };
+function SwaggerApiContainer() {
+  const [apis, setApis] = useState([]);
 
-  render() {
-    return Object.keys(swaggerData).map((api) => (
-      <div>
-        <SwaggerApi name={api} api={swaggerData[api]} />
-      </div>
-    ));
-  }
+  return Object.keys(swaggerData).map((api) => (
+    <div>
+      <SwaggerApi name={api} api={swaggerData[api]} />
+    </div>
+  ));
 }
 
 export default SwaggerApiContainer;

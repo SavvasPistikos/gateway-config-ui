@@ -4,7 +4,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 
-class SwaggerPath extends React.Component {
+function SwaggerPath (props) {
   state = {
     add: false,
     authorize: false,
@@ -50,10 +50,8 @@ class SwaggerPath extends React.Component {
           />
         </p>
         <form hidden={!this.state.add}>
-          <div className="x">
-            <InputLabel shrink htmlFor="age-native-label-placeholder">
-              Authorize
-            </InputLabel>
+          <div>
+            <InputLabel shrink>Authorize</InputLabel>
             <NativeSelect
               value={this.state.authorize}
               name="authorize"
@@ -62,9 +60,7 @@ class SwaggerPath extends React.Component {
               <option value="false"> false</option>
               <option value="true"> true</option>
             </NativeSelect>
-            <InputLabel shrink htmlFor="age-native-label-placeholder">
-              Display
-            </InputLabel>
+            <InputLabel shrink>Display</InputLabel>
             <NativeSelect
               value={this.state.display}
               name="display"
@@ -74,9 +70,8 @@ class SwaggerPath extends React.Component {
               <option value="true"> true</option>
             </NativeSelect>
           </div>
-          <div className="x">
+          <div>
             <TextField
-              id="standard-multiline-flexible"
               label="Endpoint"
               multiline
               rowsMax={4}
@@ -84,10 +79,7 @@ class SwaggerPath extends React.Component {
               value={this.state.value}
               onChange={this.handleChange}
             />
-          </div>
-          <div className="x">
             <TextField
-              id="standard-multiline-flexible"
               label="Path"
               multiline
               rowsMax={4}
@@ -96,7 +88,7 @@ class SwaggerPath extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="x">
+          <div>
             <TextField
               label="TrnsId"
               type="number"

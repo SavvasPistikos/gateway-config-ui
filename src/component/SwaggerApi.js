@@ -1,24 +1,28 @@
 import React from "react";
+import { useState } from "react";
 import SwaggerPath from "./SwaggePath.js";
+import List from "@material-ui/core/List";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import ListItem from "@material-ui/core/ListItem";
 import YAML from "json-to-pretty-yaml";
 
-class SwaggerApi extends React.Component {
-  state = { [this.props.name]: { paths: [] } };
+function SwaggerApi(props) {
+  const [state, setState] = useState({ [props.name]: { paths: [] } });
 
-  handlePath = (path) => {
+  const handlePath = (path) => {
     let newPaths = [];
     if (!path.state.add) {
-      newPaths = this.state[this.props.name].paths.filter(
+      newPaths = state[props.name].paths.filter(
         (p) => !(p.path === path.props.url && p.method === path.props.method)
       );
     } else {
-      newPaths = [...this.state[this.props.name].paths];
+      newPaths = [...state[props.name].paths];
       let idx = newPaths.findIndex(
         (p) => p.path === path.props.url && p.method === path.props.method
       );
       if (idx === -1) {
         newPaths = [
-          ...this.state[this.props.name].paths,
+          ...state[props.name].paths,
           {
             path: path.props.url,
             method: path.props.method,
@@ -33,27 +37,35 @@ class SwaggerApi extends React.Component {
         };
       }
     }
-    this.setState(() => {
+    setState(() => {
       return {
-        [this.props.name]: { paths: newPaths },
+        [props.name]: { paths: newPaths },
       };
-    }, console.log(YAML.stringify(this.state)));
+    }, console.log(YAML.stringify(state)));
   };
 
-  render() {
-    return (
-      <div>
-        <h1>{this.props.api.info.title}</h1>
-        {Object.entries(this.props.api.paths).map(([k, v]) =>
-          Object.keys(v).map((m) => {
-            return (
-              <SwaggerPath method={m} url={k} handlePath={this.handlePath} />
-            );
-          })
-        )}
-      </div>
-    );
-  }
+  return (
+    <div>
+      <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            {props.api.info.title}
+          </ListSubheader>
+        }
+      ></List>{" "}
+      {Object.entries(props.api.paths).map(([k, v]) =>
+        Object.keys(v).map((m) => {
+          return (
+            <ListItem button>
+              <SwaggerPath method={m} url={k} handlePath={handlePath} />
+            </ListItem>
+          );
+        })
+      )}
+    </div>
+  );
 }
 
 export default SwaggerApi;
