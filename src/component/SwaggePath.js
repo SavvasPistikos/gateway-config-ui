@@ -1,110 +1,131 @@
 import React from "react";
+import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
+import FormControl from "@material-ui/core/FormControl";
 
-function SwaggerPath (props) {
-  state = {
+function SwaggerPath(props) {
+  const [state, setState] = useState({
     add: false,
     authorize: false,
     display: true,
     endpoint: "",
-    path: this.props.url,
+    path: props.url,
     trnsId: "",
-  };
+  });
 
-  handleChange = (event) => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "& .MuiTextField-root": {
+        margin: theme.spacing(1),
+        width: "25ch",
+      },
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      marginRight: theme.spacing(19),
+    },
+  }));
+
+  const handleChange = (event) => {
     const { name, value, checked } = event.target;
     if (name === "add") {
-      this.setState(
+      setState(
         {
           [name]: checked,
         },
         () => {
-          this.props.handlePath(this);
+          props.handlePath(this);
         }
       );
     } else {
-      this.setState(
+      setState(
         {
           [name]: value,
         },
         () => {
-          this.props.handlePath(this);
+          props.handlePath(this);
         }
       );
     }
   };
 
-  render() {
-    return (
-      <div>
-        <p>
-          {this.props.method} {this.props.url}
-          <Checkbox
-            checked={this.state.add}
-            onChange={this.handleChange}
-            name="add"
-            color="primary"
-          />
-        </p>
-        <form hidden={!this.state.add}>
-          <div>
-            <InputLabel shrink>Authorize</InputLabel>
+  return (
+    <div>
+      <p>
+        {props.method} {props.url}
+        <Checkbox
+          checked={state.add}
+          onChange={handleChange}
+          name="add"
+          color="primary"
+        />
+      </p>
+      <form className={useStyles().root} hidden={!state.add}>
+        <div>
+          <FormControl className={useStyles().formControl}>
+            <InputLabel htmlFor="authorize">Authorize</InputLabel>
             <NativeSelect
-              value={this.state.authorize}
-              name="authorize"
-              onChange={this.handleChange}
-            >
-              <option value="false"> false</option>
-              <option value="true"> true</option>
-            </NativeSelect>
-            <InputLabel shrink>Display</InputLabel>
-            <NativeSelect
-              value={this.state.display}
-              name="display"
-              onChange={this.handleChange}
-            >
-              <option value="false"> false</option>
-              <option value="true"> true</option>
-            </NativeSelect>
-          </div>
-          <div>
-            <TextField
-              label="Endpoint"
-              multiline
-              rowsMax={4}
-              name="endpoint"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-            <TextField
-              label="Path"
-              multiline
-              rowsMax={4}
-              name="path"
-              value={this.state.path}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <TextField
-              label="TrnsId"
-              type="number"
-              size="small"
-              name="trnsId"
-              onChange={this.handleChange}
-              InputLabelProps={{
-                shrink: true,
+              defaultValue={state.authorize}
+              inputProps={{
+                name: "authorize",
+                id: "authorize",
               }}
-              variant="outlined"
-            />
-          </div>
-        </form>
-      </div>
-    );
-  }
+            >
+              <option value={true}>true</option>
+              <option value={false}>false</option>
+            </NativeSelect>
+          </FormControl>
+          <FormControl className={useStyles().formControl}>
+            <InputLabel htmlFor="display">Display</InputLabel>
+            <NativeSelect
+              defaultValue={state.display}
+              inputProps={{
+                name: "display",
+                id: "display",
+              }}
+            >
+              <option value={true}>true</option>
+              <option value={false}>false</option>
+            </NativeSelect>
+          </FormControl>
+        </div>
+        <div>
+          <TextField
+            label="Endpoint"
+            defaultValue=""
+            value={state.value}
+            name="endpoint"
+            onChange={handleChange}
+          />
+          <TextField
+            label="Path"
+            defaultValue={state.path}
+            name="path"
+            multiline
+            onChange={handleChange}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            id="standard-number"
+            label="TrnsId"
+            type="number"
+            name="trnsId"
+            value={state.trnsId}
+            onChange={handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </div>
+      </form>
+    </div>
+  );
 }
 
 export default SwaggerPath;
