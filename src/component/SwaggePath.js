@@ -9,7 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 
 function SwaggerPath(props) {
   const [state, setState] = useState({
-    add: false,
+    add: true,
     authorize: false,
     display: true,
     endpoint: "",
@@ -57,12 +57,12 @@ function SwaggerPath(props) {
     <div>
       <p>
         {props.method} {props.url}
-        <Checkbox
+        {/* <Checkbox
           checked={state.add}
           onChange={handleChange}
           name="add"
           color="primary"
-        />
+        /> */}
       </p>
       <form className={useStyles().root} hidden={!state.add}>
         <div>
