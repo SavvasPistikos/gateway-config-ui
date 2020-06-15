@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import SwaggerPath from "./SwaggePath.js";
-import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import Button from "@material-ui/core/Button";
 import ListItem from "@material-ui/core/ListItem";
 import YAML from "json-to-pretty-yaml";
 import Collapse from "@material-ui/core/Collapse";
@@ -12,15 +11,15 @@ function SwaggerApi(props) {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState({ [props.name]: { paths: [] } });
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& .MuiList-root": {
-        width: "100%",
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-      },
-    },
-  }));
+  // const useStyles = makeStyles((theme) => ({
+  //   root: {
+  //     "& .MuiList-root": {
+  //       width: "100%",
+  //       maxWidth: 360,
+  //       backgroundColor: theme.palette.background.paper,
+  //     },
+  //   },
+  // }));
 
   const handlePath = (path) => {
     let newPaths = [];
@@ -63,28 +62,20 @@ function SwaggerApi(props) {
 
   return (
     <div>
-      <List
-        onClick={handleClick}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            {props.api.info.title}
-          </ListSubheader>
-        }
-      >
+      <Button variant="outlined" onClick={handleClick}>
+        {props.api.info.title}
+      </Button>
+      <Collapse in={open} timeout="auto" unmountOnExit>
         {Object.entries(props.api.paths).map(([k, v]) =>
           Object.keys(v).map((m) => {
             return (
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <ListItem>
-                  <SwaggerPath method={m} url={k} handlePath={handlePath} />
-                </ListItem>
-              </Collapse>
+              <ListItem>
+                <SwaggerPath method={m} url={k} handlePath={handlePath} />
+              </ListItem>
             );
           })
         )}
-      </List>
+      </Collapse>
     </div>
   );
 }

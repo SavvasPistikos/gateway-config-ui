@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -6,10 +6,14 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
 
 function SwaggerPath(props) {
   const [state, setState] = useState({
-    add: true,
+    method: props.method,
+    path = props.url,
+    show: false,
+    add: false,
     authorize: false,
     display: true,
     endpoint: "",
@@ -30,41 +34,35 @@ function SwaggerPath(props) {
     },
   }));
 
+  useEffect(() => {
+    props.handlePath(state);
+  }, []);
+
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
     if (name === "add") {
-      setState(
-        {
-          [name]: checked,
-        },
-        () => {
-          props.handlePath(this);
-        }
-      );
+      setState({
+        [name]: checked,
+      });
     } else {
-      setState(
-        {
-          [name]: value,
-        },
-        () => {
-          props.handlePath(this);
-        }
-      );
+      setState({
+        [name]: value,
+      });
     }
   };
 
   return (
     <div>
-      <p>
-        {props.method} {props.url}
+      <Button onClick={() => setState({ ["show"]: !state.show })}>
+        <span style={{ color: "blue" }}>{`${props.method}`}</span> {props.url}
         {/* <Checkbox
           checked={state.add}
           onChange={handleChange}
           name="add"
           color="primary"
         /> */}
-      </p>
-      <form className={useStyles().root} hidden={!state.add}>
+      </Button>
+      <form className={useStyles().root} hidden={!state.show}>
         <div>
           <FormControl className={useStyles().formControl}>
             <InputLabel htmlFor="authorize">Authorize</InputLabel>
@@ -116,7 +114,7 @@ function SwaggerPath(props) {
             label="TrnsId"
             type="number"
             name="trnsId"
-            value={state.trnsId}
+            value={state.trnsId || ""}
             onChange={handleChange}
             InputLabelProps={{
               shrink: true,
