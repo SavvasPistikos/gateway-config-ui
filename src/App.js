@@ -1,9 +1,9 @@
 import React from "react";
-import SwaggerApiContainer from "./component/SwaggerApiContainer.js";
+import SwaggerApisContainer from "./component/SwaggerApisContainer.js";
 import "./App.css";
 
 function App() {
-  return <SwaggerApiContainer />;
+  return <SwaggerApisContainer />;
 }
 
 export default App;

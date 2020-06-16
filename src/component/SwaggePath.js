@@ -10,15 +10,15 @@ import Button from "@material-ui/core/Button";
 
 function SwaggerPath(props) {
   const [state, setState] = useState({
-    method: props.method,
-    path = props.url,
     show: false,
     add: false,
+  });
+
+  const [configuration, setConfiguration] = useState({
     authorize: false,
     display: true,
-    endpoint: "",
     path: props.url,
-    trnsId: "",
+    method: props.method,
   });
 
   const useStyles = makeStyles((theme) => ({
@@ -34,40 +34,37 @@ function SwaggerPath(props) {
     },
   }));
 
-  useEffect(() => {
-    props.handlePath(state);
-  }, []);
-
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
     if (name === "add") {
       setState({
+        ...state,
         [name]: checked,
       });
     } else {
-      setState({
+      setConfiguration({
+        ...configuration,
         [name]: value,
       });
     }
   };
 
+  useEffect(() => {
+    props.handlePath(props, state.add, configuration);
+  }, [state.add, configuration]);
+
   return (
     <div>
-      <Button onClick={() => setState({ ["show"]: !state.show })}>
+      <Button onClick={() => setState({ ...state, ["show"]: !state.show })}>
         <span style={{ color: "blue" }}>{`${props.method}`}</span> {props.url}
-        {/* <Checkbox
-          checked={state.add}
-          onChange={handleChange}
-          name="add"
-          color="primary"
-        /> */}
       </Button>
       <form className={useStyles().root} hidden={!state.show}>
         <div>
           <FormControl className={useStyles().formControl}>
             <InputLabel htmlFor="authorize">Authorize</InputLabel>
             <NativeSelect
-              defaultValue={state.authorize}
+              defaultValue={configuration.authorize}
+              onChange={handleChange}
               inputProps={{
                 name: "authorize",
                 id: "authorize",
@@ -80,7 +77,8 @@ function SwaggerPath(props) {
           <FormControl className={useStyles().formControl}>
             <InputLabel htmlFor="display">Display</InputLabel>
             <NativeSelect
-              defaultValue={state.display}
+              defaultValue={configuration.display}
+              onChange={handleChange}
               inputProps={{
                 name: "display",
                 id: "display",
@@ -90,6 +88,12 @@ function SwaggerPath(props) {
               <option value={false}>false</option>
             </NativeSelect>
           </FormControl>
+          <Checkbox
+            checked={state.add || false}
+            onChange={handleChange}
+            name="add"
+            color="primary"
+          />
         </div>
         <div>
           <TextField
@@ -101,7 +105,7 @@ function SwaggerPath(props) {
           />
           <TextField
             label="Path"
-            defaultValue={state.path}
+            defaultValue={props.url}
             name="path"
             multiline
             onChange={handleChange}
@@ -114,7 +118,7 @@ function SwaggerPath(props) {
             label="TrnsId"
             type="number"
             name="trnsId"
-            value={state.trnsId || ""}
+            value={configuration.trnsId || ""}
             onChange={handleChange}
             InputLabelProps={{
               shrink: true,

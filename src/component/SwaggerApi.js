@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 function SwaggerApi(props) {
   const [open, setOpen] = useState(false);
-  const [state, setState] = useState({ [props.name]: { paths: [] } });
+  const [api, setApi] = useState({ [props.name]: { paths: [] } });
 
   // const useStyles = makeStyles((theme) => ({
   //   root: {
@@ -21,56 +21,64 @@ function SwaggerApi(props) {
   //   },
   // }));
 
-  const handlePath = (path) => {
-    let newPaths = [];
-    if (!path.state.add) {
-      newPaths = state[props.name].paths.filter(
-        (p) => !(p.path === path.props.url && p.method === path.props.method)
-      );
-    } else {
-      newPaths = [...state[props.name].paths];
-      let idx = newPaths.findIndex(
-        (p) => p.path === path.props.url && p.method === path.props.method
-      );
-      if (idx === -1) {
-        newPaths = [
-          ...state[props.name].paths,
-          {
-            path: path.props.url,
-            method: path.props.method,
-            ...path.state,
-          },
-        ];
-      } else {
-        newPaths[idx] = {
-          path: path.props.url,
-          method: path.props.method,
-          ...path.state,
-        };
-      }
-    }
-    setState(() => {
-      return {
-        [props.name]: { paths: newPaths },
-      };
-    }, console.log(YAML.stringify(state)));
-  };
-
   const handleClick = () => {
     setOpen(!open);
   };
 
+  const handlePath = (pathProps, add, configuration) => {
+    let newPaths = [];
+
+    if (!add) {
+      newPaths = api[props.name].paths.filter(
+        (p) => !(p.path === pathProps.url && p.method === pathProps.method)
+      );
+    } else {
+      newPaths = [...api[props.name].paths];
+      let idx = newPaths.findIndex(
+        (p) => p.path === pathProps.url && p.method === pathProps.method
+      );
+
+      if (idx === -1) {
+        newPaths = [
+          ...api[props.name].paths,
+          {
+            ...configuration,
+          },
+        ];
+      } else {
+        newPaths[idx] = {
+          ...configuration,
+        };
+      }
+    }
+
+    setApi({
+      [props.name]: { paths: newPaths },
+    });
+  };
+
   return (
     <div>
-      <Button variant="outlined" onClick={handleClick}>
+      <Button
+        variant="outlined"
+        onClick={handleClick}
+        style={{
+          backgroundColor: api[props.name].paths.length === 0 ? "blue" : "red",
+        }}
+      >
         {props.api.info.title}
       </Button>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {Object.entries(props.api.paths).map(([k, v]) =>
-          Object.keys(v).map((m) => {
+          Object.keys(v).map((m, index) => {
             return (
               <ListItem>
-                <SwaggerPath method={m} url={k} handlePath={handlePath} />
+                <SwaggerPath
+                  key={index}
+                  method={m}
+                  url={k}
+                  handlePath={handlePath}
+                />
               </ListItem>
             );
           })
